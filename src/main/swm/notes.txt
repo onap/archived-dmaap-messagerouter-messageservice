@@ -1,0 +1,8 @@
+# (c) 2012 AT&T Intellectual Property. All rights reserved.
+
+NOTES FOR com.att.nsa:dmaap - Version 0.0.1-SNAPSHOT
+=======================================================
+
+This package was created at ${maven.build.timestamp}.
+
+No additional notes are available.

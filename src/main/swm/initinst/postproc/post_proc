@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ ${SCAMPER_ENABLED} ==  "true" ]
+ then
+
+if [ ! -d /opt/app/${AFTSWM_ACTION_ARTIFACT_GROUP}/${AFTSWM_ACTION_ARTIFACT_NAME}/bin/config2 ]
+  then
+  mkdir /opt/app/${AFTSWM_ACTION_ARTIFACT_GROUP}/${AFTSWM_ACTION_ARTIFACT_NAME}/bin/config2
+  echo "Creating directory " /opt/app/${AFTSWM_ACTION_ARTIFACT_GROUP}/${AFTSWM_ACTION_ARTIFACT_NAME}/bin/config2
+fi
+
+
+. /opt/app/${AFTSWM_ACTION_ARTIFACT_GROUP}/${AFTSWM_ACTION_ARTIFACT_NAME}/bin/scamper.sh
+
+#Check to see if the scamper.sh script executed without errors.
+#If an error occurred, then exit, stop the install and cause a failed install.
+if [ ! $? -eq 0   ]
+ then
+ exit $?
+fi
+
+echo "Finished Scamper file generation"
+fi
+cd ../../common
+exec sh -x ./install_postproc.sh

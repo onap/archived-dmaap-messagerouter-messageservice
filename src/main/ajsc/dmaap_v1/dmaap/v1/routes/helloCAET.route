@@ -1,0 +1,43 @@
+<route xmlns="http://camel.apache.org/schema/spring" trace="true">
+    
+	<onException>
+		<exception>java.lang.Throwable</exception>
+		
+		<setHeader headerName="AJSC_CAET_ERRORCODE">
+			<constant>CD-0001</constant>
+		</setHeader>
+		<setHeader headerName="AJSC_CAET_APPID">
+			<constant>AJSC</constant>
+		</setHeader>
+		<setHeader headerName="AJSC_CAET_MESSAGE_TEXT">
+			<constant>Unable to retrive client details</constant>
+		</setHeader>
+		<setHeader headerName="AJSC_CAET_IS_REST_SERVICE">
+			<constant>Y</constant>
+		</setHeader>
+		<setHeader headerName="X-CSI-ClientApp">
+			<constant>AJSC-CSI</constant>
+		</setHeader>	
+		<setHeader headerName="CALL_TYPE">
+			<constant>GATEWAY</constant>
+		</setHeader>			
+						
+    	<to uri="bean:errorMessageLookupService?method=setCAETHeaders"/>
+
+		<removeHeaders pattern="AJSC_CAET*"/>
+		
+		<handled>
+			<constant>true</constant>
+		</handled>
+	</onException>
+  	
+    <from uri="restlet:/__module_ajsc_namespace_name__/__module_ajsc_namespace_version__/helloCAET"/>
+    
+
+	<convertBodyTo type="java.lang.String"/>
+	<setBody>
+		<groovy>
+			throw new Exception("new Change")
+		</groovy>
+	</setBody>
+	</route>

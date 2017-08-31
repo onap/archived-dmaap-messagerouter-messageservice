@@ -1,0 +1,19 @@
+<route xmlns="http://camel.apache.org/schema/spring" trace="true" >
+  
+  <from uri="att-dme2-servlet:///topics?matchOnUriPrefix=true" />
+	
+  <to uri="cxfbean:topicService?providers=#jacksonProvider,#cambriaExMapper,#webExMapper" />
+
+     <setBody>
+		<simple>${in.header.exception}</simple>
+	</setBody> 
+	
+	<removeHeader headerName="exception"/>
+  
+<log message="Body= ** ${body}" loggingLevel="DEBUG" logName="com.att.nsa.dmaap"/>
+<log message="Body= ** ${body}" loggingLevel="DEBUG" logName="com.att.nsa.dmaap.service"/>
+
+</route>
+
+
+

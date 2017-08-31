@@ -1,0 +1,10 @@
+<route xmlns="http://camel.apache.org/schema/spring" trace="true">
+  <from uri="att-dme2-servlet:///__module_ajsc_namespace_version__/apiKeys?matchOnUriPrefix=true" />
+  <to uri="cxfbean:apiKeyService?providers=#jacksonProvider,#cambriaExMapper,#webExMapper" />
+   <setBody>
+		<simple>${in.header.exception}</simple>
+	</setBody> 
+	
+	<removeHeader headerName="exception"/>
+  
+</route>
