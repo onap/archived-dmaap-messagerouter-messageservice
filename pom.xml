@@ -24,20 +24,19 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.att.ajsc</groupId>
-		<artifactId>ajsc-archetype-parent</artifactId>
-		<version>1.0.0</version>
-		<relativePath></relativePath>
+		<groupId>org.onap.oparent</groupId>
+		<artifactId>oparent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
+	
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>Message Router Service</name>
 	<description>Message Router - Restful interface built for kafka</description>
-	<url>https://github.com/att/dmaap-framework</url>	
 	 <licenses>
 	  <license>
-	    <name>APache License Version 2.0</name>
+	    <name>Apache License Version 2.0</name>
 	  </license>
 	</licenses>
 
@@ -59,6 +58,236 @@
 
 	<build>
 		<plugins>
+			<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>prep_service_runtime-ajsc-arch-parent</id>
+								<phase>generate-resources</phase>
+								<configuration>
+									<target name="prep_service_runtime">
+										<echo message="ENTERING 'copy_services_template' ant tasks" />
+										<!-- <filter token="basedir" value="${basedir}" /> -->
+										<!-- delete any prior stating stuff before package phase -->
+										<delete dir="target/versioned-ajsc" includes="**/*" />
+										<delete dir="target/versioned-runtime" includes="**/*" />
+										<delete dir="target/CDP" includes="**/*" />
+
+										<!-- This is where replacer plugin replaces tokens (Example: __module_ajsc_namespace_name__ 
+											is replaced by module.ajsc.namespace.name) -->
+										<copy todir="target/versioned-ajsc">
+											<fileset dir="src/main/ajsc" includes="**/*" />
+										</copy>
+
+										<!-- Copying the CDP, bundleconfig, and StaticContent to the target 
+											directory for future use by replacer plugin -->
+										<copy todir="target/CDP" failonerror="false">
+											<fileset dir="CDP" includes="**/*.sh" />
+										</copy>
+										<copy flatten="true" file="CDP/SampleBlueprint.xml"
+											failonerror="false"
+											tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml" />
+										<copy todir="target/staticContent" failonerror="false">
+											<fileset dir="staticContent" includes="**/*" />
+										</copy>
+										<copy todir="target/bundleconfig" failonerror="false">
+											<!-- filtering="true"> -->
+											<fileset dir="bundleconfig" />
+										</copy>
+
+										<echo message="EXITING 'copy_services_template' ant tasks" />
+										<echo message="ENTERING 'copy_runtime_template' ant tasks" />
+										<copy todir="target/versioned-runtime">
+											<fileset dir="src/main/runtime" includes="**/*" />
+										</copy>
+										<delete
+											file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" />
+										<copy flatten="true"
+											file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"
+											tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context" />
+										<delete
+											file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"
+											tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json" />
+										<delete
+											file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"
+											tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json" />
+										<delete
+											file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json"
+											tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json" />
+										<echo message="EXITING 'copy_runtime_template' ant tasks" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>clrf</id>
+								<phase>package</phase>
+								<configuration>
+									<tasks>
+										<fixcrlf
+											srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
+											includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>prep_home_directory_for_swm_pkgcreate-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<configuration>
+									<target name="prep_home_directory_for_swm_pkgcreate">
+										<ant antfile="${basedir}/antBuild/build.xml" target="prep_home_directory_for_swm_pkgcreate" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					
+					<plugin>
+						<groupId>org.codehaus.groovy.maven</groupId>
+						<artifactId>gmaven-plugin</artifactId>
+						<version>1.0</version>
+						<executions>
+							<execution>
+								<id>gmaven-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<sourcepath>src/main/groovy</sourcepath>
+									<source>
+										import ajsc.AssemblyService;
+										ajsc.AssemblyService.getBasedir(project.basedir.getAbsolutePath(),"${distFilesRoot}")
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+					<plugin>
+						<groupId>com.google.code.maven-replacer-plugin</groupId>
+						<artifactId>replacer</artifactId>
+						<version>1.5.2</version>
+						<executions>
+							<execution>
+								<id>google-replacer-ajsc-arch-parent</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+								<configuration>
+									<basedir>${project.build.directory}</basedir>
+									<includes>
+										<include>staticContent/**/*.html</include>
+										<include>CDP/**</include>
+										<include>bundleconfig/**</include>
+										<include>versioned-runtime/**/*.context</include>
+										<include>versioned-runtime/**/*.json</include>
+										<include>versioned-ajsc/**/*.route</include>
+										<include>versioned-ajsc/**/*.groovy</include>
+										<include>versioned-ajsc/**/*.xml</include>
+										<include>classes/*.properties</include>
+										<include>swm/package/nix/dist_files${distFilesRoot}/etc/*.properties</include>
+									</includes>
+									<escape>true</escape>
+									<replacements>
+										<replacement>
+											<token>__module_ajsc_namespace_name__</token>
+											<value>${module.ajsc.namespace.name}</value>
+										</replacement>
+										<replacement>
+											<token>__module_ajsc_namespace_version__</token>
+											<value>${module.ajsc.namespace.version}</value>
+										</replacement>
+										<replacement>
+											<token>__ajscHome__</token>
+											<value>${replaceWinFilePath}</value>
+										</replacement>
+										<replacement>
+											<token>__projectGroupId__</token>
+											<value>${project.groupId}</value>
+										</replacement>
+										<replacement>
+											<token>__projectArtifactId__</token>
+											<value>${project.artifactId}</value>
+										</replacement>
+										<replacement>
+											<token>__projectVersion__</token>
+											<value>${project.version}</value>
+										</replacement>
+										<replacement>
+											<token>__basedir__</token>
+											<value>${replaceWinBasedirPath}</value>
+										</replacement>
+									</replacements>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>2.8</version>
+						<executions>
+							<execution>
+								<id>copy-dependencies-ajsc-arch-parent</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeScope>runtime</includeScope>
+									<excludeArtifactIds>ajsc-bom,ajsc-core,ajsc-runner,ajsc-war</excludeArtifactIds>
+									<outputDirectory>${project.build.directory}/userjars</outputDirectory>
+									<silent>true</silent>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copy-dependencies-ajsc-arch-parent-commonLibs</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeScope>provided</includeScope>
+									<includeGroupIds>net.cingular.enterprise,com.att.aft,dom4j</includeGroupIds>
+									<!-- <includeGroupIds>com.att.aft</includeGroupIds> -->
+									<outputDirectory>${project.build.directory}/commonLibs</outputDirectory>
+									<silent>true</silent>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copyrunner</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeArtifactIds>ajsc-runner</includeArtifactIds>
+									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/lib</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+					
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -143,7 +372,7 @@
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.11</version>
+				<version>0.4.13</version>
 				<configuration>
 					<imageName>attos/dmaap</imageName>
 					<dockerDirectory>${dockerLocation}</dockerDirectory>
@@ -155,7 +384,7 @@
 					</imageTags>
 					<forceTags>true</forceTags>
 				</configuration>
-			</plugin>
+			</plugin>                                                                                                                                                                                                                                                                                                        
 			<plugin>
 				<groupId>com.blackducksoftware.integration</groupId>
 				<artifactId>hub-maven-plugin</artifactId>
@@ -174,83 +403,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> --> 	
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<nexusUrl>${nexusproxy}</nexusUrl>
-					<stagingProfileId>176c31dfe190a</stagingProfileId>
-					<serverId>ecomp-staging</serverId>
-					<skipNexusStagingDeployMojo>${skip.staging.artifacts}</skipNexusStagingDeployMojo>
-				</configuration>
-			</plugin>		
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.7.201606060606</version>
-				<configuration>
-					<dumpOnExit>true</dumpOnExit>
-					<includes>
-						<include>org.onap.clamp.*</include>
-					</includes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>pre-unit-test</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>
-							<!-- <append>true</append> -->
-						</configuration>
-					</execution>
-					<execution>
-						<id>pre-integration-test</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
-							<!-- <append>true</append> -->
-						</configuration>
-					</execution>
-					<execution>
-                        <goals>
-                            <goal>merge</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                        <configuration>
-                            <fileSets>
-                                <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
-                                    <directory>${project.build.directory}/coverage-reports</directory>
-                                    <includes>
-                                        <include>*.exec</include>
-                                    </includes>
-                                </fileSet>
-                            </fileSets>
-                            <destFile>${project.build.directory}/jacoco-dev.exec</destFile>
-                        </configuration>
-                    </execution>
-				</executions>
-			</plugin>
 			  		
 		</plugins>
 	</build>
@@ -259,6 +411,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dockerLocation>${basedir}/target/swm/package/nix/dist_files/</dockerLocation>
 		<docker.registry>hub.docker.com</docker.registry>
+		<docker.image.prefix>simpledemo</docker.image.prefix>
 
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
@@ -290,21 +443,8 @@
  	
 		<testRouteOffer>workstation</testRouteOffer>
 		<testEnv>DEV</testEnv>
-		<dmaapImg>1.0.19</dmaapImg>
-		
-		<sonar.language>java</sonar.language>
-		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-		<sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
-		<sonar.jacoco.reportPath>${project.build.directory}/coverage-reports/jacoco.exec</sonar.jacoco.reportPath>
-		<sonar.jacoco.itReportPath>${project.build.directory}/coverage-reports/jacoco-it.exec</sonar.jacoco.itReportPath>
-		<sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero>
-		<sonar.projectVersion>${project.version}</sonar.projectVersion>
-		
-			<nexusproxy>https://nexus.onap.org</nexusproxy>
-		<snapshotNexusPath>/content/repositories/snapshots/</snapshotNexusPath>
-		<releaseNexusPath>/content/repositories/releases/</releaseNexusPath>
-		<stagingNexusPath>/content/repositories/staging/</stagingNexusPath>
-		<sitePath>/content/sites/site/org/onap/clamp/${project.version}</sitePath>
+		<dmaapImg>1.0.0-SNAPSHOT</dmaapImg>
+		<camel.version>2.15.5</camel.version>
 	</properties>
 
 	<!-- Distribution management -->
@@ -396,6 +536,36 @@
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.4.3</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.3.3</version>
+		</dependency>
+		
+		<dependency>
+	        <groupId>junit</groupId>
+	        <artifactId>junit</artifactId>
+	        <version>4.11</version>
+	        <scope>test</scope>
+      </dependency>
 
 		<dependency>
 			<groupId>org.json</groupId>
@@ -414,29 +584,7 @@
 			<artifactId>jettison</artifactId>
 			<version>1.3.7</version>
 		</dependency>
-		<!-- dme2 related dependencies -->
-		 <!-- <dependency>
-			<groupId>net.cingular.enterprise</groupId>
-			<artifactId>csm-framework</artifactId>
-			<version>${csm.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.cingular.enterprise</groupId>
-			<artifactId>csm-jmxsupport-jdk</artifactId>
-			<version>${csm.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.cingular.enterprise</groupId>
-			<artifactId>csm-jmx</artifactId>
-			<version>${csm.version}</version>
-			<scope>provided</scope>
-		</dependency> -->
 
-		<!-- For dom4j dependency ONLY! - If deploying to CSI env, remove "provided" 
-			scope. In CSI env, this jar MUST be included within service project's swm 
-			package -->
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
@@ -446,7 +594,7 @@
 		<dependency>
 			<groupId>com.att.aft</groupId>
 			<artifactId>dme2</artifactId>
-			<version>${dme2.version}</version>
+			<version>3.1.200</version>
 			<!-- <scope>provided</scope> -->
 		</dependency>
 		<dependency>
@@ -482,6 +630,105 @@
 			<artifactId>rosetta</artifactId>
 			<version>1.2.11</version>
 		</dependency>			
+		<dependency>
+			<groupId>backport-util-concurrent</groupId>
+			<artifactId>backport-util-concurrent</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-core</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-quartz</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-spring</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-restlet</artifactId>
+				<version>${camel.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>org.restlet</artifactId>
+						<groupId>org.restlet.jse</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-servlet</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-http4</artifactId>
+				<version>${camel.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-servlet_2.5_spec</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-groovy</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-twitter</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-mail</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-smpp</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-jms</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-script</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-xmpp</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-velocity</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.att.ajsc</groupId>
+				<artifactId>ajsc-runner</artifactId>
+				<version>1.0.0</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.att.ajsc</groupId>
+				<artifactId>ajsc-core</artifactId>
+				<version>1.0.0</version>
+				<scope>provided</scope>
+			</dependency>
 	</dependencies>
 	<!-- <build> <resources> <resource> <directory>${basedir}/ajsc-shared-config/etc</directory> 
 		</resource> </resources> </build> -->
@@ -642,81 +889,9 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<groupId>com.spotify</groupId>
-						<artifactId>docker-maven-plugin</artifactId>
-						<version>0.4.11</version>
-						<configuration>
-							<imageName>${docker.registry}/${project.artifactId}</imageName>
-							<dockerDirectory>${dockerLocation}</dockerDirectory>
-							<serverId>docker-hub</serverId>
-							<registryUrl>https://${docker.registry}</registryUrl>
-							<imageTags>
-								<imageTag>${dmaapImg}</imageTag>
-								<imageTag>latest</imageTag>
-							</imageTags>
-							<forceTags>true</forceTags>
-						</configuration>
-					</plugin>
-
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
 	
-	<distributionManagement>
-		<repository>
-			<id>ecomp-releases</id>
-			<name>Clamp Release Repository</name>
-			<url>${nexusproxy}/${releaseNexusPath}</url>
-		</repository>
-		<snapshotRepository>
-			<id>ecomp-snapshots</id>
-			<name>Clamp Snapshot Repository</name>
-			<url>${nexusproxy}/${snapshotNexusPath}</url>
-		</snapshotRepository>
-		<site>
-			<id>ecomp-site</id>
-			<url>dav:${nexusproxy}${sitePath}</url>
-		</site>
-	</distributionManagement>
-	
-		<repositories>
-		<repository>
-			<id>central</id>
-			<name>Maven 2 repository 2</name>
-			<url>http://repo2.maven.org/maven2/</url>
-		</repository>
-		<repository>
-			<id>ecomp-releases</id>
-			<name>ONAP Release Repository</name>
-			<url>${nexusproxy}/${releaseNexusPath}</url>
-		</repository>
-		<repository>
-			<id>ecomp-staging</id>
-			<name>ONAP Staging Repository</name>
-			<url>${nexusproxy}/${stagingNexusPath}</url>
-		</repository>
-		<repository>
-			<id>ecomp-snapshots</id>
-			<name>ONAP Snapshot Repository</name>
-			<url>${nexusproxy}/${snapshotNexusPath}</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>spring-repo</id>
-			<name>Spring repo</name>
-			<url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
-		</repository>
-		<repository>
-			<id>repository.jboss.org-public</id>
-			<name>JBoss.org Maven repository</name>
-			<url>https://repository.jboss.org/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
 </project>
