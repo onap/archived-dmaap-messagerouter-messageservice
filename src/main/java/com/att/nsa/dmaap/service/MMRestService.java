@@ -80,13 +80,19 @@ import com.att.nsa.cambria.service.MMService;
 @Component
 public class MMRestService {
 
-	//private static final Logger LOGGER = Logger.getLogger(MMRestService.class);
 	private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(MMRestService.class);
 	private static final String NO_ADMIN_PERMISSION = "No Mirror Maker Admin permission.";
 	private static final String NO_USER_PERMISSION = "No Mirror Maker User permission.";
 	private static final String NO_USER_CREATE_PERMISSION = "No Mirror Maker User Create permission.";
 	private static final String NAME_DOES_NOT_MEET_REQUIREMENT = "Mirror Maker name can only contain alpha numeric";
 	private static final String INVALID_IPPORT = "This is not a valid IP:Port";
+	private static final String MIRROR_MAKERADMIN = "msgRtr.mirrormakeradmin.aaf";
+	private static final String MIRROR_MAKERUSER = "msgRtr.mirrormakeruser.aaf";
+	private static final String UTF_8 = "UTF-8";
+	private static final String MESSAGE = "message";
+	private static final String LISTMIRRORMAKER = "listMirrorMaker";
+	private static final String ERROR = "error";
+	private static final String NAMESPACE = "namespace";
 
 	private String topic;
 	private int timeout;
@@ -135,7 +141,7 @@ public class MMRestService {
 
 		DMaaPContext ctx = getDmaapContext();
 		if (checkMirrorMakerPermission(ctx,
-				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))) {
+				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, MIRROR_MAKERADMIN))) {
 
 			loadProperty();
 			String input = null;
@@ -146,7 +152,7 @@ public class MMRestService {
 			CreateMirrorMaker createMirrorMaker = new CreateMirrorMaker();
 
 			try {
-				input = IOUtils.toString(msg, "UTF-8");
+				input = IOUtils.toString(msg, UTF_8);
 
 				if (input != null && input.length() > 0) {
 					input = removeExtraChar(input);
@@ -159,6 +165,7 @@ public class MMRestService {
 				} catch (JsonSyntaxException ex) {
 
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
+					LOGGER.error("JsonSyntaxException: ", ex);
 				}
 				String name = createMirrorMaker.getCreateMirrorMaker().getName();
 				// send error message if it is not a CreateMirrorMaker request.
@@ -197,13 +204,13 @@ public class MMRestService {
 						&& validateIPPort(createMirrorMaker.getCreateMirrorMaker().getProducer())) {
 
 					createMirrorMaker.setMessageID(randomStr);
-					inStream = IOUtils.toInputStream(gson.toJson(createMirrorMaker), "UTF-8");
+					inStream = IOUtils.toInputStream(gson.toJson(createMirrorMaker), UTF_8);
 					callPubSub(randomStr, ctx, inStream);
 				}
 
 			} catch (IOException e) {
 
-				e.printStackTrace();
+				LOGGER.error("IOException: ", e);
 			}
 		}
 		// Send error response if user does not provide Authorization
@@ -219,14 +226,14 @@ public class MMRestService {
 		DMaaPContext ctx = getDmaapContext();
 
 		if (checkMirrorMakerPermission(ctx,
-				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))) {
+				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, MIRROR_MAKERADMIN))) {
 
 			loadProperty();
 
 			String input = null;
 
 			try {
-				input = IOUtils.toString(msg, "UTF-8");
+				input = IOUtils.toString(msg, UTF_8);
 
 				if (input != null && input.length() > 0) {
 					input = removeExtraChar(input);
@@ -241,20 +248,22 @@ public class MMRestService {
 				} catch (JSONException ex) {
 
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
+					LOGGER.error("JSONException: ", ex);
 				}
 
 				// Check if request has listAllMirrorMaker and
 				// listAllMirrorMaker is empty
-				if (jsonOb.has("listAllMirrorMaker") && jsonOb.getJSONObject("listAllMirrorMaker").length() == 0) {
-
+				if ((jsonOb != null) && (jsonOb.has("listAllMirrorMaker") &&
+                                    jsonOb.getJSONObject("listAllMirrorMaker").length() == 0)) {
 					jsonOb.put("messageID", randomStr);
 					InputStream inStream = null;
 
 					try {
-						inStream = IOUtils.toInputStream(jsonOb.toString(), "UTF-8");
+						inStream = IOUtils.toInputStream(jsonOb.toString(), UTF_8);
 
 					} catch (IOException ioe) {
 						ioe.printStackTrace();
+						LOGGER.error("IOException: ", ioe);
 					}
 
 					callPubSub(randomStr, ctx, inStream);
@@ -267,6 +276,7 @@ public class MMRestService {
 			} catch (IOException ioe) {
 
 				ioe.printStackTrace();
+				LOGGER.error("IOException: ", ioe);
 			}
 
 		} else {
@@ -282,7 +292,7 @@ public class MMRestService {
 
 		DMaaPContext ctx = getDmaapContext();
 		if (checkMirrorMakerPermission(ctx,
-				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))) {
+				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, MIRROR_MAKERADMIN))) {
 
 			loadProperty();
 			String input = null;
@@ -293,7 +303,7 @@ public class MMRestService {
 			UpdateMirrorMaker updateMirrorMaker = new UpdateMirrorMaker();
 
 			try {
-				input = IOUtils.toString(msg, "UTF-8");
+				input = IOUtils.toString(msg, UTF_8);
 
 				if (input != null && input.length() > 0) {
 					input = removeExtraChar(input);
@@ -306,6 +316,8 @@ public class MMRestService {
 				} catch (JsonSyntaxException ex) {
 
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
+					LOGGER.error("JsonSyntaxException: ", ex);
+
 				}
 				String name = updateMirrorMaker.getUpdateMirrorMaker().getName();
 
@@ -345,13 +357,13 @@ public class MMRestService {
 						&& validateIPPort(updateMirrorMaker.getUpdateMirrorMaker().getProducer())) {
 
 					updateMirrorMaker.setMessageID(randomStr);
-					inStream = IOUtils.toInputStream(gson.toJson(updateMirrorMaker), "UTF-8");
+					inStream = IOUtils.toInputStream(gson.toJson(updateMirrorMaker), UTF_8);
 					callPubSub(randomStr, ctx, inStream);
 				}
 
 			} catch (IOException e) {
 
-				e.printStackTrace();
+				LOGGER.error("IOException: ", e);
 			}
 		}
 		// Send error response if user does not provide Authorization
@@ -367,14 +379,14 @@ public class MMRestService {
 		DMaaPContext ctx = getDmaapContext();
 
 		if (checkMirrorMakerPermission(ctx,
-				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))) {
+				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, MIRROR_MAKERADMIN))) {
 
 			loadProperty();
 
 			String input = null;
 
 			try {
-				input = IOUtils.toString(msg, "UTF-8");
+				input = IOUtils.toString(msg, UTF_8);
 
 				if (input != null && input.length() > 0) {
 					input = removeExtraChar(input);
@@ -389,24 +401,27 @@ public class MMRestService {
 				} catch (JSONException ex) {
 
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
+					LOGGER.error("JSONException: ", ex);
 				}
 
 				// Check if request has DeleteMirrorMaker and
 				// DeleteMirrorMaker has MirrorMaker object with name variable
 				// and check if the name contain only alpha numeric
-				if (jsonOb.has("deleteMirrorMaker") && jsonOb.getJSONObject("deleteMirrorMaker").length() == 1
+				if ((jsonOb != null) && (jsonOb.has("deleteMirrorMaker") 
+						&& jsonOb.getJSONObject("deleteMirrorMaker").length() == 1
 						&& jsonOb.getJSONObject("deleteMirrorMaker").has("name") 
 						&& !StringUtils.isBlank(jsonOb.getJSONObject("deleteMirrorMaker").getString("name"))
-						&& isAlphaNumeric(jsonOb.getJSONObject("deleteMirrorMaker").getString("name"))) {
+						&& isAlphaNumeric(jsonOb.getJSONObject("deleteMirrorMaker").getString("name")))) {
 
 					jsonOb.put("messageID", randomStr);
 					InputStream inStream = null;
 
 					try {
-						inStream = IOUtils.toInputStream(jsonOb.toString(), "UTF-8");
+						inStream = IOUtils.toInputStream(jsonOb.toString(), UTF_8);
 
 					} catch (IOException ioe) {
 						ioe.printStackTrace();
+						LOGGER.error("IOException: ", ioe);
 					}
 
 					callPubSub(randomStr, ctx, inStream);
@@ -419,6 +434,7 @@ public class MMRestService {
 			} catch (IOException ioe) {
 
 				ioe.printStackTrace();
+				LOGGER.error("IOException: ", ioe);
 			}
 
 		} else {
@@ -431,8 +447,8 @@ public class MMRestService {
 		String topicmsg = msg;
 		topicmsg = removeExtraChar(topicmsg);
 
-		JSONObject jObj = new JSONObject();
-		JSONArray jArray = null;
+		JSONObject jObj;
+		JSONArray jArray;
 		boolean exist = false;
 
 		if (!StringUtils.isBlank(topicmsg) && topicmsg.length() > 2) {
@@ -442,10 +458,10 @@ public class MMRestService {
 				jObj = jArray.getJSONObject(i);
 				
 				JSONObject obj = new JSONObject();
-				if (jObj.has("message")) {
-					obj = jObj.getJSONObject("message");
+				if (jObj.has(MESSAGE)) {
+					obj = jObj.getJSONObject(MESSAGE);
 				}
-				if (obj.has("messageID") && obj.get("messageID").equals(messageID) && obj.has("listMirrorMaker")) {
+				if (obj.has("messageID") && obj.get("messageID").equals(messageID) && obj.has(LISTMIRRORMAKER)) {
 					exist = true;
 					break;
 				}
@@ -534,9 +550,9 @@ public class MMRestService {
 				msgFrmSubscribe = mirrorService.subscribe(ctx, topic, consumergroup, consumerid);
 			}
 
-			JSONObject jsonObj = new JSONObject();
+			JSONObject jsonObj;
 			JSONObject finalJsonObj = new JSONObject();
-			JSONArray jsonArray = null;
+			JSONArray jsonArray;
 
 			if (msgFrmSubscribe != null && msgFrmSubscribe.length() > 0
 					&& isListMirrorMaker(msgFrmSubscribe, randomstr)) {
@@ -547,11 +563,11 @@ public class MMRestService {
 					jsonObj = jsonArray.getJSONObject(i);
 					
 					JSONObject obj = new JSONObject();
-					if (jsonObj.has("message")) {
-						obj = jsonObj.getJSONObject("message");
+					if (jsonObj.has(MESSAGE)) {
+						obj = jsonObj.getJSONObject(MESSAGE);
 					}
-					if (obj.has("messageID") && obj.get("messageID").equals(randomstr) && obj.has("listMirrorMaker")) {
-						finalJsonObj.put("listMirrorMaker", obj.get("listMirrorMaker"));
+					if (obj.has("messageID") && obj.get("messageID").equals(randomstr) && obj.has(LISTMIRRORMAKER)) {
+						finalJsonObj.put(LISTMIRRORMAKER, obj.get(LISTMIRRORMAKER));
 						break;
 					}
 				}
@@ -561,25 +577,26 @@ public class MMRestService {
 			} else {
 
 				JSONObject err = new JSONObject();
-				err.append("error", "listMirrorMaker is not available, please make sure MirrorMakerAgent is running");
+				err.append(ERROR, "listMirrorMaker is not available, please make sure MirrorMakerAgent is running");
 				DMaaPResponseBuilder.respondOk(ctx, err);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error("Exception: ", e);			
 		}
 	}
 
 	private void sendErrResponse(DMaaPContext ctx, String errMsg) {
 		JSONObject err = new JSONObject();
-		err.append("Error", errMsg);
+		err.append(ERROR, errMsg);
 
 		try {
 			DMaaPResponseBuilder.respondOk(ctx, err);
-			LOGGER.error(errMsg.toString());
+			LOGGER.error(errMsg);
 
 		} catch (JSONException | IOException e) {
-			LOGGER.error(errMsg.toString());
+			LOGGER.error(errMsg);
 		}
 	}
 
@@ -591,13 +608,13 @@ public class MMRestService {
 
 		DMaaPContext ctx = getDmaapContext();
 		if (checkMirrorMakerPermission(ctx,
-				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf"))) {
+				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, MIRROR_MAKERUSER))) {
 
 			loadProperty();
 			String input = null;
 
 			try {
-				input = IOUtils.toString(msg, "UTF-8");
+				input = IOUtils.toString(msg, UTF_8);
 
 				if (input != null && input.length() > 0) {
 					input = removeExtraChar(input);
@@ -612,18 +629,21 @@ public class MMRestService {
 				} catch (JSONException ex) {
 
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
+					LOGGER.error("JSONException: ", ex);
 				}
 
 				// Check if the request has name and name contains only alpha
 				// numeric
 				// and check if the request has namespace and namespace contains
 				// only alpha numeric
-				if (jsonOb.length() == 2 && jsonOb.has("name") && !StringUtils.isBlank(jsonOb.getString("name"))
-						&& isAlphaNumeric(jsonOb.getString("name")) && jsonOb.has("namespace")
-						&& !StringUtils.isBlank(jsonOb.getString("namespace"))) {
+				if (jsonOb != null 
+						&& jsonOb.length() == 2 && jsonOb.has("name")
+						&& !StringUtils.isBlank(jsonOb.getString("name"))
+						&& isAlphaNumeric(jsonOb.getString("name")) && jsonOb.has(NAMESPACE)
+						&& !StringUtils.isBlank(jsonOb.getString(NAMESPACE))) {
 
 					String permission = AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop,
-							"msgRtr.mirrormakeruser.aaf.create") + jsonOb.getString("namespace") + "|create";
+							"msgRtr.mirrormakeruser.aaf.create") + jsonOb.getString(NAMESPACE) + "|create";
 
 					// Check if the user have create permission for the
 					// namespace
@@ -638,7 +658,7 @@ public class MMRestService {
 
 						} catch (JSONException e) {
 
-							e.printStackTrace();
+							LOGGER.error("JSONException: ", e);
 						}
 
 						// set a random number as messageID
@@ -648,10 +668,11 @@ public class MMRestService {
 
 						// convert listAll Json object to InputStream object
 						try {
-							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
+							inStream = IOUtils.toInputStream(listAll.toString(), UTF_8);
 
 						} catch (IOException ioe) {
 							ioe.printStackTrace();
+							LOGGER.error("IOException: ", ioe);
 						}
 						// call listAllMirrorMaker
 						mirrorService.pushEvents(ctx, topic, inStream, null, null);
@@ -668,13 +689,13 @@ public class MMRestService {
 						if (msgFrmSubscribe != null && msgFrmSubscribe.length() > 0
 								&& isListMirrorMaker(msgFrmSubscribe, randomStr)) {
 							
-							JSONArray listMirrorMaker = new JSONArray();
+							JSONArray listMirrorMaker;
 							listMirrorMaker = getListMirrorMaker(msgFrmSubscribe, randomStr);
 
 							String whitelist = null;
 							for (int i = 0; i < listMirrorMaker.length(); i++) {
 
-								JSONObject mm = new JSONObject();
+								JSONObject mm;
 								mm = listMirrorMaker.getJSONObject(i);
 								String name = mm.getString("name");
 
@@ -686,13 +707,13 @@ public class MMRestService {
 
 							if (!StringUtils.isBlank(whitelist)) {
 
-								List<String> topicList = new ArrayList<String>();
-								List<String> finalTopicList = new ArrayList<String>();
+								List<String> topicList = new ArrayList<>();
+								List<String> finalTopicList = new ArrayList<>();
 								topicList = Arrays.asList(whitelist.split(","));
 
 								for (String topic : topicList) {
 									if (topic != null && !topic.equals("null")
-											&& getNamespace(topic).equals(jsonOb.getString("namespace"))) {
+											&& getNamespace(topic).equals(jsonOb.getString(NAMESPACE))) {
 
 										finalTopicList.add(topic);
 									}
@@ -700,7 +721,7 @@ public class MMRestService {
 
 								String topicNames = "";
 
-								if (finalTopicList.size() > 0) {
+								if (!finalTopicList.isEmpty()) {
 									topicNames = StringUtils.join(finalTopicList, ",");
 								}
 
@@ -714,7 +735,7 @@ public class MMRestService {
 						} else {
 
 							JSONObject err = new JSONObject();
-							err.append("error",
+							err.append(ERROR,
 									"listWhiteList is not available, please make sure MirrorMakerAgent is running");
 							DMaaPResponseBuilder.respondOk(ctx, err);
 						}
@@ -731,7 +752,7 @@ public class MMRestService {
 			} catch (IOException | CambriaApiException | ConfigDbException | AccessDeniedException
 					| TopicExistsException | missingReqdSetting | UnavailableException e) {
 
-				e.printStackTrace();
+				LOGGER.error("IOException: ", e);
 			}
 		} else {
 			sendErrResponse(ctx, NO_USER_PERMISSION);
@@ -746,13 +767,13 @@ public class MMRestService {
 
 		DMaaPContext ctx = getDmaapContext();
 		if (checkMirrorMakerPermission(ctx,
-				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf"))) {
+				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, MIRROR_MAKERUSER))) {
 
 			loadProperty();
 			String input = null;
 
 			try {
-				input = IOUtils.toString(msg, "UTF-8");
+				input = IOUtils.toString(msg, UTF_8);
 
 				if (input != null && input.length() > 0) {
 					input = removeExtraChar(input);
@@ -767,21 +788,23 @@ public class MMRestService {
 				} catch (JSONException ex) {
 
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
+					LOGGER.error("JSONException: ", ex);
 				}
 
 				// Check if the request has name and name contains only alpha numeric,
 				// check if the request has namespace and
 				// check if the request has whitelistTopicName
 				// check if the topic name contains only alpha numeric
-				if (jsonOb.length() == 3 && jsonOb.has("name") && !StringUtils.isBlank(jsonOb.getString("name")) 
+				if (jsonOb != null && jsonOb.length() == 3 && jsonOb.has("name")
+						&& !StringUtils.isBlank(jsonOb.getString("name")) 
 						&& isAlphaNumeric(jsonOb.getString("name")) 
-						&& jsonOb.has("namespace") && !StringUtils.isBlank(jsonOb.getString("namespace"))
+						&& jsonOb.has(NAMESPACE) && !StringUtils.isBlank(jsonOb.getString(NAMESPACE))
 						&& jsonOb.has("whitelistTopicName") && !StringUtils.isBlank(jsonOb.getString("whitelistTopicName"))
 						&& isAlphaNumeric(jsonOb.getString("whitelistTopicName").substring(jsonOb.getString("whitelistTopicName").lastIndexOf(".")+1, 
 								jsonOb.getString("whitelistTopicName").length()))) {
 
 					String permission = AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop,
-							"msgRtr.mirrormakeruser.aaf.create") + jsonOb.getString("namespace") + "|create";
+							"msgRtr.mirrormakeruser.aaf.create") + jsonOb.getString(NAMESPACE) + "|create";
 
 					// Check if the user have create permission for the
 					// namespace
@@ -796,7 +819,7 @@ public class MMRestService {
 
 						} catch (JSONException e) {
 
-							e.printStackTrace();
+							LOGGER.error("JSONException: ", e);
 						}
 
 						// set a random number as messageID
@@ -806,10 +829,11 @@ public class MMRestService {
 
 						// convert listAll Json object to InputStream object
 						try {
-							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
+							inStream = IOUtils.toInputStream(listAll.toString(), UTF_8);
 
 						} catch (IOException ioe) {
 							ioe.printStackTrace();
+							LOGGER.error("IOException: ", ioe);
 						}
 						// call listAllMirrorMaker
 						mirrorService.pushEvents(ctx, topic, inStream, null, null);
@@ -823,7 +847,7 @@ public class MMRestService {
 							msgFrmSubscribe = mirrorService.subscribe(ctx, topic, consumergroup, consumerid);
 						}
 
-						JSONArray listMirrorMaker = null;
+						JSONArray listMirrorMaker;
 
 						if (msgFrmSubscribe != null && msgFrmSubscribe.length() > 0
 								&& isListMirrorMaker(msgFrmSubscribe, randomStr)) {
@@ -832,7 +856,7 @@ public class MMRestService {
 							String whitelist = null;
 
 							for (int i = 0; i < listMirrorMaker.length(); i++) {
-								JSONObject mm = new JSONObject();
+								JSONObject mm;
 								mm = listMirrorMaker.getJSONObject(i);
 								String name = mm.getString("name");
 
@@ -842,8 +866,8 @@ public class MMRestService {
 								}
 							}
 
-							List<String> topicList = new ArrayList<String>();
-							List<String> finalTopicList = new ArrayList<String>();
+							List<String> topicList = new ArrayList<>();
+							List<String> finalTopicList = new ArrayList<>();
 
 							if (whitelist != null) {
 								topicList = Arrays.asList(whitelist.split(","));
@@ -858,7 +882,7 @@ public class MMRestService {
 							String newTopic = jsonOb.getString("whitelistTopicName");
 
 							if (!topicList.contains(newTopic)
-									&& getNamespace(newTopic).equals(jsonOb.getString("namespace"))) {
+									&& getNamespace(newTopic).equals(jsonOb.getString(NAMESPACE))) {
 
 								UpdateWhiteList updateWhiteList = new UpdateWhiteList();
 								MirrorMaker mirrorMaker = new MirrorMaker();
@@ -866,7 +890,7 @@ public class MMRestService {
 								finalTopicList.add(newTopic);
 								String newWhitelist = "";
 
-								if (finalTopicList.size() > 0) {
+								if (!finalTopicList.isEmpty()) {
 									newWhitelist = StringUtils.join(finalTopicList, ",");
 								}
 
@@ -878,22 +902,22 @@ public class MMRestService {
 
 								Gson g = new Gson();
 								g.toJson(updateWhiteList);
-								InputStream inputStream = null;
-								inputStream = IOUtils.toInputStream(g.toJson(updateWhiteList), "UTF-8");
+								InputStream inputStream;
+								inputStream = IOUtils.toInputStream(g.toJson(updateWhiteList), UTF_8);
 								// callPubSub(newRandom, ctx, inputStream);
-								callPubSubForWhitelist(newRandom, ctx, inputStream, jsonOb.getString("namespace"));
+								callPubSubForWhitelist(newRandom, ctx, inputStream, jsonOb.getString(NAMESPACE));
 
 							} else if (topicList.contains(newTopic)) {
 								sendErrResponse(ctx, "The topic already exist.");
 
-							} else if (!getNamespace(newTopic).equals(jsonOb.getString("namespace"))) {
+							} else if (!getNamespace(newTopic).equals(jsonOb.getString(NAMESPACE))) {
 								sendErrResponse(ctx,
 										"The namespace of the topic does not match with the namespace you provided.");
 							}
 						} else {
 
 							JSONObject err = new JSONObject();
-							err.append("error",
+							err.append(ERROR,
 									"listWhiteList is not available, please make sure MirrorMakerAgent is running");
 							DMaaPResponseBuilder.respondOk(ctx, err);
 						}
@@ -910,7 +934,7 @@ public class MMRestService {
 			} catch (IOException | CambriaApiException | ConfigDbException | AccessDeniedException
 					| TopicExistsException | missingReqdSetting | UnavailableException e) {
 
-				e.printStackTrace();
+				LOGGER.error("IOException: ", e);
 			}
 		}
 		// Send error response if user does not provide Authorization
@@ -927,13 +951,13 @@ public class MMRestService {
 
 		DMaaPContext ctx = getDmaapContext();
 		if (checkMirrorMakerPermission(ctx,
-				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf"))) {
+				AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, MIRROR_MAKERUSER))) {
 
 			loadProperty();
 			String input = null;
 
 			try {
-				input = IOUtils.toString(msg, "UTF-8");
+				input = IOUtils.toString(msg, UTF_8);
 
 				if (input != null && input.length() > 0) {
 					input = removeExtraChar(input);
@@ -948,18 +972,19 @@ public class MMRestService {
 				} catch (JSONException ex) {
 
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
+					LOGGER.error("JSONException: ", ex);
 				}
 
 				// Check if the request has name and name contains only alpha numeric,
 				// check if the request has namespace and
 				// check if the request has whitelistTopicName
-				if (jsonOb.length() == 3 && jsonOb.has("name") && isAlphaNumeric(jsonOb.getString("name"))
-						&& jsonOb.has("namespace") && jsonOb.has("whitelistTopicName") 
+				if (jsonOb != null && jsonOb.length() == 3 && jsonOb.has("name") && isAlphaNumeric(jsonOb.getString("name"))
+						&& jsonOb.has(NAMESPACE) && jsonOb.has("whitelistTopicName") 
 						&& isAlphaNumeric(jsonOb.getString("whitelistTopicName").substring(jsonOb.getString("whitelistTopicName").lastIndexOf(".")+1, 
 								jsonOb.getString("whitelistTopicName").length()))) {
 
 					String permission = AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop,
-							"msgRtr.mirrormakeruser.aaf.create") + jsonOb.getString("namespace") + "|create";
+							"msgRtr.mirrormakeruser.aaf.create") + jsonOb.getString(NAMESPACE) + "|create";
 
 					// Check if the user have create permission for the
 					// namespace
@@ -974,7 +999,7 @@ public class MMRestService {
 
 						} catch (JSONException e) {
 
-							e.printStackTrace();
+							LOGGER.error("JSONException: ", e);
 						}
 
 						// set a random number as messageID
@@ -984,10 +1009,11 @@ public class MMRestService {
 
 						// convert listAll Json object to InputStream object
 						try {
-							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
+							inStream = IOUtils.toInputStream(listAll.toString(), UTF_8);
 
 						} catch (IOException ioe) {
 							ioe.printStackTrace();
+							LOGGER.error("IOException: ", ioe);
 						}
 						// call listAllMirrorMaker
 						mirrorService.pushEvents(ctx, topic, inStream, null, null);
@@ -1001,8 +1027,8 @@ public class MMRestService {
 							msgFrmSubscribe = mirrorService.subscribe(ctx, topic, consumergroup, consumerid);
 						}
 
-						JSONObject jsonObj = new JSONObject();
-						JSONArray jsonArray = null;
+						JSONObject jsonObj;
+						JSONArray jsonArray;
 						JSONArray listMirrorMaker = null;
 
 						if (msgFrmSubscribe != null && msgFrmSubscribe.length() > 0
@@ -1014,28 +1040,30 @@ public class MMRestService {
 								jsonObj = jsonArray.getJSONObject(i);
 								
 								JSONObject obj = new JSONObject();
-								if (jsonObj.has("message")) {
-									obj = jsonObj.getJSONObject("message");
+								if (jsonObj.has(MESSAGE)) {
+									obj = jsonObj.getJSONObject(MESSAGE);
 								}
-								if (obj.has("messageID") && obj.get("messageID").equals(randomStr) && obj.has("listMirrorMaker")) {
-									listMirrorMaker = obj.getJSONArray("listMirrorMaker");
+								if (obj.has("messageID") && obj.get("messageID").equals(randomStr) && obj.has(LISTMIRRORMAKER)) {
+									listMirrorMaker = obj.getJSONArray(LISTMIRRORMAKER);
 									break;
 								}
 							}
 							String whitelist = null;
-							for (int i = 0; i < listMirrorMaker.length(); i++) {
+							if (listMirrorMaker != null) {
+								for (int i = 0; i < listMirrorMaker.length(); i++) {
 
-								JSONObject mm = new JSONObject();
-								mm = listMirrorMaker.getJSONObject(i);
-								String name = mm.getString("name");
+									JSONObject mm = new JSONObject();
+									mm = listMirrorMaker.getJSONObject(i);
+									String name = mm.getString("name");
 
-								if (name.equals(jsonOb.getString("name")) && mm.has("whitelist")) {
-									whitelist = mm.getString("whitelist");
-									break;
+									if (name.equals(jsonOb.getString("name")) && mm.has("whitelist")) {
+										whitelist = mm.getString("whitelist");
+										break;
+									}
 								}
 							}
 
-							List<String> topicList = new ArrayList<String>();
+							List<String> topicList = new ArrayList<>();
 
 							if (whitelist != null) {
 								topicList = Arrays.asList(whitelist.split(","));
@@ -1065,15 +1093,15 @@ public class MMRestService {
 								Gson g = new Gson();
 								g.toJson(updateWhiteList);
 								
-								InputStream inputStream = null;
-								inputStream = IOUtils.toInputStream(g.toJson(updateWhiteList), "UTF-8");
+								InputStream inputStream;
+								inputStream = IOUtils.toInputStream(g.toJson(updateWhiteList), UTF_8);
 								callPubSubForWhitelist(newRandom, ctx, inputStream, getNamespace(topicToRemove));
 							}
 
 						} else {
 
 							JSONObject err = new JSONObject();
-							err.append("error",
+							err.append(ERROR,
 									"listWhiteList is not available, please make sure MirrorMakerAgent is running");
 							DMaaPResponseBuilder.respondOk(ctx, err);
 						}
@@ -1090,7 +1118,7 @@ public class MMRestService {
 			} catch (IOException | CambriaApiException | ConfigDbException | AccessDeniedException
 					| TopicExistsException | missingReqdSetting | UnavailableException e) {
 
-				e.printStackTrace();
+				LOGGER.error("IOException: ", e);
 			}
 		}
 		// Send error response if user does not provide Authorization
@@ -1104,8 +1132,8 @@ public class MMRestService {
 	}
 
 	private String removeTopic(String whitelist, String topicToRemove) {
-		List<String> topicList = new ArrayList<String>();
-		List<String> newTopicList = new ArrayList<String>();
+		List<String> topicList = new ArrayList<>();
+		List<String> newTopicList = new ArrayList<>();
 
 		if (whitelist.contains(",")) {
 			topicList = Arrays.asList(whitelist.split(","));
@@ -1137,8 +1165,8 @@ public class MMRestService {
 				msgFrmSubscribe = mirrorService.subscribe(ctx, topic, consumergroup, consumerid);
 			}
 
-			JSONObject jsonObj = new JSONObject();
-			JSONArray jsonArray = null;
+			JSONObject jsonObj;
+			JSONArray jsonArray;
 			JSONArray jsonArrayNamespace = null;
 
 			if (msgFrmSubscribe != null && msgFrmSubscribe.length() > 0
@@ -1150,11 +1178,11 @@ public class MMRestService {
 					jsonObj = jsonArray.getJSONObject(i);
 					
 					JSONObject obj = new JSONObject();
-					if (jsonObj.has("message")) {
-						obj = jsonObj.getJSONObject("message");
+					if (jsonObj.has(MESSAGE)) {
+						obj = jsonObj.getJSONObject(MESSAGE);
 					}
-					if (obj.has("messageID") && obj.get("messageID").equals(randomStr) && obj.has("listMirrorMaker")) {
-						jsonArrayNamespace = obj.getJSONArray("listMirrorMaker");
+					if (obj.has("messageID") && obj.get("messageID").equals(randomStr) && obj.has(LISTMIRRORMAKER)) {
+						jsonArrayNamespace = obj.getJSONArray(LISTMIRRORMAKER);
 					}
 				}
 				JSONObject finalJasonObj = new JSONObject();
@@ -1162,9 +1190,9 @@ public class MMRestService {
 
 				for (int i = 0; i < jsonArrayNamespace.length(); i++) {
 
-					JSONObject mmObj = new JSONObject();
+					JSONObject mmObj;
 					mmObj = jsonArrayNamespace.getJSONObject(i);
-					String whitelist = null;
+					String whitelist;
 
 					if (mmObj.has("whitelist")) {
 						whitelist = getWhitelistByNamespace(mmObj.getString("whitelist"), namespace);
@@ -1178,27 +1206,27 @@ public class MMRestService {
 					}
 					finalJsonArray.put(mmObj);
 				}
-				finalJasonObj.put("listMirrorMaker", finalJsonArray);
+				finalJasonObj.put(LISTMIRRORMAKER, finalJsonArray);
 
 				DMaaPResponseBuilder.respondOk(ctx, finalJasonObj);
 
 			} else {
 
 				JSONObject err = new JSONObject();
-				err.append("error", "listMirrorMaker is not available, please make sure MirrorMakerAgent is running");
+				err.append(ERROR, "listMirrorMaker is not available, please make sure MirrorMakerAgent is running");
 				DMaaPResponseBuilder.respondOk(ctx, err);
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Exception: ", e);
 		}
 	}
 
 	private String getWhitelistByNamespace(String originalWhitelist, String namespace) {
 
 		String whitelist = null;
-		List<String> resultList = new ArrayList<String>();
-		List<String> whitelistList = new ArrayList<String>();
+		List<String> resultList = new ArrayList<>();
+		List<String> whitelistList = new ArrayList<>();
 		whitelistList = Arrays.asList(originalWhitelist.split(","));
 
 		for (String topic : whitelistList) {
@@ -1206,7 +1234,7 @@ public class MMRestService {
 				resultList.add(topic);
 			}
 		}
-		if (resultList.size() > 0) {
+		if (!resultList.isEmpty()) {
 			whitelist = StringUtils.join(resultList, ",");
 		}
 
@@ -1214,8 +1242,8 @@ public class MMRestService {
 	}
 	
 	private JSONArray getListMirrorMaker(String msgFrmSubscribe, String randomStr) {
-		JSONObject jsonObj = new JSONObject();
-		JSONArray jsonArray = new JSONArray();
+		JSONObject jsonObj;
+		JSONArray jsonArray;
 		JSONArray listMirrorMaker = new JSONArray();
 		
 		msgFrmSubscribe = removeExtraChar(msgFrmSubscribe);
@@ -1225,11 +1253,11 @@ public class MMRestService {
 			jsonObj = jsonArray.getJSONObject(i);
 			
 			JSONObject obj = new JSONObject();
-			if (jsonObj.has("message")) {
-				obj = jsonObj.getJSONObject("message");
+			if (jsonObj.has(MESSAGE)) {
+				obj = jsonObj.getJSONObject(MESSAGE);
 			}
-			if (obj.has("messageID") && obj.get("messageID").equals(randomStr) && obj.has("listMirrorMaker")) {
-				listMirrorMaker = obj.getJSONArray("listMirrorMaker");
+			if (obj.has("messageID") && obj.get("messageID").equals(randomStr) && obj.has(LISTMIRRORMAKER)) {
+				listMirrorMaker = obj.getJSONArray(LISTMIRRORMAKER);
 				break;
 			}
 		}
