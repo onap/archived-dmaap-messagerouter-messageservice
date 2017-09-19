@@ -43,7 +43,6 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 
 	
 	private String defLength;
-	//private Logger log = Logger.getLogger(ContentLengthInterceptor.class.toString());
 	private static final EELFLogger log = EELFManager.getInstance().getLogger(ContentLengthInterceptor.class);
 
 
@@ -97,7 +96,7 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 			log.error("message size is greater then default"+e.getMessage());
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_REQUEST_TOO_LONG,
 					DMaaPResponseCode.MSG_SIZE_EXCEEDS_MSG_LIMIT.getResponseCode(), System.getProperty("msg_size_exceeds")
-							+ jsonObj.toString());
+							+ e.toString());
 			log.info(errRes.toString());
 			
 			
