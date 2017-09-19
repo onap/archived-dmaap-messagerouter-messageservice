@@ -52,12 +52,15 @@ public class ServicePropertiesMap
 	 */
 	public static void refresh(File file) throws Exception
 	{
+		String filePath;
 		try
 		{
 			logger.info("Loading properties - " + (file != null?file.getName():""));
 			
 			//Store .json & .properties files into map of maps
-			String filePath = file.getPath();
+			if (file != null) {
+				filePath = file.getPath();
+			}
 			
 			if(filePath.lastIndexOf(".json")>0){
 				
@@ -65,9 +68,10 @@ public class ServicePropertiesMap
 				TypeReference<HashMap<String, String>> typeRef = 
 						new TypeReference<HashMap<String, String>>() {};
 				HashMap<String, String> propMap = om.readValue(file, typeRef);
-				HashMap<String, String> lcasePropMap = new HashMap<String, String>();
-				for (String key : propMap.keySet() )
+				HashMap<String, String> lcasePropMap = new HashMap<>();
+				for (Map.Entry<String,String> entry : propMap.entrySet())
 				{
+					String key = entry.getKey();
 					String lcaseKey = ifNullThenEmpty(key);
 					lcasePropMap.put(lcaseKey, propMap.get(key));
 				}
@@ -81,7 +85,7 @@ public class ServicePropertiesMap
 				prop.load(fis);
 				
 				@SuppressWarnings("unchecked")
-				HashMap<String, String> propMap = new HashMap<String, String>((Map)prop);
+				HashMap<String, String> propMap = new HashMap<>((Map)prop);
 				
 				mapOfMaps.put(file.getName(), propMap);
 			}
@@ -111,7 +115,7 @@ public class ServicePropertiesMap
 	 * @param fileName fileName
 	 * @return mapProp
 	 */
-	public static HashMap<String, String> getProperties(String fileName){
+	public static Map<String, String> getProperties(String fileName){
 		return mapOfMaps.get(fileName);
 	}
 	
