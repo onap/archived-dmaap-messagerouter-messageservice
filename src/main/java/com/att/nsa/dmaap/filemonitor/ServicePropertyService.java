@@ -90,7 +90,7 @@ public class ServicePropertyService {
 		FileInputStream fis = null;
 
 		if (fileList == null)
-			fileList = new ArrayList<File>();
+			fileList = new ArrayList<>();
 
 		// get all the files that are ".json" or ".properties", from a directory
 		// & it's sub-directories
@@ -110,7 +110,9 @@ public class ServicePropertyService {
 				} catch (Exception ioe) {
 					logger.error("Error reading the file stream ", ioe);
 				} finally {
-					fis.close();
+					if (fis != null) {
+						fis.close();
+					}
 				}
 			} else if (file.isDirectory()) {
 				getFileList(file.getPath());
