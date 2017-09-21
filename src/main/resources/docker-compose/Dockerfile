@@ -15,8 +15,8 @@ ADD start-kafka.sh /usr/bin/start-kafka.sh
 ADD broker-list.sh /usr/bin/broker-list.sh
 ADD create-topics.sh /usr/bin/create-topics.sh
 # The scripts need to have executable permission
-RUN chmod a+x /usr/bin/start-kafka.sh && \
-    chmod a+x /usr/bin/broker-list.sh && \
+RUN chmod a+x /usr/bin/start-kafka.sh; sync;
+RUN chmod a+x /usr/bin/broker-list.sh && \
     chmod a+x /usr/bin/create-topics.sh
 # Use "exec" form so that it runs as PID 1 (useful for graceful shutdown)
 CMD ["start-kafka.sh"]
