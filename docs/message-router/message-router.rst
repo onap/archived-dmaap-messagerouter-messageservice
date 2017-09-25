@@ -2,8 +2,8 @@
 Message Router (MR) API Guide
 ============================================
 
-HTTP Service APIs:
-==================
+HTTP Service APIs
+------------------
 
 DMaaP Message Router utilizes an HTTP REST API to service all Publish
 and Consume transactions. HTTP and REST standards are followed so
@@ -24,16 +24,14 @@ HTTP URL
 
 http[s]://Username:Password@serverBaseURL{/routing}{resourcePath}
 
-• The Username:Password utilizes HTTP Basic Authentication and HTTPS/TLS
+- The Username:Password utilizes HTTP Basic Authentication and HTTPS/TLS
 to securely transmit the authorization and authentication credentials
 that AAF needs to validate the client's access to the requested
 resource.
-
-• The serverBaseURL points to DMaaP Message Router host/port that will
+- The serverBaseURL points to DMaaP Message Router host/port that will
 service the request. Optionally DME2 service end points for Message
 Router can be used.
-
-• The resourcePath specifies the specific service, or Topic, that the
+- The resourcePath specifies the specific service, or Topic, that the
 client is attempting to reach
 
 HTTP Header
@@ -67,38 +65,10 @@ are not inspected for content.
 |						  | message in https://jsonformatter.curiousconcept.com/      													   |
 +-------------------------+----------------------------------------------------------------------------------------------------------------+
 
-
-
-
-DME2 Service endpoints:
-=======================
-
-Message Router supports DME2 clients. That is , Client application may
-use DME2Client and DME2 service address to call the MessageRouter
-service.
-
-Example DME2 service address:
-
-Please use DMaap Message Router Run Book for complete details
-
-TEST: http://hostname/events?version=XXX&envContext=XXX&partner=XX
-
-PROD: https://hostname/events?version=XXX &envContext=XXX&partner=XX
-
-The values of version/envContext/routerOffer may change based upon the
-environment.
-
-The specific details for each API are described as below
-
-
-
 Publishers
-==========
+-----------
 
-Description:
-===========
-
-Publishes data to Kafka server on the topic mentioned in the URL.
+**Description**:Publishes data to Kafka server on the topic mentioned in the URL.
 Messages will be in the request body
 
 The MessageRouter service has no requirements on what publishers can put
@@ -109,7 +79,7 @@ broker itself. The only constraint placed on messages is their on their
 size – messages must be under the maximum size, which is currently
 configured at 1 MB.
 
-Request URL:
+Request URL
 ===========
 
 POST http(s)://{HOST:PORT}/events/{topicname}
@@ -117,34 +87,24 @@ POST http(s)://{HOST:PORT}/events/{topicname}
 Request Parameters
 ==================
 
-+--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+---------------------------------------------------+
-| Name                     | Description                     | Param Type       | Data type  | Max Len   | Req’d       | Format                         |  Valid/Example Values                             |
-+==========================+=================================+==================+============+===========+=============+================================+===================================================+
-| Topicname                | topic name to be posted         | Path             | String     | 40        | Y           |  <app namespace>.<topicname>   | Org.onap.crm.empdetails                           |
-+--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+---------------------------------------------------+
-| `content-type            | To specify type of message      | Header           | String     | 20        | N           |                                | application/json text/plain application/cambria   |
-|                          |                                 |                  |            |           |             |                                |                                                   |
-|                          | content(json,text or cambria)   |                  |            |           |             |                                |                                                   |
-+--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+---------------------------------------------------+
-| Username                 | userid                          | Header           | String     |           | N           | Basic Authentication Header    |                                                   |
-+--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+---------------------------------------------------+
-| Password                 |                                 | Header           | String     |           | N           | Basic Authentication Header    |                                                   |
-+--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+---------------------------------------------------+
-| partitionKey             |                                 |  QueryParam      | String     |           | N           | String value                   |  ?partitionKey=123                                |
-+--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+---------------------------------------------------+
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
+| Name                     | Description                     | Param Type       | Data type  | Max Len   | Req’d       | Format                         | Valid/EXample values        |
++==========================+=================================+==================+============+===========+=============+================================+=============================+
+| Topicname                | topic name to be posted         | Path             | String     | 40        | Y           |  <app namespace>.<topicname>   | org.onap.crm.empdetails     |
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
+| content-type             | To specify type of message      | Header           | String     | 20        | N           |                                | application/json            |
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+| Username                 | userid                          | Header           | String     |           | N           | Basic Authentication Header    |                             |
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
+| Password                 | userid                          | Header           | String     |           | N           | Basic Authentication Header    |                             |
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
+| partitionKey             |                                 |  QueryParam      | String     |           | N           | String value                   |?Partitionkey=123            |
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
 
- 
-
- 
-
-Note:
------
-
-Publishers/user should have access on the topics. The user (id) and
+**NOTE:** Publishers/user should have access on the topics. The user (id) and
 permissions details needs to be in AAF.
 
-Response Parameters:
-====================
+Response Parameters
+===================
 
 +------------------+------------------------+------------+--------------+------------------------------+
 | Name             | Description            | Type       | Format       | Valid/Example Values         |
@@ -162,7 +122,7 @@ Response Parameters:
 
  
 
-Response /Error Codes:
+Response /Error Codes
 =====================
 
 +---------------------------+------------------------------------+
@@ -175,27 +135,23 @@ Response /Error Codes:
 | 500-599                   | the DMaaP service has a problem    |
 +---------------------------+------------------------------------+
 
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| Error code             |   HTTPCode     |  Description                    | Issue Reason                                                                                            |
-+========================+================+=================================+=========================================================================================================+
-| DMaaP\_MR\_ERR\_3001   | 413            | Request Entity too large        | Message size exceeds the batch limit <limit>.Reduce the batch size and try again                        |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3002   | 500            | Internal Server Error           | Unable to publish messages. Please contact administrator                                                |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3003   | 400            | Bad Request                     | Incorrect Batching format. Please correct the batching format and try again                             |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3004   | 413            | Request Entity too large        | Message size exceeds the message size limit <limit>.Reduce the message size and try again               |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3005   | 400            | Bad Request                     | Incorrect JSON object. Please correct the JSON format and try again                                     |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3006   | 504            | Network Connect Timeout Error   | Connection to the DMaaP MR was timed out.Please try again                                               |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3007   | 500            | Internal Server Error           | Failed to publish  messages to topic <topicName>. Successfully published <count > number of messages.   |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-|                        |  503           |  Service Unavailable            |  Service Unavailable                                                                                    |
-+------------------------+----------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-
- 
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
+| Error code             |  HTTPCode     |  Description                    | Issue Reason                                                                                            |
++========================+===============+=================================+=========================================================================================================+
+| DMaaP\_MR\_ERR\_3001   | 413           | Request Entity too large        | Message size exceeds the batch limit <limit>.Reduce the batch size and try again                        |
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3002   | 500           | Internal Server Error           | Unable to publish messages. Please contact administrator                                                |
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3003   | 400           | Bad Request                     | Incorrect Batching format. Please correct the batching format and try again                             |
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3004   | 413           | Request Entity too large        | Message size exceeds the message size limit <limit>.Reduce the message size and try again               |
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3005   | 400           | Bad Request                     | Incorrect JSON object. Please correct the JSON format and try again                                     |
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3006   | 504           | Network Connect Timeout Error   | Connection to the DMaaP MR was timed out.Please try again                                               |
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3007   | 500           | Internal Server Error           | Failed to publish  messages to topic <topicName>. Successfully published <count > number of messages.   |
++------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
 
 Sample Request:
 ==============
@@ -235,14 +191,9 @@ Sample Response:
 
  
 
-Subscribers:
-===========
-
-Description:
-
- To subscribe to a MessageRouter topic, a subscriber issues a GET to the RESTful HTTP endpoint for events.
-
-
+Subscribers
+-----------
+**Description**:To subscribe to a MessageRouter topic, a subscriber issues a GET to the RESTful HTTP endpoint for events.
 
 Request URL:
 ============
@@ -268,35 +219,14 @@ Request Parameters:
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 | content-type| To specify type of message      |                  |            |              |             |             |aplication/json                                  |
 |			  | content(json,text or cambria)   |      Header      |   String   |         20   |      N      |             |                                                 |
-|			  |                                 |                  |            |              |             |             |                                                 |         
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 |Username     |   userid                        | Header           | String     | 1            | N           |             |                                                 |
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 | Password    |                                 | Header           | String     | 1            | N           |             |                                                 |
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+       
 
-Note1: 
-======
-Subscribers /user should have access on the topics. The user () and
+**NOTE1:**Subscribers /user should have access on the topics. The user () and
 permissions details needs to be in AAF.
-
-Note 2:
-=======
-
-
-A few  consumer client app team who does continuous polling (by
-multiple rest calls) complained that they receive "503 consumer lock
-exception". The messages will not be lost from the topic when this
-exception occurs and it will be still in the topic. This happens when
-the concurrent rest call requests are made between several nodes in a
-cluster. Consumer lock is done at zookeeper level to ensure the offset
-for each consumer group is maintained to avoid losing the message in
-multiple concurrent calls of same consumer Group. We are looking
-otherways to resolve this issue. But for these continuous polling
-scenario, the suggested workaround is to ensure the request is made to
-only one node of the cluster. Session stickiness in DME2 is example of
-handling this. If this exception occurs , waiting for few minutes with
-out making api calls will release the lock in zookeeper.**
 
 Response Parameters:
 ===================
@@ -316,8 +246,167 @@ Response Parameters:
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 | ResponseBody     | Messages consumed from topic   | Json       | Json         |                                                           |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
+|
++---------------------------+------------------------------------+
+| Response statusCode       | Response statusMessage             |
++===========================+====================================+
+| 200-299                   | Success                            |
++---------------------------+------------------------------------+
+| 400-499                   | the client request has a problem   |
++---------------------------+------------------------------------+
+| 500-599                   | the DMaaP service has a problem    |
++---------------------------+------------------------------------+
+|
++-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
+| Error code              |  HTTP Code      |  Description               |Issue reason                                                                                        |
++-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3008    | 413             | Request Entity too large   | Message size exceeds the batch limit <limit>.Reduce the batch size and try again                   | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3009    | 500             | Internal Server Error      | Unable to publish messages. Please contact administartor                                           | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3010    | 400             | Bad Request                | Incorrect Batching format. Please correct the batching format and try again                        | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3011    | 413             | Request Entity too large   | Message size exceeds the message size limit <limit>.Reduce the message size and try again          | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
 
 
+Sample Request:
+==============
+
++----------------------------------------------------------------------------------------------------+
+| GET  http://<hostname>:3904/events/com.att.dmaap.mr.sprint/mygroup/mycus                           |
+|  Content-Type: application/json                                                                    |
+| Example:                                                                                           |
+|curl -u XXX@csp.abc.com:MRDmap2016$ -X GET -d 'MyfirstMessage'                                      | 
+|http://mrlocal00.dcae.proto.research.att.com:3904/events/com.att.ecomp_test.crm.preDeo/myG/C1       |
+|[I am r sending first msg,I am R sending first msg]                                                 |
++----------------------------------------------------------------------------------------------------+
+
+Provisioning
+------------
+**Description**: To create , modify or delete the MessageRouter topics. Generally Invenio application will use these  below apis to create , assign topics to the users. These APIs can also be used by other applications to provision topics in MessageRouter
+
+Create Topic
+============
+Request URL:
+============
+
+POST http(s)://{HOST:PORT}/topics/create
+
+Request Parameters:
+==================
+
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
+| Name           | Description                     |  Param Type      |  data type |   MaxLen     |  Req’d      |  Format     |  Valid/Example Values             |
+| 			     | 								   |				  |            |              |             |             | 					              |
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
+| Topicname      | topicname to be created in MR   |     Body         |   String   |        20    |     Y       | Json        |		com.att.dmaap.mr.metrics      |
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+       
+|topicDescription|   description for topic         |      Body        |   String   |     15       | Y           |             |                                   |
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+  
+|partitionCount  |   Kafka topic partition         |     Body         |   String   |     1        | Y           |             |                                   |
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
+|replicationCount|   Kafka topic replication       |     Body         |   String   |     1        | Y           |             |  3 (Default -for 3 node Kafka )   |
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
+|transaction     |to create transaction id for     |     Body         | Boolean    |              |             |             |                                   |
+| 				 |	each message transaction       |                  |            |      1       |        N    |             |   true                            |
+| Enabled        |                                 |                  |            |              |             |             |                                   | 
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
+|Content-Type    |   application/json              |     Header       |   String   |              |             |             |  application/json                 |
++----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
+
++---------------------------+------------------------------------+
+| Response statusCode       | Response statusMessage             |
++===========================+====================================+
+| 200-299                   | Success                            |
++---------------------------+------------------------------------+
+| 400-499                   | the client request has a problem   |
++---------------------------+------------------------------------+
+| 500-599                   | the DMaaP service has a problem    |
++---------------------------+------------------------------------+
+
++-------------------------+-----------------+--------------------------------------------------+
+| Error code              |  HTTP Code      |  Description                                     |
++-------------------------+-----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5001    | 500             | Failed to retrieve list of all topics            | +-------------------------+-----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5002    | 500             | Failed to retrieve details of topic:<topicName>  |     |+-------------------------+----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5003    | 500             |Failed to create topic:<topicName>                | +-------------------------+-----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5004    | 500             | Failed to delete topic:<topicName>               | +-------------------------+-----------------+--------------------------------------------------+
+
+Response Parameters
+====================
+
++------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
+| Name             | Description                    |  Type      | Format       | Valid/Example Values                                      |
++==================+================================+============+==============+===========================================================+
+| httpStatusCode   |                                |            |              | 200, 201 etc.                                             |
++------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
+| mrErrorCode      | Numeric error code             |            |              |5005                                                       |
++------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
+| errorMessage     |                                |            |              | SUCCESS, or error message.                                |
++------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
+| helpURL          | helpurl                        |            |              |                                                           |
++------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
+| ResponseBody     | Topic details (owner,          |            |              |                                                           |
+|                  | trxEnabled=true)               | Json       | Json         |                                                           |
++------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
+
+
+Sample Request:
+==============
+
++-----------------------------------------------------------------------------------+
+| POST   http://<hostname>:3904/topic/create                                        |
+|Request Body                                                                       |
+|{"topicName":"com.att.dmaap.mr.topicname","description":"This is a SAPTopic ",     |
+| "partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}          |
+| Content-Type: application/json                                                    |
+|Example:                                                                           |
+|curl -u XXXc@csp.abc.com:xxxxx$  -H 'Content-Type:application/json' -X POST -d     |
+|@topicname.txt  http://mrlocal00.dcae.proto.research.att.com:3904/topics/create    |
+|{                                                                                  |
+|    "writerAcl": {                                                                 |
+|        "enabled": false,                                                          |
+|        "users": []                                                                |
+|    },                                                                             |
+|    "description": "This is a TestTopic",                                          |
+|    "name": "com.att.ecomp_test.crm.Load9",                                        |
+|    "readerAcl": {                                                                 |
+|        "enabled": false,                                                          |
+|        "users": []                                                                |
++-----------------------------------------------------------------------------------+
+
+GetTopic Details
+----------------
+
+Request URL
+===========
+
+GET http(s)://{HOST:PORT}/topics    : To list the details of all the topics in Message Router.
+
+GET http(s)://{HOST:PORT}/topics/{topicname} : To list the details of specified topic .
+
+Request Parameters
+==================
+
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
+| Name                     | Description                     | Param Type       | Data type  | Max Len   | Req’d       | Format          | Valid/EXample values        |
++==========================+=================================+==================+============+===========+=============+=================+=============================+
+| Topicname                | topic name details              | Body             | String     | 20        | Y           |  Json           | com.att.dmaap.mr.metrics    |
++--------------------------+---------------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
+
+
+Response Parameters
+====================
+
++------------------+------------------------+------------+----------+---------+--------------------------+
+| Name             | Description            | ParamType  | datatype |Format   | Valid/Example Values     |
++==================+========================+============+==========+=========+==========================+
+| topicname        |  topic name details    |      Body  |   String |   Json  | com.att.dmaap.mr.metrics | 
++------------------+------------------------+------------+----------+---------+--------------------------+
+| description      |                        |            |   String |         |                          | 
++------------------+------------------------+------------+----------+---------+--------------------------+
+|owner             |user id who created the |            |          |         |                          |
+|                  |         topic          |            |          |         |                          | 
++------------------+------------------------+------------+----------+---------+--------------------------+
+| txenabled        |     true or false      |            |   boolean|         |                          | 
++------------------+------------------------+------------+----------+---------+--------------------------+
 
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
@@ -330,19 +419,54 @@ Response Parameters:
 +---------------------------+------------------------------------+
 
 
+Sample Request:
+==============
 
-+-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
-| Error code              |  HTTP Code      |  Description               |Issue reason                                                                                        |
-+-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3008    | 413             | Request Entity too large   | Message size exceeds the batch limit <limit>.Reduce the batch size and try again                   | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3009    | 500             | Internal Server Error      | Unable to publish messages. Please contact administartor                                           | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3010    | 400             | Bad Request                | Incorrect Batching format. Please correct the batching format and try again                        | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3011    | 413             | Request Entity too large   | Message size exceeds the message size limit <limit>.Reduce the message size and try again          | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
-|  DMaaP\_MR\_ERR\_5012   | 429             | Too many requests          |  This client is making too many requests. Please use a long poll setting to decrease the number of |     |                         |                 |                            | requests that result in empty responses.                                                           |
-+-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
-|                         |  503            |  Service Unavailable       |  Service Unavailable                                                                               | +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------+
+| GET   http://<hostname>:3904/topic/com.att.dmaap.mr.testtopic                     |
+|       curl -u XXX@csp.abc.com:x$  -X                                              |
+| GET  http://mrlocal00.dcae.proto.research.att.com:3904/topics                     |
+|    {"topics": [                                                                   |
+|    {                                                                              |
+|       "txenabled": true,                                                          |
+|        "description": "This is a TestTopic",                                      |
+|      "owner": "rs857c@csp.att.com",                                               |
+|        "topicName": "com.att.ecomp_test.crm.Load9"                                |
+|    },                                                                             |
+|    {                                                                              |
+|        "txenabled": false,                                                        |
+|        "description": "",                                                         |
+|        "owner": "",                                                               |
+|        "topicName": "com.att.ecomp_test.crm.Load1"                                |
+|    },                                                                             |
++-----------------------------------------------------------------------------------+
 
 
+Delete Topics
+-------------
 
+Request URL:
+===========
 
+DELETE http(s)://{HOST:PORT}/topic/{topicname}
+
+Sample Request:
+==============
+ex: http://<hostname>:3904/dmaap/v1/topics/com.att.dmaap.mr.testopic
+
++---------------------------+------------------------------------+
+| Response statusCode       | Response statusMessage             |
++===========================+====================================+
+| 200-299                   | Success                            |
++---------------------------+------------------------------------+
+| 400-499                   | the client request has a problem   |
++---------------------------+------------------------------------+
+| 500-599                   | the DMaaP service has a problem    |
++---------------------------+------------------------------------+
+
++-------------------------+---------------------------------------------+----------------------+
+| Error code              |    Description                              |HTTP code             |
++-------------------------+---------------------------------------------+----------------------+
+|  DMaaP\_MR\_ERR\_5004   |  Failed to delete topic:<topicName>         |   500                |   
++-------------------------+---------------------------------------------+----------------------+
 
