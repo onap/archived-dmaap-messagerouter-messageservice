@@ -386,8 +386,8 @@
 				<version>0.4.13</version>
 				<configuration>
 					<imageName>onap/dmaap/dmaap-mr</imageName>
-					<dockerDirectory>${dockerLocation}</dockerDirectory>
-					<serverId>docker-hub</serverId>
+			<!--    <dockerDirectory>${dockerLocation}</dockerDirectory> -->
+			<!--	<serverId>docker-hub</serverId> -->
 					<imageTags>
 						<imageTag>${dmaapImg}</imageTag>
 						<imageTag>latest</imageTag>
@@ -396,7 +396,7 @@
 				<resources>
 					<resource>
 					  <targetPath>/</targetPath>
-					  <directory>${project.build.directory}/opt</directory>
+					  <directory>${dockerLocation}</directory>
 					  <include>${project.build.finalName}.jar</include>
 					</resource>
 					<resource>
