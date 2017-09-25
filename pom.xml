@@ -386,7 +386,7 @@
 				<version>0.4.13</version>
 				<configuration>
 					<imageName>onap/dmaap/dmaap-mr</imageName>
-			<!--    <dockerDirectory>${dockerLocation}</dockerDirectory> -->
+					<dockerDirectory>${dockerLocation}</dockerDirectory> 
 			<!--	<serverId>docker-hub</serverId> -->
 					<imageTags>
 						<imageTag>${dmaapImg}</imageTag>
