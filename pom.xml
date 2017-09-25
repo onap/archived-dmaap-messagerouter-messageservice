@@ -529,7 +529,7 @@
 		<testEnv>DEV</testEnv>
 		<dmaapImg>1.0.2-SNAPSHOT</dmaapImg>
 		<camel.version>2.15.5</camel.version>
-		<sitePath>/content/sites/site/org/onap/dmaap/${project.artifactId}/${project.version}</sitePath>
+		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
         <skip.docker.push>true</skip.docker.push>
 		<nexusproxy>https://nexus.onap.org</nexusproxy>
