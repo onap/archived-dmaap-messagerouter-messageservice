@@ -385,7 +385,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.4.13</version>
 				<configuration>
-					<imageName>onap/dmaap-mr</imageName>
+					<imageName>onap/dmaap/dmaap-mr</imageName>
 					<dockerDirectory>${dockerLocation}</dockerDirectory>
 					<serverId>docker-hub</serverId>
 					<imageTags>
@@ -393,7 +393,81 @@
 						<imageTag>latest</imageTag>
 					</imageTags>
 					<forceTags>true</forceTags>
-				</configuration>
+				<resources>
+					<resource>
+					  <targetPath>/</targetPath>
+					  <directory>${project.build.directory}/opt</directory>
+					  <include>${project.build.finalName}.jar</include>
+					</resource>
+					<resource>
+					  <targetPath>/</targetPath>
+					  <directory>${project.build.directory}</directory>
+					  <include>**/**</include>
+					</resource>
+				  </resources>
+				 </configuration>
+				<executions>
+			   <execution>
+					<id>build-image</id>
+					<phase>package</phase>
+					<goals>
+					  <goal>build</goal>
+					</goals>
+					<configuration>
+					  <skipDockerBuild>${skip.docker.build}</skipDockerBuild>
+					</configuration>
+				  </execution> 
+
+				  <execution>
+					<id>tag-image-project-version</id>
+					<phase>package</phase>
+					<goals>
+					  <goal>tag</goal>
+					</goals>
+					<configuration>
+					  <image>onap/dmaap/dmaap-mr</image>
+					  <newName>${docker.push.registry}/onap/dmaap/dmaap-mr:${project.version}</newName>
+					  <skipDockerTag>${skip.docker.push}</skipDockerTag>
+					</configuration>
+				  </execution>
+				  
+				  <execution>
+					<id>tag-image-latest</id>
+					<phase>package</phase>
+					<goals>
+					  <goal>tag</goal>
+					</goals>
+					<configuration>
+					  <image>onap/dmaap/dmaap-mr</image>
+					  <newName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</newName>
+					  <skipDockerTag>${skip.docker.push}</skipDockerTag>
+					</configuration>
+				  </execution>
+				  
+				 <execution>
+					<id>push-image-latest</id>
+					<phase>deploy</phase>
+					<goals>
+					  <goal>push</goal>
+					</goals>
+					<configuration>
+					  <imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:${project.version}</imageName>
+					  <skipDockerPush>${skip.docker.push}</skipDockerPush>
+					</configuration>
+				  </execution>
+				  
+				  <execution>
+					<id>push-image</id>
+					<phase>deploy</phase>
+					<goals>
+					  <goal>push</goal>
+					</goals>
+					<configuration>
+					  <imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</imageName>
+					  <skipDockerPush>${skip.docker.push}</skipDockerPush>
+					</configuration>
+				  </execution>
+				</executions>
 			</plugin>                                                                                                                                                                                                                                                                                                        
 			<plugin>
 				<groupId>com.blackducksoftware.integration</groupId>
@@ -456,6 +530,9 @@
 		<dmaapImg>1.0.2-SNAPSHOT</dmaapImg>
 		<camel.version>2.15.5</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/${project.artifactId}/${project.version}</sitePath>
+		<skip.docker.build>true</skip.docker.build>
+        <skip.docker.push>true</skip.docker.push>
+		<nexusproxy>https://nexus.onap.org</nexusproxy>
 	</properties>
 
 	<!-- Distribution management -->
@@ -752,6 +829,16 @@
 		<!-- Use this profile to run the AJSC locally. This profile can be successfully 
 			shutdown WITHIN eclipse even in a Windows environment. Debugging is also 
 			available with this profile. -->
+	<profile>
+      <id>docker</id>
+      <properties>
+        <skip.staging.artifacts>true</skip.staging.artifacts>
+        <skip.docker.build>false</skip.docker.build>
+        <skip.docker.tag>false</skip.docker.tag>
+        <skip.docker.push>false</skip.docker.push>
+      </properties>
+    </profile>
+	
 		<profile>
 			<id>runAjsc</id>
 			<build>
