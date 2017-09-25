@@ -495,7 +495,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dockerLocation>${basedir}/target/swm/package/nix/dist_files/</dockerLocation>
-		<docker.registry>hub.docker.com</docker.registry>
 		<docker.image.prefix>simpledemo</docker.image.prefix>
 
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
@@ -534,7 +533,7 @@
 		<skip.docker.build>true</skip.docker.build>
         <skip.docker.push>true</skip.docker.push>
 		<nexusproxy>https://nexus.onap.org</nexusproxy>
-		<docker.push.registry>localhost:5000</docker.push.registry>
+		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
 	</properties>
 
 	<!-- Distribution management -->
@@ -834,7 +833,7 @@
 	<profile>
       <id>docker</id>
       <properties>
-        <skip.staging.artifacts>true</skip.staging.artifacts>
+        
         <skip.docker.build>false</skip.docker.build>
         <skip.docker.tag>false</skip.docker.tag>
         <skip.docker.push>false</skip.docker.push>
