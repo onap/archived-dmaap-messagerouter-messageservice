@@ -347,14 +347,6 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.7</version>
 				<executions>
@@ -383,12 +375,11 @@
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.13</version>
+				<version>1.0.0</version>
 				<configuration>
 					<imageName>onap/dmaap/dmaap-mr</imageName>
 					<dockerDirectory>${dockerLocation}</dockerDirectory> 
 					<serverId>docker-hub</serverId>
-			<!--	<serverId>docker-hub</serverId> -->
 					<imageTags>
 						<imageTag>${dmaapImg}</imageTag>
 						<imageTag>latest</imageTag>
