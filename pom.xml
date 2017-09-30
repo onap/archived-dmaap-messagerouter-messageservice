@@ -69,235 +69,12 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<plugin>
+			
+				<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.7</version>
-						<executions>
-							<execution>
-								<id>prep_service_runtime-ajsc-arch-parent</id>
-								<phase>generate-resources</phase>
-								<configuration>
-									<target name="prep_service_runtime">
-										<echo message="ENTERING 'copy_services_template' ant tasks" />
-										<!-- <filter token="basedir" value="${basedir}" /> -->
-										<!-- delete any prior stating stuff before package phase -->
-										<delete dir="target/versioned-ajsc" includes="**/*" />
-										<delete dir="target/versioned-runtime" includes="**/*" />
-										<delete dir="target/CDP" includes="**/*" />
-
-										<!-- This is where replacer plugin replaces tokens (Example: __module_ajsc_namespace_name__ 
-											is replaced by module.ajsc.namespace.name) -->
-										<copy todir="target/versioned-ajsc">
-											<fileset dir="src/main/ajsc" includes="**/*" />
-										</copy>
-
-										<!-- Copying the CDP, bundleconfig, and StaticContent to the target 
-											directory for future use by replacer plugin -->
-										<copy todir="target/CDP" failonerror="false">
-											<fileset dir="CDP" includes="**/*.sh" />
-										</copy>
-										<copy flatten="true" file="CDP/SampleBlueprint.xml"
-											failonerror="false"
-											tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml" />
-										<copy todir="target/staticContent" failonerror="false">
-											<fileset dir="staticContent" includes="**/*" />
-										</copy>
-										<copy todir="target/bundleconfig" failonerror="false">
-											<!-- filtering="true"> -->
-											<fileset dir="bundleconfig" />
-										</copy>
-
-										<echo message="EXITING 'copy_services_template' ant tasks" />
-										<echo message="ENTERING 'copy_runtime_template' ant tasks" />
-										<copy todir="target/versioned-runtime">
-											<fileset dir="src/main/runtime" includes="**/*" />
-										</copy>
-										<delete
-											file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" />
-										<copy flatten="true"
-											file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"
-											tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context" />
-										<delete
-											file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" />
-										<copy flatten="true"
-											file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"
-											tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json" />
-										<delete
-											file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" />
-										<copy flatten="true"
-											file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"
-											tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json" />
-										<delete
-											file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json" />
-										<copy flatten="true"
-											file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json"
-											tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json" />
-										<echo message="EXITING 'copy_runtime_template' ant tasks" />
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>clrf</id>
-								<phase>package</phase>
-								<configuration>
-									<tasks>
-										<fixcrlf
-											srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
-											includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
-									</tasks>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>prep_home_directory_for_swm_pkgcreate-ajsc-arch-parent</id>
-								<phase>package</phase>
-								<configuration>
-									<target name="prep_home_directory_for_swm_pkgcreate">
-										<ant antfile="${basedir}/antBuild/build.xml" target="prep_home_directory_for_swm_pkgcreate" />
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					
-					<plugin>
-						<groupId>org.codehaus.groovy.maven</groupId>
-						<artifactId>gmaven-plugin</artifactId>
-						<version>1.0</version>
-						<executions>
-							<execution>
-								<id>gmaven-ajsc-arch-parent</id>
-								<phase>package</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-								<configuration>
-									<sourcepath>src/main/groovy</sourcepath>
-									<source>
-										import ajsc.AssemblyService;
-										ajsc.AssemblyService.getBasedir(project.basedir.getAbsolutePath(),"${distFilesRoot}")
-									</source>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					
-					<plugin>
-						<groupId>com.google.code.maven-replacer-plugin</groupId>
-						<artifactId>replacer</artifactId>
-						<version>1.5.2</version>
-						<executions>
-							<execution>
-								<id>google-replacer-ajsc-arch-parent</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>replace</goal>
-								</goals>
-								<configuration>
-									<basedir>${project.build.directory}</basedir>
-									<includes>
-										<include>staticContent/**/*.html</include>
-										<include>CDP/**</include>
-										<include>bundleconfig/**</include>
-										<include>versioned-runtime/**/*.context</include>
-										<include>versioned-runtime/**/*.json</include>
-										<include>versioned-ajsc/**/*.route</include>
-										<include>versioned-ajsc/**/*.groovy</include>
-										<include>versioned-ajsc/**/*.xml</include>
-										<include>classes/*.properties</include>
-										<include>swm/package/nix/dist_files${distFilesRoot}/etc/*.properties</include>
-									</includes>
-									<escape>true</escape>
-									<replacements>
-										<replacement>
-											<token>__module_ajsc_namespace_name__</token>
-											<value>${module.ajsc.namespace.name}</value>
-										</replacement>
-										<replacement>
-											<token>__module_ajsc_namespace_version__</token>
-											<value>${module.ajsc.namespace.version}</value>
-										</replacement>
-										<replacement>
-											<token>__ajscHome__</token>
-											<value>${replaceWinFilePath}</value>
-										</replacement>
-										<replacement>
-											<token>__projectGroupId__</token>
-											<value>${project.groupId}</value>
-										</replacement>
-										<replacement>
-											<token>__projectArtifactId__</token>
-											<value>${project.artifactId}</value>
-										</replacement>
-										<replacement>
-											<token>__projectVersion__</token>
-											<value>${project.version}</value>
-										</replacement>
-										<replacement>
-											<token>__basedir__</token>
-											<value>${replaceWinBasedirPath}</value>
-										</replacement>
-									</replacements>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<version>2.8</version>
-						<executions>
-							<execution>
-								<id>copy-dependencies-ajsc-arch-parent</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-								<configuration>
-									<includeScope>runtime</includeScope>
-									<excludeArtifactIds>ajsc-bom,ajsc-core,ajsc-runner,ajsc-war</excludeArtifactIds>
-									<outputDirectory>${project.build.directory}/userjars</outputDirectory>
-									<silent>true</silent>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copy-dependencies-ajsc-arch-parent-commonLibs</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-								<configuration>
-									<includeScope>provided</includeScope>
-									<includeGroupIds>net.cingular.enterprise,com.att.aft,dom4j</includeGroupIds>
-									<!-- <includeGroupIds>com.att.aft</includeGroupIds> -->
-									<outputDirectory>${project.build.directory}/commonLibs</outputDirectory>
-									<silent>true</silent>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copyrunner</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-								<configuration>
-									<includeArtifactIds>ajsc-runner</includeArtifactIds>
-									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/lib</outputDirectory>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.0.2</version>
+				</plugin>
 					
 		<!-- 	<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -345,33 +122,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
-				<executions>
-					<execution>
-						<id>copy-docker-file</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${dockerLocation}</outputDirectory>
-							<overwrite>true</overwrite>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/main/resources/docker</directory>
-									<filtering>true</filtering>
-									<includes>
-										<include>**/*</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
@@ -478,6 +229,36 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<compilerId>groovy-eclipse-compiler</compilerId>
+					<verbose>true</verbose>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-compiler</artifactId>
+						<version>2.8.0-01</version>
+					</dependency>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-batch</artifactId>
+						<version>2.1.5-03</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-eclipse-compiler</artifactId>
+				<version>2.8.0-01</version>
+				<extensions>true</extensions>
 			</plugin>
 			  		
 		</plugins>
@@ -830,6 +611,32 @@
         <skip.docker.push>false</skip.docker.push>
       </properties>
     </profile>
+    
+    <profile>
+			<id>runLocal</id>
+			<build>
+				<defaultGoal>initialize</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>initialize</phase>
+								<configuration>
+									<target name="runLocal">
+										<ant antfile="${basedir}/antBuild/build.xml" target="runLocal" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	
 		<profile>
 			<id>runAjsc</id>
@@ -957,34 +764,461 @@
 						</dependencies>
 					</plugin>
 
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>standardbuild</id>
+			<activation>
+				<file>
+					<exists>src</exists>
+				</file>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>extApps/*.*</exclude>
+							<exclude>${module.ajsc.namespace.name}/**</exclude>
+						</excludes>
+					</resource>
+					<resource>
+						<directory>src/main/ajsc/\${namespace}_${namespaceVersion}/\${namespace}/\${namespaceVersion}</directory>
+						<excludes>
+							<exclude>**/*.route</exclude>
+							<exclude>**/*.props</exclude>
+							<exclude>**/*.xslt</exclude>
+							<exclude>**/*.vm</exclude>
+							<exclude>**/*.jar</exclude>
+							<exclude>**/*.xml</exclude>
+						</excludes>
+					</resource>
+				</resources>
+				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.1</version>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-compiler</artifactId>
+						<version>2.8.0-01</version>
+						<extensions>true</extensions>
+					</plugin>
+					
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>bash</executable>
+							<arguments>
+								<argument>runServer.sh</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.9</version>
+						<executions>
+							<execution>
+								<id>add-source-groovy-ajsc-arch-parent</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>src/main/groovy</source>
+									</sources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>add-test-source-groovy-ajsc-arch-parent</id>
+								<phase>generate-test-sources</phase>
+								<goals>
+									<goal>add-test-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>src/test/groovy</source>
+									</sources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>regex-properties-ajsc-arch-parent</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>regex-properties</goal>
+								</goals>
+								<configuration>
+									<regexPropertySettings>
+										<regexPropertySetting>
+											<name>replaceWinFilePath</name>
+											<value>${runAjscHome}</value>
+											<regex>\\</regex>
+											<replacement>/</replacement>
+											<failIfNoMatch>false</failIfNoMatch>
+										</regexPropertySetting>
+										<regexPropertySetting>
+											<name>replaceWinBasedirPath</name>
+											<value>${basedir}</value>
+											<regex>\\</regex>
+											<replacement>/</replacement>
+											<failIfNoMatch>false</failIfNoMatch>
+										</regexPropertySetting>
+									</regexPropertySettings>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>properties-maven-plugin</artifactId>
+						<version>1.0-alpha-2</version>
+						<executions>
+							<execution>
+								<id>write-project-properties-ajsc-arch-parent</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>write-project-properties</goal>
+								</goals>
+								<configuration>
+									<outputFile>
+										${project.build.outputDirectory}/build.properties
+									</outputFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.4</version>
+						<executions>
+							<execution>
+								<id>make-assembly-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<finalName>${project.artifactId}</finalName>
+							<descriptors>
+								<descriptor>src/main/assemble/ajsc_runtime_assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.groovy.maven</groupId>
+						<artifactId>gmaven-plugin</artifactId>
+						<version>1.0</version>
+						<executions>
+							<execution>
+								<id>gmaven-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<sourcepath>src/main/groovy</sourcepath>
+									<source>
+										import ajsc.AssemblyService;
+										ajsc.AssemblyService.getBasedir(project.basedir.getAbsolutePath(),"${distFilesRoot}")
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>prep_service_runtime-ajsc-arch-parent</id>
+								<phase>generate-resources</phase>
+								<configuration>
+									<target name="prep_service_runtime">
+										<echo message="ENTERING 'copy_services_template' ant tasks" />
+										<!-- <filter token="basedir" value="${basedir}" /> -->
+										<!-- delete any prior stating stuff before package phase -->
+										<delete dir="target/versioned-ajsc" includes="**/*" />
+										<delete dir="target/versioned-runtime" includes="**/*" />
+										<delete dir="target/CDP" includes="**/*" />
+
+										<!-- This is where replacer plugin replaces tokens (Example: __module_ajsc_namespace_name__ 
+											is replaced by module.ajsc.namespace.name) -->
+										<copy todir="target/versioned-ajsc">
+											<fileset dir="src/main/ajsc" includes="**/*" />
+										</copy>
+
+										<!-- Copying the CDP, bundleconfig, and StaticContent to the target 
+											directory for future use by replacer plugin -->
+										<copy todir="target/CDP" failonerror="false">
+											<fileset dir="CDP" includes="**/*.sh" />
+										</copy>
+										<copy flatten="true" file="CDP/SampleBlueprint.xml"
+											failonerror="false"
+											tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml" />
+										<copy todir="target/staticContent" failonerror="false">
+											<fileset dir="staticContent" includes="**/*" />
+										</copy>
+										<copy todir="target/bundleconfig" failonerror="false">
+											<!-- filtering="true"> -->
+											<fileset dir="bundleconfig" />
+										</copy>
+
+										<echo message="EXITING 'copy_services_template' ant tasks" />
+										<echo message="ENTERING 'copy_runtime_template' ant tasks" />
+										<copy todir="target/versioned-runtime">
+											<fileset dir="src/main/runtime" includes="**/*" />
+										</copy>
+										<delete
+											file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" />
+										<copy flatten="true"
+											file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"
+											tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context" />
+										<delete
+											file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"
+											tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json" />
+										<delete
+											file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"
+											tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json" />
+										<delete
+											file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json"
+											tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json" />
+										<echo message="EXITING 'copy_runtime_template' ant tasks" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>clrf</id>
+								<phase>package</phase>
+								<configuration>
+									<tasks>
+										<fixcrlf
+											srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
+											includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>prep_home_directory_for_swm_pkgcreate-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<configuration>
+									<target name="prep_home_directory_for_swm_pkgcreate">
+										<ant antfile="${basedir}/antBuild/build.xml" target="prep_home_directory_for_swm_pkgcreate" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>2.8</version>
+						<executions>
+							<execution>
+								<id>copy-dependencies-ajsc-arch-parent</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeScope>runtime</includeScope>
+									<excludeArtifactIds>ajsc-bom,ajsc-core,ajsc-runner,ajsc-war</excludeArtifactIds>
+									<outputDirectory>${project.build.directory}/userjars</outputDirectory>
+									<silent>true</silent>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copy-dependencies-ajsc-arch-parent-commonLibs</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeScope>provided</includeScope>
+									<includeGroupIds>net.cingular.enterprise,com.att.aft,dom4j</includeGroupIds>
+									<!-- <includeGroupIds>com.att.aft</includeGroupIds> -->
+									<outputDirectory>${project.build.directory}/commonLibs</outputDirectory>
+									<silent>true</silent>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copyrunner</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeArtifactIds>ajsc-runner</includeArtifactIds>
+									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/lib</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<artifactId>maven-resources-plugin</artifactId>
 						<version>2.7</version>
 						<executions>
 							<execution>
-								<id>copy-docker-file</id>
+								<id>copyconfig</id>
 								<phase>package</phase>
 								<goals>
 									<goal>copy-resources</goal>
 								</goals>
 								<configuration>
-									<outputDirectory>${dockerLocation}</outputDirectory>
-									<overwrite>true</overwrite>
+									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/etc</outputDirectory>
 									<resources>
 										<resource>
-											<directory>${basedir}/src/main/resources/docker</directory>
-											<filtering>true</filtering>
-											<includes>
-												<include>**/*</include>
-											</includes>
+											<directory>src/main/config</directory>
 										</resource>
 									</resources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copyscript</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/bin</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/scripts</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+					<execution>
+						<id>copy-docker-file</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${dockerLocation}</outputDirectory>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/resources/docker</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>com.google.code.maven-replacer-plugin</groupId>
+						<artifactId>replacer</artifactId>
+						<version>1.5.2</version>
+						<executions>
+							<execution>
+								<id>google-replacer-ajsc-arch-parent</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+								<configuration>
+									<basedir>${project.build.directory}</basedir>
+									<includes>
+										<include>staticContent/**/*.html</include>
+										<include>CDP/**</include>
+										<include>bundleconfig/**</include>
+										<include>versioned-runtime/**/*.context</include>
+										<include>versioned-runtime/**/*.json</include>
+										<include>versioned-ajsc/**/*.route</include>
+										<include>versioned-ajsc/**/*.groovy</include>
+										<include>versioned-ajsc/**/*.xml</include>
+										<include>classes/*.properties</include>
+										<include>swm/package/nix/dist_files${distFilesRoot}/etc/*.properties</include>
+									</includes>
+									<escape>true</escape>
+									<replacements>
+										<replacement>
+											<token>__module_ajsc_namespace_name__</token>
+											<value>${module.ajsc.namespace.name}</value>
+										</replacement>
+										<replacement>
+											<token>__module_ajsc_namespace_version__</token>
+											<value>${module.ajsc.namespace.version}</value>
+										</replacement>
+										<replacement>
+											<token>__ajscHome__</token>
+											<value>${replaceWinFilePath}</value>
+										</replacement>
+										<replacement>
+											<token>__projectGroupId__</token>
+											<value>${project.groupId}</value>
+										</replacement>
+										<replacement>
+											<token>__projectArtifactId__</token>
+											<value>${project.artifactId}</value>
+										</replacement>
+										<replacement>
+											<token>__projectVersion__</token>
+											<value>${project.version}</value>
+										</replacement>
+										<replacement>
+											<token>__basedir__</token>
+											<value>${replaceWinBasedirPath}</value>
+										</replacement>
+									</replacements>
 								</configuration>
 							</execution>
 						</executions>
 					</plugin>
 				</plugins>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>2.14.1</version>
+							<configuration>
+								<excludes>
+									<exclude>**/AbstractTest.java</exclude>
+								</excludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 			</build>
 		</profile>
 	</profiles>
