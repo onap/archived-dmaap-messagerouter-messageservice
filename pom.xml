@@ -31,7 +31,7 @@
 	
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
 	 <licenses>
@@ -299,7 +299,7 @@
  	
 		<testRouteOffer>workstation</testRouteOffer>
 		<testEnv>DEV</testEnv>
-		<dmaapImg>1.0.2-SNAPSHOT</dmaapImg>
+		<dmaapImg>${project.version}</dmaapImg>
 		<camel.version>2.15.5</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
