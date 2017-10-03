@@ -38,20 +38,15 @@ public class HelloWorldTest {
 
 	@Test
 	public void testToResponse() {
-		
+
 		HelloWorld hello = new HelloWorld();
-		
+
 		try {
 			hello.speak(null);
-		} catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			assertTrue(true);
 		}
-		
-	 
+
 	}
-	
-	
-	
-	
 
 }

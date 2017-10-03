@@ -38,23 +38,15 @@ public class DMaaPWebExceptionMapperTest {
 
 	@Test
 	public void testToResponse() {
-		
+
 		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-		
+
 		try {
 			mapper.toResponse(null);
-		} catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			assertTrue(true);
 		}
-		
-		
-		
-		
-	 
+
 	}
-	
-	
-	
-	
 
 }

@@ -20,19 +20,41 @@
 
 package com.att.nsa.dmaap.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ System.class })
 public class ContentLengthInterceptorTest {
+	@InjectMocks
+	ContentLengthInterceptor interceptor = null;
 
-	private ContentLengthInterceptor interceptor = null;
+	@Mock
+	Map map;
+
+	@Mock
+	HttpServletRequest req;
+
+	@Mock
+	HttpServletResponse res;
 
 	@Before
 	public void setUp() throws Exception {
-		interceptor = new ContentLengthInterceptor();
+		// interceptor = new ContentLengthInterceptor();
 	}
 
 	@After
@@ -40,34 +62,22 @@ public class ContentLengthInterceptorTest {
 	}
 
 	@Test
-	public void testAllowOrReject() {
-
-		try {
-			interceptor.allowOrReject(null, null, null);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public void testAllowOrReject() throws Exception {
+		PowerMockito.when(req.getHeader("Transfer-Encoding")).thenReturn("UTF-8");
+		PowerMockito.when(req.getHeader("Content-Length")).thenReturn("1027");
+		interceptor.allowOrReject(req, res, map);
 		assertTrue(true);
-
 	}
 
 	@Test
 	public void testGetDefLength() {
-
 		interceptor.getDefLength();
-
 		assertTrue(true);
-
-		
 	}
-	
+
 	@Test
 	public void testSetDefLength() {
-
 		interceptor.setDefLength("defLength");
-
 		assertTrue(true);
 
 	}

@@ -28,11 +28,9 @@ import org.junit.Test;
 
 public class ServicePropertiesMapBeanTest {
 
-	
-
 	@Before
 	public void setUp() throws Exception {
-		
+
 	}
 
 	@After
@@ -41,12 +39,10 @@ public class ServicePropertiesMapBeanTest {
 
 	@Test
 	public void testGetProperty() {
-		
-		
+
 		try {
 			ServicePropertiesMapBean.getProperty(null, null);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -54,6 +50,4 @@ public class ServicePropertiesMapBeanTest {
 
 	}
 
-	
-	
 }

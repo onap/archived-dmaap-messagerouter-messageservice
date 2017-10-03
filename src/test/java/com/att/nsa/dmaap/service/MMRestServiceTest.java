@@ -20,7 +20,11 @@
 
 package com.att.nsa.dmaap.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyString;
+
+import java.io.FileInputStream;
 
 //import static org.mockito.Matchers.anyString;
 //import static org.mockito.Mockito.when;
@@ -32,21 +36,21 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.After;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-/*import org.mockito.InjectMocks;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;*/
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.att.ajsc.beans.PropertiesMapBean;
 import com.att.ajsc.filemonitor.AJSCPropertiesMap;
@@ -70,11 +74,12 @@ import com.att.nsa.dmaap.mmagent.UpdateMirrorMaker;
 import com.att.nsa.security.NsaAcl;
 import com.att.nsa.security.NsaApiKey;
 import com.att.nsa.security.db.simple.NsaSimpleApiKey;
+import com.google.gson.Gson;
 
 //@RunWith(MockitoJUnitRunner.class)
-/*@RunWith(PowerMockRunner.class)
-@PrepareForTest({ PropertiesMapBean.class, AJSCPropertiesMap.class })*/
-public class MMRestServiceTest {/*
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ PropertiesMapBean.class, AJSCPropertiesMap.class })
+public class MMRestServiceTest {
 
 	@InjectMocks
 	MMRestService mmRestService;
@@ -153,114 +158,108 @@ public class MMRestServiceTest {/*
 	public void tearDown() throws Exception {
 	}
 
-
 	@Test
 	public void testCallCreateMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, JSONException, ConfigDbException {
-
-		Assert.assertNotNull(mmRestService);
-		when(dmaapContext.getRequest()).thenReturn(httpServReq);
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
-		when(httpServReq.isUserInRole("admin")).thenReturn(true);
-
-		PowerMockito.mockStatic(AJSCPropertiesMap.class);
-
-		assertTrue(true);
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))
-				.thenReturn("admin");
-
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.timeout"))
-				.thenReturn("100");
-
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.topic"))
-				.thenReturn("mirrormaker.topic");
-
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.consumergroup"))
-				.thenReturn("mirrormaker.consumergroup");
-
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.consumerid"))
-				.thenReturn("mirrormaker.consumerid");
-
-		when(dmaapContext.getRequest()).thenReturn(httpServReq);
-
-		when(httpServReq.isUserInRole("admin")).thenReturn(true);
-	
-
-		// when(httpServReq.getHeader("Authorization")).thenReturn("Admin");
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin.aaf")).thenReturn(true);
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
-		when(httpServReq.getHeader("Authorization")).thenReturn("Admin");
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
-
-		when(cMirroMaker.getCreateMirrorMaker()).thenReturn(mMaker);
-
-		when(mMaker.getName()).thenReturn("mirroMakerName");
-		when(dmaapContext.getConfigReader()).thenReturn(configReader);
-		when(dmaapContext.getRequest()).thenReturn(httpServReq);
-		when(httpServReq.getHeader("Authorization")).thenReturn("Authorization");
-
-		when(dmaapContext.getResponse()).thenReturn(httpServRes);
-		when(configReader.getfMetaBroker()).thenReturn(dmaapKafkaMetaBroker);
-		when(httpServReq.getMethod()).thenReturn("HEAD");
-
-		when(dmaapKafkaMetaBroker.getTopic(anyString())).thenReturn(null);
-
+		prepareForTestCommon();
 		mmRestService.callCreateMirrorMaker(iStream);
+		assertTrue(true);
 	}
 
 	@Test
 	public void testCallListAllMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, JSONException, ConfigDbException {
+		prepareForTestCommon();
+		mmRestService.callListAllMirrorMaker(iStream);
+		assertTrue(true);
+	}
 
+	@Test
+	public void testCallUpdateMirrorMaker() throws ConfigDbException, CambriaApiException {
+		prepareForTestCommon();
+		mmRestService.callUpdateMirrorMaker(iStream);
+		assertTrue(true);
+	}
+
+	@Test
+	public void testCallDeleteMirrorMaker() throws ConfigDbException, CambriaApiException {
+		prepareForTestCommon();
+		mmRestService.callDeleteMirrorMaker(iStream);
+		assertTrue(true);
+	}
+
+	@Test
+	public void testListWhiteList() throws ConfigDbException {
+		prepareForTestCommon();
+		mmRestService.listWhiteList(iStream);
+		assertTrue(true);
+	}
+
+	@Test
+	public void testCreateWhiteList() throws ConfigDbException {
+		prepareForTestCommon();
+		mmRestService.createWhiteList(iStream);
+		assertTrue(true);
+	}
+
+	@Test
+	public void testDeleteWhiteList() throws ConfigDbException {
+		prepareForTestCommon();
+		mmRestService.deleteWhiteList(iStream);
+		assertTrue(true);
+	}
+
+	private void prepareForTestCommon() throws ConfigDbException {
 		Assert.assertNotNull(mmRestService);
-		when(dmaapContext.getRequest()).thenReturn(httpServReq);
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
-		when(httpServReq.isUserInRole("admin")).thenReturn(true);
+		PowerMockito.when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
+		PowerMockito.when(httpServReq.isUserInRole("admin")).thenReturn(true);
 
 		PowerMockito.mockStatic(AJSCPropertiesMap.class);
 
 		assertTrue(true);
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))
+
+		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))
 				.thenReturn("admin");
 
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.timeout"))
+		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf"))
+				.thenReturn("admin");
+
+		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.timeout"))
 				.thenReturn("100");
 
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.topic"))
+		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.topic"))
 				.thenReturn("mirrormaker.topic");
 
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.consumergroup"))
+		PowerMockito
+				.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.consumergroup"))
 				.thenReturn("mirrormaker.consumergroup");
 
-		when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.consumerid"))
+		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormaker.consumerid"))
 				.thenReturn("mirrormaker.consumerid");
 
-		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		PowerMockito.when(dmaapContext.getRequest()).thenReturn(httpServReq);
 
-		when(httpServReq.isUserInRole("admin")).thenReturn(true);
-	
+		PowerMockito.when(httpServReq.isUserInRole("admin")).thenReturn(true);
 
-		// when(httpServReq.getHeader("Authorization")).thenReturn("Admin");
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin.aaf")).thenReturn(true);
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
-		when(httpServReq.getHeader("Authorization")).thenReturn("Admin");
-		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
+		// PowerMockito.when(httpServReq.getHeader("Authorization")).thenReturn("Admin");
+		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin.aaf")).thenReturn(true);
+		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
+		PowerMockito.when(httpServReq.getHeader("Authorization")).thenReturn("Admin");
+		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
 
-		when(cMirroMaker.getCreateMirrorMaker()).thenReturn(mMaker);
+		PowerMockito.when(cMirroMaker.getCreateMirrorMaker()).thenReturn(mMaker);
 
-		when(mMaker.getName()).thenReturn("mirroMakerName");
-		when(dmaapContext.getConfigReader()).thenReturn(configReader);
-		when(dmaapContext.getRequest()).thenReturn(httpServReq);
-		when(httpServReq.getHeader("Authorization")).thenReturn("Authorization");
+		PowerMockito.when(mMaker.getName()).thenReturn("mirroMakerName");
+		PowerMockito.when(dmaapContext.getConfigReader()).thenReturn(configReader);
+		PowerMockito.when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		PowerMockito.when(httpServReq.getHeader("Authorization")).thenReturn("Authorization");
 
-		when(dmaapContext.getResponse()).thenReturn(httpServRes);
-		when(configReader.getfMetaBroker()).thenReturn(dmaapKafkaMetaBroker);
-		when(httpServReq.getMethod()).thenReturn("HEAD");
+		PowerMockito.when(dmaapContext.getResponse()).thenReturn(httpServRes);
+		PowerMockito.when(configReader.getfMetaBroker()).thenReturn(dmaapKafkaMetaBroker);
+		PowerMockito.when(httpServReq.getMethod()).thenReturn("HEAD");
 
-		when(dmaapKafkaMetaBroker.getTopic(anyString())).thenReturn(null);
-
-		mmRestService.callListAllMirrorMaker(iStream);
+		PowerMockito.when(dmaapKafkaMetaBroker.getTopic(anyString())).thenReturn(null);
 	}
 
-
-*/}
+}

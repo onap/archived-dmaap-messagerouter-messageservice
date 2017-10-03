@@ -38,23 +38,15 @@ public class DMaaPCambriaExceptionMapperTest {
 
 	@Test
 	public void testToResponse() {
-		
+
 		DMaaPCambriaExceptionMapper mapper = new DMaaPCambriaExceptionMapper();
-		
+
 		try {
 			mapper.toResponse(null);
-		} catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			assertTrue(true);
 		}
-		
-		
-		
-		
-	 
+
 	}
-	
-	
-	
-	
 
 }
