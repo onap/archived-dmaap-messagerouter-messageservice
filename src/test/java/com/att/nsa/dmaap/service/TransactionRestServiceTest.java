@@ -29,11 +29,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-/*import org.mockito.InjectMocks;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;*/
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.att.ajsc.beans.PropertiesMapBean;
 import com.att.nsa.cambria.CambriaApiException;
@@ -43,9 +43,9 @@ import com.att.nsa.cambria.service.TransactionService;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
 
-/*@RunWith(PowerMockRunner.class)
-@PrepareForTest({ PropertiesMapBean.class })*/
-public class TransactionRestServiceTest {/*
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ PropertiesMapBean.class })
+public class TransactionRestServiceTest {
 
 	@InjectMocks
 	TransactionRestService transactionRestService;
@@ -80,4 +80,4 @@ public class TransactionRestServiceTest {/*
 
 	}
 
-*/}
+}

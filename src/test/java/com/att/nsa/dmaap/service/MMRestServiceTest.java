@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 
 //import static org.mockito.Matchers.anyString;
@@ -162,6 +163,9 @@ public class MMRestServiceTest {
 	public void testCallCreateMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, JSONException, ConfigDbException {
 		prepareForTestCommon();
+		
+		String sampleJson = "{\"test\":\"test\"}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		mmRestService.callCreateMirrorMaker(iStream);
 		assertTrue(true);
 	}
@@ -170,13 +174,18 @@ public class MMRestServiceTest {
 	public void testCallListAllMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, JSONException, ConfigDbException {
 		prepareForTestCommon();
-		mmRestService.callListAllMirrorMaker(iStream);
+		
+		String sampleJson = "{\"test\":\"test\"}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callListAllMirrorMaker(inputSteam);
 		assertTrue(true);
 	}
 
 	@Test
 	public void testCallUpdateMirrorMaker() throws ConfigDbException, CambriaApiException {
 		prepareForTestCommon();
+		
+		
 		mmRestService.callUpdateMirrorMaker(iStream);
 		assertTrue(true);
 	}
@@ -191,24 +200,33 @@ public class MMRestServiceTest {
 	@Test
 	public void testListWhiteList() throws ConfigDbException {
 		prepareForTestCommon();
-		mmRestService.listWhiteList(iStream);
+		
+		String sampleJson = "{\"test\":\"test\"}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.listWhiteList(inputSteam);
 		assertTrue(true);
 	}
 
 	@Test
 	public void testCreateWhiteList() throws ConfigDbException {
 		prepareForTestCommon();
-		mmRestService.createWhiteList(iStream);
+		String sampleJson = "{\"test\":\"test\"}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		
+		mmRestService.createWhiteList(inputSteam);
 		assertTrue(true);
 	}
 
 	@Test
 	public void testDeleteWhiteList() throws ConfigDbException {
 		prepareForTestCommon();
-		mmRestService.deleteWhiteList(iStream);
+		
+		String sampleJson = "{\"test\":\"test\"}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.deleteWhiteList(inputSteam);
 		assertTrue(true);
 	}
-
+	
 	private void prepareForTestCommon() throws ConfigDbException {
 		Assert.assertNotNull(mmRestService);
 		PowerMockito.when(dmaapContext.getRequest()).thenReturn(httpServReq);

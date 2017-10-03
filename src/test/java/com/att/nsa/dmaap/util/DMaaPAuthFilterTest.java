@@ -21,6 +21,7 @@
 package com.att.nsa.dmaap.util;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -90,5 +91,5 @@ public class DMaaPAuthFilterTest {
 		filter.doFilter(req, res, chain);
 
 	}
-
+	
 }

@@ -22,8 +22,8 @@ package com.att.nsa.dmaap.service;
 
 import static org.junit.Assert.*;
 
-/*import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;*/
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import javax.servlet.ServletOutputStream;
@@ -39,12 +39,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
-/*import org.mockito.InjectMocks;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;*/
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.att.ajsc.beans.PropertiesMapBean;
 import com.att.nsa.cambria.CambriaApiException;
@@ -68,9 +68,9 @@ import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
 import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 
 //@RunWith(MockitoJUnitRunner.class)
-/*@RunWith(PowerMockRunner.class)
-@PrepareForTest({ PropertiesMapBean.class })*/
-public class TopicRestServiceTest {/*
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ PropertiesMapBean.class })
+public class TopicRestServiceTest {
 
 	@InjectMocks
 	TopicRestService topicService;
@@ -408,4 +408,4 @@ public class TopicRestServiceTest {/*
 		topicService.denyConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
 	}
 
-*/}
+}
