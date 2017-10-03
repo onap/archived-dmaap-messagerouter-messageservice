@@ -32,8 +32,21 @@ import javax.ws.rs.ServiceUnavailableException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.att.nsa.cambria.exception.DMaaPErrorMessages;
+@RunWith(PowerMockRunner.class)
 public class DMaaPWebExceptionMapperTest {
+
+	@InjectMocks
+	DMaaPWebExceptionMapper mapper;
+
+	@Mock
+	DMaaPErrorMessages msgs;
 
 	@Before
 	public void setUp() throws Exception {
@@ -46,8 +59,6 @@ public class DMaaPWebExceptionMapperTest {
 	@Test
 	public void testToResponse() {
 
-		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-
 		try {
 			mapper.toResponse(null);
 		} catch (NullPointerException e) {
@@ -58,9 +69,7 @@ public class DMaaPWebExceptionMapperTest {
 
 	@Test
 	public void testToResponseNotFoundException() {
-
-		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-
+		PowerMockito.when(msgs.getNotFound()).thenReturn("Not found");
 		try {
 			mapper.toResponse(new NotFoundException());
 		} catch (NullPointerException e) {
@@ -71,9 +80,7 @@ public class DMaaPWebExceptionMapperTest {
 
 	@Test
 	public void testToResponseInternalServerErrorException() {
-
-		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-
+		PowerMockito.when(msgs.getNotFound()).thenReturn("Not found");
 		try {
 			mapper.toResponse(new InternalServerErrorException());
 
@@ -85,9 +92,7 @@ public class DMaaPWebExceptionMapperTest {
 
 	@Test
 	public void testToResponseNotAuthorizedException() {
-
-		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-
+		PowerMockito.when(msgs.getNotFound()).thenReturn("Not found");
 		try {
 			mapper.toResponse(new NotAuthorizedException("Error", "Error"));
 
@@ -99,9 +104,7 @@ public class DMaaPWebExceptionMapperTest {
 
 	@Test
 	public void testToResponseBadRequestException() {
-
-		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-
+		PowerMockito.when(msgs.getNotFound()).thenReturn("Not found");
 		try {
 			mapper.toResponse(new BadRequestException());
 
@@ -113,9 +116,7 @@ public class DMaaPWebExceptionMapperTest {
 
 	@Test
 	public void testToResponseNotAllowedException() {
-
-		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-
+		PowerMockito.when(msgs.getNotFound()).thenReturn("Not found");
 		try {
 			mapper.toResponse(new NotAllowedException("Not Allowed"));
 
@@ -127,9 +128,7 @@ public class DMaaPWebExceptionMapperTest {
 
 	@Test
 	public void testToResponseServiceUnavailableException() {
-
-		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
-
+		PowerMockito.when(msgs.getNotFound()).thenReturn("Not found");
 		try {
 			mapper.toResponse(new ServiceUnavailableException());
 
