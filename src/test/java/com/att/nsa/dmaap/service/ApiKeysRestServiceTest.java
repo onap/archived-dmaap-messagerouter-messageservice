@@ -123,7 +123,7 @@ public class ApiKeysRestServiceTest {
 		Class clazz = null;
 		Method method = null;
 		try {
-			clazz = Class.forName("ApiKeysRestService");
+			clazz = Class.forName("com.att.nsa.dmaap.service.ApiKeysRestService");
 			Object obj = clazz.newInstance();
 			method = clazz.getDeclaredMethod("getDmaapContext", null);
 			method.setAccessible(true);

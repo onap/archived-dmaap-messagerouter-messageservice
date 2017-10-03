@@ -69,13 +69,13 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 			// checking for no encoding, chunked and requestLength greater then
 			// default length
 				if (null != transferEncoding && !(transferEncoding.contains("chunked"))
-						&& (requestLength > Integer.parseInt(getDefLength()))) {
+						&& (getDefLength() !=null && requestLength > Integer.parseInt(getDefLength()))) {
 					jsonObj = new JSONObject().append("defaultlength", getDefLength())
 							.append("requestlength", requestLength);
 					log.error("message length is greater than default");
 					throw new CambriaApiException(jsonObj);
 				} 
-				else if (null == transferEncoding && (requestLength > Integer.parseInt(getDefLength()))) 
+				else if (null == transferEncoding && (getDefLength() !=null && requestLength > Integer.parseInt(getDefLength()))) 
 				{
 					jsonObj = new JSONObject().append("defaultlength", getDefLength()).append(
 							"requestlength", requestLength);

@@ -20,50 +20,47 @@
 
 package com.att.nsa.dmaap.util;
 
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import org.junit.runner.RunWith;
-/*import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.att.ajsc.beans.PropertiesMapBean;
-import static org.mockito.Mockito.when;
-*/
 import java.io.IOException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import com.att.ajsc.beans.PropertiesMapBean;
 import com.att.nsa.cambria.beans.DMaaPContext;
 import com.att.nsa.cambria.exception.DMaaPResponseCode;
 
-/*@RunWith(PowerMockRunner.class)
-@PrepareForTest({ PropertiesMapBean.class, DMaaPResponseCode.class })*/
-public class DMaaPAuthFilterTest {/*
-	
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ PropertiesMapBean.class, DMaaPResponseCode.class })
+public class DMaaPAuthFilterTest {
+
 	@InjectMocks
 	DMaaPAuthFilter filter;
-	
+
 	@Mock
-	HttpServletRequest req; 
-	
+	HttpServletRequest req;
+
 	@Mock
 	ServletResponse res;
-	
-	
+
 	@Mock
 	FilterChain chain;
-	
+
 	@Mock
 	DMaaPContext dmaapContext;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -75,28 +72,23 @@ public class DMaaPAuthFilterTest {/*
 
 	@Test
 	public void testDoFilter() throws IOException, ServletException {
-		
-		when(dmaapContext.getRequest()).thenReturn(req);
-		when(req.getHeader("Authorization")).thenReturn("Authorization");
-	
-		//when(dmaapContext.getResponse()).thenReturn(res);
+
+		PowerMockito.when(dmaapContext.getRequest()).thenReturn(req);
+		PowerMockito.when(req.getHeader("Authorization")).thenReturn("Authorization");
+		// when(dmaapContext.getResponse()).thenReturn(res);
 		filter.doFilter(req, res, chain);
 
-
 	}
-	
+
 	@Test
 	public void testDoFilter_nullAuth() throws IOException, ServletException {
-		
-		when(dmaapContext.getRequest()).thenReturn(req);
-		//when(req.getHeader("Authorization")).thenReturn("Authorization");
-	
-		//when(dmaapContext.getResponse()).thenReturn(res);
-		filter.doFilter(req, res, chain);
 
+		PowerMockito.when(dmaapContext.getRequest()).thenReturn(req);
+		PowerMockito.when(req.getHeader("Authorization")).thenReturn("Authorization");
+
+		// when(dmaapContext.getResponse()).thenReturn(res);
+		filter.doFilter(req, res, chain);
 
 	}
 
-	
-	
-*/}
+}
