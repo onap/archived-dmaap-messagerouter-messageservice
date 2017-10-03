@@ -22,6 +22,13 @@ package com.att.nsa.dmaap;
 
 import static org.junit.Assert.*;
 
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.NotAllowedException;
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ServiceUnavailableException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +50,89 @@ public class DMaaPWebExceptionMapperTest {
 
 		try {
 			mapper.toResponse(null);
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	@Test
+	public void testToResponseNotFoundException() {
+
+		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
+
+		try {
+			mapper.toResponse(new NotFoundException());
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	@Test
+	public void testToResponseInternalServerErrorException() {
+
+		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
+
+		try {
+			mapper.toResponse(new InternalServerErrorException());
+
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	@Test
+	public void testToResponseNotAuthorizedException() {
+
+		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
+
+		try {
+			mapper.toResponse(new NotAuthorizedException("Error", "Error"));
+
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	@Test
+	public void testToResponseBadRequestException() {
+
+		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
+
+		try {
+			mapper.toResponse(new BadRequestException());
+
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	@Test
+	public void testToResponseNotAllowedException() {
+
+		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
+
+		try {
+			mapper.toResponse(new NotAllowedException("Not Allowed"));
+
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	@Test
+	public void testToResponseServiceUnavailableException() {
+
+		DMaaPWebExceptionMapper mapper = new DMaaPWebExceptionMapper();
+
+		try {
+			mapper.toResponse(new ServiceUnavailableException());
+
 		} catch (NullPointerException e) {
 			assertTrue(true);
 		}

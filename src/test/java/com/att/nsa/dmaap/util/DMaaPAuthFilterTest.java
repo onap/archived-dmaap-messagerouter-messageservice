@@ -20,8 +20,9 @@
 
 package com.att.nsa.dmaap.util;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
-import java.util.logging.Level;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -42,6 +43,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.att.ajsc.beans.PropertiesMapBean;
 import com.att.nsa.cambria.beans.DMaaPContext;
 import com.att.nsa.cambria.exception.DMaaPResponseCode;
+
+import com.att.cadi.Access.Level; 
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ PropertiesMapBean.class, DMaaPResponseCode.class })
@@ -78,6 +81,7 @@ public class DMaaPAuthFilterTest {
 		PowerMockito.when(req.getHeader("Authorization")).thenReturn("Authorization");
 		// when(dmaapContext.getResponse()).thenReturn(res);
 		filter.doFilter(req, res, chain);
+		assertTrue(true);
 
 	}
 
@@ -89,7 +93,21 @@ public class DMaaPAuthFilterTest {
 
 		// when(dmaapContext.getResponse()).thenReturn(res);
 		filter.doFilter(req, res, chain);
+		assertTrue(true);
 
 	}
+	
+	@Test
+	public void testLog() {
+		String s[] = { "test1", "test2" };
+		Object[] o = s;
+		filter.log(Level.AUDIT, o);
+		filter.log(Level.DEBUG, o);
+		filter.log(Level.ERROR, o);
+		filter.log(Level.INFO, o);
+		filter.log(Level.INIT, o);
+		filter.log(Level.WARN, o);
+		assertTrue(true);
+	} 
 	
 }

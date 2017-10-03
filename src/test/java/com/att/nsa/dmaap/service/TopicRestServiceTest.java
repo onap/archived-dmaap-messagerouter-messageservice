@@ -390,6 +390,23 @@ public class TopicRestServiceTest {
 
 		topicService.permitConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
 	}
+	
+	@Test
+	public void testPermitConsumerForTopicWithException() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+			TopicExistsException, AccessDeniedException {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		topicService.permitConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
+	}
 
 	@Test
 	public void testDenyConsumerForTopic() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
