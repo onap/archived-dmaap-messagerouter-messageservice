@@ -23,12 +23,29 @@ package com.att.nsa.dmaap.filemonitor;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@RunWith(PowerMockRunner.class)
 public class ServicePropertiesMapTest {
+
+	@InjectMocks
+	ServicePropertiesMap map;
+
 
 	@Before
 	public void setUp() throws Exception {
@@ -41,12 +58,9 @@ public class ServicePropertiesMapTest {
 	@Test
 	public void testRefresh() {
 
-		ServicePropertiesMap map = new ServicePropertiesMap();
-
 		try {
 			map.refresh(new File(":/file"));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -54,15 +68,26 @@ public class ServicePropertiesMapTest {
 
 	}
 
+	@Test()
+	public void testRefreshJsonFile() throws Exception {
+		Path resourceDirectory = Paths.get("src/test/resources");
+			map.refresh(new File(resourceDirectory+"\\"+"test.json"));
+			assertTrue(true);
+	}
+	
+	@Test
+	public void testRefreshPropsFile() throws Exception {
+		Path resourceDirectory = Paths.get("src/test/resources");
+			map.refresh(new File(resourceDirectory+"\\"+"test.properties"));
+			assertTrue(true);
+	}
+
 	@Test
 	public void testGetProperty() {
-
-		ServicePropertiesMap map = new ServicePropertiesMap();
 
 		try {
 			map.getProperty("filename", "propertykey");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -72,12 +97,9 @@ public class ServicePropertiesMapTest {
 	@Test
 	public void testGetProperties() {
 
-		ServicePropertiesMap map = new ServicePropertiesMap();
-
 		try {
 			map.getProperties("filename");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -88,12 +110,9 @@ public class ServicePropertiesMapTest {
 	@Test
 	public void testIfNullThenEmpty() {
 
-		ServicePropertiesMap map = new ServicePropertiesMap();
-
 		try {
 			map.getProperties("filename");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
