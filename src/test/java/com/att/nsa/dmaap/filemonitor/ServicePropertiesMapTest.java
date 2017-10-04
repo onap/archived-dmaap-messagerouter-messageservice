@@ -70,15 +70,20 @@ public class ServicePropertiesMapTest {
 
 	@Test()
 	public void testRefreshJsonFile() throws Exception {
-		Path resourceDirectory = Paths.get("src/test/resources");
-			map.refresh(new File(resourceDirectory+"\\"+"test.json"));
-			assertTrue(true);
+		//Path resourceDirectory = Paths.get("src/test/resources");
+			// map.refresh(new File(resourceDirectory+"\\"+"test.json"));
+		ClassLoader classLoader = getClass().getClassLoader();
+		map.refresh(new File(classLoader.getResource("test.json").getFile()));
+		
+		assertTrue(true);
 	}
 	
 	@Test
 	public void testRefreshPropsFile() throws Exception {
-		Path resourceDirectory = Paths.get("src/test/resources");
-			map.refresh(new File(resourceDirectory+"\\"+"test.properties"));
+		/*Path resourceDirectory = Paths.get("src/test/resources");
+			map.refresh(new File(resourceDirectory+"\\"+"test.properties"));*/
+		ClassLoader classLoader = getClass().getClassLoader();
+		map.refresh(new File(classLoader.getResource("test.json").getFile()));
 			assertTrue(true);
 	}
 
