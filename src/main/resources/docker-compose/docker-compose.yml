@@ -16,7 +16,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       
   dmaap:
-    image: onap/dmaap/dmaap-mr
+    image: attos/dmaap
     ports:
       - "3904:3904"
       - "3905:3905"
