@@ -20,14 +20,40 @@
 
 package com.att.nsa.dmaap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.att.nsa.cambria.CambriaApiException;
+import com.att.nsa.cambria.exception.DMaaPErrorMessages;
+import com.att.nsa.cambria.exception.ErrorResponse;
+@RunWith(PowerMockRunner.class)
 public class DMaaPCambriaExceptionMapperTest {
 
+	@InjectMocks
+	DMaaPCambriaExceptionMapper mapper;
+
+	@Mock
+	private ErrorResponse errRes;
+	
+	@Mock
+	private DMaaPErrorMessages msgs;
+	
+	@Mock
+	CambriaApiException exc;
+	
+	@Mock
+	JSONObject json;
+
+	
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -38,9 +64,6 @@ public class DMaaPCambriaExceptionMapperTest {
 
 	@Test
 	public void testToResponse() {
-
-		DMaaPCambriaExceptionMapper mapper = new DMaaPCambriaExceptionMapper();
-
 		try {
 			mapper.toResponse(null);
 		} catch (NullPointerException e) {
@@ -49,4 +72,15 @@ public class DMaaPCambriaExceptionMapperTest {
 
 	}
 
+	
+	@Test
+	public void testToResponseCambriaApiException2() {
+		PowerMockito.when(msgs.getNotFound()).thenReturn("Not found");
+		try {
+			mapper.toResponse(new CambriaApiException(404,"Not found"));
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+		assertTrue(true);
+	}
 }
