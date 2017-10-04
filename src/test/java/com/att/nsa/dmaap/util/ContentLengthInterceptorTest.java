@@ -65,9 +65,19 @@ public class ContentLengthInterceptorTest {
 	public void testAllowOrReject() throws Exception {
 		PowerMockito.when(req.getHeader("Transfer-Encoding")).thenReturn("UTF-8");
 		PowerMockito.when(req.getHeader("Content-Length")).thenReturn("1027");
+
 		interceptor.allowOrReject(req, res, map);
 		assertTrue(true);
 	}
+	
+	@Test
+	(expected = NullPointerException.class) 
+	public void testAllowOrRejectWithException() throws Exception {
+		PowerMockito.when(req.getHeader("Transfer-Encoding")).thenThrow(new NumberFormatException());
+		interceptor.allowOrReject(req, res, map);
+		assertTrue(true);
+	}
+	
 
 	@Test
 	public void testGetDefLength() {
