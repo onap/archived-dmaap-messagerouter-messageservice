@@ -65,8 +65,8 @@ are not inspected for content.
 | Content-Type            |  Description                                                                                                   |
 +=========================+================================================================================================================+
 | text/plain              | Each line in the POST body is treated as a separate message. No partition key is specified, and therefore no   |
-|						  |	order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when       |
-|						  | delivered through the Kafka cluster.                                                                           |
+|		                  |	order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when       |
+|	                      | delivered through the Kafka cluster.                                                                           |
 +-------------------------+----------------------------------------------------------------------------------------------------------------+
 | application/json        | The payload maybe a single JSON object or a JSON array of JSON objects. Each object is handled as an individual|
 |						  | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.     | 
@@ -112,7 +112,7 @@ Request Parameters
 | partitionKey             |                                 |  QueryParam      | String     |           | N           | String value                   |?Partitionkey=123            |
 +--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
 
-**NOTE:** Publishers/user should have access on the topics. The user (id) and
+**NOTE **: Publishers/user should have access on the topics. The user (id) and
 permissions details needs to be in AAF.
 
 Response Parameters
@@ -210,14 +210,13 @@ Subscribers
 Request URL:
 ============
 
-GET http(s)://{HOST:PORT}}/events/{topicname}/{consumegroup}/{consumerid}?{timeout=x}
+GET http(s)://{HOST:PORT}}/events/{topicname}/{consumegroup}/{consumerid}/{timeout=x}
 
 Request Parameters:
 ==================
 
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 | Name        | Description                     |  Param Type      |  data type |   MaxLen     |  Req’d      |  Format     |  Valid/Example Values                           |
-| 			  | 								|				   |            |              |             |             | 												 |
 +=============+=================================+==================+============+==============+=============+=============+=================================================+
 | Topicname   | topic name to be posted         |     Path         |   String   |        40    |     Y       | namespace.  |												 |
 |			  |									| 				   |            |              |             |  String     |                                                 |
@@ -237,7 +236,7 @@ Request Parameters:
 | Password    |                                 | Header           | String     | 1            | N           |             |                                                 |
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+       
 
-**NOTE1:**Subscribers /user should have access on the topics. The user () and
+**NOTE1**:Subscribers /user should have access on the topics. The user () and
 permissions details needs to be in AAF.
 
 Response Parameters:
@@ -258,7 +257,7 @@ Response Parameters:
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 | ResponseBody     | Messages consumed from topic   | Json       | Json         |                                                           |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
-|
+
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
 +===========================+====================================+
@@ -268,7 +267,7 @@ Response Parameters:
 +---------------------------+------------------------------------+
 | 500-599                   | the DMaaP service has a problem    |
 +---------------------------+------------------------------------+
-|
+
 +-------------------------+-----------------+----------------------------+----------------------------------------------------------------------------------------------------+
 | Error code              |  HTTP Code      |  Description               |Issue reason                                                                                        |
 +=========================+=================+============================+====================================================================================================+
@@ -306,18 +305,17 @@ Request Parameters:
 
 +----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | Name           | Description                     |  Param Type      |  data type |   MaxLen     |  Req’d      |  Format     |  Valid/Example Values             |
-| 			     | 								   |				  |            |              |             |             | 					              |
 +================+=================================+==================+============+==============+=============+=============+===================================+
 | Topicname      | topicname to be created in MR   |     Body         |   String   |        20    |     Y       | Json        |		com.att.dmaap.mr.metrics      |
 +----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+       
-|topicDescription|   description for topic         |      Body        |   String   |     15       | Y           |             |                                   |
+|topicDescription|   description for topic         |      Body        |   String   |     15       |     Y       |             |                                   |
 +----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+  
 |partitionCount  |   Kafka topic partition         |     Body         |   String   |     1        | Y           |             |                                   |
 +----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
 |replicationCount|   Kafka topic replication       |     Body         |   String   |     1        | Y           |             |  3 (Default -for 3 node Kafka )   |
 +----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
 |transaction     |to create transaction id for     |     Body         | Boolean    |              |             |             |                                   |
-| 				 |	each message transaction       |                  |            |      1       |        N    |             |   true                            |
+|                |	each message transaction       |                  |            |      1       |        N    |             |   true                            |
 | Enabled        |                                 |                  |            |              |             |             |                                   | 
 +----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
 |Content-Type    |   application/json              |     Header       |   String   |              |             |             |  application/json                 |
@@ -337,7 +335,7 @@ Request Parameters:
 | Error code              |  HTTP Code      |  Description                                     |
 +=========================+=================+==================================================+
 | DMaaP\_MR\_ERR\_5001    | 500             | Failed to retrieve list of all topics            | +-------------------------+-----------------+--------------------------------------------------+
-| DMaaP\_MR\_ERR\_5002    | 500             | Failed to retrieve details of topic:<topicName>  |     |+-------------------------+----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5002    | 500             | Failed to retrieve details of topic:<topicName>  |     +-------------------------+-----------------+--------------------------------------------------+
 | DMaaP\_MR\_ERR\_5003    | 500             |Failed to create topic:<topicName>                | +-------------------------+-----------------+--------------------------------------------------+
 | DMaaP\_MR\_ERR\_5004    | 500             | Failed to delete topic:<topicName>               | +-------------------------+-----------------+--------------------------------------------------+
 
@@ -349,7 +347,7 @@ Response Parameters
 +==================+================================+============+==============+===========================================================+
 | httpStatusCode   |                                |            |              | 200, 201 etc.                                             |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
-| mrErrorCode      | Numeric error code             |            |              |5005                                                       |
+| mrErrorCode      | Numeric error code             |            |              | 5005                                                       |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 | errorMessage     |                                |            |              | SUCCESS, or error message.                                |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
@@ -366,19 +364,19 @@ Sample Request:
 +-----------------------------------------------------------------------------------+
 | POST   http://<hostname>:3904/topic/create                                        |
 |Request Body                                                                       |
-|{"topicName":"com.att.dmaap.mr.topicname","description":"This is a SAPTopic ",     |
+|{"topicName":"com.abc.dmaap.mr.topicname","description":"This is a SAPTopic ",     |
 | "partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}          |
 | Content-Type: application/json                                                    |
 |Example:                                                                           |
 |curl -u XXXc@csp.abc.com:xxxxx$  -H 'Content-Type:application/json' -X POST -d     |
-|@topicname.txt  http://mrlocal00.dcae.proto.research.att.com:3904/topics/create    |
+|@topicname.txt  http://mrlocal00.dcae.proto.research.abc.com:3904/topics/create    |
 |{                                                                                  |
 |    "writerAcl": {                                                                 |
 |        "enabled": false,                                                          |
 |        "users": []                                                                |
 |    },                                                                             |
 |    "description": "This is a TestTopic",                                          |
-|    "name": "com.att.ecomp_test.crm.Load9",                                        |
+|    "name": "com.abc.ecomp_test.crm.Load9",                                        |
 |    "readerAcl": {                                                                 |
 |        "enabled": false,                                                          |
 |        "users": []                                                                |
@@ -400,7 +398,7 @@ Request Parameters
 +--------------------------+---------------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
 | Name                     | Description                     | Param Type       | Data type  | Max Len   | Req’d       | Format          | Valid/EXample values        |
 +==========================+=================================+==================+============+===========+=============+=================+=============================+
-| Topicname                | topic name details              | Body             | String     | 20        | Y           |  Json           | com.att.dmaap.mr.metrics    |
+| Topicname                | topic name details              | Body             | String     | 20        | Y           |  Json           | com.abc.dmaap.mr.metrics    |
 +--------------------------+---------------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
 
 
@@ -410,7 +408,7 @@ Response Parameters
 +------------------+------------------------+------------+----------+---------+--------------------------+
 | Name             | Description            | ParamType  | datatype |Format   | Valid/Example Values     |
 +==================+========================+============+==========+=========+==========================+
-| topicname        |  topic name details    |      Body  |   String |   Json  | com.att.dmaap.mr.metrics | 
+| topicname        |  topic name details    |      Body  |   String |   Json  | com.abc.dmaap.mr.metrics | 
 +------------------+------------------------+------------+----------+---------+--------------------------+
 | description      |                        |            |   String |         |                          | 
 +------------------+------------------------+------------+----------+---------+--------------------------+
@@ -442,14 +440,14 @@ Sample Request:
 |    {                                                                              |
 |       "txenabled": true,                                                          |
 |        "description": "This is a TestTopic",                                      |
-|      "owner": "rs857c@csp.att.com",                                               |
-|        "topicName": "com.att.ecomp_test.crm.Load9"                                |
+|      "owner": "XXXX@csp.abc.com",                                               |
+|        "topicName": "com.abc.ecomp_test.crm.Load9"                                |
 |    },                                                                             |
 |    {                                                                              |
 |        "txenabled": false,                                                        |
 |        "description": "",                                                         |
 |        "owner": "",                                                               |
-|        "topicName": "com.att.ecomp_test.crm.Load1"                                |
+|        "topicName": "com.abc.ecomp_test.crm.Load1"                                |
 |    },                                                                             |
 +-----------------------------------------------------------------------------------+
 

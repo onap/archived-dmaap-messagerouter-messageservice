@@ -11,5 +11,7 @@ Message Router (MR)
    :maxdepth: 2
    
    message-router/message-router
+   Installation/Installation
+   Filter/Filter
 
 
