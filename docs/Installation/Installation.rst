@@ -29,14 +29,12 @@ kafka runs on 172.18.0.2 and dmaap on 172.18.0.4.
 
    This should start 3 containers.
 
-6) Run ‘docker ps’. It should show 3 containers.
+6) Run docker ps. It should show 3 containers.
 
    |image0|
    
    .. |image0| image:: docker.png
-   :width: 5.84375in
-   :height: 0.76042in
-
+  
 Testing
 -------
 
