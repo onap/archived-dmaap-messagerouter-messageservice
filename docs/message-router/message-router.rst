@@ -6,13 +6,10 @@ Architecture
 
 In DMaaP Message Router, Restful web service is exposed to client to perform any needed action with Kafka. After getting the request it calls the Message router service layer which is created using AJSC ( AT&T Java Service Container) . AJSC finally calls Kafka services and response is sent back.
 
-|image0|
+   |image0|
 
-.. |image0| image:: message router.jpg
-   :height: 600px
-   :width: 800px
-
-
+   .. |image0| image:: image1.png
+   
 
 HTTP Service APIs
 ------------------

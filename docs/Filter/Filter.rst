@@ -1,4 +1,6 @@
-Filter 
+=======
+Filter
+======= 
 
 A filter examine an event and decides if it matches or doesn't.  Filters
 are mainly used in rules to decide if the processing entries should be
@@ -27,7 +29,7 @@ format:
 | }                                       |
 +-----------------------------------------+
 
-| This filter matches events in which the field "foo" has value "abc"
+- This filter matches events in which the field "foo" has value "abc"
   and the field "bar" is assigned to some value (as opposed to not being
   present on the event). Filters are used by the consumers to filter out
   data and consume only specific set of data which matches the
@@ -35,21 +37,21 @@ format:
   parameter by the consumer in consume request as mentioned below:
   **http://localhost:8080/DMaaP/dmaaprest/events/DMaaP/consumergroup/mHOeNFY4XiWx4CBa?filter=\\{"class":"Equals",
   "field":"email", "value":"test@abc.com" }** 
-| Filters can be applied only on data in JSON format i.e. if applied,
+- Filters can be applied only on data in JSON format i.e. if applied,
   filters will automatically ignore any non-json data.  While consuming,
   request CONTENT\_TYPE is not relevant to filter.
 
 All the supported filter can be found below.
 
-`Types of
-Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
+Types of Filters 
+----------------
 
-| DMaaP Message Router supports all the filters which were supported by
+- DMaaP Message Router supports all the filters which were supported by
   DMaaP Message Router and are mentioned below:- 
-| **All Alarms:**
-| Match all alarms. 
-| **And:**
-| Create a set of filters. This filter matches when all of them matches.
+- **All Alarms:**
+  - Match all alarms. 
+- **And:**
+  - Create a set of filters. This filter matches when all of them matches.
 
 +-------------+--------------------+------------+---------------------+
 | **Field**   | **Description**    | **Type**   | **Notes**           |
@@ -59,9 +61,9 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 |             |                    |            |                     |
 +-------------+--------------------+------------+---------------------+
 
-| **Assigned:**
-| Choose a field from the event to check for assignment. This filter
-  matches when the field is assigned.
+- **Assigned:**
+  - Choose a field from the event to check for assignment. This filter
+    matches when the field is assigned.
 
 +-------------------+--------------------------------------------------------+------------+-----------------+
 | **Field**         | **Description**                                        | **Type**   | **Notes**       |
@@ -71,8 +73,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | emptyIsAssigned   | If true, an empty value is considered an assignment.   | BOOLEAN    | True or False   |
 +-------------------+--------------------------------------------------------+------------+-----------------+
 
-| **Contains:**
-| Check if a search string contains another string.
+- **Contains:**
+   - Check if a search string contains another string.
 
 +-------------+---------------------------------------------------+------------+--------------+
 | **Field**   | **Description**                                   | **Type**   | **Notes**    |
@@ -84,8 +86,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 |             |                                                   |            |              |
 +-------------+---------------------------------------------------+------------+--------------+
 
-| **EndsWith**:
-| Check if a search string ends with another string.
+-  **EndsWith**:
+   -  Check if a search string ends with another string.
 
 +-------------+---------------------------------------------------+------------+--------------+
 | **Field**   | **Description**                                   | **Type**   | **Notes**    |
@@ -95,8 +97,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | value       | The value to search for. Supports ${} notation.   | STRING     | Any string   |
 +-------------+---------------------------------------------------+------------+--------------+
 
-| **Equals:**
-| Choose a field from the event and a value to check for equality.
+-  **Equals:**
+  - Choose a field from the event and a value to check for equality.
 
 +-------------+----------------------------------------------+------------+--------------+
 | **Field**   | **Description**                              | **Type**   | **Notes**    |
@@ -106,8 +108,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | value       | The value to match. Supports ${} notation.   | STRING     | Any string   |
 +-------------+----------------------------------------------+------------+--------------+
 
-| **FlatironObjectExists**
-| Matches when the given object exists in the given Flatiron instance.
+-  **FlatironObjectExists**
+  -  Matches when the given object exists in the given Flatiron instance.
 
 +-------------+---------------------------------------------+------------+--------------+
 | **Field**   | **Description**                             | **Type**   | **Notes**    |
@@ -117,8 +119,18 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | flatiron    | The name of the Flatiron client instance.   | STRING     | Any string   |
 +-------------+---------------------------------------------+------------+--------------+
 
-| **IsAging**
-| Choose a field to test. This filter matches if the expression is
+- **IsAging**
+  -  Choose a field to test. This filter matches if the expression is
+     numeric.
+
++-------------+---------------------------------------------+------------+--------------+
+| **Field**   | **Description**                             | **Type**   | **Notes**    |
++=============+=============================================+============+==============+
+| field       | The field to test. Supports ${} notation.   | STRING     | Any string   |
++-------------+---------------------------------------------+------------+--------------+
+
+- **IsNumeric**
+  - Choose a field to test. This filter matches if the expression is
   numeric.
 
 +-------------+---------------------------------------------+------------+--------------+
@@ -127,18 +139,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | field       | The field to test. Supports ${} notation.   | STRING     | Any string   |
 +-------------+---------------------------------------------+------------+--------------+
 
-| **IsNumeric**
-| Choose a field to test. This filter matches if the expression is
-  numeric.
-
-+-------------+---------------------------------------------+------------+--------------+
-| **Field**   | **Description**                             | **Type**   | **Notes**    |
-+=============+=============================================+============+==============+
-| field       | The field to test. Supports ${} notation.   | STRING     | Any string   |
-+-------------+---------------------------------------------+------------+--------------+
-
-| **MathCondition**
-| Choose a field from the event and a value for logical math conditions.
+-  **MathCondition**
+  - Choose a field from the event and a value for logical math conditions.
 
 +-------------+-------------------------------------------------+------------+-----------------------------------+
 | **Field**   | **Description**                                 | **Type**   | **Notes**                         |
@@ -152,10 +154,10 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 |             |                                                 |            |                                   |
 +-------------+-------------------------------------------------+------------+-----------------------------------+
 
-| **NoAlarms**
-| Don't match any alarms. 
-| **Not**
-| Negate the configured filter.
+- **NoAlarms**
+  -  Don't match any alarms. 
+- **Not**
+  -  Negate the configured filter.
 
 +-------------+-------------------------+------------+-------------+
 | **Field**   | **Description**         | **Type**   | **Notes**   |
@@ -163,8 +165,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | filter      | The filter to negate.   | FILTER     | A filter    |
 +-------------+-------------------------+------------+-------------+
 
-| **NotEqual**
-| Choose a field from the event and a value to check for inequality.
+-  **NotEqual**
+  -  Choose a field from the event and a value to check for inequality.
 
 +-------------+----------------------------------------------+------------+--------------+
 | **Field**   | **Description**                              | **Type**   | **Notes**    |
@@ -174,9 +176,9 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | value       | The value to match. Supports ${} notation.   | STRING     | Any string   |
 +-------------+----------------------------------------------+------------+--------------+
 
-| **NotOneOf**
-| Match when the specified field does not have a value from the given
-  list.
+-  **NotOneOf**
+  -  Match when the specified field does not have a value from the given
+     list.
 
 +-------------+---------------------------------------------+------------+---------------------+
 | **Field**   | **Description**                             | **Type**   | **Notes**           |
@@ -186,8 +188,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | values      | The matching values.                        | LIST       | A list of strings   |
 +-------------+---------------------------------------------+------------+---------------------+
 
-| **OneOf**
-| Match when the specified field has a value from the given list.
+-  **OneOf**
+  -  Match when the specified field has a value from the given list.
 
 +-------------+---------------------------------------------+------------+---------------------+
 | **Field**   | **Description**                             | **Type**   | **Notes**           |
@@ -197,9 +199,9 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | values      | The matching values.                        | LIST       | A list of strings   |
 +-------------+---------------------------------------------+------------+---------------------+
 
-| **Or**
-| Create a set of filters. This filter matches when any one of them
-  matches.
+- **Or**
+   - Create a set of filters. This filter matches when any one of them
+     matches.
 
 +-------------+--------------------+------------+---------------------+
 | **Field**   | **Description**    | **Type**   | **Notes**           |
@@ -207,9 +209,9 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | filters     | Combined Filters   | LIST       | A list of filters   |
 +-------------+--------------------+------------+---------------------+
 
-| **RegEx**
-| Choose a field from the event to match against the regular expression
-  you provide.
+- **RegEx**
+   - Choose a field from the event to match against the regular expression
+     you provide.
 
 +-------------+---------------------------------------------------------+------------+--------------+
 | **Field**   | **Description**                                         | **Type**   | **Notes**    |
@@ -219,8 +221,8 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | value       | The regular expression (pattern) to match.              | STRING     | Any string   |
 +-------------+---------------------------------------------------------+------------+--------------+
 
-| **StartsWith**
-| Check if a search string starts with another string.
+- **StartsWith**
+  - Check if a search string starts with another string.
 
 +-------------+---------------------------------------------------+------------+--------------+
 | **Field**   | **Description**                                   | **Type**   | **Notes**    |
@@ -230,9 +232,9 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | Value       | The value to search for. Supports ${} notation.   | STRING     | Any string   |
 +-------------+---------------------------------------------------+------------+--------------+
 
-| **Unassigned**
-| Choose a field from the event to check for assignment. This filter
-  matches when the field is not assigned.
+- **Unassigned**
+   - Choose a field from the event to check for assignment. This filter
+     matches when the field is not assigned.
 
 +-------------------+--------------------------------------------------------+------------+-----------------+
 | **Field**         | **Description**                                        | **Type**   | **Notes**       |
@@ -242,11 +244,11 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | emptyIsAssigned   | If true, an empty value is considered an assignment.   | BOOLEAN    | True or False   |
 +-------------------+--------------------------------------------------------+------------+-----------------+
 
-| **WithinSecondsFrom**
-| This filter matches when the specified epoch time value is within the
-  given number of seconds from the baseline time value. Both time values
-  are assumed to be in seconds. If a value is in milliseconds, set
-  baselineTimeInMillis and/or eventTimeInMillis to true.
+- **WithinSecondsFrom**
+  - This filter matches when the specified epoch time value is within the
+    given number of seconds from the baseline time value. Both time values
+    are assumed to be in seconds. If a value is in milliseconds, set
+    baselineTimeInMillis and/or eventTimeInMillis to true.
 
 +------------------------+------------------------------------------------------------+------------+-----------------+
 | **Field**              | **Description**                                            | **Type**   | **Notes**       |
@@ -262,11 +264,11 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | baseline               | The baseline time value. Supports ${}.                     | STRING     | Any string      |
 +------------------------+------------------------------------------------------------+------------+-----------------+
 
-| **WithinTimeFromNow**
-| This filter matches when the named field has an epoch time value
-  within the given number of seconds from the current time. The event's
-  time value is assumed to be in seconds. If it's in milliseconds, set
-  eventTimeInMillis to true.
+- **WithinTimeFromNow**
+  - This filter matches when the named field has an epoch time value
+    within the given number of seconds from the current time. The event's
+    time value is assumed to be in seconds. If it's in milliseconds, set
+    eventTimeInMillis to true.
 
 +---------------------+---------------------------------------------------------+------------+-----------------+
 | **Field**           | **Description**                                         | **Type**   | **Notes**       |
@@ -278,24 +280,27 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 | seconds             | The number of seconds.                                  | NUMBER     | A number        |
 +---------------------+---------------------------------------------------------+------------+-----------------+
 
-**Limit:** 
+- **Limit:** 
 
--  Limit is the integer value and DMaaP Message Router will consumes
-   only that set of message which are specified in limit.
-
-| Suppose if we set limit=2, then only 2 sets of data will be consumed. 
-| *Get \ **<<topicName>>/group/2?limit=4*** 
-| Let us suppose if 
-| **No of data available** = 4
-| **Set limit** = 6
-| i.e. limit>no of data
-| In this scenario all 4 sets of data will be consumed. 
+  -  Limit is the integer value and DMaaP Message Router will consumes
+     only that set of message which are specified in limit.
+	 
+  .. code:: bash
+        Suppose if we set limit=2, then only 2 sets of data will be consumed. 
+        *Get \ **<<topicName>>/group/2?limit=4*** 
+        Let us suppose if 
+        **No of data available** = 4
+        **Set limit** = 6
+        i.e. limit>no of data
+        In this scenario all 4 sets of data will be consumed. 
 
 -  If limit is not passed with the url then by default limit is set to
    4096.
+   
+   .. code:: bash
 
-| i.e. 4096 sets of data will be consumed. 
-|  **Timeout and Long Poll:** 
+        i.e. 4096 sets of data will be consumed. 
+        **Timeout and Long Poll:** 
 
 -  Timeout is the integer value which will be treated by DMaaP Message
    Router as time in millisecond.
@@ -332,8 +337,11 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 -  If meta is set to true then consumer will get the value of message
    offset along with message.
 
-|image1|
-| **Pretty**:
+   |image1|
+
+   .. |image1| image:: images/image1.png
+   
+- **Pretty**:
 
 -  Pretty is a Boolean value.
 
@@ -347,55 +355,59 @@ Filters <https://wiki.web.att.com/display/MessageRouter/Types+of+Filters>`__
 -  If pretty is set to true then different sets of messages will be
    printed in next line separated by comma (,).
 
-|image2|
-| **Filter**
-| A filter examine an event and decides if it matches or doesn't. 
-| Filters are mainly used in rules to decide if the processing entries
-  should be executed on the given event. They're also used for settings,
-  and systems like the Graph Correlator re-use Highland Park's filter
-  mechanism to specify which alarms fit in a correlation. 
-| The standard library includes a number of simple filters. The Equals
-  filter, for example, compares a field's value with some other value
-  and returns true if the values match. 
-| The standard library also includes filter classes called And, Or, and
-  Not, so you can compose more complex filters. For example, written in
-  the standard JSON config format: 
+   |image2|
+   
+   .. |image2| image:: images/image2.png
+   
+- **Filter**
 
-+-----------------------------------------+
-| "filter":{                              |
-| "class":"And",                          |
-| "filters":                              |
-| [                                       |
-| { "class":"Equals", "foo":"abc" },      |
-| { "class":"Assigned", "field":"bar" }   |
-| ]                                       |
-| }                                       |
-+-----------------------------------------+
+   - A filter examine an event and decides if it matches or doesn't. 
+   - Filters are mainly used in rules to decide if the processing entries
+     should be executed on the given event. They're also used for settings,
+     and systems like the Graph Correlator re-use Highland Park's filter
+     mechanism to specify which alarms fit in a correlation. 
+   - The standard library includes a number of simple filters. The Equals
+     filter, for example, compares a field's value with some other value
+     and returns true if the values match. 
+   - The standard library also includes filter classes called And, Or, and
+     Not, so you can compose more complex filters. For example, written in
+     the standard JSON config format: 
 
-| This filter matches events in which the field "foo" has value "abc"
-  and the field "bar" is assigned to some value (as opposed to not being
-  present on the event).
-| Filters are used by the consumers to filter out data and consume only
-  specific set of data which matches the conditions mentioned in filter.
-| Filters can be passed as a query parameter by the consumer in consume
-  request as mentioned below:
-| **http://localhost:8080/DMaaP/dmaaprest/events/DMaaP/consumergroup/mHOeNFY4XiWx4CBa?filter=\\{"class":"Equals",
-  "field":"email", "value":"`test@abc.com <mailto:test@att.com>`__" }** 
-| Filters can be applied only on data in JSON format i.e. if applied,
-  filters will automatically ignore any non-json data. 
-| While consuming, request CONTENT\_TYPE is not relevant to filter.
+    +-----------------------------------------+
+    | "filter":{                              |
+    | "class":"And",                          |
+    | "filters":                              |
+    | [                                       |
+    | { "class":"Equals", "foo":"abc" },      |
+    | { "class":"Assigned", "field":"bar" }   |
+    | ]                                       |
+    | }                                       |
+    +-----------------------------------------+
 
-The MR API allows a subscriber pass a Highland Park filter as part of
-the GET request. This will filter the stream of messages sent back to
-the subscriber, but for this to work, there are some requirements: 
+   - This filter matches events in which the field "foo" has value "abc"
+     and the field "bar" is assigned to some value (as opposed to not being
+     present on the event).
+   -  Filters are used by the consumers to filter out data and consume only
+     specific set of data which matches the conditions mentioned in filter.
+   -  Filters can be passed as a query parameter by the consumer in consume
+     request as mentioned below:
+   - **http://localhost:8080/DMaaP/dmaaprest/events/DMaaP/consumergroup/mHOeNFY4XiWx4CBa?filter=\\{"class":"Equals",
+     "field":"email", "value":"`test@abc.com <mailto:test@att.com>`__" }** 
+   - Filters can be applied only on data in JSON format i.e. if applied,
+     filters will automatically ignore any non-json data. 
+   - While consuming, request CONTENT\_TYPE is not relevant to filter.
 
--  The message payload must be JSON
+   The MR API allows a subscriber pass a Highland Park filter as part of
+   the GET request. This will filter the stream of messages sent back to
+   the subscriber, but for this to work, there are some requirements: 
 
--  Only a filter built from Highland Park's Standard Library  may be
-   used. (The Cambria API server doesn't have access to plugged in
-   filters.)
+    -  The message payload must be JSON
 
--  The filter must be encoded properly in the URL path.
+   -  Only a filter built from Highland Park's Standard Library  may be
+      used. (The Cambria API server doesn't have access to plugged in
+      filters.)
+
+   -  The filter must be encoded properly in the URL path.
 
  Server-side filtering can also be setup in the Java client as
 illustrated below
@@ -577,6 +589,6 @@ messages returned from the GET call.  The following link provide details
 of building some of the filter to illustrate Filter Builder.  It is not
 meant to cover and provide examples of every filter
 
-.. |image1| image:: images/image1.png
-.. |image2| image:: images/image2.png
+
+
 
