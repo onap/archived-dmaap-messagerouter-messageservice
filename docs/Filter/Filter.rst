@@ -424,165 +424,166 @@ server.
 
 Remember, only Highland Park standard library filter components can be
 used -- no plug-ins are available in the Cambria server context.
+	
+	.. code:: bash
+		package org.onap.sa.highlandPark.integration;
 
-package org.onap.sa.highlandPark.integration;
+		import java.io.IOException;
 
-import java.io.IOException;
+		import java.util.UUID;
 
-import java.util.UUID;
+		import org.onap.nsa.cambria.client.CambriaClientFactory;
 
-import org.onap.nsa.cambria.client.CambriaClientFactory;
+		import org.onap.nsa.cambria.client.CambriaConsumer;
 
-import org.onap.nsa.cambria.client.CambriaConsumer;
+		import org.onap.sa.highlandPark.processor.HpEvent;
 
-import org.onap.sa.highlandPark.processor.HpEvent;
+		import org.onap.sa.highlandPark.stdlib.filters.FilterIo;
 
-import org.onap.sa.highlandPark.stdlib.filters.FilterIo;
+		import org.onap.sa.highlandPark.stdlib.filters.OneOf;
 
-import org.onap.sa.highlandPark.stdlib.filters.OneOf;
+		public class ExampleFilteringConsumer
 
-public class ExampleFilteringConsumer
+		{
 
-{
+		public static void main ( String[] args ) throws IOException,
+		InterruptedException
 
-public static void main ( String[] args ) throws IOException,
-InterruptedException
+		{
 
-{
+		// Cambria clients take a set of 1 or more servers to use in round-robin
+		fashion.
 
-// Cambria clients take a set of 1 or more servers to use in round-robin
-fashion.
+		// If a server becomes unreachable, another in the group is used.
 
-// If a server becomes unreachable, another in the group is used.
+		final String
+		serverGroup="ueb01hydc.it.att.com,ueb02hydc.it.att.com,ueb03hydc.it.att.com";
 
-final String
-serverGroup="ueb01hydc.it.att.com,ueb02hydc.it.att.com,ueb03hydc.it.att.com";
+		// choose a topic
 
-// choose a topic
+		final String topic = "TEST-TOPIC";
 
-final String topic = "TEST-TOPIC";
+		// Cambria clients can run in a cooperative group to handle high-volume
+		topics.
 
-// Cambria clients can run in a cooperative group to handle high-volume
-topics.
+		// Here, we create a random group name, which means this client is not
+		re-startable.
 
-// Here, we create a random group name, which means this client is not
-re-startable.
+		final String consumerGroup = UUID.randomUUID ().toString ();
 
-final String consumerGroup = UUID.randomUUID ().toString ();
+		final String consumerId = "0";
 
-final String consumerId = "0";
+		// Cambria clients can sit in a tight loop on the client side, using a
+		long-poll
 
-// Cambria clients can sit in a tight loop on the client side, using a
-long-poll
+		// to wait for messages, and a limit to tell the server the most to send
+		at a time.
 
-// to wait for messages, and a limit to tell the server the most to send
-at a time.
+		final int longPollMs = 30\*1000;
 
-final int longPollMs = 30\*1000;
+		final int limit = -1;
 
-final int limit = -1;
+		// The Cambria server can filter the returned message stream using
+		filters from the
 
-// The Cambria server can filter the returned message stream using
-filters from the
+		// Highland Park system. Here, we create a simple filter to test for the
+		AlarmID
 
-// Highland Park system. Here, we create a simple filter to test for the
-AlarmID
+		// value being one of the Mobility power alarms.
 
-// value being one of the Mobility power alarms.
+		final OneOf oneOf = new OneOf ( "AlarmId", kPowerAlarms );
 
-final OneOf oneOf = new OneOf ( "AlarmId", kPowerAlarms );
+		// create the consumer
 
-// create the consumer
+		final CambriaConsumer cc = CambriaClientFactory.createConsumer (
+		serverGroup, topic,
 
-final CambriaConsumer cc = CambriaClientFactory.createConsumer (
-serverGroup, topic,
+		consumerGroup, consumerId, longPollMs, limit, FilterIo.write ( oneOf )
+		);
 
-consumerGroup, consumerId, longPollMs, limit, FilterIo.write ( oneOf )
-);
+		// now loop reading messages. Note that cc.fetch() will wait in its HTTP
+		receive
 
-// now loop reading messages. Note that cc.fetch() will wait in its HTTP
-receive
+		// method for up to 30 seconds (longPollMs) when nothing's available at
+		the server.
 
-// method for up to 30 seconds (longPollMs) when nothing's available at
-the server.
+		long count = 0;
 
-long count = 0;
+		while ( true )
 
-while ( true )
+		{
 
-{
+		for ( String msg : cc.fetch () )
 
-for ( String msg : cc.fetch () )
+		{
 
-{
+		System.out.println ( "" + (++count) + ": " + msg );
 
-System.out.println ( "" + (++count) + ": " + msg );
+		}
 
-}
+		}
 
-}
+		}
 
-}
+		private static final String[] kPowerAlarms =
 
-private static final String[] kPowerAlarms =
+		{
 
-{
+		"HUB COMMERCIAL POWER FAIL\_FWD",
 
-"HUB COMMERCIAL POWER FAIL\_FWD",
+		"HUB COMMERCIAL POWER FAIL",
 
-"HUB COMMERCIAL POWER FAIL",
+		"RBS COMMERCIAL POWER FAIL - Fixed\_FWD",
 
-"RBS COMMERCIAL POWER FAIL - Fixed\_FWD",
+		"RBS COMMERCIAL POWER FAIL\_FWD",
 
-"RBS COMMERCIAL POWER FAIL\_FWD",
+		"RBS COMMERCIAL POWER FAIL - No Generator\_FWD",
 
-"RBS COMMERCIAL POWER FAIL - No Generator\_FWD",
+		"RBS COMMERCIAL POWER FAIL - Portable\_FWD",
 
-"RBS COMMERCIAL POWER FAIL - Portable\_FWD",
+		"RBS COMMERCIAL POWER FAIL - Shared\_FWD",
 
-"RBS COMMERCIAL POWER FAIL - Shared\_FWD",
+		"RBS COMMERCIAL POWER FAIL - Yes\_FWD",
 
-"RBS COMMERCIAL POWER FAIL - Yes\_FWD",
+		"RBS COMMERCIAL POWER FAIL - YES\_FWD",
 
-"RBS COMMERCIAL POWER FAIL - YES\_FWD",
+		"RBS COMMERCIAL POWER FAIL - Fixed",
 
-"RBS COMMERCIAL POWER FAIL - Fixed",
+		"RBS COMMERCIAL POWER FAIL - No Generator",
 
-"RBS COMMERCIAL POWER FAIL - No Generator",
+		"RBS COMMERCIAL POWER FAIL - Portable",
 
-"RBS COMMERCIAL POWER FAIL - Portable",
+		"RBS COMMERCIAL POWER FAIL - Shared",
 
-"RBS COMMERCIAL POWER FAIL - Shared",
+		"RBS COMMERCIAL POWER FAIL - YES",
 
-"RBS COMMERCIAL POWER FAIL - YES",
+		"RBS COMMERCIAL POWER FAIL - Yes",
 
-"RBS COMMERCIAL POWER FAIL - Yes",
+		"RBS COMMERCIAL POWER FAIL",
 
-"RBS COMMERCIAL POWER FAIL",
+		"HUB COMMERCIAL POWER FAIL - Fixed",
 
-"HUB COMMERCIAL POWER FAIL - Fixed",
+		"HUB COMMERCIAL POWER FAIL - No Generator",
 
-"HUB COMMERCIAL POWER FAIL - No Generator",
+		"HUB COMMERCIAL POWER FAIL - Portable",
 
-"HUB COMMERCIAL POWER FAIL - Portable",
+		"HUB COMMERCIAL POWER FAIL - Shared",
 
-"HUB COMMERCIAL POWER FAIL - Shared",
+		"HUB COMMERCIAL POWER FAIL - Fixed\_FWD",
 
-"HUB COMMERCIAL POWER FAIL - Fixed\_FWD",
+		"HUB COMMERCIAL POWER FAIL - No Generator\_FWD",
 
-"HUB COMMERCIAL POWER FAIL - No Generator\_FWD",
+		"HUB COMMERCIAL POWER FAIL - Portable\_FWD",
 
-"HUB COMMERCIAL POWER FAIL - Portable\_FWD",
+		"HUB COMMERCIAL POWER FAIL - Shared\_FWD",
 
-"HUB COMMERCIAL POWER FAIL - Shared\_FWD",
+		};
 
-};
-
-}
+		}
 
  
 
-** Filter Builder**
+**Filter Builder**
 
  MR server-side filtering allows a consumer to filter the stream of
 messages returned from the GET call.  The following link provide details

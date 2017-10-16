@@ -33,15 +33,11 @@ HTTP URL
 
 http[s]://Username:Password@serverBaseURL{/routing}{resourcePath}
 
-- The Username:Password utilizes HTTP Basic Authentication and HTTPS/TLS
-to securely transmit the authorization and authentication credentials
-that AAF needs to validate the client's access to the requested
-resource.
-- The serverBaseURL points to DMaaP Message Router host/port that will
-service the request. Optionally DME2 service end points for Message
-Router can be used.
-- The resourcePath specifies the specific service, or Topic, that the
-client is attempting to reach
+- The Username:Password utilizes HTTP Basic Authentication and HTTPS/TLS to securely transmit the authorization and authentication credentials that AAF needs to validate the client's access to the requested resource.
+
+- The serverBaseURL points to DMaaP Message Router host/port that will service the request. Optionally DME2 service end points for Message Router can be used.
+
+- The resourcePath specifies the specific service, or Topic, that the client is attempting to reach
 
 HTTP Header
 ===========
@@ -97,7 +93,7 @@ Request Parameters
 ==================
 
 +--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
-| Name                     | Description                     | Param Type       | Data type  | Max Len   | Req’d       | Format                         | Valid/EXample values        |
+| Name                     | Description                     | Param Type       | Data type  | Max Len   | Required    | Format                         | Valid/EXample values        |
 +==========================+=================================+==================+============+===========+=============+================================+=============================+
 | Topicname                | topic name to be posted         | Path             | String     | 40        | Y           |  <app namespace>.<topicname>   | org.onap.crm.empdetails     |
 +--------------------------+---------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
@@ -210,28 +206,27 @@ Request URL:
 GET http(s)://{HOST:PORT}}/events/{topicname}/{consumegroup}/{consumerid}/{timeout=x}
 
 Request Parameters:
-==================
+===================
 
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
-| Name        | Description                     |  Param Type      |  data type |   MaxLen     |  Req’d      |  Format     |  Valid/Example Values                           |
+| Name        | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format     |  Valid/Example Values                           |
 +=============+=================================+==================+============+==============+=============+=============+=================================================+
 | Topicname   | topic name to be posted         |     Path         |   String   |        40    |     Y       | namespace.  |												 |
 |			  |									| 				   |            |              |             |  String     |                                                 |
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+	       
++-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 |Consumergroup| A name that uniquely identifies |     Path         |    String  |              |             |             |                                                 |
-|			  | your subscriber's               |                  |            |              |      Y      |             |               CG1                               |
+|			  | your subscribers                |                  |            |              |      Y      |             |               CG1                               |
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
-| consumerId  | Within your subscriber's group, |                  |            |              |             |             |                                                 |
+| consumerId  | Within your subscribers group,  |                  |            |              |             |             |                                                 |
 |			  | a name that uniquely identifies |      Path        |   String   |              |       y     |             |              C1                                 |
-|			  | your subscriber's  process      |                  |            |              |             |             |                                                 |         
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
+|			  | your subscribers  process      |                  |            |              |             |             |                                                 | +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 | content-type| To specify type of message      |                  |            |              |             |             |aplication/json                                  |
 |			  | content(json,text or cambria)   |      Header      |   String   |         20   |      N      |             |                                                 |
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 |Username     |   userid                        | Header           | String     | 1            | N           |             |                                                 |
 +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+
 | Password    |                                 | Header           | String     | 1            | N           |             |                                                 |
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+       
++-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-------------------------------------------------+ 
 
 **NOTE1**:Subscribers /user should have access on the topics. The user () and
 permissions details needs to be in AAF.
