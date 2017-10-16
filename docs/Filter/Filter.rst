@@ -286,6 +286,7 @@ Types of Filters
      only that set of message which are specified in limit.
 	 
   .. code:: bash
+  
         Suppose if we set limit=2, then only 2 sets of data will be consumed. 
         *Get \ **<<topicName>>/group/2?limit=4*** 
         Let us suppose if 
@@ -426,6 +427,7 @@ Remember, only Highland Park standard library filter components can be
 used -- no plug-ins are available in the Cambria server context.
 	
 	.. code:: bash
+	
 		package org.onap.sa.highlandPark.integration;
 
 		import java.io.IOException;
@@ -586,9 +588,9 @@ used -- no plug-ins are available in the Cambria server context.
 **Filter Builder**
 
  MR server-side filtering allows a consumer to filter the stream of
-messages returned from the GET call.  The following link provide details
-of building some of the filter to illustrate Filter Builder.  It is not
-meant to cover and provide examples of every filter
+ messages returned from the GET call.  The following link provide details
+ of building some of the filter to illustrate Filter Builder.  It is not
+ meant to cover and provide examples of every filter
 
 
 
