@@ -25,7 +25,7 @@ kafka runs on 172.18.0.2 and dmaap on 172.18.0.4.
 
 5) Go to messageservice/src/main/resources/docker-compose and run:
 
-   docker-compose up –d
+   docker-compose up–d
 
    This should start 3 containers.
 

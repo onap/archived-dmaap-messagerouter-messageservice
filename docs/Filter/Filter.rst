@@ -63,7 +63,7 @@ Types of Filters
 
 - **Assigned:**
   - Choose a field from the event to check for assignment. This filter
-    matches when the field is assigned.
+  matches when the field is assigned.
 
 +-------------------+--------------------------------------------------------+------------+-----------------+
 | **Field**         | **Description**                                        | **Type**   | **Notes**       |
@@ -98,6 +98,7 @@ Types of Filters
 +-------------+---------------------------------------------------+------------+--------------+
 
 -  **Equals:**
+
   - Choose a field from the event and a value to check for equality.
 
 +-------------+----------------------------------------------+------------+--------------+
@@ -109,6 +110,7 @@ Types of Filters
 +-------------+----------------------------------------------+------------+--------------+
 
 -  **FlatironObjectExists**
+
   -  Matches when the given object exists in the given Flatiron instance.
 
 +-------------+---------------------------------------------+------------+--------------+
@@ -121,7 +123,7 @@ Types of Filters
 
 - **IsAging**
   -  Choose a field to test. This filter matches if the expression is
-     numeric.
+  numeric.
 
 +-------------+---------------------------------------------+------------+--------------+
 | **Field**   | **Description**                             | **Type**   | **Notes**    |
@@ -139,7 +141,7 @@ Types of Filters
 | field       | The field to test. Supports ${} notation.   | STRING     | Any string   |
 +-------------+---------------------------------------------+------------+--------------+
 
--  **MathCondition**
+- **MathCondition**
   - Choose a field from the event and a value for logical math conditions.
 
 +-------------+-------------------------------------------------+------------+-----------------------------------+
@@ -165,7 +167,7 @@ Types of Filters
 | filter      | The filter to negate.   | FILTER     | A filter    |
 +-------------+-------------------------+------------+-------------+
 
--  **NotEqual**
+- **NotEqual**
   -  Choose a field from the event and a value to check for inequality.
 
 +-------------+----------------------------------------------+------------+--------------+
@@ -176,7 +178,7 @@ Types of Filters
 | value       | The value to match. Supports ${} notation.   | STRING     | Any string   |
 +-------------+----------------------------------------------+------------+--------------+
 
--  **NotOneOf**
+- **NotOneOf**
   -  Match when the specified field does not have a value from the given
      list.
 
@@ -188,7 +190,7 @@ Types of Filters
 | values      | The matching values.                        | LIST       | A list of strings   |
 +-------------+---------------------------------------------+------------+---------------------+
 
--  **OneOf**
+- **OneOf**
   -  Match when the specified field has a value from the given list.
 
 +-------------+---------------------------------------------+------------+---------------------+
@@ -246,9 +248,9 @@ Types of Filters
 
 - **WithinSecondsFrom**
   - This filter matches when the specified epoch time value is within the
-    given number of seconds from the baseline time value. Both time values
-    are assumed to be in seconds. If a value is in milliseconds, set
-    baselineTimeInMillis and/or eventTimeInMillis to true.
+  given number of seconds from the baseline time value. Both time values
+  are assumed to be in seconds. If a value is in milliseconds, set
+  baselineTimeInMillis and/or eventTimeInMillis to true.
 
 +------------------------+------------------------------------------------------------+------------+-----------------+
 | **Field**              | **Description**                                            | **Type**   | **Notes**       |
@@ -266,9 +268,9 @@ Types of Filters
 
 - **WithinTimeFromNow**
   - This filter matches when the named field has an epoch time value
-    within the given number of seconds from the current time. The event's
-    time value is assumed to be in seconds. If it's in milliseconds, set
-    eventTimeInMillis to true.
+  within the given number of seconds from the current time. The event's
+  time value is assumed to be in seconds. If it's in milliseconds, set
+  eventTimeInMillis to true.
 
 +---------------------+---------------------------------------------------------+------------+-----------------+
 | **Field**           | **Description**                                         | **Type**   | **Notes**       |
@@ -386,12 +388,12 @@ Types of Filters
     +-----------------------------------------+
 
    - This filter matches events in which the field "foo" has value "abc"
-     and the field "bar" is assigned to some value (as opposed to not being
-     present on the event).
+   and the field "bar" is assigned to some value (as opposed to not being
+   present on the event).
    -  Filters are used by the consumers to filter out data and consume only
-     specific set of data which matches the conditions mentioned in filter.
+   specific set of data which matches the conditions mentioned in filter.
    -  Filters can be passed as a query parameter by the consumer in consume
-     request as mentioned below:
+   request as mentioned below:
    - **http://localhost:8080/DMaaP/dmaaprest/events/DMaaP/consumergroup/mHOeNFY4XiWx4CBa?filter=\\{"class":"Equals",
      "field":"email", "value":"`test@abc.com <mailto:test@att.com>`__" }** 
    - Filters can be applied only on data in JSON format i.e. if applied,
@@ -402,7 +404,7 @@ Types of Filters
    the GET request. This will filter the stream of messages sent back to
    the subscriber, but for this to work, there are some requirements: 
 
-    -  The message payload must be JSON
+   -  The message payload must be JSON
 
    -  Only a filter built from Highland Park's Standard Library  may be
       used. (The Cambria API server doesn't have access to plugged in
