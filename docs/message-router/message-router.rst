@@ -54,21 +54,21 @@ it must be noted, that, except in very specific circumstances, messages
 are not inspected for content.
 
 
-+-------------------------+----------------------------------------------------------------------------------------------------------------+
-| Content-Type            |  Description                                                                                                   |
-+=========================+================================================================================================================+
-| text/plain              | Each line in the POST body is treated as a separate message. No partition key is specified, and therefore no   |
-|		                  |	order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when       |
-|	                      | delivered through the Kafka cluster.                                                                           |
-+-------------------------+----------------------------------------------------------------------------------------------------------------+
-| application/json        | The payload maybe a single JSON object or a JSON array of JSON objects. Each object is handled as an individual|
-|						  | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.     | 
-|						  | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the |
-|						  | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in       |
-|						  | re-ordered fields or changes in whitespace. If you want to preseve JSON objects exactly,                       |
-|						  | use application/cambria. Recommended to follow the JSON format after validating the                            |
-|						  | message in https://jsonformatter.curiousconcept.com/      													   |
-+-------------------------+----------------------------------------------------------------------------------------------------------------+
++-------------------------+-----------------------------------------------------------------------------------------------------------------+
+| Content-Type            |  Description                                                                                                    |
++=========================+=================================================================================================================+
+| text/plain              | Each line in the POST body is treated as a separate message. No partition key is specified, and therefore no    |
+|	                      |	order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when        |
+|	                      | delivered through the Kafka cluster.                                                                            |
++-------------------------+-----------------------------------------------------------------------------------------------------------------+
+| application/json        | The payload maybe a single JSON object or a JSON array of JSON objects. Each object is handled as an individual |
+|						  | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      | 
+|						  | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the  |
+|						  | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in        |
+|						  | re-ordered fields or changes in whitespace. If you want to preseve JSON objects exactly,                        |
+|						  | use application/cambria. Recommended to follow the JSON format after validating the                             |
+|						  | message in https://jsonformatter.curiousconcept.com/      													    |
++-------------------------+-----------------------------------------------------------------------------------------------------------------+
 
 Publishers
 -----------
@@ -209,25 +209,25 @@ GET http(s)://{HOST:PORT}}/events/{topicname}/{consumegroup}/{consumerid}/{timeo
 Request Parameters:
 ===================
 
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-| Name        | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format     |  Valid/Example Values    |
-+=============+=================================+==================+============+==============+=============+=============+==========================+
-|Topicname    | topic name to be posted         |     Path         |   String   |        40    |     Y       | namespace.  |						  |
-|			  |									| 				   |            |              |             |  String     |                          |
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-|Consumer     | A name that uniquely identifies |     Path         |   String   |              |     Y       |             | CG1                      |
-|group		  | your subscribers                |                  |            |              |             |             |                          |
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-|consumerId   | Within your subscribers group,  |     Path         |   String   |              |     Y       |             | C1                       |
-|			  | a name that uniquely identifies |                  |            |              |             |             |                          |
-|			  | your subscribers  process       |                  |            |              |             |             |                          | +-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-|content-type | To specify type of message      |     Header       |   String   |     20       |     N       |             | aplication/json          |
-|			  | content(json,text or cambria)   |                  |            |              |             |             |                          |
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-|Username     |   userid                        |     Header       |   String   |     1        |     N       |             |                          |
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-|Password     |                                 |     Header       |   String   |     1        |     N       |             |                          |
-+-------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+ 
++--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
+| Name         | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format     |  Valid/Example Values    |
++==============+=================================+==================+============+==============+=============+=============+==========================+
+| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       | namespace.  |						   |
+|			   |							     | 				    |            |              |             | String      |                          |
++--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
+| Consumer     | A name that uniquely identifies |     Path         |   String   |              |     Y       |             | CG1                      |
+| group		   | your subscribers                |                  |            |              |             |             |                          |
++------------- +---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
+| consumerId   | Within your subscribers group,  |     Path         |   String   |              |     Y       |             | C1                       |
+|			   | a name that uniquely identifies |                  |            |              |             |             |                          |
+|			   | your subscribers  process       |                  |            |              |             |             |                          | +--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
+| content-type | To specify type of message      |     Header       |   String   |     20       |     N       |             | aplication/json          |
+|			   | content(json,text or cambria)   |                  |            |              |             |             |                          |
++--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
+| Username     | userid                          |     Header       |   String   |     1        |     N       |             |                          |
++--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
+| Password     |                                 |     Header       |   String   |     1        |     N       |             |                          |
++--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+ 
 
 **NOTE1**:Subscribers /user should have access on the topics. The user () and
 permissions details needs to be in AAF.
@@ -272,7 +272,7 @@ Response Parameters:
 | DMaaP\_MR\_ERR\_5012    | 429             | Too many requests          | This client is making too many requests. Please use a long poll setting to decrease the     | 
 |                         |                 |                            | number of requests that result in empty responses.                                          |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-|                         | 503             | Service Unavailable        | Service Unavailable                                                                         | +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
+|                         | 503             | Service Unavailable        | Service Unavailable.                                                                        | +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
 
 Sample Request:
 ===============
@@ -305,22 +305,22 @@ POST http(s)://{HOST:PORT}/topics/create
 Request Parameters:
 ===================
 
-+-----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
-| Name            | Description                     |  Param Type      |  datatype  |   MaxLen     |  Required   |  Format     |  Valid/Example Values             |
-+=================+=================================+==================+============+==============+=============+=============+===================================+
-| Topicname       | topicname to be created in MR   |     Body         |   String   |        20    |     Y       | Json        |		com.att.dmaap.mr.metrics   |
-+-----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+       
-|topicDescription |   description for topic         |      Body        |   String   |     15       |     Y       |             |                                   |
-+-----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+  
-|partitionCount   |   Kafka topic partition         |     Body         |   String   |     1        |    Y        |             |                                   |
-+-----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
-|replicationCount |   Kafka topic replication       |     Body         |   String   |     1        |    Y        |             |  3 (Default -for 3 node Kafka )   |
-+-----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
-|transaction      |to create transaction id for     |     Body         | Boolean    |     1        |    N        |             |   true                            |
-| Enabled         |	each message transaction        |                  |            |              |             |             |                                   |
-+-----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
-|Content-Type     |   application/json              |     Header       |   String   |              |             |             |  application/json                 |
-+-----------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
+| Name              | Description                     |  Param Type      |  datatype  |   MaxLen     |  Required   |  Format     |  Valid/Example Values             |
++===================+=================================+==================+============+==============+=============+=============+===================================+
+| Topicname         | topicname to be created in MR   |     Body         |   String   |     20       |     Y       | Json        | com.att.dmaap.mr.metrics          |
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+       
+| topicDescription  | description for topic           |     Body         |   String   |     15       |     Y       |             |                                   |
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+  
+| partitionCount    | Kafka topic partition           |     Body         |   String   |     1        |    Y        |             |                                   |
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
+| replicationCount  | Kafka topic replication         |     Body         |   String   |     1        |    Y        |             | 3 (Default -for 3 node Kafka )    |
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
+| transaction       | to create transaction id for    |     Body         |  Boolean   |     1        |    N        |             | true                              |
+| Enabled           | each message transaction        |                  |            |              |             |             |                                   |
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
+| Content-Type      | application/json                |     Header       |   String   |              |             |             | application/json                  |
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
@@ -486,41 +486,41 @@ ex: http://<hostname>:3904/dmaap/v1/topics/com.att.dmaap.mr.testopic
 API Inventory
 ------------- 
 
-+-----------+-------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-|           |   API Name        |   API Method                            |   REST API Path                       |                | Comments                         |
-+===========+===================+=========================================+=======================================+================+==================================+
-| Topics    | GetAll Topics     |getTopics()                              |/topics                                |GET             |                                  |
-|           |List               |                                         |                                       |                |                                  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-|           | Get All Topics    |                                         |                                       |                |                                  |
-|           |List with details  | getAllTopics()                          | /topics/listAll                       | GET            |                                  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-|           | Get individual    |                                         |                                       |                |                                  |
-|           | Topic Details     | getTopic(String topicName)              | /topics/{topicName}                   | GET            |                                  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-|           | Create Topic      | createTopic(TopicBean topicBean)        | /topics/create                        | POST           |                                  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-|           | Delete Topic      | deleteTopicString topicName)            | /topics/{topicName}                   | DELETE         |  Not used in current MR version  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-|           | Get Publishers    | getPublishersByTopicName                |                                       |                |                                  |
-|           | for a Topic       | (String topicName)                      | /topics/{topicName}/producers         | GET            |  UEB Backward Compatibility      |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
-|           | Add a Publisher   |permitPublisherForTopic                  | /topics/{topicName}/producers/        |   PUT          |                                  |
-|           |to write ACLon     |(String topicName, String producerId)    | {producerId}                          |                |                                  |
-|           |a Topic            |                                         |                                       |                |                                  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
-|           |Remove a Publisher |denyPublisherForTopic(String   topicName,|/topics/{topicName}/producers/         |                |                                  | 
-|           |from write ACL on  |String producerId)                       |{producerId}                           |   DELETE       |                                  |
-|           | a Topic           |                                         |                                       |                |                                  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
-|           |Get Consumers for  | getConsumersByTopicName                 |  /topics/{topicName}/consumers        |       GET      |                                  |
-|           | a Topic           | (String topicName)                      |                                       |                |                                  |
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
-|           | Add a Consumer    | permitConsumerForTopic(String topicName,|   /topics/{topicName}/consumers/      |      PUT       |                                  |
-|           |to read ACL        |      String consumerId)                 |       {consumerId}                    |                |                                  |
-|           |on a Topic         |                                         |                                       |                |                                  |    
-|           +-------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
-|           | Remove a consumer |denyPublisherForTopic(String   topicName,|/topics/{topicName}/consumers/         |                |                                  | 
-|           |from write         |String consumerId)                       |{consumerId}                           |                |                                  |
-|           | ACL on a Topic    |                                         |                                       |    DELETE      |                                  |
-+-----------+-------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
++-----------+--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
+|           |   API Name         |   API Method                            |   REST API Path                       |                | Comments                         |
++===========+====================+=========================================+=======================================+================+==================================+
+| Topics    | GetAll Topics      | getTopics()                             | /topics                               | GET            |                                  |
+|           | List               |                                         |                                       |                |                                  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
+|           | Get All Topics     |                                         |                                       |                |                                  |
+|           | List with details  | getAllTopics()                          | /topics/listAll                       | GET            |                                  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
+|           | Get individual     |                                         |                                       |                |                                  |
+|           | Topic Details      | getTopic(String topicName)              | /topics/{topicName}                   | GET            |                                  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
+|           | Create Topic       | createTopic(TopicBean topicBean)        | /topics/create                        | POST           |                                  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
+|           | Delete Topic       | deleteTopicString topicName)            | /topics/{topicName}                   | DELETE         |  Not used in current MR version  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
+|           | Get Publishers     | getPublishersByTopicName                |                                       |                |                                  |
+|           | for a Topic        | String topicName)                       | /topics/{topicName}/producers         | GET            |  UEB Backward Compatibility      |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
+|           | Add a Publisher    | permitPublisherForTopic                 | /topics/{topicName}/producers/        | PUT            |                                  |
+|           | to write ACLon     | (String topicName, String producerId)   | {producerId}                          |                |                                  |
+|           | a Topic            |                                         |                                       |                |                                  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
+|           | Remove a Publisher | denyPublisherForTopic(String topicName, | /topics/{topicName}/producers/        | DELETE         |                                  | 
+|           | from write ACL on  | String producerId)                      | {producerId}                          |                |                                  |
+|           | a Topic            |                                         |                                       |                |                                  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
+|           | Get Consumers for  | getConsumersByTopicName                 | /topics/{topicName}/consumers         |  GET           |                                  |
+|           | a Topic            | (String topicName)                      |                                       |                |                                  |
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
+|           | Add a Consumer     | permitConsumerForTopic(String           | /topics/{topicName}/consumers/        |  PUT           |                                  |
+|           | to read ACL        | topicName,String consumerId)            | {consumerId}                          |                |                                  |
+|           | on a Topic         |                                         |                                       |                |                                  |    
+|           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
+|           | Remove a consumer  | denyPublisherForTopic(String topicName, | /topics/{topicName}/consumers/        | DELETE         |                                  | 
+|           | from write         | String consumerId)                      | {consumerId}                          |                |                                  |
+|           | ACL on a Topic     |                                         |                                       |                |                                  |
++-----------+--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
