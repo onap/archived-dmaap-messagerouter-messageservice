@@ -58,16 +58,15 @@ are not inspected for content.
 | Content-Type            |  Description                                                                                                    |
 +=========================+=================================================================================================================+
 | text/plain              | Each line in the POST body is treated as a separate message. No partition key is specified, and therefore no    |
-|	                      |	order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when        |
-|	                      | delivered through the Kafka cluster.                                                                            |
+|                         |	order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when        |
+|                         | delivered through the Kafka cluster.                                                                            |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 | application/json        | The payload maybe a single JSON object or a JSON array of JSON objects. Each object is handled as an individual |
-|						  | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      | 
-|						  | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the  |
-|						  | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in        |
-|						  | re-ordered fields or changes in whitespace. If you want to preseve JSON objects exactly,                        |
-|						  | use application/cambria. Recommended to follow the JSON format after validating the                             |
-|						  | message in https://jsonformatter.curiousconcept.com/      													    |
+|                         | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      | 
+|                         | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the  |
+|                         | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in        |
+|                         | re-ordered fields or changes in whitespace. If you want to preseve JSON objects exactly,                        |
+|						  | use application/cambria. Recommended to follow the JSON format.                                                 |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 
 Publishers
@@ -209,25 +208,24 @@ GET http(s)://{HOST:PORT}}/events/{topicname}/{consumegroup}/{consumerid}/{timeo
 Request Parameters:
 ===================
 
-+--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-| Name         | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format     |  Valid/Example Values    |
-+==============+=================================+==================+============+==============+=============+=============+==========================+
-| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       | namespace.  |						   |
-|			   |							     | 				    |            |              |             | String      |                          |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-| Consumer     | A name that uniquely identifies |     Path         |   String   |              |     Y       |             | CG1                      |
-| group		   | your subscribers                |                  |            |              |             |             |                          |
-+------------- +---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-| consumerId   | Within your subscribers group,  |     Path         |   String   |              |     Y       |             | C1                       |
-|			   | a name that uniquely identifies |                  |            |              |             |             |                          |
-|			   | your subscribers  process       |                  |            |              |             |             |                          | +--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-| content-type | To specify type of message      |     Header       |   String   |     20       |     N       |             | aplication/json          |
-|			   | content(json,text or cambria)   |                  |            |              |             |             |                          |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-| Username     | userid                          |     Header       |   String   |     1        |     N       |             |                          |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+
-| Password     |                                 |     Header       |   String   |     1        |     N       |             |                          |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+-------------+--------------------------+ 
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| Name         | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format             |  Valid/Example Values  |
++==============+=================================+==================+============+==============+=============+=====================+========================+
+| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       | namespace.String    |						 |
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| Consumer     | A name that uniquely identifies |     Path         |   String   |              |     Y       |                     | CG1                    |
+| group        | your subscribers                |                  |            |              |             |                     |                        |
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| consumerId   | Within your subscribers group,  |     Path         |   String   |              |     Y       |                     | C1                     |
+|              | a name that uniquely identifies |                  |            |              |             |                     |                        |
+|			   | your subscribers  process       |                  |            |              |             |                     |                        | +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| content-type | To specify type of message      |     Header       |   String   |     20       |     N       |                     | aplication/json        |
+|			   | content(json,text or cambria)   |                  |            |              |             |                     |                        |
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| Username     | userid                          |     Header       |   String   |     1        |     N       |                     |                        |
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| Password     |                                 |     Header       |   String   |     1        |     N       |                     |                        |
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+ 
 
 **NOTE1**:Subscribers /user should have access on the topics. The user () and
 permissions details needs to be in AAF.
@@ -251,6 +249,11 @@ Response Parameters:
 | ResponseBody     | Messages consumed from topic   | Json       | Json         |                                                           |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 
+
+Response /Error Codes
+=====================
+
+
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
 +===========================+====================================+
@@ -262,7 +265,7 @@ Response Parameters:
 +---------------------------+------------------------------------+
 
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-| Error code              |  HTTP Code      |  Description               | Issue reason                                                                                |
+| Error code              |  HTTPCode       |  Description               | Issue Reason                                                                                |
 +=========================+=================+============================+=============================================================================================+
 | DMaaP\_MR\_ERR\_3008    | 413             | Request Entity too large   | Message size exceeds the batch limit <limit>.Reduce the batch size and try again            |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
@@ -332,6 +335,7 @@ Request Parameters:
 | 500-599                   | the DMaaP service has a problem    |
 +---------------------------+------------------------------------+
 
+
 +-------------------------+-----------------+--------------------------------------------------+
 | Error code              |  HTTP Code      |  Description                                     |
 +=========================+=================+==================================================+
@@ -349,14 +353,14 @@ Response Parameters
 +==================+================================+============+==============+===========================================================+
 | httpStatusCode   |                                |            |              | 200, 201 etc.                                             |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
-| mrErrorCode      | Numeric error code             |            |              | 5005                                                       |
+| mrErrorCode      | Numeric error code             |            |              | 5005                                                      |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 | errorMessage     |                                |            |              | SUCCESS, or error message.                                |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 | helpURL          | helpurl                        |            |              |                                                           |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
-| ResponseBody     | Topic details (owner,          |            |              |                                                           |
-|                  | trxEnabled=true)               | Json       | Json         |                                                           |
+| ResponseBody     | Topic details (owner,          |  Json      |  Json        |                                                           |
+|                  | trxEnabled=true)               |            |              |                                                           |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 
 
