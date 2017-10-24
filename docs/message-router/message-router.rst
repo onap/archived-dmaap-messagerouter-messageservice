@@ -58,7 +58,7 @@ are not inspected for content.
 | Content-Type            |  Description                                                                                                    |
 +=========================+=================================================================================================================+
 | text/plain              | Each line in the POST body is treated as a separate message. No partition key is specified, and therefore no    |
-|                         |	order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when        |
+|                         | order is guaranteed. This format is mainly for test, as messages are highly likely to be re-ordered when        |
 |                         | delivered through the Kafka cluster.                                                                            |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 | application/json        | The payload maybe a single JSON object or a JSON array of JSON objects. Each object is handled as an individual |
@@ -66,7 +66,7 @@ are not inspected for content.
 |                         | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the  |
 |                         | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in        |
 |                         | re-ordered fields or changes in whitespace. If you want to preseve JSON objects exactly,                        |
-|						  | use application/cambria. Recommended to follow the JSON format.                                                 |
+|                         | use application/cambria. Recommended to follow the JSON format.                                                 |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 
 Publishers
@@ -211,16 +211,17 @@ Request Parameters:
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | Name         | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format             |  Valid/Example Values  |
 +==============+=================================+==================+============+==============+=============+=====================+========================+
-| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       | namespace.String    |						 |
+| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       | namespace.String    |                        |
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | Consumer     | A name that uniquely identifies |     Path         |   String   |              |     Y       |                     | CG1                    |
 | group        | your subscribers                |                  |            |              |             |                     |                        |
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | consumerId   | Within your subscribers group,  |     Path         |   String   |              |     Y       |                     | C1                     |
 |              | a name that uniquely identifies |                  |            |              |             |                     |                        |
-|			   | your subscribers  process       |                  |            |              |             |                     |                        | +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+|              | your subscribers  process       |                  |            |              |             |                     |                        |
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | content-type | To specify type of message      |     Header       |   String   |     20       |     N       |                     | aplication/json        |
-|			   | content(json,text or cambria)   |                  |            |              |             |                     |                        |
+|              | content(json,text or cambria)   |                  |            |              |             |                     |                        |
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | Username     | userid                          |     Header       |   String   |     1        |     N       |                     |                        |
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
@@ -269,13 +270,17 @@ Response /Error Codes
 +=========================+=================+============================+=============================================================================================+
 | DMaaP\_MR\_ERR\_3008    | 413             | Request Entity too large   | Message size exceeds the batch limit <limit>.Reduce the batch size and try again            |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3009    | 500             | Internal Server Error      | Unable to publish messages. Please contact administartor                                    | +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3010    | 400             | Bad Request                | Incorrect Batching format. Please correct the batching format and try again                 | +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3011    | 413             | Request Entity too large   | Message size exceeds the message size limit <limit>.Reduce the message size and try again   | +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3009    | 500             | Internal Server Error      | Unable to publish messages. Please contact administartor                                    |
++-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3010    | 400             | Bad Request                | Incorrect Batching format. Please correct the batching format and try again                 |
++-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
+| DMaaP\_MR\_ERR\_3011    | 413             | Request Entity too large   | Message size exceeds the message size limit <limit>.Reduce the message size and try again   |
++-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
 | DMaaP\_MR\_ERR\_5012    | 429             | Too many requests          | This client is making too many requests. Please use a long poll setting to decrease the     | 
 |                         |                 |                            | number of requests that result in empty responses.                                          |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-|                         | 503             | Service Unavailable        | Service Unavailable.                                                                        | +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
+|                         | 503             | Service Unavailable        | Service Unavailable.                                                                        |
++-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
 
 Sample Request:
 ===============
@@ -339,10 +344,14 @@ Request Parameters:
 +-------------------------+-----------------+--------------------------------------------------+
 | Error code              |  HTTP Code      |  Description                                     |
 +=========================+=================+==================================================+
-| DMaaP\_MR\_ERR\_5001    | 500             | Failed to retrieve list of all topics            | +-------------------------+-----------------+--------------------------------------------------+
-| DMaaP\_MR\_ERR\_5002    | 500             | Failed to retrieve details of topic:<topicName>  |     +-------------------------+-----------------+--------------------------------------------------+
-| DMaaP\_MR\_ERR\_5003    | 500             | Failed to create topic:<topicName>               | +-------------------------+-----------------+--------------------------------------------------+
-| DMaaP\_MR\_ERR\_5004    | 500             | Failed to delete topic:<topicName>               | +-------------------------+-----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5001    | 500             | Failed to retrieve list of all topics            |
++-------------------------+-----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5002    | 500             | Failed to retrieve details of topic:<topicName>  |
++-------------------------+-----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5003    | 500             | Failed to create topic:<topicName>               |
++-------------------------+-----------------+--------------------------------------------------+
+| DMaaP\_MR\_ERR\_5004    | 500             | Failed to delete topic:<topicName>               |
++-------------------------+-----------------+--------------------------------------------------+
 
 
 Response Parameters

@@ -27,7 +27,7 @@ kafka runs on 172.18.0.2 and dmaap on 172.18.0.4.
    
    .. code:: bash
    
-		docker-compose up –d
+		docker-compose up  # add -d argument to start process as a daemon (background process)
 
    This should start 3 containers.
 
