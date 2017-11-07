@@ -15,13 +15,21 @@ Version: x.y.z
 --------------
 
 
-:Release Date: yyyy-mm-dd
+:Release Date: 2017-11-16
 
 
 
 **New Features**
 
-One or two sentences explaining the purpose of this Release.
+ - Pub/sub messaging metaphor to broaden data processing opportunities.
+ - A single solution for most event distribution needs to support a range of environments.
+ - Standardized topic names
+ - Implements a RESTful HTTP API for provisioning
+ - Implements a RESTful HTTP API for message transactions (i.e. pub, sub)
+ - Implements a RESTful HTTP API for transaction metrics
+ - Topic registry and discovery
+
+
 
 **Bug Fixes**
    - `CIMAN-65 <https://jira.onap.org/browse/CIMAN-65>`_ and a sentence explaining what this defect is addressing.
