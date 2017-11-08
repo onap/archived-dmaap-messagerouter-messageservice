@@ -50,5 +50,3 @@ Version: x.y.z
 **Deprecation Notes**
 
 **Other**
-
-===========
