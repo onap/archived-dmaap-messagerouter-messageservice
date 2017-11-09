@@ -11,7 +11,7 @@ Release Notes
    * This note must be removed after content has been added.
 
 
-Version: x.y.z
+Version: 1.1.0
 --------------
 
 
@@ -21,8 +21,8 @@ Version: x.y.z
 
 **New Features**
 
- - Pub/sub messaging metaphor to broaden data processing opportunities.
- - A single solution for most event distribution needs to support a range of environments.
+ - Pub/sub messaging metaphor to broaden data processing opportunities
+ - A single solution for most event distribution needs to support a range of environments
  - Standardized topic names
  - Implements a RESTful HTTP API for provisioning
  - Implements a RESTful HTTP API for message transactions (i.e. pub, sub)
@@ -32,23 +32,23 @@ Version: x.y.z
 
 
 **Bug Fixes**
-   - `CIMAN-65 <https://jira.onap.org/browse/CIMAN-65>`_ and a sentence explaining what this defect is addressing.
+   - `DMAAP-165 <https://jira.onap.org/browse/DMAAP-165>`_ Correct documentation rst file errors and warnings
+   - `DMAAP-160 <https://jira.onap.org/browse/DMAAP-160>`_ DMaaP periodically loses connection to Kafka
+   - `DMAAP-157 <https://jira.onap.org/browse/DMAAP-157>`_ SDC service models distribution fails
+   - `DMAAP-151 <https://jira.onap.org/browse/DMAAP-151>`_ Fix docker image bug
+   - `DMAAP-1 <https://jira.onap.org/browse/DMAAP-1>`_ MSO DB is not populated with the models from SDC
+   
 **Known Issues**
-   - `CIMAN-65 <https://jira.onap.org/browse/CIMAN-65>`_ and two, three sentences.
-     One sentences explaining what is the issue.
-
-     Another sentence explaining the impact of the issue.
-
-     And an optional sentence providing a workaround.
+   - `DMAAP-164 <https://jira.onap.org/browse/DMAAP-164>`_ The dependency from kafka for zookeeper created issues when the vm is restarted.
+         
 
 **Security Issues**
-   You may want to include a reference to CVE (Common Vulnerabilities and Exposures) `CVE <https://cve.mitre.org>`_
-
+   N/A
 
 **Upgrade Notes**
-
+   N/A
 **Deprecation Notes**
-
+   N/A
 **Other**
 
 ===========
