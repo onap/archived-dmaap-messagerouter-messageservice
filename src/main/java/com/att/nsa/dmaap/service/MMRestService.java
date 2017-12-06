@@ -262,7 +262,7 @@ public class MMRestService {
 						inStream = IOUtils.toInputStream(jsonOb.toString(), UTF_8);
 
 					} catch (IOException ioe) {
-						ioe.printStackTrace();
+						LOGGER.log("Failed to Insert JsonObject", ioe);
 						LOGGER.error("IOException: ", ioe);
 					}
 
