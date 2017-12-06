@@ -275,7 +275,7 @@ public class MMRestService {
 
 			} catch (IOException ioe) {
 
-				ioe.printStackTrace();
+				LOGGER.log("IOException", ioe);
 				LOGGER.error("IOException: ", ioe);
 			}
 
