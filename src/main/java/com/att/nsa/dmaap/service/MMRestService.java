@@ -262,7 +262,6 @@ public class MMRestService {
 						inStream = IOUtils.toInputStream(jsonOb.toString(), UTF_8);
 
 					} catch (IOException ioe) {
-						ioe.printStackTrace();
 						LOGGER.error("IOException: ", ioe);
 					}
 
