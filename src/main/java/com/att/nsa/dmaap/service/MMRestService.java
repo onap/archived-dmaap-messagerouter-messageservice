@@ -579,7 +579,6 @@ public class MMRestService {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			LOGGER.error("Exception: ", e);			
 		}
 	}
