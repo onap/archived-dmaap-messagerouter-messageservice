@@ -62,6 +62,7 @@ public class ServicePropertiesMap
 				filePath = file.getPath();
 			}
 			
+			if(filePath != null) {
 			if(filePath.lastIndexOf(".json")>0){
 				
 				ObjectMapper om = new ObjectMapper();
@@ -88,6 +89,7 @@ public class ServicePropertiesMap
 				HashMap<String, String> propMap = new HashMap<>((Map)prop);
 				
 				mapOfMaps.put(file.getName(), propMap);
+			}
 			}
 
 			logger.info("File - " + file.getName() + " is loaded into the map and the "
