@@ -1006,7 +1006,6 @@ public class MMRestService {
 							inStream = IOUtils.toInputStream(listAll.toString(), UTF_8);
 
 						} catch (IOException ioe) {
-							ioe.printStackTrace();
 							LOGGER.error("IOException: ", ioe);
 						}
 						// call listAllMirrorMaker
