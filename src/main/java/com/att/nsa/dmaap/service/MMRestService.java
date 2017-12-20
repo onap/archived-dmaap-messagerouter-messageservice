@@ -592,7 +592,7 @@ public class MMRestService {
 			LOGGER.error(errMsg);
 
 		} catch (JSONException | IOException e) {
-			LOGGER.error(errMsg);
+			LOGGER.error(errMsg, e);
 		}
 	}
 
