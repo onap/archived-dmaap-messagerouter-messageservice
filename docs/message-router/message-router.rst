@@ -9,7 +9,7 @@ In DMaaP Message Router, Restful web service is exposed to client to perform any
    |image0|
 
    .. |image0| image:: image1.png
-   
+
 
 HTTP Service APIs
 ------------------
@@ -62,7 +62,7 @@ are not inspected for content.
 |                         | delivered through the Kafka cluster.                                                                            |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 | application/json        | The payload maybe a single JSON object or a JSON array of JSON objects. Each object is handled as an individual |
-|                         | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      | 
+|                         | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      |
 |                         | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the  |
 |                         | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in        |
 |                         | re-ordered fields or changes in whitespace. If you want to preseve JSON objects exactly,                        |
@@ -80,7 +80,7 @@ onto a topic. The messages are opaque to the service and are treated as
 raw bytes. In general, passing JSON messages is preferred, but this is
 due to higher-level features and related systems, not the MessageRouter
 broker itself. The only constraint placed on messages is their on their
-size – messages must be under the maximum size, which is currently
+size ï¿½ messages must be under the maximum size, which is currently
 configured at 1 MB.
 
 Request URL
@@ -125,7 +125,7 @@ Response Parameters
 | transactionid    | transaction-id value   |            |              |                              |
 +------------------+------------------------+------------+--------------+------------------------------+
 
- 
+
 
 Response /Error Codes
 =====================
@@ -194,7 +194,7 @@ Sample Response:
 |     Date: Mon, 28 Dec 2015 13:18:50 GMT                             |
 +---------------------------------------------------------------------+
 
- 
+
 
 Subscribers
 -----------
@@ -226,7 +226,7 @@ Request Parameters:
 | Username     | userid                          |     Header       |   String   |     1        |     N       |                     |                        |
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | Password     |                                 |     Header       |   String   |     1        |     N       |                     |                        |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+ 
++--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 
 **NOTE1**:Subscribers /user should have access on the topics. The user () and
 permissions details needs to be in AAF.
@@ -276,7 +276,7 @@ Response /Error Codes
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
 | DMaaP\_MR\_ERR\_3011    | 413             | Request Entity too large   | Message size exceeds the message size limit <limit>.Reduce the message size and try again   |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_5012    | 429             | Too many requests          | This client is making too many requests. Please use a long poll setting to decrease the     | 
+| DMaaP\_MR\_ERR\_5012    | 429             | Too many requests          | This client is making too many requests. Please use a long poll setting to decrease the     |
 |                         |                 |                            | number of requests that result in empty responses.                                          |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
 |                         | 503             | Service Unavailable        | Service Unavailable.                                                                        |
@@ -293,7 +293,7 @@ Sample Request:
 | Example:                                                                                           |
 |                                                                                                    |
 |curl -u XXX@csp.abc.com:MRDmap2016$ -X GET -d 'MyfirstMessage'                                      |
-|                                                                                                    | 
+|                                                                                                    |
 |http://mrlocal00.dcae.proto.research.att.com:3904/events/com.att.ecomp_test.crm.preDeo/myG/C1       |
 |                                                                                                    |
 |[I am r sending first msg,I am R sending first msg]                                                 |
@@ -317,16 +317,16 @@ Request Parameters:
 | Name              | Description                     |  Param Type      |  datatype  |   MaxLen     |  Required   |  Format     |  Valid/Example Values             |
 +===================+=================================+==================+============+==============+=============+=============+===================================+
 | Topicname         | topicname to be created in MR   |     Body         |   String   |     20       |     Y       | Json        | com.att.dmaap.mr.metrics          |
-+-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+       
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | topicDescription  | description for topic           |     Body         |   String   |     15       |     Y       |             |                                   |
-+-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+  
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | partitionCount    | Kafka topic partition           |     Body         |   String   |     1        |    Y        |             |                                   |
-+-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | replicationCount  | Kafka topic replication         |     Body         |   String   |     1        |    Y        |             | 3 (Default -for 3 node Kafka )    |
-+-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | transaction       | to create transaction id for    |     Body         |  Boolean   |     1        |    N        |             | true                              |
 | Enabled           | each message transaction        |                  |            |              |             |             |                                   |
-+-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+ 
++-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | Content-Type      | application/json                |     Header       |   String   |              |             |             | application/json                  |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 
@@ -377,25 +377,25 @@ Sample Request:
 ===============
 
     .. code:: bash
-	
-	    POST   http://<hostname>:3904/topic/create 
-		Request Body  
-		{"topicName":"com.abc.dmaap.mr.topicname","description":"This is a SAPTopic ",
-		"partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}  
-		Content-Type: application/json 
-		Example:
-		curl -u XXXc@csp.abc.com:xxxxx$  -H 'Content-Type:application/json' -X POST -d 
-		@topicname.txt  http://mrlocal00.dcae.proto.research.abc.com:3904/topics/create
-		{  
-		"writerAcl": {   
-		"enabled": false, 
-		"users": []  
-		}, 
-		"description": "This is a TestTopic", 
-		"name": "com.abc.ecomp_test.crm.Load9",   
-		"readerAcl": {  
-		"enabled": false,  
-		"users": [] 
+
+      POST   http://<hostname>:3904/topic/create
+  Request Body
+  {"topicName":"com.abc.dmaap.mr.topicname","description":"This is a SAPTopic ",
+  "partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}
+  Content-Type: application/json
+  Example:
+  curl -u XXXc@csp.abc.com:xxxxx$  -H 'Content-Type:application/json' -X POST -d
+  @topicname.txt  http://mrlocal00.dcae.proto.research.abc.com:3904/topics/create
+  {
+  "writerAcl": {
+  "enabled": false,
+  "users": []
+  },
+  "description": "This is a TestTopic",
+  "name": "com.abc.ecomp_test.crm.Load9",
+  "readerAcl": {
+  "enabled": false,
+  "users": []
 
 
 GetTopic Details
@@ -424,14 +424,14 @@ Response Parameters
 +------------------+------------------------+------------+----------+---------+--------------------------+
 | Name             | Description            | ParamType  | datatype |Format   | Valid/Example Values     |
 +==================+========================+============+==========+=========+==========================+
-| topicname        |  topic name details    |      Body  |   String |   Json  | com.abc.dmaap.mr.metrics | 
+| topicname        |  topic name details    |      Body  |   String |   Json  | com.abc.dmaap.mr.metrics |
 +------------------+------------------------+------------+----------+---------+--------------------------+
-| description      |                        |            |   String |         |                          | 
+| description      |                        |            |   String |         |                          |
 +------------------+------------------------+------------+----------+---------+--------------------------+
 | owner            |user id who created the |            |          |         |                          |
-|                  |         topic          |            |          |         |                          | 
+|                  |         topic          |            |          |         |                          |
 +------------------+------------------------+------------+----------+---------+--------------------------+
-| txenabled        |     true or false      |            |  boolean |         |                          | 
+| txenabled        |     true or false      |            |  boolean |         |                          |
 +------------------+------------------------+------------+----------+---------+--------------------------+
 
 +---------------------------+------------------------------------+
@@ -448,24 +448,15 @@ Response Parameters
 Sample Request:
 ===============
 
-+-----------------------------------------------------------------------------------+
-| GET   http://<hostname>:3904/topic/com.att.dmaap.mr.testtopic                     |
-|       curl -u XXX@csp.abc.com:x$  -X                                              |
-| GET  http://mrlocal00.dcae.proto.research.att.com:3904/topics                     |
-|    {"topics": [                                                                   |
-|    {                                                                              |
-|       "txenabled": true,                                                          |
-|        "description": "This is a TestTopic",                                      |
-|      "owner": "XXXX@csp.abc.com",                                                 |
-|        "topicName": "com.abc.ecomp_test.crm.Load9"                                |
-|    },                                                                             |
-|    {                                                                              |
-|        "txenabled": false,                                                        |
-|        "description": "",                                                         |
-|        "owner": "",                                                               |
-|        "topicName": "com.abc.ecomp_test.crm.Load1"                                |
-|    },                                                                             |
-+-----------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------------+
+| GET   http://<hostname>:3904/topic/com.att.dmaap.mr.testtopic                                                                     |
+|       curl -u XXX@csp.abc.com:x$  -X                                                                                              |
+| GET  http://mrlocal00.dcae.proto.research.att.com:3904/topics                                                                     |
+|    {"topics": [                                                                                                                   |
+|    {"txenabled": true,"description": "This is a TestTopic","owner": "XXXX@csp.abc.com","topicName": "com.abc.ecomp_test.crm.Load9"|
+|    {"txenabled": false,"description": "", "owner": "", "topicName": "com.abc.ecomp_test.crm.Load1"                                |
+|    ]},                                                                                                                            |
++-----------------------------------------------------------------------------------------------------------------------------------+
 
 
 Delete Topics
@@ -493,11 +484,11 @@ ex: http://<hostname>:3904/dmaap/v1/topics/com.att.dmaap.mr.testopic
 +-------------------------+---------------------------------------------+----------------------+
 | Error code              |    Description                              |HTTP code             |
 +=========================+=============================================+======================+
-|  DMaaP\_MR\_ERR\_5004   |  Failed to delete topic:<topicName>         |   500                |   
+|  DMaaP\_MR\_ERR\_5004   |  Failed to delete topic:<topicName>         |   500                |
 +-------------------------+---------------------------------------------+----------------------+
 
 API Inventory
-------------- 
+-------------
 
 +-----------+--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
 |           |   API Name         |   API Method                            |   REST API Path                       |                | Comments                         |
@@ -522,7 +513,7 @@ API Inventory
 |           | to write ACLon     | (String topicName, String producerId)   | {producerId}                          |                |                                  |
 |           | a Topic            |                                         |                                       |                |                                  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
-|           | Remove a Publisher | denyPublisherForTopic(String topicName, | /topics/{topicName}/producers/        | DELETE         |                                  | 
+|           | Remove a Publisher | denyPublisherForTopic(String topicName, | /topics/{topicName}/producers/        | DELETE         |                                  |
 |           | from write ACL on  | String producerId)                      | {producerId}                          |                |                                  |
 |           | a Topic            |                                         |                                       |                |                                  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
@@ -531,9 +522,9 @@ API Inventory
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
 |           | Add a Consumer     | permitConsumerForTopic(String           | /topics/{topicName}/consumers/        |  PUT           |                                  |
 |           | to read ACL        | topicName,String consumerId)            | {consumerId}                          |                |                                  |
-|           | on a Topic         |                                         |                                       |                |                                  |    
+|           | on a Topic         |                                         |                                       |                |                                  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
-|           | Remove a consumer  | denyPublisherForTopic(String topicName, | /topics/{topicName}/consumers/        | DELETE         |                                  | 
+|           | Remove a consumer  | denyPublisherForTopic(String topicName, | /topics/{topicName}/consumers/        | DELETE         |                                  |
 |           | from write         | String consumerId)                      | {consumerId}                          |                |                                  |
 |           | ACL on a Topic     |                                         |                                       |                |                                  |
 +-----------+--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+

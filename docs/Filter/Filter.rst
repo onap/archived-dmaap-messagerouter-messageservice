@@ -1,6 +1,6 @@
 =======
 Filter
-======= 
+=======
 
 A filter examine an event and decides if it matches or doesn't.  Filters
 are mainly used in rules to decide if the processing entries should be
@@ -16,7 +16,7 @@ Equals filter, for example, compares a field's value with some other
 value and returns true if the values match.  The standard library also
 includes filter classes called And, Or, and Not, so you can compose more
 complex filters. For example, written in the standard JSON config
-format: 
+format:
 
 +-----------------------------------------+
 | "filter":{                              |
@@ -36,20 +36,20 @@ format:
   conditions mentioned in filter. Filters can be passed as a query
   parameter by the consumer in consume request as mentioned below:
   **http://localhost:8080/DMaaP/dmaaprest/events/DMaaP/consumergroup/mHOeNFY4XiWx4CBa?filter=\\{"class":"Equals",
-  "field":"email", "value":"test@abc.com" }** 
+  "field":"email", "value":"test@abc.com" }**
 - Filters can be applied only on data in JSON format i.e. if applied,
   filters will automatically ignore any non-json data.  While consuming,
   request CONTENT\_TYPE is not relevant to filter.
 
 All the supported filter can be found below.
 
-Types of Filters 
+Types of Filters
 ----------------
 
 - DMaaP Message Router supports all the filters which were supported by
-  DMaaP Message Router and are mentioned below:- 
+  DMaaP Message Router and are mentioned below:-
 - **All Alarms:**
-  - Match all alarms. 
+  - Match all alarms.
 - **And:**
   - Create a set of filters. This filter matches when all of them matches.
 
@@ -157,7 +157,7 @@ Types of Filters
 +-------------+-------------------------------------------------+------------+-----------------------------------+
 
 - **NoAlarms**
-  -  Don't match any alarms. 
+  -  Don't match any alarms.
 - **Not**
   -  Negate the configured filter.
 
@@ -179,8 +179,7 @@ Types of Filters
 +-------------+----------------------------------------------+------------+--------------+
 
 - **NotOneOf**
-  -  Match when the specified field does not have a value from the given
-     list.
+  -  Match when the specified field does not have a value from the given list.
 
 +-------------+---------------------------------------------+------------+---------------------+
 | **Field**   | **Description**                             | **Type**   | **Notes**           |
@@ -282,33 +281,33 @@ Types of Filters
 | seconds             | The number of seconds.                                  | NUMBER     | A number        |
 +---------------------+---------------------------------------------------------+------------+-----------------+
 
-- **Limit:** 
+- **Limit:**
 
   -  Limit is the integer value and DMaaP Message Router will consumes
      only that set of message which are specified in limit.
-	 
+
   .. code:: bash
-  
-        Suppose if we set limit=2, then only 2 sets of data will be consumed. 
-        *Get \ **<<topicName>>/group/2?limit=4*** 
-        Let us suppose if 
+
+        Suppose if we set limit=2, then only 2 sets of data will be consumed.
+        *Get \ **<<topicName>>/group/2?limit=4***
+        Let us suppose if
         **No of data available** = 4
         **Set limit** = 6
         i.e. limit>no of data
-        In this scenario all 4 sets of data will be consumed. 
+        In this scenario all 4 sets of data will be consumed.
 
 -  If limit is not passed with the url then by default limit is set to
    4096.
-   
+
    .. code:: bash
 
-        i.e. 4096 sets of data will be consumed. 
-        **Timeout and Long Poll:** 
+        i.e. 4096 sets of data will be consumed.
+        **Timeout and Long Poll:**
 
 -  Timeout is the integer value which will be treated by DMaaP Message
    Router as time in millisecond.
 
- 
+
 
 -  Get
 
@@ -343,7 +342,7 @@ Types of Filters
    |image1|
 
    .. |image1| image:: images/image1.png
-   
+
 - **Pretty**:
 
 -  Pretty is a Boolean value.
@@ -359,22 +358,22 @@ Types of Filters
    printed in next line separated by comma (,).
 
    |image2|
-   
+
    .. |image2| image:: images/image2.png
-   
+
 - **Filter**
 
-   - A filter examine an event and decides if it matches or doesn't. 
+   - A filter examine an event and decides if it matches or doesn't.
    - Filters are mainly used in rules to decide if the processing entries
      should be executed on the given event. They're also used for settings,
      and systems like the Graph Correlator re-use Highland Park's filter
-     mechanism to specify which alarms fit in a correlation. 
+     mechanism to specify which alarms fit in a correlation.
    - The standard library includes a number of simple filters. The Equals
      filter, for example, compares a field's value with some other value
-     and returns true if the values match. 
+     and returns true if the values match.
    - The standard library also includes filter classes called And, Or, and
      Not, so you can compose more complex filters. For example, written in
-     the standard JSON config format: 
+     the standard JSON config format:
 
     +-----------------------------------------+
     | "filter":{                              |
@@ -387,22 +386,20 @@ Types of Filters
     | }                                       |
     +-----------------------------------------+
 
-   - This filter matches events in which the field "foo" has value "abc"
-   and the field "bar" is assigned to some value (as opposed to not being
-   present on the event).
-   -  Filters are used by the consumers to filter out data and consume only
-   specific set of data which matches the conditions mentioned in filter.
-   -  Filters can be passed as a query parameter by the consumer in consume
-   request as mentioned below:
-   - **http://localhost:8080/DMaaP/dmaaprest/events/DMaaP/consumergroup/mHOeNFY4XiWx4CBa?filter=\\{"class":"Equals",
-     "field":"email", "value":"`test@abc.com <mailto:test@att.com>`__" }** 
-   - Filters can be applied only on data in JSON format i.e. if applied,
-     filters will automatically ignore any non-json data. 
-   - While consuming, request CONTENT\_TYPE is not relevant to filter.
+   - This filter matches events in which the field "foo" has value "abc" and
+     the field "bar" is assigned to some value (as opposed to not being
+     present on the event).
+   - Filters are used by the consumers to filter out data and consume only
+     specific set of data which matches the conditions mentioned in filter.
+   - Filters can be passed as a query parameter by the consumer in consume
+     request as mentioned below:
+     - **http://localhost:8080/DMaaP/dmaaprest/events/DMaaP/consumergroup/mHOeNFY4XiWx4CBa?filter=\\{"class":"Equals","field":"email", "value":"`test@abc.com <mailto:test@att.com>`__" }**
+     - Filters can be applied only on data in JSON format i.e. if applied, filters will automatically ignore any non-json data.
+     - While consuming, request CONTENT\_TYPE is not relevant to filter.
 
    The MR API allows a subscriber pass a Highland Park filter as part of
    the GET request. This will filter the stream of messages sent back to
-   the subscriber, but for this to work, there are some requirements: 
+   the subscriber, but for this to work, there are some requirements:
 
    -  The message payload must be JSON
 
@@ -412,8 +409,7 @@ Types of Filters
 
    -  The filter must be encoded properly in the URL path.
 
- Server-side filtering can also be setup in the Java client as
-illustrated below
+Server-side filtering can also be setup in the Java client as illustrated below
 
 **Filtering Consumer**
 
@@ -427,165 +423,165 @@ server.
 
 Remember, only Highland Park standard library filter components can be
 used -- no plug-ins are available in the Cambria server context.
-	
-	.. code:: bash
-	
-		package org.onap.sa.highlandPark.integration;
 
-		import java.io.IOException;
+  .. code:: bash
 
-		import java.util.UUID;
+  package org.onap.sa.highlandPark.integration;
 
-		import org.onap.nsa.cambria.client.CambriaClientFactory;
+  import java.io.IOException;
 
-		import org.onap.nsa.cambria.client.CambriaConsumer;
+  import java.util.UUID;
 
-		import org.onap.sa.highlandPark.processor.HpEvent;
+  import org.onap.nsa.cambria.client.CambriaClientFactory;
 
-		import org.onap.sa.highlandPark.stdlib.filters.FilterIo;
+  import org.onap.nsa.cambria.client.CambriaConsumer;
 
-		import org.onap.sa.highlandPark.stdlib.filters.OneOf;
+  import org.onap.sa.highlandPark.processor.HpEvent;
 
-		public class ExampleFilteringConsumer
+  import org.onap.sa.highlandPark.stdlib.filters.FilterIo;
 
-		{
+  import org.onap.sa.highlandPark.stdlib.filters.OneOf;
 
-		public static void main ( String[] args ) throws IOException,
-		InterruptedException
+  public class ExampleFilteringConsumer
 
-		{
+  {
 
-		// Cambria clients take a set of 1 or more servers to use in round-robin
-		fashion.
+  public static void main ( String[] args ) throws IOException,
+  InterruptedException
 
-		// If a server becomes unreachable, another in the group is used.
+  {
 
-		final String
-		serverGroup="ueb01hydc.it.att.com,ueb02hydc.it.att.com,ueb03hydc.it.att.com";
+  // Cambria clients take a set of 1 or more servers to use in round-robin
+  fashion.
 
-		// choose a topic
+  // If a server becomes unreachable, another in the group is used.
 
-		final String topic = "TEST-TOPIC";
+  final String
+  serverGroup="ueb01hydc.it.att.com,ueb02hydc.it.att.com,ueb03hydc.it.att.com";
 
-		// Cambria clients can run in a cooperative group to handle high-volume
-		topics.
+  // choose a topic
 
-		// Here, we create a random group name, which means this client is not
-		re-startable.
+  final String topic = "TEST-TOPIC";
 
-		final String consumerGroup = UUID.randomUUID ().toString ();
+  // Cambria clients can run in a cooperative group to handle high-volume
+  topics.
 
-		final String consumerId = "0";
+  // Here, we create a random group name, which means this client is not
+  re-startable.
 
-		// Cambria clients can sit in a tight loop on the client side, using a
-		long-poll
+  final String consumerGroup = UUID.randomUUID ().toString ();
 
-		// to wait for messages, and a limit to tell the server the most to send
-		at a time.
+  final String consumerId = "0";
 
-		final int longPollMs = 30\*1000;
+  // Cambria clients can sit in a tight loop on the client side, using a
+  long-poll
 
-		final int limit = -1;
+  // to wait for messages, and a limit to tell the server the most to send
+  at a time.
 
-		// The Cambria server can filter the returned message stream using
-		filters from the
+  final int longPollMs = 30\*1000;
 
-		// Highland Park system. Here, we create a simple filter to test for the
-		AlarmID
+  final int limit = -1;
 
-		// value being one of the Mobility power alarms.
+  // The Cambria server can filter the returned message stream using
+  filters from the
 
-		final OneOf oneOf = new OneOf ( "AlarmId", kPowerAlarms );
+  // Highland Park system. Here, we create a simple filter to test for the
+  AlarmID
 
-		// create the consumer
+  // value being one of the Mobility power alarms.
 
-		final CambriaConsumer cc = CambriaClientFactory.createConsumer (
-		serverGroup, topic,
+  final OneOf oneOf = new OneOf ( "AlarmId", kPowerAlarms );
 
-		consumerGroup, consumerId, longPollMs, limit, FilterIo.write ( oneOf )
-		);
+  // create the consumer
 
-		// now loop reading messages. Note that cc.fetch() will wait in its HTTP
-		receive
+  final CambriaConsumer cc = CambriaClientFactory.createConsumer (
+  serverGroup, topic,
 
-		// method for up to 30 seconds (longPollMs) when nothing's available at
-		the server.
+  consumerGroup, consumerId, longPollMs, limit, FilterIo.write ( oneOf )
+  );
 
-		long count = 0;
+  // now loop reading messages. Note that cc.fetch() will wait in its HTTP
+  receive
 
-		while ( true )
+  // method for up to 30 seconds (longPollMs) when nothing's available at
+  the server.
 
-		{
+  long count = 0;
 
-		for ( String msg : cc.fetch () )
+  while ( true )
 
-		{
+  {
 
-		System.out.println ( "" + (++count) + ": " + msg );
+  for ( String msg : cc.fetch () )
 
-		}
+  {
 
-		}
+  System.out.println ( "" + (++count) + ": " + msg );
 
-		}
+  }
 
-		private static final String[] kPowerAlarms =
+  }
 
-		{
+  }
 
-		"HUB COMMERCIAL POWER FAIL\_FWD",
+  private static final String[] kPowerAlarms =
 
-		"HUB COMMERCIAL POWER FAIL",
+  {
 
-		"RBS COMMERCIAL POWER FAIL - Fixed\_FWD",
+  "HUB COMMERCIAL POWER FAIL\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL\_FWD",
+  "HUB COMMERCIAL POWER FAIL",
 
-		"RBS COMMERCIAL POWER FAIL - No Generator\_FWD",
+  "RBS COMMERCIAL POWER FAIL - Fixed\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL - Portable\_FWD",
+  "RBS COMMERCIAL POWER FAIL\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL - Shared\_FWD",
+  "RBS COMMERCIAL POWER FAIL - No Generator\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL - Yes\_FWD",
+  "RBS COMMERCIAL POWER FAIL - Portable\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL - YES\_FWD",
+  "RBS COMMERCIAL POWER FAIL - Shared\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL - Fixed",
+  "RBS COMMERCIAL POWER FAIL - Yes\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL - No Generator",
+  "RBS COMMERCIAL POWER FAIL - YES\_FWD",
 
-		"RBS COMMERCIAL POWER FAIL - Portable",
+  "RBS COMMERCIAL POWER FAIL - Fixed",
 
-		"RBS COMMERCIAL POWER FAIL - Shared",
+  "RBS COMMERCIAL POWER FAIL - No Generator",
 
-		"RBS COMMERCIAL POWER FAIL - YES",
+  "RBS COMMERCIAL POWER FAIL - Portable",
 
-		"RBS COMMERCIAL POWER FAIL - Yes",
+  "RBS COMMERCIAL POWER FAIL - Shared",
 
-		"RBS COMMERCIAL POWER FAIL",
+  "RBS COMMERCIAL POWER FAIL - YES",
 
-		"HUB COMMERCIAL POWER FAIL - Fixed",
+  "RBS COMMERCIAL POWER FAIL - Yes",
 
-		"HUB COMMERCIAL POWER FAIL - No Generator",
+  "RBS COMMERCIAL POWER FAIL",
 
-		"HUB COMMERCIAL POWER FAIL - Portable",
+  "HUB COMMERCIAL POWER FAIL - Fixed",
 
-		"HUB COMMERCIAL POWER FAIL - Shared",
+  "HUB COMMERCIAL POWER FAIL - No Generator",
 
-		"HUB COMMERCIAL POWER FAIL - Fixed\_FWD",
+  "HUB COMMERCIAL POWER FAIL - Portable",
 
-		"HUB COMMERCIAL POWER FAIL - No Generator\_FWD",
+  "HUB COMMERCIAL POWER FAIL - Shared",
 
-		"HUB COMMERCIAL POWER FAIL - Portable\_FWD",
+  "HUB COMMERCIAL POWER FAIL - Fixed\_FWD",
 
-		"HUB COMMERCIAL POWER FAIL - Shared\_FWD",
+  "HUB COMMERCIAL POWER FAIL - No Generator\_FWD",
 
-		};
+  "HUB COMMERCIAL POWER FAIL - Portable\_FWD",
 
-		}
+  "HUB COMMERCIAL POWER FAIL - Shared\_FWD",
 
- 
+  };
+
+  }
+
+
 
 **Filter Builder**
 
@@ -593,7 +589,3 @@ used -- no plug-ins are available in the Cambria server context.
  messages returned from the GET call.  The following link provide details
  of building some of the filter to illustrate Filter Builder.  It is not
  meant to cover and provide examples of every filter
-
-
-
-
