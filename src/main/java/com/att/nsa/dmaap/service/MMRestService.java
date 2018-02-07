@@ -590,7 +590,7 @@ public class MMRestService {
 			LOGGER.error(errMsg);
 
 		} catch (JSONException | IOException e) {
-			LOGGER.error(errMsg);
+			LOGGER.error("Error at sendErrResponse method:" + errMsg + "Exception name:" + e.getMessage());
 		}
 	}
 
