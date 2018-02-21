@@ -64,7 +64,7 @@ public class DMaaPAuthFilter extends CadiFilter {
 			super.init(filterConfig);
 
 		} catch (Exception ex) {
-			log.error("Ajsc Cadi Filter Exception:" + ex.getMessage());
+			log.error("Ajsc Cadi Filter Exception" + ex);
 
 		}
 	}
