@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Sai Gandham <sg481n@att.com>
+Code-Review+2: varun gudisena <vg411h@att.com>
+Submitted-by: varun gudisena <vg411h@att.com>
+Submitted-at: Thu, 22 Feb 2018 17:31:49 +0000
+Reviewed-on: https://gerrit.onap.org/r/32379
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/master
