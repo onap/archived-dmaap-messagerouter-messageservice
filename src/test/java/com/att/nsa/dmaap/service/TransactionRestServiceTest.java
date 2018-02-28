@@ -22,6 +22,7 @@ package com.att.nsa.dmaap.service;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -42,6 +43,8 @@ import com.att.nsa.cambria.service.EventsService;
 import com.att.nsa.cambria.service.TransactionService;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
+import com.att.aft.dme2.internal.jettison.json.JSONException;
+import org.powermock.api.mockito.PowerMockito;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ PropertiesMapBean.class })
@@ -70,6 +73,7 @@ public class TransactionRestServiceTest {
 	public void testGetAllTransactionObjs() throws CambriaApiException {
 
 		transactionRestService.getAllTransactionObjs();
+		assertTrue(true);
 
 	}
 
@@ -77,6 +81,42 @@ public class TransactionRestServiceTest {
 	public void testGetTransactionObj() throws CambriaApiException {
 
 		transactionRestService.getTransactionObj("transactionId");
+		assertTrue(true);
+
+	}
+
+	@Test
+	public void testGetAllTransactionObjsError() throws CambriaApiException {
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(transactionService).getAllTransactionObjs(dmaapContext);
+		} catch (ConfigDbException | IOException e) {
+			assertTrue(false);
+		}
+
+		try {
+			transactionRestService.getAllTransactionObjs();
+		} catch (CambriaApiException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	@Test
+	public void testGetTransactionObjError() {
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(transactionService).getTransactionObj(dmaapContext,
+					"transactionId");
+		} catch (ConfigDbException | JSONException | IOException e) {
+			assertTrue(false);
+		}
+
+		try {
+			transactionRestService.getTransactionObj("transactionId");
+		} catch (CambriaApiException e) {
+			assertTrue(true);
+		}
 
 	}
 

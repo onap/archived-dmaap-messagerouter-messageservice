@@ -163,19 +163,23 @@ public class MMRestServiceTest {
 	public void testCallCreateMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, JSONException, ConfigDbException {
 		prepareForTestCommon();
-		
-		String sampleJson = "{\"test\":\"test\"}";
+
+		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
+		// name:\"test\", consumer:\"test\", producer:\"test\",
+		// whitelist:\"test\",status:\"test\" }}";
+		String sampleJson = "{ messageID:\"test\", createMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
-		mmRestService.callCreateMirrorMaker(iStream);
+		mmRestService.callCreateMirrorMaker(inputSteam);
 		assertTrue(true);
+
 	}
 
 	@Test
 	public void testCallListAllMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, JSONException, ConfigDbException {
 		prepareForTestCommon();
-		
-		String sampleJson = "{\"test\":\"test\"}";
+
+		String sampleJson = "{ messageID:\"test\", createMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\",  whitelist:\"test\",status:\"test\" }}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		mmRestService.callListAllMirrorMaker(inputSteam);
 		assertTrue(true);
@@ -184,24 +188,28 @@ public class MMRestServiceTest {
 	@Test
 	public void testCallUpdateMirrorMaker() throws ConfigDbException, CambriaApiException {
 		prepareForTestCommon();
-		
-		
-		mmRestService.callUpdateMirrorMaker(iStream);
+
+		String sampleJson = "{ messageID:\"test\", updateMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callUpdateMirrorMaker(inputSteam);
 		assertTrue(true);
 	}
 
 	@Test
 	public void testCallDeleteMirrorMaker() throws ConfigDbException, CambriaApiException {
 		prepareForTestCommon();
-		mmRestService.callDeleteMirrorMaker(iStream);
+
+		String sampleJson = "{ messageID:\"test\", deleteMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\",  whitelist:\"test\",status:\"test\" }}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callDeleteMirrorMaker(inputSteam);
 		assertTrue(true);
 	}
 
 	@Test
 	public void testListWhiteList() throws ConfigDbException {
 		prepareForTestCommon();
-		
-		String sampleJson = "{\"test\":\"test\"}";
+
+		String sampleJson = "{ name:\"test\", namespace:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		mmRestService.listWhiteList(inputSteam);
 		assertTrue(true);
@@ -210,9 +218,9 @@ public class MMRestServiceTest {
 	@Test
 	public void testCreateWhiteList() throws ConfigDbException {
 		prepareForTestCommon();
-		String sampleJson = "{\"test\":\"test\"}";
+		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
-		
+
 		mmRestService.createWhiteList(inputSteam);
 		assertTrue(true);
 	}
@@ -220,13 +228,13 @@ public class MMRestServiceTest {
 	@Test
 	public void testDeleteWhiteList() throws ConfigDbException {
 		prepareForTestCommon();
-		
-		String sampleJson = "{\"test\":\"test\"}";
+
+		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		mmRestService.deleteWhiteList(inputSteam);
 		assertTrue(true);
 	}
-	
+
 	private void prepareForTestCommon() throws ConfigDbException {
 		Assert.assertNotNull(mmRestService);
 		PowerMockito.when(dmaapContext.getRequest()).thenReturn(httpServReq);
@@ -239,6 +247,9 @@ public class MMRestServiceTest {
 
 		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))
 				.thenReturn("admin");
+		PowerMockito
+				.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf.create"))
+				.thenReturn("aafcreate");
 
 		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf"))
 				.thenReturn("admin");
@@ -265,6 +276,8 @@ public class MMRestServiceTest {
 		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
 		PowerMockito.when(httpServReq.getHeader("Authorization")).thenReturn("Admin");
 		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
+		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "aafcreatetest|create"))
+				.thenReturn(true);
 
 		PowerMockito.when(cMirroMaker.getCreateMirrorMaker()).thenReturn(mMaker);
 

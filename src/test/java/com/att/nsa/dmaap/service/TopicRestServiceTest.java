@@ -185,6 +185,40 @@ public class TopicRestServiceTest {
 		topicService.getTopics();
 	}
 
+	@Test
+	public void testGetTopics_error() throws DMaaPAccessDeniedException, TopicExistsException, ConfigDbException {
+
+		Assert.assertNotNull(topicService);
+
+		PowerMockito.mockStatic(PropertiesMapBean.class);
+
+		assertTrue(true);
+		when(PropertiesMapBean.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.namespace.aaf"))
+				.thenReturn("namespace");
+
+		PowerMockito.mockStatic(DMaaPResponseBuilder.class);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(httpServReq.getHeader("Authorization")).thenReturn(null);
+
+		when(dmaapContext.getResponse()).thenReturn(httpServRes);
+		String perms = "namespace" + "|" + "*" + "|" + "view";
+		when(dmaapAAFauthenticator.aafAuthentication(httpServReq, perms)).thenReturn(true);
+
+		when(dmaapKafkaMetaBroker.getTopic(anyString())).thenReturn(null);
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).getTopics(dmaapContext);
+		} catch (JSONException | ConfigDbException | IOException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.getTopics();
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+	}
+
 	@Test(expected = DMaaPAccessDeniedException.class)
 	public void testGetAllTopics() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, JSONException, ConfigDbException {
@@ -226,6 +260,36 @@ public class TopicRestServiceTest {
 		when(dmaapContext.getResponse()).thenReturn(httpServRes);
 
 		topicService.getAllTopics();
+	}
+
+	@Test
+	public void testGetAllTopics_error() throws DMaaPAccessDeniedException, TopicExistsException, ConfigDbException {
+
+		Assert.assertNotNull(topicService);
+		PowerMockito.mockStatic(PropertiesMapBean.class);
+
+		assertTrue(true);
+		when(PropertiesMapBean.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.namespace.aaf"))
+				.thenReturn("namespace");
+
+		PowerMockito.mockStatic(DMaaPResponseBuilder.class);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(httpServReq.getHeader("Authorization")).thenReturn(null);
+
+		when(dmaapContext.getResponse()).thenReturn(httpServRes);
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).getAllTopics(dmaapContext);
+		} catch (JSONException | ConfigDbException | IOException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.getAllTopics();
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
 	}
 
 	@Test(expected = DMaaPAccessDeniedException.class)
@@ -273,6 +337,37 @@ public class TopicRestServiceTest {
 	}
 
 	@Test
+	public void testGetTopic_error() throws DMaaPAccessDeniedException, ConfigDbException {
+
+		Assert.assertNotNull(topicService);
+
+		PowerMockito.mockStatic(PropertiesMapBean.class);
+
+		assertTrue(true);
+		when(PropertiesMapBean.getProperty(CambriaConstants.msgRtr_prop, "enforced.topic.name.AAF"))
+				.thenReturn("enfTopicName");
+
+		PowerMockito.mockStatic(DMaaPResponseBuilder.class);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(httpServReq.getHeader("Authorization")).thenReturn(null);
+
+		when(dmaapContext.getResponse()).thenReturn(httpServRes);
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).getTopic(dmaapContext, "topicName");
+		} catch (TopicExistsException | ConfigDbException | IOException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.getTopic("topicName");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+	}
+
+	@Test
 	public void testCreateTopic()
 			throws DMaaPAccessDeniedException, CambriaApiException, IOException, TopicExistsException {
 
@@ -287,6 +382,62 @@ public class TopicRestServiceTest {
 		topicBean.setTopicName("enfTopicNamePlusExtra");
 
 		topicService.createTopic(topicBean);
+	}
+
+	@Test
+	public void testCreateTopic_error() {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).createTopic(dmaapContext, topicBean);
+		} catch (TopicExistsException | IOException | AccessDeniedException | DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		} catch (CambriaApiException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.createTopic(topicBean);
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+
+		try {
+			PowerMockito.doThrow(new TopicExistsException("error")).when(tService).createTopic(dmaapContext, topicBean);
+		} catch (TopicExistsException | IOException | AccessDeniedException | DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		} catch (CambriaApiException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.createTopic(topicBean);
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+
+		try {
+			PowerMockito.doThrow(new AccessDeniedException()).when(tService).createTopic(dmaapContext, topicBean);
+		} catch (TopicExistsException | IOException | AccessDeniedException | DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		} catch (CambriaApiException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.createTopic(topicBean);
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
 	}
 
 	@Test
@@ -307,6 +458,48 @@ public class TopicRestServiceTest {
 	}
 
 	@Test
+	public void testDeleteTopic_error()
+			throws DMaaPAccessDeniedException, CambriaApiException, IOException, TopicExistsException {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).deleteTopic(dmaapContext, "enfTopicNamePlusExtra");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.deleteTopic("enfTopicNamePlusExtra");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+
+		try {
+			PowerMockito.doThrow(new AccessDeniedException()).when(tService).deleteTopic(dmaapContext,
+					"enfTopicNamePlusExtra");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.deleteTopic("enfTopicNamePlusExtra");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+	}
+
+	@Test
 	public void testGetPublishersByTopicName()
 			throws DMaaPAccessDeniedException, CambriaApiException, IOException, TopicExistsException {
 
@@ -321,6 +514,33 @@ public class TopicRestServiceTest {
 		topicBean.setTopicName("enfTopicNamePlusExtra");
 
 		topicService.getPublishersByTopicName("enfTopicNamePlusExtra");
+	}
+
+	@Test
+	public void testGetPublishersByTopicName_error() {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).getPublishersByTopicName(dmaapContext,
+					"enfTopicNamePlusExtra");
+		} catch (TopicExistsException | ConfigDbException | IOException e) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.getPublishersByTopicName("enfTopicNamePlusExtra");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
 	}
 
 	@Test
@@ -341,6 +561,49 @@ public class TopicRestServiceTest {
 	}
 
 	@Test
+	public void testPermitPublisherForTopic_error()
+			throws DMaaPAccessDeniedException, CambriaApiException, IOException, TopicExistsException {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).permitPublisherForTopic(dmaapContext,
+					"enfTopicNamePlusExtra", "producerID");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.permitPublisherForTopic("enfTopicNamePlusExtra", "producerID");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+
+		try {
+			PowerMockito.doThrow(new AccessDeniedException()).when(tService).permitPublisherForTopic(dmaapContext,
+					"enfTopicNamePlusExtra", "producerID");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.permitPublisherForTopic("enfTopicNamePlusExtra", "producerID");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+	}
+
+	@Test
 	public void testDenyPublisherForTopic()
 			throws DMaaPAccessDeniedException, CambriaApiException, IOException, TopicExistsException {
 
@@ -355,6 +618,50 @@ public class TopicRestServiceTest {
 		topicBean.setTopicName("enfTopicNamePlusExtra");
 
 		topicService.denyPublisherForTopic("enfTopicNamePlusExtra", "producerID");
+	}
+
+	@Test
+	public void testDenyPublisherForTopic_error()
+			throws DMaaPAccessDeniedException, CambriaApiException, IOException, TopicExistsException {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).denyPublisherForTopic(dmaapContext,
+					"enfTopicNamePlusExtra", "producerID");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.denyPublisherForTopic("enfTopicNamePlusExtra", "producerID");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+
+		try {
+			PowerMockito.doThrow(new AccessDeniedException()).when(tService).denyPublisherForTopic(dmaapContext,
+					"enfTopicNamePlusExtra", "producerID");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.denyPublisherForTopic("enfTopicNamePlusExtra", "producerID");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+
 	}
 
 	@Test
@@ -375,6 +682,34 @@ public class TopicRestServiceTest {
 	}
 
 	@Test
+	public void testGetConsumersByTopicName_error() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+			TopicExistsException, AccessDeniedException {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).getConsumersByTopicName(dmaapContext,
+					"enfTopicNamePlusExtra");
+		} catch (TopicExistsException | ConfigDbException | IOException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.getConsumersByTopicName("enfTopicNamePlusExtra");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+	}
+
+	@Test
 	public void testPermitConsumerForTopic() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, AccessDeniedException {
 
@@ -390,10 +725,39 @@ public class TopicRestServiceTest {
 
 		topicService.permitConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
 	}
-	
+
 	@Test
-	public void testPermitConsumerForTopicWithException() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+	public void testPermitConsumerForTopic_error() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
 			TopicExistsException, AccessDeniedException {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).permitConsumerForTopic(dmaapContext,
+					"enfTopicNamePlusExtra", "consumerID");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.permitConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+	}
+
+	@Test
+	public void testPermitConsumerForTopicWithException() throws DMaaPAccessDeniedException, CambriaApiException,
+			IOException, TopicExistsException, AccessDeniedException {
 
 		Assert.assertNotNull(topicService);
 
@@ -423,6 +787,49 @@ public class TopicRestServiceTest {
 		topicBean.setTopicName("enfTopicNamePlusExtra");
 
 		topicService.denyConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
+	}
+
+	@Test
+	public void testDenyConsumerForTopic_error() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+			TopicExistsException, AccessDeniedException {
+
+		Assert.assertNotNull(topicService);
+
+		when(dmaapContext.getRequest()).thenReturn(httpServReq);
+		when(dmaaPAuthenticator.authenticate(dmaapContext)).thenReturn(nsaSimpleApiKey);
+		when(configReader.getfSecurityManager()).thenReturn(dmaaPAuthenticator);
+		when(dmaapContext.getConfigReader()).thenReturn(configReader);
+
+		TopicBean topicBean = new TopicBean();
+		topicBean.setTopicName("enfTopicNamePlusExtra");
+
+		try {
+			PowerMockito.doThrow(new IOException()).when(tService).denyConsumerForTopic(dmaapContext,
+					"enfTopicNamePlusExtra", "consumerID");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.denyConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
+
+		try {
+			PowerMockito.doThrow(new AccessDeniedException()).when(tService).denyConsumerForTopic(dmaapContext,
+					"enfTopicNamePlusExtra", "consumerID");
+		} catch (TopicExistsException | ConfigDbException | IOException | AccessDeniedException
+				| DMaaPAccessDeniedException excp) {
+			assertTrue(false);
+		}
+
+		try {
+			topicService.denyConsumerForTopic("enfTopicNamePlusExtra", "consumerID");
+		} catch (CambriaApiException excp) {
+			assertTrue(true);
+		}
 	}
 
 }

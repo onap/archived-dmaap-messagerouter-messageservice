@@ -47,9 +47,9 @@ import com.att.nsa.cambria.utils.ConfigurationReader;
 import com.att.nsa.configs.ConfigDbException;
 
 /**
- * This class is a CXF REST service 
- * which acts as gateway for DMaaP
- * Transaction Ids.
+ * This class is a CXF REST service which acts as gateway for DMaaP Transaction
+ * Ids.
+ * 
  * @author author
  *
  */
@@ -84,10 +84,13 @@ public class TransactionRestService {
 	@Autowired
 	private TransactionService transactionService;
 
+	private DMaaPContext dmaapContext = new DMaaPContext();
+
 	/**
 	 * 
 	 * Returns a list of all the existing Transaction Ids
-	 * @throws CambriaApiException 
+	 * 
+	 * @throws CambriaApiException
 	 * 
 	 * @throws IOException
 	 * @exception ConfigDbException
@@ -104,11 +107,10 @@ public class TransactionRestService {
 
 			LOGGER.info("Returning list of all transactions.");
 		} catch (ConfigDbException | IOException e) {
-			LOGGER.error("Error while retrieving list of all transactions: "
-					+ e.getMessage(), e);
-			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_EXPECTATION_FAILED, 
-					DMaaPResponseCode.RETRIEVE_TRANSACTIONS.getResponseCode(), 
-					"Error while retrieving list of all transactions:"+e.getMessage());
+			LOGGER.error("Error while retrieving list of all transactions: " + e.getMessage(), e);
+			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_EXPECTATION_FAILED,
+					DMaaPResponseCode.RETRIEVE_TRANSACTIONS.getResponseCode(),
+					"Error while retrieving list of all transactions:" + e.getMessage());
 			LOGGER.info(errRes.toString());
 			throw new CambriaApiException(errRes);
 		}
@@ -121,7 +123,7 @@ public class TransactionRestService {
 	 * 
 	 * @param transactionId
 	 *            - id of transaction
-	 * @throws CambriaApiException 
+	 * @throws CambriaApiException
 	 * @throws IOException
 	 * @exception ConfigDbException
 	 * @exception IOException
@@ -131,22 +133,18 @@ public class TransactionRestService {
 	 */
 	@GET
 	@Path("/{transactionId}")
-	public void getTransactionObj(
-			@PathParam("transactionId") String transactionId) throws CambriaApiException {
+	public void getTransactionObj(@PathParam("transactionId") String transactionId) throws CambriaApiException {
 
 		LOGGER.info("Fetching details of Transaction ID : " + transactionId);
 
 		try {
-			transactionService.getTransactionObj(getDmaapContext(),
-					transactionId);
+			transactionService.getTransactionObj(getDmaapContext(), transactionId);
 		} catch (ConfigDbException | JSONException | IOException e) {
-			LOGGER.error("Error while retrieving transaction details for id: "
-					+ transactionId, e);
-		
-			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_EXPECTATION_FAILED, 
-					DMaaPResponseCode.RETRIEVE_TRANSACTIONS_DETAILS.getResponseCode(), 
-					"Error while retrieving transaction details for id: ["
-							+ transactionId + "]: " + e.getMessage());
+			LOGGER.error("Error while retrieving transaction details for id: " + transactionId, e);
+
+			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_EXPECTATION_FAILED,
+					DMaaPResponseCode.RETRIEVE_TRANSACTIONS_DETAILS.getResponseCode(),
+					"Error while retrieving transaction details for id: [" + transactionId + "]: " + e.getMessage());
 			LOGGER.info(errRes.toString());
 			throw new CambriaApiException(errRes);
 
@@ -165,8 +163,7 @@ public class TransactionRestService {
 	 *         Object,HttpServlet Object
 	 * 
 	 */
-	private DMaaPContext getDmaapContext() {
-		DMaaPContext dmaapContext = new DMaaPContext();
+	public DMaaPContext getDmaapContext() {
 		dmaapContext.setConfigReader(configReader);
 		dmaapContext.setRequest(request);
 		dmaapContext.setResponse(response);

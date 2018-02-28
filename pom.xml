@@ -1,24 +1,14 @@
-<!--
-     ============LICENSE_START=======================================================
-     org.onap.dmaap
-     ================================================================================
-     Copyright © 2017 AT&T Intellectual Property. All rights reserved.
-     ================================================================================
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-           http://www.apache.org/licenses/LICENSE-2.0
-     
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
-     ============LICENSE_END=========================================================
-   
-     ECOMP is a trademark and service mark of AT&T Intellectual Property.
-     
- -->
+<!-- ============LICENSE_START======================================================= 
+	org.onap.dmaap ================================================================================ 
+	Copyright © 2017 AT&T Intellectual Property. All rights reserved. ================================================================================ 
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+	use this file except in compliance with the License. You may obtain a copy 
+	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. ============LICENSE_END========================================================= 
+	ECOMP is a trademark and service mark of AT&T Intellectual Property. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -28,36 +18,36 @@
 		<artifactId>oparent</artifactId>
 		<version>0.1.1</version>
 	</parent>
-	
+
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
 	<version>1.1.3-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
-	 <licenses>
-	  <license>
-	    <name>Apache License Version 2.0</name>
-	  </license>
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+		</license>
 	</licenses>
 
 	<developers>
-	   <developer>
-	     <name>Rajashree</name>
-	     <email></email>
-	     <organization>ATT</organization>
-	     <organizationUrl>www.att.com</organizationUrl>
-	   </developer>
-	   <developer>
-	     <name>Ramkumar</name>
-	     <email></email>
-	     <organization>ATT</organization>
-	     <organizationUrl>www.att.com</organizationUrl>
-	   </developer>
-	 </developers>
-	
+		<developer>
+			<name>Rajashree</name>
+			<email></email>
+			<organization>ATT</organization>
+			<organizationUrl>www.att.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Ramkumar</name>
+			<email></email>
+			<organization>ATT</organization>
+			<organizationUrl>www.att.com</organizationUrl>
+		</developer>
+	</developers>
+
 	<build>
 		<plugins>
-		<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.6</version>
@@ -69,29 +59,17 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
-				<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jar-plugin</artifactId>
-						<version>3.0.2</version>
-				</plugin>
-					
-		<!-- 	<plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
-				<configuration>
-					<additionalparam>-Xdoclint:none</additionalparam>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+			</plugin>
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+				<version>2.10.4</version> <configuration> <additionalparam>-Xdoclint:none</additionalparam> 
+				</configuration> <executions> <execution> <id>attach-javadocs</id> <goals> 
+				<goal>jar</goal> </goals> </execution> </executions> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -104,7 +82,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>		
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -129,89 +107,89 @@
 				<version>1.0.0</version>
 				<configuration>
 					<imageName>onap/dmaap/dmaap-mr</imageName>
-					<dockerDirectory>${dockerLocation}</dockerDirectory> 
+					<dockerDirectory>${dockerLocation}</dockerDirectory>
 					<serverId>docker-hub</serverId>
 					<imageTags>
 						<imageTag>${dmaapImg}</imageTag>
 						<imageTag>latest</imageTag>
 					</imageTags>
 					<forceTags>true</forceTags>
-				<resources>
-					<resource>
-					  <targetPath>/</targetPath>
-					  <directory>${dockerLocation}</directory>
-					  <include>${project.build.finalName}.jar</include>
-					</resource>
-					<resource>
-					  <targetPath>/</targetPath>
-					  <directory>${project.build.directory}</directory>
-					  <include>**/**</include>
-					</resource>
-				  </resources>
-				 </configuration>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${dockerLocation}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>**/**</include>
+						</resource>
+					</resources>
+				</configuration>
 				<executions>
-			   <execution>
-					<id>build-image</id>
-					<phase>package</phase>
-					<goals>
-					  <goal>build</goal>
-					</goals>
-					<configuration>
-					  <skipDockerBuild>${skip.docker.build}</skipDockerBuild>
-					</configuration>
-				  </execution> 
+					<execution>
+						<id>build-image</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<configuration>
+							<skipDockerBuild>${skip.docker.build}</skipDockerBuild>
+						</configuration>
+					</execution>
 
-				  <execution>
-					<id>tag-image-project-version</id>
-					<phase>package</phase>
-					<goals>
-					  <goal>tag</goal>
-					</goals>
-					<configuration>
-					  <image>onap/dmaap/dmaap-mr</image>
-					  <newName>${docker.push.registry}/onap/dmaap/dmaap-mr:${project.version}</newName>
-					  <skipDockerTag>${skip.docker.push}</skipDockerTag>
-					</configuration>
-				  </execution>
-				  
-				  <execution>
-					<id>tag-image-latest</id>
-					<phase>package</phase>
-					<goals>
-					  <goal>tag</goal>
-					</goals>
-					<configuration>
-					  <image>onap/dmaap/dmaap-mr</image>
-					  <newName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</newName>
-					  <skipDockerTag>${skip.docker.push}</skipDockerTag>
-					</configuration>
-				  </execution>
-				  
-				 <execution>
-					<id>push-image-latest</id>
-					<phase>deploy</phase>
-					<goals>
-					  <goal>push</goal>
-					</goals>
-					<configuration>
-					  <imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:${project.version}</imageName>
-					  <skipDockerPush>${skip.docker.push}</skipDockerPush>
-					</configuration>
-				  </execution>
-				  
-				  <execution>
-					<id>push-image</id>
-					<phase>deploy</phase>
-					<goals>
-					  <goal>push</goal>
-					</goals>
-					<configuration>
-					  <imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</imageName>
-					  <skipDockerPush>${skip.docker.push}</skipDockerPush>
-					</configuration>
-				  </execution>
+					<execution>
+						<id>tag-image-project-version</id>
+						<phase>package</phase>
+						<goals>
+							<goal>tag</goal>
+						</goals>
+						<configuration>
+							<image>onap/dmaap/dmaap-mr</image>
+							<newName>${docker.push.registry}/onap/dmaap/dmaap-mr:${project.version}</newName>
+							<skipDockerTag>${skip.docker.push}</skipDockerTag>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>tag-image-latest</id>
+						<phase>package</phase>
+						<goals>
+							<goal>tag</goal>
+						</goals>
+						<configuration>
+							<image>onap/dmaap/dmaap-mr</image>
+							<newName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</newName>
+							<skipDockerTag>${skip.docker.push}</skipDockerTag>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>push-image-latest</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+						<configuration>
+							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:${project.version}</imageName>
+							<skipDockerPush>${skip.docker.push}</skipDockerPush>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>push-image</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+						<configuration>
+							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</imageName>
+							<skipDockerPush>${skip.docker.push}</skipDockerPush>
+						</configuration>
+					</execution>
 				</executions>
-			</plugin>                                                                                                                                                                                                                                                                                                        
+			</plugin>
 			<plugin>
 				<groupId>com.blackducksoftware.integration</groupId>
 				<artifactId>hub-maven-plugin</artifactId>
@@ -230,7 +208,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -260,7 +238,7 @@
 				<version>2.8.0-01</version>
 				<extensions>true</extensions>
 			</plugin>
-			  		
+
 		</plugins>
 	</build>
 
@@ -296,14 +274,14 @@
 			8080 -->
 		<serverPort>3904</serverPort>
 		<sslport>3905</sslport>
- 	
+
 		<testRouteOffer>workstation</testRouteOffer>
 		<testEnv>DEV</testEnv>
 		<dmaapImg>${project.version}</dmaapImg>
 		<camel.version>2.15.5</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
-        <skip.docker.push>true</skip.docker.push>
+		<skip.docker.push>true</skip.docker.push>
 		<nexusproxy>https://nexus.onap.org</nexusproxy>
 		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
 	</properties>
@@ -339,17 +317,19 @@
 
 		<!-- cmn-CommonDataModel dependency added to resolve build issue not finding 
 			version 100.0.64 -->
-		
-		<!-- <dependency>
-			<groupId>csi-schemas-source</groupId>
-			<artifactId>cmn-CommonDataModel</artifactId>
-			<version>112.0.50</version>
-		</dependency> -->
-	<!-- TODO: add open source version here -->
+
+		<!-- <dependency> <groupId>csi-schemas-source</groupId> <artifactId>cmn-CommonDataModel</artifactId> 
+			<version>112.0.50</version> </dependency> -->
+		<!-- TODO: add open source version here -->
 		<dependency>
 			<groupId>com.att.cadi</groupId>
 			<artifactId>cadi-core</artifactId>
 			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.att.aft</groupId>
+			<artifactId>dme2</artifactId>
+			<version>3.1.200-oss</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -362,9 +342,9 @@
 			<version>1.3.2</version>
 		</dependency>
 		<dependency>
-			    <groupId>org.onap.dmaap.messagerouter.msgrtr</groupId>
-				<artifactId>msgrtr</artifactId>
-				<version>1.0.0</version>
+			<groupId>org.onap.dmaap.messagerouter.msgrtr</groupId>
+			<artifactId>msgrtr</artifactId>
+			<version>1.1.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -396,13 +376,30 @@
 
 			</exclusions>
 		</dependency>
-
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>1.6.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>1.6.4</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
@@ -413,25 +410,25 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.4.3</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.3.3</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.3.3</version>
 		</dependency>
-		
+
 		<dependency>
-	        <groupId>junit</groupId>
-	        <artifactId>junit</artifactId>
-	        <version>4.11</version>
-	        <scope>test</scope>
-      </dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.json</groupId>
@@ -464,137 +461,137 @@
 			<!-- <scope>provided</scope> -->
 		</dependency>
 		<dependency>
-		  <groupId>com.att.ajsc</groupId>
-		  <artifactId>ajsc-archetype-parent</artifactId>
-		  <version>1.0.0</version>
-		  <type>pom</type>
-		</dependency>		
-		
- 		<dependency>
+			<groupId>com.att.ajsc</groupId>
+			<artifactId>ajsc-archetype-parent</artifactId>
+			<version>1.0.0</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
 			<groupId>com.att.cadi</groupId>
 			<artifactId>cadi-aaf</artifactId>
 			<version>1.3.0</version>
-		</dependency>	
- 		
- 		<dependency>
+		</dependency>
+
+		<dependency>
 			<groupId>com.att.inno</groupId>
 			<artifactId>rosetta</artifactId>
 			<version>1.2.11</version>
-		</dependency>	
- 		<dependency>
+		</dependency>
+		<dependency>
 			<groupId>com.att.inno</groupId>
 			<artifactId>env</artifactId>
 			<version>1.2.11</version>
-		</dependency>		
- 		<dependency>
+		</dependency>
+		<dependency>
 			<groupId>com.att.inno</groupId>
 			<artifactId>xgen</artifactId>
 			<version>1.2.11</version>
-		</dependency>				
- 		<dependency>
+		</dependency>
+		<dependency>
 			<groupId>com.att.inno</groupId>
 			<artifactId>rosetta</artifactId>
 			<version>1.2.11</version>
-		</dependency>			
+		</dependency>
 		<dependency>
 			<groupId>backport-util-concurrent</groupId>
 			<artifactId>backport-util-concurrent</artifactId>
 			<version>3.1</version>
 		</dependency>
 		<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-core</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-quartz</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-spring</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-restlet</artifactId>
-				<version>${camel.version}</version>
-				<exclusions>
-					<exclusion>
-						<artifactId>org.restlet</artifactId>
-						<groupId>org.restlet.jse</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-servlet</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-http4</artifactId>
-				<version>${camel.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.apache.geronimo.specs</groupId>
-						<artifactId>geronimo-servlet_2.5_spec</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-groovy</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-twitter</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-mail</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-smpp</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-jms</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-script</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-xmpp</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-velocity</artifactId>
-				<version>${camel.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.att.ajsc</groupId>
-				<artifactId>ajsc-runner</artifactId>
-				<version>1.0.0</version>
-				<scope>runtime</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.att.ajsc</groupId>
-				<artifactId>ajsc-core</artifactId>
-				<version>1.0.0</version>
-				<scope>provided</scope>
-			</dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-quartz</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-restlet</artifactId>
+			<version>${camel.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.restlet</artifactId>
+					<groupId>org.restlet.jse</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-servlet</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-http4</artifactId>
+			<version>${camel.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.geronimo.specs</groupId>
+					<artifactId>geronimo-servlet_2.5_spec</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-groovy</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-twitter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-mail</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-smpp</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jms</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-script</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-xmpp</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-velocity</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.att.ajsc</groupId>
+			<artifactId>ajsc-runner</artifactId>
+			<version>1.0.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.att.ajsc</groupId>
+			<artifactId>ajsc-core</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<!-- <build> <resources> <resource> <directory>${basedir}/ajsc-shared-config/etc</directory> 
 		</resource> </resources> </build> -->
@@ -602,17 +599,17 @@
 		<!-- Use this profile to run the AJSC locally. This profile can be successfully 
 			shutdown WITHIN eclipse even in a Windows environment. Debugging is also 
 			available with this profile. -->
-	<profile>
-      <id>docker</id>
-      <properties>
-        
-        <skip.docker.build>false</skip.docker.build>
-        <skip.docker.tag>false</skip.docker.tag>
-        <skip.docker.push>false</skip.docker.push>
-      </properties>
-    </profile>
-    
-    <profile>
+		<profile>
+			<id>docker</id>
+			<properties>
+
+				<skip.docker.build>false</skip.docker.build>
+				<skip.docker.tag>false</skip.docker.tag>
+				<skip.docker.push>false</skip.docker.push>
+			</properties>
+		</profile>
+
+		<profile>
 			<id>runLocal</id>
 			<build>
 				<defaultGoal>initialize</defaultGoal>
@@ -637,7 +634,7 @@
 				</plugins>
 			</build>
 		</profile>
-	
+
 		<profile>
 			<id>runAjsc</id>
 			<build>
@@ -807,7 +804,7 @@
 						<version>2.8.0-01</version>
 						<extensions>true</extensions>
 					</plugin>
-					
+
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
@@ -1120,26 +1117,26 @@
 									</resources>
 								</configuration>
 							</execution>
-					<execution>
-						<id>copy-docker-file</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${dockerLocation}</outputDirectory>
-							<overwrite>true</overwrite>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/main/resources/docker</directory>
-									<filtering>true</filtering>
-									<includes>
-										<include>**/*</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
+							<execution>
+								<id>copy-docker-file</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${dockerLocation}</outputDirectory>
+									<overwrite>true</overwrite>
+									<resources>
+										<resource>
+											<directory>${basedir}/src/main/resources/docker</directory>
+											<filtering>true</filtering>
+											<includes>
+												<include>**/*</include>
+											</includes>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
 
 						</executions>
 					</plugin>
@@ -1222,5 +1219,5 @@
 			</build>
 		</profile>
 	</profiles>
-	
+
 </project>
