@@ -107,7 +107,7 @@ public class ApiKeysRestService {
 		log.info("Inside ApiKeysRestService.getAllApiKeys");
 
 		try {
-			apiKeyService.getAllApiKeys(getDmaapContext());
+			apiKeyService.getAllApiKeys(ServiceUtil.getDMaaPContext(configReader, request, response));
 			log.info("Fetching all API keys is Successful");
 		} catch (ConfigDbException | IOException e) {
 			log.error("Error while retrieving API keys: " + e);
@@ -135,7 +135,7 @@ public class ApiKeysRestService {
 		log.info("Fetching details of api key: " + apiKeyName);
 
 		try {
-			apiKeyService.getApiKey(getDmaapContext(), apiKeyName);
+			apiKeyService.getApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), apiKeyName);
 			log.info("Fetching specific API key is Successful");
 		} catch (ConfigDbException | IOException e) {
 			log.error("Error while retrieving API key details: " + e);
@@ -164,7 +164,7 @@ public class ApiKeysRestService {
 		log.info("Creating Api Key.");
 
 		try {
-			apiKeyService.createApiKey(getDmaapContext(), nsaApiKey);
+			apiKeyService.createApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), nsaApiKey);
 			log.info("Creating API key is Successful");
 		} catch (KeyExistsException | ConfigDbException | IOException e) {
 			log.error("Error while Creating API key : " + e.getMessage(), e);
@@ -198,7 +198,7 @@ public class ApiKeysRestService {
 		try {
 			
 			apiKeyService
-					.updateApiKey(getDmaapContext(), apiKeyName, nsaApiKey);
+					.updateApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), apiKeyName, nsaApiKey);
 			log.error("API key updated sucessfully");
 		} catch (ConfigDbException | IOException | AccessDeniedException e) {
 			log.error("Error while Updating API key : " + apiKeyName, e);
@@ -225,7 +225,7 @@ public class ApiKeysRestService {
 	public void deleteApiKey(@PathParam("apiKey") String apiKeyName) throws CambriaApiException {
 		log.info("Deleting Api Key: " + apiKeyName);
 		try {
-			apiKeyService.deleteApiKey(getDmaapContext(), apiKeyName);
+			apiKeyService.deleteApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), apiKeyName);
 			log.info("Api Key deleted successfully: " + apiKeyName);
 		} catch (ConfigDbException | IOException | AccessDeniedException e) {
 			log.error("Error while deleting API key : " + apiKeyName, e);
@@ -239,16 +239,5 @@ public class ApiKeysRestService {
 		}
 	}
 
-	/**
-	 * Create a dmaap context
-	 * @return DMaaPContext
-	 */
-	private DMaaPContext getDmaapContext() {
-		DMaaPContext dmaapContext = new DMaaPContext();
-		dmaapContext.setConfigReader(configReader);
-		dmaapContext.setRequest(request);
-		dmaapContext.setResponse(response);
-		return dmaapContext;
-	}
 
 }
