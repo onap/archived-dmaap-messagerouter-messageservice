@@ -173,6 +173,63 @@ public class MMRestServiceTest {
 		assertTrue(true);
 
 	}
+	@Test
+	public void testCallCreateMirrorMaker_error4() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+			TopicExistsException, JSONException, ConfigDbException {
+		prepareForTestCommon();
+
+		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
+		// name:\"test\", consumer:\"test\", producer:\"test\",
+		// whitelist:\"test\",status:\"test\" }}";
+		String sampleJson = "{ messageID:\"test\", createMirrorMaker: {   name:\"test@#\",   consumer:\"test\",  producer:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callCreateMirrorMaker(inputSteam);
+		assertTrue(true);
+
+	}
+	@Test
+	public void testCallCreateMirrorMaker_3() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+			TopicExistsException, JSONException, ConfigDbException {
+		prepareForTestCommon();
+
+		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
+		// name:\"test\", consumer:\"test\", producer:\"test\",
+		// whitelist:\"test\",status:\"test\" }}";
+		String sampleJson = "{ messageID:\"test\", createMirrorMaker: {   name:\"\",   consumer:\"test\",  producer:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callCreateMirrorMaker(inputSteam);
+		assertTrue(true);
+
+	}
+	@Test
+	public void testCallCreateMirrorMaker_error2() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+			TopicExistsException, JSONException, ConfigDbException {
+		prepareForTestCommon();
+
+		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
+		// name:\"test\", consumer:\"test\", producer:\"test\",
+		// whitelist:\"test\",status:\"test\" }}";
+		String sampleJson = "{ messageID:\"test\", createMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\",whitelist:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callCreateMirrorMaker(inputSteam);
+		assertTrue(true);
+
+	}
+	
+	@Test
+	public void testCallCreateMirrorMaker_error1() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
+			TopicExistsException, JSONException, ConfigDbException {
+		prepareForTestCommon();
+
+		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
+		// name:\"test\", consumer:\"test\", producer:\"test\",
+		// whitelist:\"test\",status:\"test\" }}";
+		String sampleJson = "{ messageID:\"test\"}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callCreateMirrorMaker(inputSteam);
+		assertTrue(true);
+
+	}
 
 	@Test
 	public void testCallListAllMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
@@ -190,6 +247,43 @@ public class MMRestServiceTest {
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test\", updateMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callUpdateMirrorMaker(inputSteam);
+		assertTrue(true);
+	}
+	
+	@Test
+	public void testCallUpdateMirrorMaker_error1() throws ConfigDbException, CambriaApiException {
+		prepareForTestCommon();
+
+		String sampleJson = "{ messageID:\"test@1\", updateMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callUpdateMirrorMaker(inputSteam);
+		assertTrue(true);
+	}
+	@Test
+	public void testCallUpdateMirrorMaker_error2() throws ConfigDbException, CambriaApiException {
+		prepareForTestCommon();
+
+		String sampleJson = "{ messageID:\"test\", updateMirrorMaker: {   name:\"\",   consumer:\"test\",  producer:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callUpdateMirrorMaker(inputSteam);
+		assertTrue(true);
+	}
+	@Test
+	public void testCallUpdateMirrorMaker_error3() throws ConfigDbException, CambriaApiException {
+		prepareForTestCommon();
+
+		String sampleJson = "{ messageID:\"test\", updateMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\",  whitelist:\"test\",status:\"test\"}}";
+		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
+		mmRestService.callUpdateMirrorMaker(inputSteam);
+		assertTrue(true);
+	}
+	@Test
+	public void testCallUpdateMirrorMaker_error4() throws ConfigDbException, CambriaApiException {
+		prepareForTestCommon();
+
+		String sampleJson = "{ messageID:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		mmRestService.callUpdateMirrorMaker(inputSteam);
 		assertTrue(true);

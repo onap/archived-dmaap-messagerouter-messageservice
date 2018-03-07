@@ -168,7 +168,7 @@ public class MMRestService {
 					sendErrResponse(ctx, errorMessages.getIncorrectJson());
 					LOGGER.error("JsonSyntaxException: ", ex);
 				}
-				String name = createMirrorMaker.getCreateMirrorMaker().getName();
+				String name =  createMirrorMaker.getCreateMirrorMaker()==null? "":createMirrorMaker.getCreateMirrorMaker().getName();
 				// send error message if it is not a CreateMirrorMaker request.
 				if (createMirrorMaker.getCreateMirrorMaker() == null) {
 					sendErrResponse(ctx, "This is not a CreateMirrorMaker request. Please try again.");
@@ -318,8 +318,7 @@ public class MMRestService {
 					LOGGER.error("JsonSyntaxException: ", ex);
 
 				}
-				String name = updateMirrorMaker.getUpdateMirrorMaker().getName();
-
+				String name =  updateMirrorMaker.getUpdateMirrorMaker()==null? "":updateMirrorMaker.getUpdateMirrorMaker().getName();
 				// send error message if it is not a UpdateMirrorMaker request.
 				if (updateMirrorMaker.getUpdateMirrorMaker() == null) {
 					sendErrResponse(ctx, "This is not a UpdateMirrorMaker request. Please try again.");

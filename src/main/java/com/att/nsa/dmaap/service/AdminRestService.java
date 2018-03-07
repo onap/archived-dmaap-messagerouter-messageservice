@@ -91,6 +91,8 @@ public class AdminRestService {
 	 */
 	@Autowired
 	private AdminService adminService;
+	
+	private DMaaPContext dmaaPContext;
 
 	/**
 	 * Fetches a list of all the registered consumers along with their created
@@ -107,7 +109,7 @@ public class AdminRestService {
 	public void getConsumerCache() throws CambriaApiException, AccessDeniedException {
 		LOGGER.info("Fetching list of registered consumers.");
 		try {
-			adminService.showConsumerCache(getDMaaPContext());
+			adminService.showConsumerCache(ServiceUtil.getDMaaPContext(configReader, request, response));
 			LOGGER.info("Fetching Consumer Cache Successfully");
 		} catch (IOException e) {
 			LOGGER.error("Error while Fetching list of registered consumers : "
@@ -136,7 +138,7 @@ public class AdminRestService {
 	public void dropConsumerCache() throws CambriaApiException, AccessDeniedException {
 		LOGGER.info("Dropping consumer cache");
 		try {
-			adminService.dropConsumerCache(getDMaaPContext());
+			adminService.dropConsumerCache(ServiceUtil.getDMaaPContext(configReader, request, response));
 			LOGGER.info("Dropping Consumer Cache successfully");
 		} catch ( AccessDeniedException   excp) {
 			LOGGER.error("Error while dropConsumerCache : "
@@ -170,14 +172,14 @@ public class AdminRestService {
 	public void getBlacklist() throws CambriaApiException {
 		LOGGER.info("Fetching list of blacklist ips.");
 		try {
-			Enumeration headerNames = getDMaaPContext().getRequest().getHeaderNames();
+			Enumeration headerNames = ServiceUtil.getDMaaPContext(configReader, request, response).getRequest().getHeaderNames();
 			while (headerNames.hasMoreElements()) {
 				String key = (String) headerNames.nextElement();
 				String value = request.getHeader(key);
 			
 			}
 			
-			adminService.getBlacklist(getDMaaPContext());
+			adminService.getBlacklist(ServiceUtil.getDMaaPContext(configReader, request, response));
 			LOGGER.info("Fetching list of blacklist ips Successfully");
 		}catch ( AccessDeniedException   excp) {
 			LOGGER.error("Error while Fetching list  of blacklist ips : "
@@ -215,7 +217,7 @@ public class AdminRestService {
 	{
 		LOGGER.info("Adding ip to list of blacklist ips.");
 		try {
-			adminService.addToBlacklist(getDMaaPContext(), ip);
+			adminService.addToBlacklist(ServiceUtil.getDMaaPContext(configReader, request, response), ip);
 			LOGGER.info("Fetching list of blacklist ips Successfully");
 		} catch ( AccessDeniedException   excp) {
 			LOGGER.error("Error while blacklist : "
@@ -253,7 +255,7 @@ public class AdminRestService {
 	public void removeFromBlacklist(@PathParam("ip") String ip) throws CambriaApiException, AccessDeniedException, ConfigDbException {
 		LOGGER.info("Fetching list of blacklist ips.");
 		try {
-			adminService.removeFromBlacklist(getDMaaPContext(), ip);
+			adminService.removeFromBlacklist(ServiceUtil.getDMaaPContext(configReader, request, response), ip);
 			LOGGER.info("Fetching list of blacklist ips Successfully");
 		}catch ( AccessDeniedException   excp) {
 			LOGGER.error("Error while blacklist : "
@@ -278,16 +280,6 @@ public class AdminRestService {
 		}
 	}
 
-	/**
-	 * Create a dmaap context
-	 * @return DMaaPContext
-	 */
-	private DMaaPContext getDMaaPContext() {
-		DMaaPContext dmaaPContext = new DMaaPContext();
-		dmaaPContext.setConfigReader(configReader);
-		dmaaPContext.setRequest(request);
-		dmaaPContext.setResponse(response);
-		return dmaaPContext;
-	}
+	
 
 }
