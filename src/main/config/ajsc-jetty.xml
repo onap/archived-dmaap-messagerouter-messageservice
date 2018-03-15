@@ -86,7 +86,7 @@
 	<!-- SSL Keystore configuration -->
 	
 	 <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
-             <Set name="KeyStorePath">/appl/dmaapMR1/bundleconfig/etc/keystore.jks</Set>
+             <Set name="KeyStorePath"><SystemProperty name="AJSC_HOME" />/bundleconfig/etc/keystore.jks</Set>
                   <Set name="KeyStorePassword">changeit</Set>
                        <Set name="KeyManagerPassword">changeit</Set>
          </New>
