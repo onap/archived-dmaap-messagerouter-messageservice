@@ -66,6 +66,7 @@ import com.att.nsa.cambria.exception.DMaaPErrorMessages;
 import com.att.nsa.cambria.metabroker.Broker.TopicExistsException;
 import com.att.nsa.cambria.security.DMaaPAAFAuthenticator;
 import com.att.nsa.cambria.security.DMaaPAAFAuthenticatorImpl;
+import com.att.nsa.cambria.security.DMaaPAuthenticatorImpl;
 import com.att.nsa.cambria.service.MMService;
 
 /**

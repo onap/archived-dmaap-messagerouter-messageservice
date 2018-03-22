@@ -66,23 +66,15 @@
 	</filter>
 	
 <!-- Content length filter for Msgrtr -->
-	 <filter>
+	<!--  <filter>
 		<display-name>DMaaPAuthFilter</display-name>
 		<filter-name>DMaaPAuthFilter</filter-name>
 		<filter-class>com.att.nsa.dmaap.util.DMaaPAuthFilter</filter-class>
     <init-param>
         <param-name>cadi_prop_files</param-name>
-<!-- param-name was changed from prop_files to cadi_prop_files in 1.1.1, so please use "cadi_prop_files" for param-name moving forward -->
-<!-- old value   <param-name>prop_files</param-name>  -->
-        <!--  Please, note: configuration files were located under the conf/ directory for 4.4.0 and lower versions
-            of the ajsc. Beginning with the 4.5.1 Release version of the ajsc, these configuration files have ALL
-            been moved to the etc/ directory to better utilize some SWM packaging functionality.  -->
-        <!--  <param-value>conf/cadi.properties</param-value>  -->
-       <!-- <param-value>etc/cadi.properties</param-value> -->
- <!--  <param-value>etc/cadi.properties </param-value>-->
 	<param-value>/appl/dmaapMR1/etc/cadi.properties </param-value>
     </init-param>		
-	</filter>  
+	</filter>   -->
 	
 	<!-- End Content length filter for Msgrtr -->
 	 <servlet>

@@ -150,7 +150,7 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 		 * Malformed request
 		 */
 		if(ex instanceof BadRequestException)
-		{
+		{   ex.printStackTrace();
 			errRes = new ErrorResponse(HttpStatus.SC_BAD_REQUEST,DMaaPResponseCode.INCORRECT_JSON.
 					getResponseCode(),msgs.getBadRequest());
 			

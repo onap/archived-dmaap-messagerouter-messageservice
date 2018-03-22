@@ -38,13 +38,13 @@
 	</appender>
 
 	<appender name="INFO"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>INFO</level>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
 		</filter>
-		<file>${logDirectory}/Info.log</file>
+		<!-- <file>${logDirectory}/Info.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 			<fileNamePattern>${logDirectory}/Info-${lrmRVer}-${lrmRO}-${Pid}.%i.log.zip
 			</fileNamePattern>
@@ -57,12 +57,12 @@
 		</triggeringPolicy>
 		<encoder>
 			<pattern>"%d [%thread] %-5level %logger{1024} - %msg%n"</pattern>
-		</encoder>
+		</encoder> -->
 	</appender>
 
-	<!--<appender name="DEBUG"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+	<appender name="DEBUG"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<!-- <filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>DEBUG</level>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
@@ -77,21 +77,21 @@
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
 			<maxFileSize>500MB</maxFileSize>
-		</triggeringPolicy>
+		</triggeringPolicy> -->
 		<encoder>
 			<pattern>"%d [%thread] %-5level %logger{1024} - %msg%n"</pattern>
 		</encoder>
-	</appender> -->
+	</appender>
 
 	<appender name="ERROR"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>ERROR</level>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
 		</filter>
-		<file>${logDirectory}/Error.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+		<!--<file>${logDirectory}/Error.log</file>
+		 <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 			<fileNamePattern>${logDirectory}/Error-${lrmRVer}-${lrmRO}-${Pid}.%i.log.zip
 			</fileNamePattern>
 			<minIndex>1</minIndex>
@@ -100,7 +100,7 @@
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
 			<maxFileSize>500MB</maxFileSize>
-		</triggeringPolicy>
+		</triggeringPolicy> -->
 		<encoder>
 			<!-- <pattern>"%d{HH:mm:ss.SSS} [%thread] %-5level %logger{1024} - %msg%n"</pattern> -->
 			<pattern>"%d [%thread] %-5level %logger{1024} - %msg%n"</pattern>
@@ -209,10 +209,10 @@
 	<!-- logback jms appenders & loggers definition starts here -->
 	<!-- logback jms appenders & loggers definition starts here -->
 	<appender name="auditLogs"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 		</filter>
-		<file>${logDirectory}/Audit-${lrmRVer}-${lrmRO}-${Pid}.log</file>
+		<!-- <file>${logDirectory}/Audit-${lrmRVer}-${lrmRO}-${Pid}.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 			<fileNamePattern>${logDirectory}/Audit-${lrmRVer}-${lrmRO}-${Pid}.%i.log.zip
 			</fileNamePattern>
@@ -222,16 +222,16 @@
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
 			<maxFileSize>500MB</maxFileSize>
-		</triggeringPolicy>
+		</triggeringPolicy> -->
 		<encoder>
 			<pattern>"%d [%thread] %-5level %logger{1024} - %msg%n"</pattern>
 		</encoder>
 	</appender>
 	<appender name="perfLogs"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 		</filter>
-		<file>${logDirectory}/Perform-${lrmRVer}-${lrmRO}-${Pid}.log</file>
+		<!-- <file>${logDirectory}/Perform-${lrmRVer}-${lrmRO}-${Pid}.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 			<fileNamePattern>${logDirectory}/Perform-${lrmRVer}-${lrmRO}-${Pid}.%i.log.zip
 			</fileNamePattern>
@@ -241,7 +241,7 @@
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
 			<maxFileSize>500MB</maxFileSize>
-		</triggeringPolicy>
+		</triggeringPolicy> -->
 		<encoder>
 			<pattern>"%d [%thread] %-5level %logger{1024} - %msg%n"</pattern>
 		</encoder>
@@ -289,12 +289,10 @@
 	</appender>
 
 	<logger name="AuditRecord" level="INFO" additivity="FALSE">
-		<appender-ref ref="ASYNC-audit" />
-		<appender-ref ref="auditLogs" />
+		<appender-ref ref="STDOUT" />
 	</logger>
 	<logger name="AuditRecord_DirectCall" level="INFO" additivity="FALSE">
-		<appender-ref ref="ASYNC-audit" />
-		<appender-ref ref="auditLogs" />
+		<appender-ref ref="STDOUT" />
 	</logger>
 	<appender name="ASYNC-perf" class="ch.qos.logback.classic.AsyncAppender">
 		<queueSize>1000</queueSize>

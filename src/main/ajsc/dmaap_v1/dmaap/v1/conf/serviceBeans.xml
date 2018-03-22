@@ -7,14 +7,19 @@
 	       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- Dependency Injection with annotations -->
+	<!-- <context:property-placeholder
+		location="file:/C:/Users/su622b/Desktop/testonap.properties"/> -->
+		<!-- <context:property-placeholder
+		location="classpath:msgRtrApi.properties,classpath:DMaaPErrorMesaages.properties" /> -->
+		
+		<context:property-placeholder
+		location="file:///${AJSC_HOME}/bundleconfig/etc/appprops/MsgRtrApi.properties,file:///${AJSC_HOME}/etc/DMaaPErrorMesaages.properties"/>
+		
 	<context:component-scan
 		base-package="com.att.nsa.cambria.utils, com.att.nsa.cambria, com.att.nsa.cambria.rest,
 	com.att.nsa.cambria.service.impl,com.att.nsa.cambria.beans,com.att.nsa.cambria.security,
 	com.att.nsa.cambria.transaction,com.att.nsa.cambria.exception,com.att.nsa.dmaap,com.att.nsa.dmaap.service,com.att.nsa.dmaap.util" />
 	
-	<context:property-placeholder
-		location="file:${AJSC_HOME}/bundleconfig/etc/appprops/MsgRtrApi.properties,file:${AJSC_HOME}/etc/DMaaPErrorMesaages.properties"/>
-		
 		<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
 			 <property name="dropRootElement" value="true" />
         	<property name="supportUnwrapped" value="true" />
@@ -80,7 +85,7 @@
 		<constructor-arg ref="propertyReader" />
 	</bean>
 
-	<bean id="dMaaPKafkaMetaBroker" class=" com.att.nsa.cambria.beans.DMaaPKafkaMetaBroker">
+	<bean id="fMetaBroker" class=" com.att.nsa.cambria.beans.DMaaPKafkaMetaBroker">
 		<constructor-arg ref="propertyReader" />
 		<constructor-arg ref="dMaaPZkClient" />
 		<constructor-arg ref="dMaaPZkConfigDb" />

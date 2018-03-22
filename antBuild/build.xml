@@ -29,8 +29,7 @@
 				<!-- Windows Users may need to add a jvmarg arg to create a temp directory properly. -->
 				<!-- <jvmarg value="-Djava.io.tmpdir=C:/yourTempDirectory"/>  -->
 
-				<!-- Uncomment the following 2 jvmarg values to enable Remote Debugging. Please, see 
-			http://wiki.web.att.com/display/ajsc/Debugging+with+the+AJSC+-Remote+Debugging+Setup
+				<!-- Uncomment the following 2 jvmarg values to enable Remote Debugging.
 			for more information on how to setup Remote Debugger -->
 				<!-- <jvmarg value="-Xdebug" /> -->
 				<!-- <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5432" /> -->
@@ -153,7 +152,7 @@
 			<!-- extApps directory MUST be created for ajsc-runner to run correctly, 
 			even if empty. DO NOT REMOVE!!! -->
 			<!-- extApps directory created to deploy other war files on startup or hot deploy War files after ajsc 
-			starts up. See http://wiki.web.att.com/display/ajsc/Multiple+War+Deployment+within+the+AJSC for more info -->
+			starts up.  -->
 			<mkdir dir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/extApps" />
 
 			<!-- Copying any extra wars to $AJSC_HOME/extApps to be deployed within 
@@ -164,8 +163,7 @@
 
 			<!-- staticContent folder is for serving static content within an ajsc service. Any static content to be served 
 			will be copyied to the ultimate $AJSC_HOME/staticContent folder and can be served with the att-static-content
-			camel component. Please, see http://wiki.web.att.com/display/ajsc/att-static-content for more information
-		 	on serving static content.  -->
+			camel component.  -->
 			<!-- Uncomment the following snippet to copy items from staticContent folder to ultimate $AJSC_HOME/staticConent -->
 			<!-- <copy
 			toDir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/staticContent"

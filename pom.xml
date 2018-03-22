@@ -249,7 +249,7 @@
 
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
-		<ajscRuntimeVersion>3.0.1-oss</ajscRuntimeVersion>
+		<ajscRuntimeVersion>3.0.3-oss</ajscRuntimeVersion>
 
 		<!-- This will be the Absolute Root of the Project and should contain NO 
 			Versioning -->
@@ -311,8 +311,7 @@
 		so). If you have a startup failure related to a missing dme2 class not found 
 		exception, please contact the AJSC team for assistance. You can email support 
 		at ajsc-Support <DL-ajsc-Support@att.com>. For more information regarding 
-		the usage of the AJSC service pom.xml and management of dependencies, please 
-		goto wiki link:http://wiki.web.att.com/display/ajsc/pom.xml -->
+		the usage of the AJSC service pom.xml and management of dependencies,  -->
 	<dependencies>
 
 		<!-- cmn-CommonDataModel dependency added to resolve build issue not finding 
@@ -344,7 +343,7 @@
 		<dependency>
 			<groupId>org.onap.dmaap.messagerouter.msgrtr</groupId>
 			<artifactId>msgrtr</artifactId>
-			<version>1.1.1</version>
+			<version>1.1.2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -477,15 +476,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.att.aft</groupId>
-			<artifactId>dme2</artifactId>
-			<version>3.1.200</version>
-			<!-- <scope>provided</scope> -->
-		</dependency>
-		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>ajsc-archetype-parent</artifactId>
-			<version>3.0.1-oss</version>
+			<version>3.0.3-oss</version>
 			<type>pom</type>
 		</dependency>
 
@@ -617,13 +610,13 @@
 		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>ajsc-runner</artifactId>
-			<version>3.0.1-oss</version>
+			<version>3.0.3-oss</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>ajsc-core</artifactId>
-			<version>3.0.1-oss</version>
+			<version>3.0.3-oss</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
