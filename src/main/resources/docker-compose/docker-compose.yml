@@ -4,13 +4,6 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
-    volumes:
-      - ./data-zookeeper:/opt/zookeeper-3.4.9/data
-    logging:
-      driver: "json-file"
-      options:
-       max-size: "30m"
-       max-file: "5"
   kafka:
     build: .
     ports:
@@ -18,19 +11,14 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 172.18.0.1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data-kafka:/kafka
-    logging:
-      driver: "json-file"
-      options:
-       max-size: "30m"
-       max-file: "5"
     depends_on:
       - zookeeper
       
   dmaap:
-    image: attos/dmaap
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr
     ports:
       - "3904:3904"
       - "3905:3905"
@@ -38,9 +26,4 @@ services:
       - /var/tmp/MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties  
     depends_on:
       - zookeeper
-      - kafka
-    logging:
-      driver: "json-file"
-      options:
-       max-size: "30m"
-       max-file: "5"    
+      - kafka    
