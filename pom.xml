@@ -130,7 +130,7 @@
 				<executions>
 					<execution>
 						<id>build-image</id>
-						<phase>package</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>build</goal>
 						</goals>
@@ -141,7 +141,7 @@
 
 					<execution>
 						<id>tag-image-project-version</id>
-						<phase>package</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>tag</goal>
 						</goals>
@@ -154,7 +154,7 @@
 
 					<execution>
 						<id>tag-image-latest</id>
-						<phase>package</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>tag</goal>
 						</goals>
