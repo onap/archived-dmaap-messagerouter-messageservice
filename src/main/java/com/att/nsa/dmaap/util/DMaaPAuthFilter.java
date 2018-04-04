@@ -80,8 +80,7 @@ public class DMaaPAuthFilter extends CadiFilter {
 		if (forceAAF || 
 			null != request.getHeader("Authorization") || 
 			(null != request.getHeader("AppName") && 
-				request.getHeader("AppName").equalsIgnoreCase("invenio") && 
-				null != request.getHeader("cookie"))) {
+				request.getHeader("AppName").equalsIgnoreCase("invenio") )) {
 
 			if (!enabled || 
 					request.getMethod().equalsIgnoreCase("head") || 
