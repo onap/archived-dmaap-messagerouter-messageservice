@@ -21,7 +21,7 @@
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
-	<version>1.1.3-SNAPSHOT</version>
+	<version>1.1.4-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
 	<licenses>
@@ -278,12 +278,13 @@
 		<testRouteOffer>workstation</testRouteOffer>
 		<testEnv>DEV</testEnv>
 		<dmaapImg>${project.version}</dmaapImg>
-		<camel.version>2.16.2</camel.version>
+		<camel.version>2.17.6</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
 		<skip.docker.push>true</skip.docker.push>
 		<nexusproxy>https://nexus.onap.org</nexusproxy>
 		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
+		<spring.version>3.2.18.RELEASE</spring.version>
 	</properties>
 
 	<!-- Distribution management -->
@@ -320,6 +321,7 @@
 		<!-- <dependency> <groupId>csi-schemas-source</groupId> <artifactId>cmn-CommonDataModel</artifactId> 
 			<version>112.0.50</version> </dependency> -->
 		<!-- TODO: add open source version here -->
+
 		<dependency>
 			<groupId>com.att.cadi</groupId>
 			<artifactId>cadi-core</artifactId>
@@ -330,6 +332,61 @@
 			<artifactId>dme2</artifactId>
 			<version>3.1.200-oss</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.10</version>
+		</dependency>
+		<dependency>
+      <groupId>org.grails</groupId>
+      <artifactId>grails-bootstrap</artifactId>
+      <version>2.5.4</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>ant</artifactId>
+          <groupId>org.apache.ant</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jna</artifactId>
+          <groupId>net.java.dev.jna</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>ant-trax</artifactId>
+          <groupId>org.apache.ant</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>gant_groovy1.8</artifactId>
+          <groupId>org.codehaus.gant</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>ant-launcher</artifactId>
+          <groupId>org.apache.ant</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jline</artifactId>
+          <groupId>jline</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>ivy</artifactId>
+          <groupId>org.apache.ivy</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jansi</artifactId>
+          <groupId>org.fusesource.jansi</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-logging</artifactId>
+          <groupId>commons-logging</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>ant-junit</artifactId>
+          <groupId>org.apache.ant</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -423,7 +480,7 @@
 		<dependency>
 		<groupId>org.grails</groupId>
 	<artifactId>grails-web</artifactId>
-	<version>2.4.4</version>
+	<version>2.5.4</version>
 	<exclusions>
 		<exclusion>
 			<groupId>org.grails</groupId>
