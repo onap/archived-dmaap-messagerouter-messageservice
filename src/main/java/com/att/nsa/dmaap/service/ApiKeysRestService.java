@@ -192,7 +192,7 @@ public class ApiKeysRestService {
 	@PUT
 	@Path("/{apiKey}")
 	public void updateApiKey(@PathParam("apiKey") String apiKeyName,
-			ApiKeyBean nsaApiKey) throws CambriaApiException, JSONException {
+			ApiKeyBean nsaApiKey) throws CambriaApiException  {
 		log.info("Updating Api Key.");
 
 		try {
