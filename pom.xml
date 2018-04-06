@@ -246,7 +246,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dockerLocation>${basedir}/target/swm/package/nix/dist_files/</dockerLocation>
 		<docker.image.prefix>simpledemo</docker.image.prefix>
-
+        <javax-mail-version>1.5.0</javax-mail-version>
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
 		<ajscRuntimeVersion>3.0.3-oss</ajscRuntimeVersion>
@@ -334,6 +334,19 @@
 		</dependency>
 		
 		<dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>${javax-mail-version}</version>
+            <exclusions>
+              <!-- javax activation is part of the JDK now -->
+              <exclusion>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+              </exclusion>
+            </exclusions>
+        </dependency>
+		
+		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
 			<version>3.4.10</version>
@@ -386,7 +399,11 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.2.18.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
