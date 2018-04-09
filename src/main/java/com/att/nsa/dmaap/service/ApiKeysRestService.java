@@ -160,7 +160,7 @@ public class ApiKeysRestService {
 	@POST
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createApiKey(ApiKeyBean nsaApiKey) throws CambriaApiException, JSONException {
+	public void createApiKey(ApiKeyBean nsaApiKey) throws CambriaApiException {
 		log.info("Creating Api Key.");
 
 		try {
@@ -192,7 +192,7 @@ public class ApiKeysRestService {
 	@PUT
 	@Path("/{apiKey}")
 	public void updateApiKey(@PathParam("apiKey") String apiKeyName,
-			ApiKeyBean nsaApiKey) throws CambriaApiException, JSONException {
+			ApiKeyBean nsaApiKey) throws CambriaApiException  {
 		log.info("Updating Api Key.");
 
 		try {
