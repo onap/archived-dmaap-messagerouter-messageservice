@@ -1,17 +1,44 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
+.. http://creativecommons.org/licenses/by/4.0
 
-DMAAP Release Notes
-===================
 
-Version: 1.0.1
+Release Notes
+=============
+
+
+
+Version: 1.1.4
 --------------
 
 
-:Release Date: 2017-11-16
+:Release Date: 2018-04-18
 
 
 
 **New Features**
+
+This release fixes the packaging and security issues.
+
+**Bug Fixes**
+	NA
+**Known Issues**
+	NA
+
+**Security Issues**
+	This release fixes the security vulnerabilities due to the opensourced libraries used in the project
+
+
+**Upgrade Notes**
+  NA
+
+**Deprecation Notes**
+
+Version: 1.0.1
+
+Release Date: 2017-11-16
+
+
+New Features:
 
  - Pub/sub messaging metaphor to broaden data processing opportunities
  - A single solution for most event distribution needs to support a range of environments
@@ -23,22 +50,15 @@ Version: 1.0.1
 
 
 
-**Bug Fixes**
+Bug Fixes
    - `DMAAP-165 <https://jira.onap.org/browse/DMAAP-165>`_ Correct documentation rst file errors and warnings
    - `DMAAP-160 <https://jira.onap.org/browse/DMAAP-160>`_ DMaaP periodically loses connection to Kafka
    - `DMAAP-157 <https://jira.onap.org/browse/DMAAP-157>`_ SDC service models distribution fails
    - `DMAAP-151 <https://jira.onap.org/browse/DMAAP-151>`_ Fix docker image bug
    - `DMAAP-1 <https://jira.onap.org/browse/DMAAP-1>`_ MSO DB is not populated with the models from SDC
    
-**Known Issues**
+Known Issues
    - `DMAAP-164 <https://jira.onap.org/browse/DMAAP-164>`_ The dependency from kafka for zookeeper created issues when the vm is restarted
-         
 
-**Security Issues**
-   N/A
+Other
 
-**Upgrade Notes**
-   N/A
-**Deprecation Notes**
-   N/A
-**Other**

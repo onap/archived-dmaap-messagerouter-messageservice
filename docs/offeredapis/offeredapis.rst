@@ -1,18 +1,8 @@
-============================================
-Message Router (MR) API Guide
-============================================
-Architecture
--------------
+.. This work is licensed under a Creative Commons Attribution 4.0 International License.
+.. http://creativecommons.org/licenses/by/4.0
 
-In DMaaP Message Router, Restful web service is exposed to client to perform any needed action with Kafka. After getting the request it calls the Message router service layer which is created using AJSC ( AT&T Java Service Container) . AJSC finally calls Kafka services and response is sent back.
-
-   |image0|
-
-   .. |image0| image:: image1.png
-
-
-HTTP Service APIs
-------------------
+Offered APIs
+------------
 
 DMaaP Message Router utilizes an HTTP REST API to service all Publish
 and Consume transactions. HTTP and REST standards are followed so
@@ -31,11 +21,9 @@ of the specific transactions described in this section.
 HTTP URL
 ========
 
-http[s]://Username:Password@serverBaseURL{/routing}{resourcePath}
+http[s]://serverBaseURL{/routing}{resourcePath}
 
-- The Username:Password utilizes HTTP Basic Authentication and HTTPS/TLS to securely transmit the authorization and authentication credentials that AAF needs to validate the client's access to the requested resource.
-
-- The serverBaseURL points to DMaaP Message Router host/port that will service the request. Optionally DME2 service end points for Message Router can be used.
+- The serverBaseURL points to DMaaP Message Router host/port that will service the request.
 
 - The resourcePath specifies the specific service, or Topic, that the client is attempting to reach
 

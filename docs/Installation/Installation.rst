@@ -1,7 +1,15 @@
-=================================
-DMAAP MESSAGE ROUTER INSTALLATION
-=================================
-This document describes how to install and access DMaaP Message Router.
+.. This work is licensed under a Creative Commons Attribution 4.0 International License.
+.. http://creativecommons.org/licenses/by/4.0
+
+Installation
+============
+
+Environment
+-----------
+Message Router is developed using Kafka, Zookeeper and Java. AJSC framework is used to create the REST service and Docker was used to package the service.
+
+Steps
+-----
 Message Router has 3 docker containers. Dmaap\_container,
 kafka\_contaienr and zookeeper\_container. Zookeeper runs on 172.18.0.3,
 kafka runs on 172.18.0.2 and dmaap on 172.18.0.4.
@@ -17,9 +25,9 @@ kafka runs on 172.18.0.2 and dmaap on 172.18.0.4.
 3) In /var/tmp/MsgRtrApi.properties, change value of below variables as
    shown below:
 
-   config.zk.servers=172.18.0.3
+   config.zk.servers=172.18.0.3(Change as per where  ZooKeepeer is deployed)
 
-   kafka.metadata.broker.list=172.18.0.2:9092
+   kafka.metadata.broker.list=172.18.0.2:9092(Change as per where Kafka is deployed)
 
 4) Install docker and docker-compose
 
@@ -53,5 +61,3 @@ Testing
 
    Note: You will only receive messages which have been published after
    you have subscribed to a topic.
-
-

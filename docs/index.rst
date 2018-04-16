@@ -1,17 +1,23 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. http://creativecommons.org/licenses/by/4.0
-.. Copyright © 2017 AT&T Intellectual Property. All rights reserved.
 
-Message Router (MR)
+dmaap/messagerouter(MR)
 ====================
 
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    
-   message-router/message-router
-   Installation/Installation
-   Filter/Filter
+   architecture/architecture.rst
+   offeredapis/offeredapis.rst
+   consumedapis/consumedapis.rst
+   delivery/delivery.rst
+   logging/logging.rst
+   installation/installation.rst
+   configuration/configuration.rst
+   administration/administration.rst
+   humaninterfaces/humaninterfaces.rst
+   release-notes/release-notes.rst
 
 
