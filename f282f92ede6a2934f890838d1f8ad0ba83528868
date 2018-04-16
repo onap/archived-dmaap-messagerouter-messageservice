@@ -46,6 +46,30 @@
       "revId": "f282f92ede6a2934f890838d1f8ad0ba83528868",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_150776cb",
+        "filename": "src/main/resources/docker-compose/docker-compose.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2343
+      },
+      "writtenOn": "2018-04-16T13:05:39Z",
+      "side": 1,
+      "message": "CSIT test cases use docker-compose.yml to run the functional test cases",
+      "parentUuid": "5a93c517_af5c2f4c",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "f282f92ede6a2934f890838d1f8ad0ba83528868",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
