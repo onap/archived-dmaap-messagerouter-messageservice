@@ -2,7 +2,10 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 Offered APIs
-------------
+~~~~~~~~~~~~
+
+.. toctree::
+    :maxdepth: 3
 
 DMaaP Message Router utilizes an HTTP REST API to service all Publish
 and Consume transactions. HTTP and REST standards are followed so
@@ -11,7 +14,7 @@ work to interact with Message Router.Message Router uses AAF for user's
 authentication and authorization.
 
 General HTTP Requirements
-=========================
+-------------------------
 
 A DMaaP Message Router transactions consists of 4 distinct segments,
 HTTP URL, HTTP Header, HTTP Body (POST) and HTTP Response. The general
@@ -19,7 +22,7 @@ considerations for each segment are as follows and are required for each
 of the specific transactions described in this section.
 
 HTTP URL
-========
+-------
 
 http[s]://serverBaseURL{/routing}{resourcePath}
 
@@ -28,13 +31,13 @@ http[s]://serverBaseURL{/routing}{resourcePath}
 - The resourcePath specifies the specific service, or Topic, that the client is attempting to reach
 
 HTTP Header
-===========
+-----------
 
 Specifies HTTP Headers, such as Content-Type, that define the parameters
 of the HTTP Transaction
 
 HTTP Body
-=========
+---------
 
 The HTTP Body contains the topic content when Publishing or Consuming.
 The Body may contain topic messages in several formats (like below) but
@@ -520,7 +523,7 @@ API Inventory
 
 
 Filters
-=========
+-------
 
 A filter examine an event and decides if it matches or doesn't.  Filters
 are mainly used in rules to decide if the processing entries should be
@@ -564,7 +567,7 @@ format:
 All the supported filter can be found below.
 
 Types of Filters
-----------------
+================
 
 - DMaaP Message Router supports all the filters which were supported by
   DMaaP Message Router and are mentioned below:-

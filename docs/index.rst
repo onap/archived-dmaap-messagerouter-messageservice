@@ -1,7 +1,7 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. http://creativecommons.org/licenses/by/4.0
 
-dmaap/messagerouter(MR)
+dmaap/message router(MR)
 ====================
 
 
@@ -14,7 +14,7 @@ dmaap/messagerouter(MR)
    consumedapis/consumedapis.rst
    delivery/delivery.rst
    logging/logging.rst
-   installation/installation.rst
+   Installation/Installation.rst
    configuration/configuration.rst
    administration/administration.rst
    humaninterfaces/humaninterfaces.rst
