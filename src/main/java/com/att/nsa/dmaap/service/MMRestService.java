@@ -288,7 +288,7 @@ public class MMRestService {
 	@POST
 	@Produces("application/json")
 	@Path("/update")
-	public void callUpdateMirrorMaker(InputStream msg) throws CambriaApiException {
+	public void callUpdateMirrorMaker(InputStream msg) {
 
 		DMaaPContext ctx = getDmaapContext();
 		if (checkMirrorMakerPermission(ctx,
