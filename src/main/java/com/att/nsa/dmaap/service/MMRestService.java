@@ -374,7 +374,7 @@ public class MMRestService {
 	@POST
 	@Produces("application/json")
 	@Path("/delete")
-	public void callDeleteMirrorMaker(InputStream msg) throws CambriaApiException {
+	public void callDeleteMirrorMaker(InputStream msg) {
 		DMaaPContext ctx = getDmaapContext();
 
 		if (checkMirrorMakerPermission(ctx,
