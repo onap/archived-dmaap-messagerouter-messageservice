@@ -205,7 +205,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e.getMessage() );
+				out.println ( "Command failed: " + e);
 			}
 		}
 
