@@ -35,9 +35,6 @@ import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 
 
-//import com.att.ssf.filemonitor.FileChangedListener;
-//import com.att.ssf.filemonitor.FileMonitor;
-
 /**
  * ServicePropertyService class
  * @author author
