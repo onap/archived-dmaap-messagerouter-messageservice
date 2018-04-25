@@ -87,8 +87,8 @@
 	
 	 <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
              <Set name="KeyStorePath"><SystemProperty name="AJSC_HOME" />/bundleconfig/etc/keystore.jks</Set>
-                  <Set name="KeyStorePassword">changeit</Set>
-                       <Set name="KeyManagerPassword">changeit</Set>
+                  <Set name="KeyStorePassword">Messaging for All</Set>
+                       <Set name="KeyManagerPassword">Messaging for All</Set>
          </New>
          <Call id="sslConnector" name="addConnector">
                  <Arg>

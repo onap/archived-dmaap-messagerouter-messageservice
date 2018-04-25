@@ -46,7 +46,7 @@ services:
     volumes:
       - ./MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties 
       - ./cadi.properties:/appl/dmaapMR1/etc/cadi.properties 
-      - ./mykey:/appl/dmaapMR1/etc/keyfile 
+      - ./keystore.jks:/appl/dmaapMR1/bundleconfig/etc/keystore.jks 
     depends_on:
       - zookeeper
       - kafka
