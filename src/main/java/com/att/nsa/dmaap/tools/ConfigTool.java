@@ -205,7 +205,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e.getMessage() );
+				out.println ( "Command failed: " + e);
 			}
 		}
 
@@ -241,7 +241,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e.getMessage () );
+				out.println ( "Command failed: " + e);
 			}
 		}
 
@@ -287,7 +287,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e.getMessage () );
+				out.println ( "Command failed: " + e);
 			}
 		}
 
@@ -349,11 +349,11 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e.getMessage() );
+				out.println ( "Command failed: " + e);
 			}
 			catch ( JSONException e )
 			{
-				out.println ( "Command failed: " + e.getMessage() );
+				out.println ( "Command failed: " + e);
 			}
 		}
 

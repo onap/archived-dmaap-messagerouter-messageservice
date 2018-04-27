@@ -299,7 +299,7 @@ public class TopicRestService {
 	@Path("/create")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	// @Produces(MediaType.TEXT_PLAIN)
-	public void createTopic(TopicBean topicBean) throws CambriaApiException, JSONException {
+	public void createTopic(TopicBean topicBean) throws CambriaApiException{
 		try {
 			LOGGER.info("Creating Topic." + topicBean.getTopicName());
 
@@ -524,7 +524,7 @@ public class TopicRestService {
 	@Path("/{topicName}/consumers")
 	// @Produces(MediaType.TEXT_PLAIN)
 	public void getConsumersByTopicName(@PathParam("topicName") String topicName)
-			throws AccessDeniedException, CambriaApiException {
+			throws CambriaApiException {
 		try {
 
 			// String permission =

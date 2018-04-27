@@ -224,7 +224,7 @@ public class MMRestService {
 	@POST
 	@Produces("application/json")
 	@Path("/listall")
-	public void callListAllMirrorMaker(InputStream msg) throws CambriaApiException {
+	public void callListAllMirrorMaker(InputStream msg) {
 		DMaaPContext ctx = getDmaapContext();
 
 		if (checkMirrorMakerPermission(ctx,
@@ -288,7 +288,7 @@ public class MMRestService {
 	@POST
 	@Produces("application/json")
 	@Path("/update")
-	public void callUpdateMirrorMaker(InputStream msg) throws CambriaApiException {
+	public void callUpdateMirrorMaker(InputStream msg) {
 
 		DMaaPContext ctx = getDmaapContext();
 		if (checkMirrorMakerPermission(ctx,
@@ -374,7 +374,7 @@ public class MMRestService {
 	@POST
 	@Produces("application/json")
 	@Path("/delete")
-	public void callDeleteMirrorMaker(InputStream msg) throws CambriaApiException {
+	public void callDeleteMirrorMaker(InputStream msg) {
 		DMaaPContext ctx = getDmaapContext();
 
 		if (checkMirrorMakerPermission(ctx,
