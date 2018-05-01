@@ -3,7 +3,7 @@
 
   
   <from uri="att-dme2-servlet:///events?matchOnUriPrefix=true" />
-  <to uri="cxfbean:eventService?providers=#jacksonProvider,#cambriaExMapper,#webExMapper" />
+  <to uri="cxfbean:eventService?providers=#jacksonProvider,#jsonProvider,#cambriaExMapper,#webExMapper" />
     <setBody>
 		<simple>${in.header.exception}</simple>
 	</setBody> 
