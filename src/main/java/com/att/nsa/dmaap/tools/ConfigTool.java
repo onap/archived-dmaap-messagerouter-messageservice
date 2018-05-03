@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 
 import com.att.nsa.apiServer.CommonServlet;
@@ -53,6 +54,7 @@ import com.att.nsa.util.NsaClock;
 
 public class ConfigTool extends CommandLineTool<ConfigToolContext>
 {
+	private static Logger logger1 = Logger.getLogger("com.att.nsa.dmaap.tools.ConfigTool");
 	protected ConfigTool ()
 	{
 		super ( "Cambria API Config Tool", "cambriaConfig> " );
@@ -424,7 +426,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e.getMessage() );
+				logger1.error("Command failed: " + e);
 			}
 			catch ( JSONException e )
 			{
