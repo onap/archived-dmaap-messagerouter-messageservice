@@ -818,6 +818,18 @@
 											<value>${basedir}/ajsc-shared-config/etc/logback.xml</value>
 										</systemProperty>
 										<systemProperty>
+											<key>com.att.eelf.logging.file</key>
+											<value>logback.xml</value>
+										</systemProperty>
+										<systemProperty>
+											<key>com.att.eelf.logging.path</key>
+											<value>${basedir}/ajsc-shared-config/etc</value>
+										</systemProperty>
+										<systemProperty>
+											<key>logging.config</key>
+											<value>${basedir}/ajsc-shared-config/etc/logback.xml</value>
+										</systemProperty>
+										<systemProperty>
 											<key>AJSC_SHARED_CONFIG</key>
 											<value>${basedir}/ajsc-shared-config</value>
 										</systemProperty>
