@@ -41,7 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ServicePropertiesMap 
 {
 	private static HashMap<String, HashMap<String, String>> mapOfMaps = 
-			new HashMap<String, HashMap<String, String>>();
+			new HashMap<>();
 //	static final Logger logger = LoggerFactory.getLogger(ServicePropertiesMap.class);
 
 	private static final EELFLogger logger = EELFManager.getInstance().getLogger(ServicePropertiesMap.class);
