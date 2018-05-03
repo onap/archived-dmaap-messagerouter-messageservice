@@ -430,7 +430,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( JSONException e )
 			{
-				out.println ( "Command failed: " + e.getMessage() );
+				logger1.error("Command failed: " + e);
 			}
 		}
 
