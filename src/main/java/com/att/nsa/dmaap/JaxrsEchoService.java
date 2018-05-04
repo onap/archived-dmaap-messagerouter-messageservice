@@ -44,8 +44,7 @@ public class JaxrsEchoService {
 	/**
 	 * Logger obj
 	 */
-	/*private static final Logger LOGGER = Logger
-			.getLogger(JaxrsEchoService.class);*/
+	
 	
 	private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(JaxrsEchoService.class);
 	
