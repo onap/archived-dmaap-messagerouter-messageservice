@@ -65,17 +65,7 @@ public class ServicePropertyService {
 		try {
 			getFileList(FILE_CHANGE_LISTENER_LOC);
 
-//			for (File file : fileList) {
-//					FileChangedListener fileChangedListener = this.fileChangedListener;
-//					Object filePropertiesMap = this.filePropertiesMap;
-//					Method m = filePropertiesMap.getClass().getMethod(
-//							"refresh", File.class);
-//					m.invoke(filePropertiesMap, file);
-//					FileMonitor fm = FileMonitor.getInstance();
-//					fm.addFileChangedListener(file, fileChangedListener,
-//							loadOnStartup);
-//				
-//			}
+
 		} catch (Exception ex) {
 			logger.error("Error creating property map ", ex);
 		}
