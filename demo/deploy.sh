@@ -2,6 +2,8 @@
 
 set -e
 
+export NEXUS_DOCKER_REPO=$(cat /opt/config/nexus_docker_repo.txt)
+
 # do not change this, it is already matched with the git repo file structure
 DOCKER_FILE_DIR='./docker_files'
 
