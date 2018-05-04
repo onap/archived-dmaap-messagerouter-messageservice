@@ -23,7 +23,7 @@ package com.att.nsa.dmaap.filemonitor;
 
 import java.io.File;
 
-//import com.att.ssf.filemonitor.FileChangedListener;
+
 /**
  * Class ServicePropertiesListener
  * @author author
