@@ -18,9 +18,7 @@ services:
         max-file: "5"
 
   kafka:
-    build:
-      context: .
-      dockerfile: Dockerfile-local
+    image: wurstmeister/kafka:1.1.0
     ports:
       - "9092:9092"
     environment:

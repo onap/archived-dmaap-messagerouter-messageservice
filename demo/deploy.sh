@@ -7,11 +7,6 @@ export NEXUS_DOCKER_REPO=$(cat /opt/config/nexus_docker_repo.txt)
 # do not change this, it is already matched with the git repo file structure
 DOCKER_FILE_DIR='./docker_files'
 
-KAFKA_VERSION='0.8.1.1'
-SCALA_VERSION='2.9.2'
-wget -q "http://www.namesdir.com/mirrors/apache/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" \
-  -O "./docker_files/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz"
-
 # commands to run docker and docker-compose
 DOCKER_COMPOSE_EXE='/opt/docker/docker-compose'
 
