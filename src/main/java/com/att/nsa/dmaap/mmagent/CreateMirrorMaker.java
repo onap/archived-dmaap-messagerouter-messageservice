@@ -23,14 +23,14 @@ package com.att.nsa.dmaap.mmagent;
 
 public class CreateMirrorMaker {
 	String messageID;
-	MirrorMaker createMirrorMaker;
+	MirrorMaker crtMirrorMaker;
 
 	public MirrorMaker getCreateMirrorMaker() {
-		return createMirrorMaker;
+		return crtMirrorMaker;
 	}
 
-	public void setCreateMirrorMaker(MirrorMaker createMirrorMaker) {
-		this.createMirrorMaker = createMirrorMaker;
+	public void setCreateMirrorMaker(MirrorMaker crtMirrorMaker) {
+		this.crtMirrorMaker = crtMirrorMaker;
 	}
 
 	public String getMessageID() {
