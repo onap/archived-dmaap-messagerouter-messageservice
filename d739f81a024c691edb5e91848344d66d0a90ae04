@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Ram Koya <rk541m@att.com>
+Submitted-by: Ram Koya <rk541m@att.com>
+Submitted-at: Fri, 11 May 2018 22:13:10 +0000
+Reviewed-on: https://gerrit.onap.org/r/47289
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/master
