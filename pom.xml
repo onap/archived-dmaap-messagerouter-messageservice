@@ -111,6 +111,7 @@
 					<serverId>docker-hub</serverId>
 					<imageTags>
 						<imageTag>${dmaapImg}</imageTag>
+						<imageTag>${dmaapImg.release.version}</imageTag>
 						<imageTag>latest</imageTag>
 					</imageTags>
 					<forceTags>true</forceTags>
@@ -250,6 +251,7 @@
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
 		<ajscRuntimeVersion>3.0.6-oss</ajscRuntimeVersion>
+		<dmaapImg.release.version>1.1.4</dmaapImg.release.version>
 
 		<!-- This will be the Absolute Root of the Project and should contain NO 
 			Versioning -->
