@@ -165,6 +165,18 @@
 							<skipDockerTag>${skip.docker.push}</skipDockerTag>
 						</configuration>
 					</execution>
+					<execution>
+						<id>tag-image-tmp</id>
+						<phase>install</phase>
+						<goals>
+							<goal>tag</goal>
+						</goals>
+						<configuration>
+							<image>onap/dmaap/dmaap-mr</image>
+							<newName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dmaapImg.release.version}</newName>
+							<skipDockerTag>${skip.docker.push}</skipDockerTag>
+						</configuration>
+					</execution>
 
 					<execution>
 						<id>push-image-latest</id>
@@ -186,6 +198,17 @@
 						</goals>
 						<configuration>
 							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</imageName>
+							<skipDockerPush>${skip.docker.push}</skipDockerPush>
+						</configuration>
+					</execution>
+					<execution>
+						<id>push-image-tmp</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+						<configuration>
+							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dmaapImg.release.version}</imageName>
 							<skipDockerPush>${skip.docker.push}</skipDockerPush>
 						</configuration>
 					</execution>
