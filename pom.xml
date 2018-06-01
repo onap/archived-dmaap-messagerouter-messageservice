@@ -111,7 +111,6 @@
 					<serverId>docker-hub</serverId>
 					<imageTags>
 						<imageTag>${dmaapImg}</imageTag>
-						<imageTag>${dmaapImg.release.version}</imageTag>
 						<imageTag>latest</imageTag>
 					</imageTags>
 					<forceTags>true</forceTags>
@@ -165,18 +164,6 @@
 							<skipDockerTag>${skip.docker.push}</skipDockerTag>
 						</configuration>
 					</execution>
-					<execution>
-						<id>tag-image-tmp</id>
-						<phase>install</phase>
-						<goals>
-							<goal>tag</goal>
-						</goals>
-						<configuration>
-							<image>onap/dmaap/dmaap-mr</image>
-							<newName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dmaapImg.release.version}</newName>
-							<skipDockerTag>${skip.docker.push}</skipDockerTag>
-						</configuration>
-					</execution>
 
 					<execution>
 						<id>push-image-latest</id>
@@ -198,17 +185,6 @@
 						</goals>
 						<configuration>
 							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:latest</imageName>
-							<skipDockerPush>${skip.docker.push}</skipDockerPush>
-						</configuration>
-					</execution>
-					<execution>
-						<id>push-image-tmp</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>push</goal>
-						</goals>
-						<configuration>
-							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dmaapImg.release.version}</imageName>
 							<skipDockerPush>${skip.docker.push}</skipDockerPush>
 						</configuration>
 					</execution>
@@ -274,7 +250,6 @@
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
 		<ajscRuntimeVersion>3.0.6-oss</ajscRuntimeVersion>
-		<dmaapImg.release.version>1.1.4</dmaapImg.release.version>
 
 		<!-- This will be the Absolute Root of the Project and should contain NO 
 			Versioning -->
