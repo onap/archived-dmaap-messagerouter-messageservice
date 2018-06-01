@@ -11,7 +11,7 @@ Version: 1.1.4
 --------------
 
 
-:Release Date: 2018-04-18
+:Release Date: 2018-05-24
 
 
 
