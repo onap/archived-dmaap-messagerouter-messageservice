@@ -14,7 +14,10 @@ Version: 1.1.4
 
 **New Features**
 
-This release fixes the packaging and security issues.
+ - Topic creation with out AAF
+ - DMaaP client changes to call the message Router with out authentication
+ - Kafka upgrade from 0.8.11 to 1.1.0
+ - Fixes for docker image packaging issues
 
 **Bug Fixes**
 	NA
