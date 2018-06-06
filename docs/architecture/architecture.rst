@@ -7,15 +7,15 @@ Architecture
 
 Capabilities
 ------------
-Message Router is a RESTful web service used for any needed action with Kaka.
+Message Router is a RESTful web service used for any needed action with Kafka.
 
 Usage Scenarios
 ---------------
-Message Router endpoints are used to create/view/delete a topic in Kafka. Clients can use the Message Router endpoints to publish a message to a topic and subscribe to a topic 
+Message Router REST service endpoints are used to create/view/delete a topic in Kafka. Clients can use the Message Router REST API to publish a message to a topic and subscribe to a topic 
 
 Interactions
 ------------
-Message Service REST service uses the message service API to interact with the ZooKeeper/Kafka
+Message Router REST service uses the Kafka API to interact with the Kafka
 
    |image0|
    
