@@ -12,13 +12,12 @@
 		<!-- <context:property-placeholder
 		location="classpath:msgRtrApi.properties,classpath:DMaaPErrorMesaages.properties" /> -->
 		
-		<context:property-placeholder
-		location="file:///${AJSC_HOME}/bundleconfig/etc/appprops/MsgRtrApi.properties,file:///${AJSC_HOME}/etc/DMaaPErrorMesaages.properties"/>
-		
-	<context:component-scan
-		base-package="com.att.nsa.cambria.utils, com.att.nsa.cambria, com.att.nsa.cambria.rest,
-	com.att.nsa.cambria.service.impl,com.att.nsa.cambria.beans,com.att.nsa.cambria.security,
-	com.att.nsa.cambria.transaction,com.att.nsa.cambria.exception,com.att.nsa.dmaap,com.att.nsa.dmaap.service,com.att.nsa.dmaap.util" />
+		<context:component-scan
+		base-package="com.att,com.att.dmf.mr.utils, com.att.dmf.mr, com.att.dmf.mr.rest,com.att.dmf.mr.service,
+	com.att.dmf.mr.service.impl,com.att.dmf.mr.beans,com.att.dmf.mr.security,com.att.dmf.mr.exception,com.att.dmf.mr.backends,com.att.dmf.mr.backends.kafka,
+	com.att.dmf.mr.transaction,com.att.dmf.mr.exception,com.att.nsa.dmaap,com.att.nsa.dmaap.service,com.att.nsa.dmaap.util,java.lang,java.util,com.att.dmf.mr.exception, com.att.dmf,com.att.nsa.dmaap.mmagent" />
+	 	<context:property-placeholder 
+ 		location="file:${AJSC_HOME}/bundleconfig/etc/appprops/MsgRtrApi.properties,file:${AJSC_HOME}/etc/DMaaPErrorMesaages.properties"/> 
 	
 		<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
 			 <property name="dropRootElement" value="true" />
@@ -39,13 +38,13 @@
 		class="com.att.nsa.dmaap.util.ServicePropertiesMapBean" />
 		
 		<!-- Msgrtr beans -->
-		<bean id="propertyReader" class="com.att.nsa.cambria.utils.PropertyReader" />
+		<bean id="propertyReader" class="com.att.dmf.mr.utils.PropertyReader" />
 		<bean
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<!-- Next value is the full qualified name of the static setter including 
 			method name -->
 		<property name="staticMethod"
-			value="com.att.nsa.cambria.beans.DMaaPKafkaConsumerFactory.populateKafkaInternalDefaultsMap" />
+			value="com.att.dmf.mr.beans.DMaaPKafkaConsumerFactory.populateKafkaInternalDefaultsMap" />
 		<!--  <property name="arguments">
 			<list>
 				<ref bean="propertyReader" />
@@ -56,63 +55,75 @@
 	<bean id="drumlinRequestRouter"
 		class="com.att.nsa.drumlin.service.framework.routing.DrumlinRequestRouter" />
 
-	<bean id="dMaaPMetricsSet" class="com.att.nsa.cambria.beans.DMaaPMetricsSet">
+	<bean id="dMaaPMetricsSet" class="com.att.dmf.mr.beans.DMaaPMetricsSet">
 		 <constructor-arg ref="propertyReader" /> 
 	</bean>
 
-	<bean id="dMaaPZkClient" class=" com.att.nsa.cambria.beans.DMaaPZkClient">
+	<bean id="dMaaPZkClient" class=" com.att.dmf.mr.beans.DMaaPZkClient">
 		<constructor-arg ref="propertyReader" />
 	</bean>
 
-	<bean id="dMaaPZkConfigDb" class="com.att.nsa.cambria.beans.DMaaPZkConfigDb">
+	<bean id="dMaaPZkConfigDb" class="com.att.dmf.mr.beans.DMaaPZkConfigDb">
 		<constructor-arg ref="dMaaPZkClient" />
 		<constructor-arg ref="propertyReader" />
 	</bean>
 	
 
-	<bean id="kafkaPublisher" class=" com.att.nsa.cambria.backends.kafka.KafkaPublisher">
+	<bean id="kafkaPublisher" class=" com.att.dmf.mr.backends.kafka.KafkaPublisher">
 		<constructor-arg ref="propertyReader" />
 	</bean>
 
-	<bean id="dMaaPKafkaConsumerFactory" class=" com.att.nsa.cambria.beans.DMaaPKafkaConsumerFactory">
+	<!-- <bean id="dMaaPKafkaConsumerFactory" class=" com.att.dmf.mr.beans.DMaaPKafkaConsumerFactory">
 		<constructor-arg ref="propertyReader" /> 
 		<constructor-arg ref="dMaaPMetricsSet" />
+		<constructor-arg ref="kafkalockavoid" />
+	</bean> -->
+	
+		<bean id="dMaaPKafkaConsumerFactory" class=" com.att.dmf.mr.beans.DMaaPKafkaConsumerFactory">
+		<constructor-arg ref="dMaaPMetricsSet" />
 		<constructor-arg ref="curator" />
+		<constructor-arg ref="kafkalockavoid" />
 	</bean>
+	
 
-	<bean id="curator" class="com.att.nsa.cambria.utils.DMaaPCuratorFactory"
+	<bean id="curator" class="com.att.dmf.mr.utils.DMaaPCuratorFactory"
 		factory-method="getCurator">
 		<constructor-arg ref="propertyReader" />
 	</bean>
 
-	<bean id="fMetaBroker" class=" com.att.nsa.cambria.beans.DMaaPKafkaMetaBroker">
+	<bean id="dMaaPKafkaMetaBroker" class=" com.att.dmf.mr.beans.DMaaPKafkaMetaBroker">
 		<constructor-arg ref="propertyReader" />
 		<constructor-arg ref="dMaaPZkClient" />
 		<constructor-arg ref="dMaaPZkConfigDb" />
 	</bean>
 
-	<bean id="q" class=" com.att.nsa.cambria.backends.memory.MemoryQueue" />
+	<bean id="q" class=" com.att.dmf.mr.backends.memory.MemoryQueue" />
 
-	<bean id="mmb" class=" com.att.nsa.cambria.backends.memory.MemoryMetaBroker">
+	<bean id="mmb" class=" com.att.dmf.mr.backends.memory.MemoryMetaBroker">
 		<constructor-arg ref="q" />
 		<constructor-arg ref="dMaaPZkConfigDb" />
 		<!-- <constructor-arg ref="propertyReader" />-->
 	</bean>
 
-	<bean id="dMaaPNsaApiDb" class="com.att.nsa.cambria.beans.DMaaPNsaApiDb"
+	<bean id="dMaaPNsaApiDb" class="com.att.dmf.mr.beans.DMaaPNsaApiDb"
 		factory-method="buildApiKeyDb">
 		<constructor-arg ref="propertyReader" />
 		<constructor-arg ref="dMaaPZkConfigDb" />
 	</bean>
 
-	<!-- <bean id="dMaaPTranDb" class="com.att.nsa.cambria.transaction.DMaaPTransactionDB" 
+	<!-- <bean id="dMaaPTranDb" class="com.att.dmf.mr.transaction.DMaaPTransactionDB" 
 		factory-method="buildTransactionDb"> <constructor-arg ref="propertyReader" 
 		/> <constructor-arg ref="dMaaPZkConfigDb" /> </bean> -->
 
-	<bean id="dMaaPAuthenticatorImpl" class="com.att.nsa.cambria.security.DMaaPAuthenticatorImpl">
+	<bean id="dMaaPAuthenticatorImpl" class="com.att.dmf.mr.security.DMaaPAuthenticatorImpl">
 		<constructor-arg ref="dMaaPNsaApiDb" />
 	</bean>
-	<bean id="defLength" class="com.att.nsa.filter.DefaultLength">
+	<bean id="defLength" class="com.att.mr.filter.DefaultLength">
 		<property name="defaultLength" value="${maxcontentlength}"></property>
 	</bean>
+	
+	 <bean id="kafkalockavoid" class="com.att.dmf.mr.backends.kafka.KafkaLiveLockAvoider2" /> 
+	
+
+		<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
 </beans>		

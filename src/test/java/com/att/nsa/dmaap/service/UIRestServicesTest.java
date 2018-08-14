@@ -29,7 +29,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.att.nsa.cambria.CambriaApiException;
+import com.att.dmf.mr.CambriaApiException;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
 

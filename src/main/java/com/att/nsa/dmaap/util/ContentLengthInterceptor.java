@@ -8,14 +8,14 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
@@ -30,9 +30,9 @@ import com.att.eelf.configuration.EELFManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
-import com.att.nsa.cambria.CambriaApiException;
-import com.att.nsa.cambria.exception.DMaaPResponseCode;
-import com.att.nsa.cambria.exception.ErrorResponse;
+import com.att.dmf.mr.CambriaApiException;
+import com.att.dmf.mr.exception.DMaaPResponseCode;
+import com.att.dmf.mr.exception.ErrorResponse;
 import ajsc.beans.interceptors.AjscInterceptor;
 
 /**
@@ -43,6 +43,7 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 
 	
 	private String defLength;
+	//private Logger log = Logger.getLogger(ContentLengthInterceptor.class.toString());
 	private static final EELFLogger log = EELFManager.getInstance().getLogger(ContentLengthInterceptor.class);
 
 
@@ -69,13 +70,13 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 			// checking for no encoding, chunked and requestLength greater then
 			// default length
 				if (null != transferEncoding && !(transferEncoding.contains("chunked"))
-						&& (getDefLength() !=null && requestLength > Integer.parseInt(getDefLength()))) {
+						&& (requestLength > Integer.parseInt(getDefLength()))) {
 					jsonObj = new JSONObject().append("defaultlength", getDefLength())
 							.append("requestlength", requestLength);
 					log.error("message length is greater than default");
 					throw new CambriaApiException(jsonObj);
 				} 
-				else if (null == transferEncoding && (getDefLength() !=null && requestLength > Integer.parseInt(getDefLength()))) 
+				else if (null == transferEncoding && (requestLength > Integer.parseInt(getDefLength()))) 
 				{
 					jsonObj = new JSONObject().append("defaultlength", getDefLength()).append(
 							"requestlength", requestLength);
@@ -94,15 +95,21 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 			
 			log.info("Exception obj--"+e);
 			log.error("message size is greater then default"+e.getMessage());
+			String messg=e.toString();
+			if(jsonObj!=null){
+			 messg=jsonObj.toString();
+			}
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_REQUEST_TOO_LONG,
 					DMaaPResponseCode.MSG_SIZE_EXCEEDS_MSG_LIMIT.getResponseCode(), System.getProperty("msg_size_exceeds")
-							+ e.toString());
+							+ messg);
 			log.info(errRes.toString());
 			
 			
 			map.put(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"test");
 			httpservletresponse.setStatus(HttpStatus.SC_REQUEST_TOO_LONG);
+			if(httpservletresponse.getOutputStream()!=null){
 			httpservletresponse.getOutputStream().write(errRes.toString().getBytes());
+			}
 			return false;
 		}
 

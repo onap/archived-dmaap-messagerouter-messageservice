@@ -8,14 +8,14 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
@@ -38,17 +38,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.att.nsa.cambria.CambriaApiException;
-import com.att.nsa.cambria.beans.DMaaPContext;
-import com.att.nsa.cambria.exception.DMaaPResponseCode;
-import com.att.nsa.cambria.exception.ErrorResponse;
-import com.att.nsa.cambria.service.MetricsService;
-import com.att.nsa.cambria.utils.ConfigurationReader;
+import com.att.dmf.mr.CambriaApiException;
+import com.att.dmf.mr.beans.DMaaPContext;
+import com.att.dmf.mr.exception.DMaaPResponseCode;
+import com.att.dmf.mr.exception.ErrorResponse;
+import com.att.dmf.mr.service.MetricsService;
+import com.att.dmf.mr.utils.ConfigurationReader;
 
 /**
  * This class is a CXF REST service which acts 
  * as gateway for MR Metrics Service.
- * @author author
+ * @author rajashree.khare
  *
  */
 @Component

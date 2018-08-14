@@ -8,14 +8,14 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
@@ -43,13 +43,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.att.nsa.cambria.CambriaApiException;
-import com.att.nsa.cambria.beans.ApiKeyBean;
-import com.att.nsa.cambria.beans.DMaaPContext;
-import com.att.nsa.cambria.exception.DMaaPResponseCode;
-import com.att.nsa.cambria.exception.ErrorResponse;
-import com.att.nsa.cambria.service.ApiKeysService;
-import com.att.nsa.cambria.utils.ConfigurationReader;
+import com.att.dmf.mr.CambriaApiException;
+import com.att.dmf.mr.beans.ApiKeyBean;
+import com.att.dmf.mr.beans.DMaaPContext;
+import com.att.dmf.mr.exception.DMaaPResponseCode;
+import com.att.dmf.mr.exception.ErrorResponse;
+import com.att.dmf.mr.service.ApiKeysService;
+import com.att.dmf.mr.utils.ConfigurationReader;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.db.NsaApiDb.KeyExistsException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
@@ -58,7 +58,7 @@ import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
  * This class is a CXF REST service 
  * which acts as gateway for Cambria Api
  * Keys.
- * @author author
+ * @author rajashree.khare
  *
  */
 @Component
@@ -107,7 +107,7 @@ public class ApiKeysRestService {
 		log.info("Inside ApiKeysRestService.getAllApiKeys");
 
 		try {
-			apiKeyService.getAllApiKeys(ServiceUtil.getDMaaPContext(configReader, request, response));
+			apiKeyService.getAllApiKeys(getDmaapContext());
 			log.info("Fetching all API keys is Successful");
 		} catch (ConfigDbException | IOException e) {
 			log.error("Error while retrieving API keys: " + e);
@@ -135,7 +135,7 @@ public class ApiKeysRestService {
 		log.info("Fetching details of api key: " + apiKeyName);
 
 		try {
-			apiKeyService.getApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), apiKeyName);
+			apiKeyService.getApiKey(getDmaapContext(), apiKeyName);
 			log.info("Fetching specific API key is Successful");
 		} catch (ConfigDbException | IOException e) {
 			log.error("Error while retrieving API key details: " + e);
@@ -160,11 +160,11 @@ public class ApiKeysRestService {
 	@POST
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createApiKey(ApiKeyBean nsaApiKey) throws CambriaApiException {
+	public void createApiKey(ApiKeyBean nsaApiKey) throws CambriaApiException, JSONException {
 		log.info("Creating Api Key.");
 
 		try {
-			apiKeyService.createApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), nsaApiKey);
+			apiKeyService.createApiKey(getDmaapContext(), nsaApiKey);
 			log.info("Creating API key is Successful");
 		} catch (KeyExistsException | ConfigDbException | IOException e) {
 			log.error("Error while Creating API key : " + e.getMessage(), e);
@@ -192,13 +192,13 @@ public class ApiKeysRestService {
 	@PUT
 	@Path("/{apiKey}")
 	public void updateApiKey(@PathParam("apiKey") String apiKeyName,
-			ApiKeyBean nsaApiKey) throws CambriaApiException  {
+			ApiKeyBean nsaApiKey) throws CambriaApiException, JSONException {
 		log.info("Updating Api Key.");
 
 		try {
 			
 			apiKeyService
-					.updateApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), apiKeyName, nsaApiKey);
+					.updateApiKey(getDmaapContext(), apiKeyName, nsaApiKey);
 			log.error("API key updated sucessfully");
 		} catch (ConfigDbException | IOException | AccessDeniedException e) {
 			log.error("Error while Updating API key : " + apiKeyName, e);
@@ -225,7 +225,7 @@ public class ApiKeysRestService {
 	public void deleteApiKey(@PathParam("apiKey") String apiKeyName) throws CambriaApiException {
 		log.info("Deleting Api Key: " + apiKeyName);
 		try {
-			apiKeyService.deleteApiKey(ServiceUtil.getDMaaPContext(configReader, request, response), apiKeyName);
+			apiKeyService.deleteApiKey(getDmaapContext(), apiKeyName);
 			log.info("Api Key deleted successfully: " + apiKeyName);
 		} catch (ConfigDbException | IOException | AccessDeniedException e) {
 			log.error("Error while deleting API key : " + apiKeyName, e);
@@ -239,5 +239,16 @@ public class ApiKeysRestService {
 		}
 	}
 
+	/**
+	 * Create a dmaap context
+	 * @return DMaaPContext
+	 */
+	private DMaaPContext getDmaapContext() {
+		DMaaPContext dmaapContext = new DMaaPContext();
+		dmaapContext.setConfigReader(configReader);
+		dmaapContext.setRequest(request);
+		dmaapContext.setResponse(response);
+		return dmaapContext;
+	}
 
 }

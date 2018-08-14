@@ -8,14 +8,14 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
@@ -44,19 +44,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.att.nsa.cambria.CambriaApiException;
-import com.att.nsa.cambria.beans.DMaaPContext;
-import com.att.nsa.cambria.exception.DMaaPResponseCode;
-import com.att.nsa.cambria.exception.ErrorResponse;
-import com.att.nsa.cambria.service.AdminService;
-import com.att.nsa.cambria.utils.ConfigurationReader;
+import com.att.dmf.mr.CambriaApiException;
+import com.att.dmf.mr.beans.DMaaPContext;
+import com.att.dmf.mr.exception.DMaaPResponseCode;
+import com.att.dmf.mr.exception.ErrorResponse;
+import com.att.dmf.mr.service.AdminService;
+import com.att.dmf.mr.utils.ConfigurationReader;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
 
 /**
  * Rest Service class
  * for Admin Services
- * @author author
+ * @author Ramkumar
  *
  */
 @Component
@@ -91,8 +91,6 @@ public class AdminRestService {
 	 */
 	@Autowired
 	private AdminService adminService;
-	
-	private DMaaPContext dmaaPContext;
 
 	/**
 	 * Fetches a list of all the registered consumers along with their created
@@ -172,7 +170,7 @@ public class AdminRestService {
 	public void getBlacklist() throws CambriaApiException {
 		LOGGER.info("Fetching list of blacklist ips.");
 		try {
-			Enumeration headerNames = ServiceUtil.getDMaaPContext(configReader, request, response).getRequest().getHeaderNames();
+			Enumeration headerNames =ServiceUtil.getDMaaPContext(configReader, request, response).getRequest().getHeaderNames();
 			while (headerNames.hasMoreElements()) {
 				String key = (String) headerNames.nextElement();
 				String value = request.getHeader(key);
@@ -280,6 +278,5 @@ public class AdminRestService {
 		}
 	}
 
-	
 
 }

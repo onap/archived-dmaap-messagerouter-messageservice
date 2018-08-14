@@ -20,11 +20,14 @@
 
 package com.att.nsa.dmaap.mmagent;
 
+import com.att.dmf.mr.CambriaApiException;
+
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class CreateMirrorMakerTest {
 
@@ -47,7 +50,7 @@ public class CreateMirrorMakerTest {
 	}
 
 	@Test
-	public void testSetCreateMirrorMaker() {
+	public void testSetCreateMirrorMaker() throws CambriaApiException {
 
 		CreateMirrorMaker mMaker = new CreateMirrorMaker();
 		mMaker.setCreateMirrorMaker(new MirrorMaker());

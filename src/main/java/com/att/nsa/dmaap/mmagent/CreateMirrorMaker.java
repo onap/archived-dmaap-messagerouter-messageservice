@@ -8,18 +8,28 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
 package com.att.nsa.dmaap.mmagent;
+
+import java.util.Date;
+
+import org.apache.http.HttpStatus;
+import org.json.JSONObject;
+
+import com.att.dmf.mr.CambriaApiException;
+import com.att.dmf.mr.exception.DMaaPResponseCode;
+import com.att.dmf.mr.exception.ErrorResponse;
+import com.att.dmf.mr.utils.Utils;
 
 public class CreateMirrorMaker {
 	String messageID;
@@ -29,7 +39,7 @@ public class CreateMirrorMaker {
 		return createMirrorMaker;
 	}
 
-	public void setCreateMirrorMaker(MirrorMaker createMirrorMaker) {
+	public void setCreateMirrorMaker(MirrorMaker createMirrorMaker) throws CambriaApiException {
 		this.createMirrorMaker = createMirrorMaker;
 	}
 
@@ -39,5 +49,28 @@ public class CreateMirrorMaker {
 
 	public void setMessageID(String messageID) {
 		this.messageID = messageID;
+	}
+	public void validateJSON() throws CambriaApiException
+	{
+		ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_BAD_REQUEST,
+				DMaaPResponseCode.INCORRECT_JSON.getResponseCode(), "", null, Utils.getFormattedDate(new Date()), null, null, null, 
+						null,
+				"");
+		if(null==this.createMirrorMaker.getConsumer())
+		{
+			errRes.setErrorMessage("Please provide Consumer host:port details");
+			throw new CambriaApiException(errRes);
+		}
+		if(null==this.createMirrorMaker.getProducer())
+		{
+			errRes.setErrorMessage("Please provide Producer host:port details");
+			throw new CambriaApiException(errRes);
+		}
+		if(this.createMirrorMaker.getNumStreams()<=0)
+		{
+			errRes.setErrorMessage("Please provide numStreams value");
+			throw new CambriaApiException(errRes);
+		}
+		
 	}
 }

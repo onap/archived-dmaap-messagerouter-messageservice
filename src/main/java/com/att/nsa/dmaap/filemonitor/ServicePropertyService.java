@@ -8,14 +8,14 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
@@ -35,9 +35,12 @@ import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 
 
+//import com.att.ssf.filemonitor.FileChangedListener;
+//import com.att.ssf.filemonitor.FileMonitor;
+
 /**
  * ServicePropertyService class
- * @author author
+ * @author rajashree.khare
  *
  */
 public class ServicePropertyService {
@@ -65,17 +68,17 @@ public class ServicePropertyService {
 		try {
 			getFileList(FILE_CHANGE_LISTENER_LOC);
 
-//			for (File file : fileList) {
-//					FileChangedListener fileChangedListener = this.fileChangedListener;
-//					Object filePropertiesMap = this.filePropertiesMap;
-//					Method m = filePropertiesMap.getClass().getMethod(
-//							"refresh", File.class);
-//					m.invoke(filePropertiesMap, file);
-//					FileMonitor fm = FileMonitor.getInstance();
-//					fm.addFileChangedListener(file, fileChangedListener,
-//							loadOnStartup);
-//				
-//			}
+			/*for (File file : fileList) {
+					FileChangedListener fileChangedListener = this.fileChangedListener;
+					Object filePropertiesMap = this.filePropertiesMap;
+					Method m = filePropertiesMap.getClass().getMethod(
+							"refresh", File.class);
+					m.invoke(filePropertiesMap, file);
+					FileMonitor fm = FileMonitor.getInstance();
+					fm.addFileChangedListener(file, fileChangedListener,
+							loadOnStartup);
+				
+			}*/
 		} catch (Exception ex) {
 			logger.error("Error creating property map ", ex);
 		}
@@ -87,7 +90,7 @@ public class ServicePropertyService {
 		FileInputStream fis = null;
 
 		if (fileList == null)
-			fileList = new ArrayList<>();
+			fileList = new ArrayList<File>();
 
 		// get all the files that are ".json" or ".properties", from a directory
 		// & it's sub-directories
@@ -107,9 +110,7 @@ public class ServicePropertyService {
 				} catch (Exception ioe) {
 					logger.error("Error reading the file stream ", ioe);
 				} finally {
-					if (fis != null) {
-						fis.close();
-					}
+					fis.close();
 				}
 			} else if (file.isDirectory()) {
 				getFileList(file.getPath());

@@ -21,7 +21,7 @@
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
-	<version>1.1.5-SNAPSHOT</version>
+	<version>1.1.6-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
 	<licenses>
@@ -209,7 +209,7 @@
 				</executions>
 			</plugin>
 
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
@@ -231,7 +231,7 @@
 						<version>2.1.5-03</version>
 					</dependency>
 				</dependencies>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.codehaus.groovy</groupId>
 				<artifactId>groovy-eclipse-compiler</artifactId>
@@ -277,7 +277,8 @@
 
 		<testRouteOffer>workstation</testRouteOffer>
 		<testEnv>DEV</testEnv>
-		<dmaapImg>1.1.5</dmaapImg>
+		<!-- <dmaapImg>${project.version}</dmaapImg> -->
+		<dmaapImg>1.1.6</dmaapImg>
 		<camel.version>2.17.6</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
@@ -442,7 +443,7 @@
 		<dependency>
 			<groupId>org.onap.dmaap.messagerouter.msgrtr</groupId>
 			<artifactId>msgrtr</artifactId>
-			<version>1.1.3</version>
+			<version>1.1.5</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -561,6 +562,17 @@
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-extension-providers</artifactId>
 			<version>3.0.12</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-transports-http</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.1.16</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jettison</groupId>

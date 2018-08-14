@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import com.att.nsa.cambria.CambriaApiException;
+import com.att.dmf.mr.CambriaApiException;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
@@ -40,15 +40,15 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.att.nsa.cambria.beans.DMaaPContext;
+import com.att.dmf.mr.beans.DMaaPContext;
 
 import java.io.IOException;
 import java.util.Enumeration;
-import com.att.nsa.cambria.service.AdminService;
+import com.att.dmf.mr.service.AdminService;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
-import com.att.nsa.cambria.beans.DMaaPContext;
-import com.att.nsa.cambria.utils.ConfigurationReader;
+import com.att.dmf.mr.beans.DMaaPContext;
+import com.att.dmf.mr.utils.ConfigurationReader;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
 @RunWith(PowerMockRunner.class)

@@ -8,14 +8,14 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * ServicePropertiesMap class
- * @author author
+ * @author rajashree.khare
  *
  */
 @SuppressWarnings("squid:S1118") 
@@ -52,27 +52,22 @@ public class ServicePropertiesMap
 	 */
 	public static void refresh(File file) throws Exception
 	{
-		String filePath= null;
 		try
 		{
 			logger.info("Loading properties - " + (file != null?file.getName():""));
 			
 			//Store .json & .properties files into map of maps
-			if (file != null) {
-				filePath = file.getPath();
-			}
+			String filePath = file.getPath();
 			
-			if(filePath != null) {
 			if(filePath.lastIndexOf(".json")>0){
 				
 				ObjectMapper om = new ObjectMapper();
 				TypeReference<HashMap<String, String>> typeRef = 
 						new TypeReference<HashMap<String, String>>() {};
 				HashMap<String, String> propMap = om.readValue(file, typeRef);
-				HashMap<String, String> lcasePropMap = new HashMap<>();
-				for (Map.Entry<String,String> entry : propMap.entrySet())
+				HashMap<String, String> lcasePropMap = new HashMap<String, String>();
+				for (String key : propMap.keySet() )
 				{
-					String key = entry.getKey();
 					String lcaseKey = ifNullThenEmpty(key);
 					lcasePropMap.put(lcaseKey, propMap.get(key));
 				}
@@ -86,10 +81,9 @@ public class ServicePropertiesMap
 				prop.load(fis);
 				
 				@SuppressWarnings("unchecked")
-				HashMap<String, String> propMap = new HashMap<>((Map)prop);
+				HashMap<String, String> propMap = new HashMap<String, String>((Map)prop);
 				
 				mapOfMaps.put(file.getName(), propMap);
-			}
 			}
 
 			logger.info("File - " + file.getName() + " is loaded into the map and the "
@@ -117,7 +111,7 @@ public class ServicePropertiesMap
 	 * @param fileName fileName
 	 * @return mapProp
 	 */
-	public static Map<String, String> getProperties(String fileName){
+	public static HashMap<String, String> getProperties(String fileName){
 		return mapOfMaps.get(fileName);
 	}
 	

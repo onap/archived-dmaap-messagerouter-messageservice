@@ -30,18 +30,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.api.mockito.PowerMockito;
+import static org.mockito.Mockito.when;
 
 import com.att.ajsc.beans.PropertiesMapBean;
-import com.att.nsa.cambria.CambriaApiException;
-import com.att.nsa.cambria.backends.ConsumerFactory.UnavailableException;
-import com.att.nsa.cambria.exception.DMaaPErrorMessages;
-import com.att.nsa.cambria.service.EventsService;
+import com.att.dmf.mr.CambriaApiException;
+import com.att.dmf.mr.backends.ConsumerFactory.UnavailableException;
+import com.att.dmf.mr.exception.DMaaPErrorMessages;
+import com.att.dmf.mr.service.EventsService;
 import com.att.nsa.configs.ConfigDbException;
-import com.att.nsa.cambria.utils.Utils;
+import com.att.dmf.mr.utils.Utils;
 import com.att.nsa.drumlin.till.nv.rrNvReadable.missingReqdSetting;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
 
@@ -55,10 +56,10 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
-import com.att.nsa.cambria.beans.DMaaPContext;
-import com.att.nsa.cambria.exception.DMaaPAccessDeniedException;
-import com.att.nsa.cambria.exception.ErrorResponse;
-import com.att.nsa.cambria.metabroker.Broker.TopicExistsException;
+import com.att.dmf.mr.beans.DMaaPContext;
+import com.att.dmf.mr.exception.DMaaPAccessDeniedException;
+import com.att.dmf.mr.exception.ErrorResponse;
+import com.att.dmf.mr.metabroker.Broker.TopicExistsException;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ PropertiesMapBean.class })
@@ -108,8 +109,8 @@ public class EventsRestServiceTest {
 	public void testGetEvents_error() {
 
 		try {
-			PowerMockito.doThrow(new IOException()).when(eventsService).getEvents(dmaapContext, "topicName",
-					"consumergroup", "consumerid");
+			PowerMockito.doThrow(new IOException()).when(eventsService).getEvents(any(), any(),
+					any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| UnavailableException | IOException excp) {
 			assertTrue(false);
@@ -124,8 +125,8 @@ public class EventsRestServiceTest {
 		}
 
 		try {
-			PowerMockito.doThrow(new AccessDeniedException()).when(eventsService).getEvents(dmaapContext, "topicName",
-					"consumergroup", "consumerid");
+			PowerMockito.doThrow(new AccessDeniedException()).when(eventsService).getEvents(any(), any(),
+					any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| UnavailableException | IOException excp) {
 			assertTrue(false);
@@ -140,8 +141,8 @@ public class EventsRestServiceTest {
 		}
 
 		try {
-			PowerMockito.doThrow(new TopicExistsException("error")).when(eventsService).getEvents(dmaapContext,
-					"topicName", "consumergroup", "consumerid");
+			PowerMockito.doThrow(new TopicExistsException("error")).when(eventsService).getEvents(any(),
+					any(), any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| UnavailableException | IOException excp) {
 			assertTrue(false);
@@ -161,8 +162,8 @@ public class EventsRestServiceTest {
 	public void testGetEvents_TopicExistException() throws CambriaApiException, ConfigDbException, TopicExistsException,
 			UnavailableException, IOException, AccessDeniedException {
 
-		Mockito.doThrow(new TopicExistsException("topic exists")).when(eventsService).getEvents(dmaapContext,
-				"topicName", "consumergroup", "consumerid");
+		Mockito.doThrow(new TopicExistsException("topic exists")).when(eventsService).getEvents(any(),
+				any(), any(), any());
 
 		eventsService.getEvents(dmaapContext, "topicName", "consumergroup", "consumerid");
 
@@ -172,8 +173,8 @@ public class EventsRestServiceTest {
 	public void testGetEvents_DMaaPAccessDeniedException() throws CambriaApiException, ConfigDbException,
 			TopicExistsException, UnavailableException, IOException, AccessDeniedException {
 
-		Mockito.doThrow(new DMaaPAccessDeniedException(errorResponse)).when(eventsService).getEvents(dmaapContext,
-				"topicName", "consumergroup", "consumerid");
+		Mockito.doThrow(new DMaaPAccessDeniedException(errorResponse)).when(eventsService).getEvents(any(),
+				any(), any(), any());
 
 		eventsService.getEvents(dmaapContext, "topicName", "consumergroup", "consumerid");
 
@@ -206,8 +207,8 @@ public class EventsRestServiceTest {
 	public void testPushEvents_error() {
 
 		try {
-			PowerMockito.doThrow(new IOException()).when(eventsService).pushEvents(dmaapContext, "topicName", iStream,
-					"partitionKey", null);
+			PowerMockito.doThrow(new IOException()).when(eventsService).pushEvents(any(), any(), any(),
+					any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| missingReqdSetting | IOException excp) {
 			assertTrue(false);
@@ -222,8 +223,8 @@ public class EventsRestServiceTest {
 		}
 
 		try {
-			PowerMockito.doThrow(new AccessDeniedException()).when(eventsService).pushEvents(dmaapContext, "topicName",
-					iStream, "partitionKey", null);
+			PowerMockito.doThrow(new AccessDeniedException()).when(eventsService).pushEvents(any(), any(),
+					any(), any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| missingReqdSetting | IOException excp) {
 			assertTrue(false);
@@ -238,8 +239,8 @@ public class EventsRestServiceTest {
 		}
 
 		try {
-			PowerMockito.doThrow(new TopicExistsException("error")).when(eventsService).pushEvents(dmaapContext,
-					"topicName", iStream, "partitionKey", null);
+			PowerMockito.doThrow(new TopicExistsException("error")).when(eventsService).pushEvents(any(),
+					any(), any(), any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| missingReqdSetting | IOException excp) {
 			assertTrue(false);
@@ -275,8 +276,8 @@ public class EventsRestServiceTest {
 		ServletInputStream stream = request.getInputStream();
 
 		try {
-			PowerMockito.doThrow(new TopicExistsException("error")).when(eventsService).pushEvents(dmaapContext,
-					"topicName", stream, "partitionKey", Utils.getFormattedDate(new Date()));
+			PowerMockito.doThrow(new TopicExistsException("error")).when(eventsService).pushEvents(any(),
+					any(), any(), any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| missingReqdSetting | IOException excp) {
 			assertTrue(false);
@@ -291,8 +292,8 @@ public class EventsRestServiceTest {
 		}
 
 		try {
-			PowerMockito.doThrow(new AccessDeniedException()).when(eventsService).pushEvents(dmaapContext, "topicName",
-					stream, "partitionKey", Utils.getFormattedDate(new Date()));
+			PowerMockito.doThrow(new AccessDeniedException()).when(eventsService).pushEvents(any(),any(),
+					any(), any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| missingReqdSetting | IOException excp) {
 			assertTrue(false);
@@ -307,8 +308,8 @@ public class EventsRestServiceTest {
 		}
 
 		try {
-			PowerMockito.doThrow(new IOException()).when(eventsService).pushEvents(dmaapContext, "topicName", stream,
-					"partitionKey", Utils.getFormattedDate(new Date()));
+			PowerMockito.doThrow(new IOException()).when(eventsService).pushEvents(any(), any(), any(),
+					any(), any());
 		} catch (TopicExistsException | DMaaPAccessDeniedException | AccessDeniedException | ConfigDbException
 				| missingReqdSetting | IOException excp) {
 			assertTrue(false);

@@ -8,14 +8,14 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
- *  
+*  
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *
+ *  
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
  *  
  *******************************************************************************/
@@ -31,8 +31,8 @@ import java.util.Map.Entry;
 import org.json.JSONException;
 
 import com.att.nsa.apiServer.CommonServlet;
-import com.att.nsa.cambria.beans.DMaaPKafkaMetaBroker;
-import com.att.nsa.cambria.metabroker.Topic;
+import com.att.dmf.mr.beans.DMaaPKafkaMetaBroker;
+import com.att.dmf.mr.metabroker.Topic;
 import com.att.nsa.cmdtool.Command;
 import com.att.nsa.cmdtool.CommandLineTool;
 import com.att.nsa.cmdtool.CommandNotReadyException;
@@ -128,7 +128,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e);
+				out.println ( "Command failed: " + e.getMessage() );
 			}
 		}
 
@@ -167,7 +167,6 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			catch ( ConfigDbException e )
 			{
 				out.println ( "Command failed: " + e.getMessage() );
-				throw new RuntimeException(e);
 			}
 		}
 
@@ -205,7 +204,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e);
+				out.println ( "Command failed: " + e.getMessage() );
 			}
 		}
 
@@ -241,7 +240,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e);
+				out.println ( "Command failed: " + e.getMessage () );
 			}
 		}
 
@@ -287,7 +286,7 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e);
+				out.println ( "Command failed: " + e.getMessage () );
 			}
 		}
 
@@ -349,11 +348,11 @@ public class ConfigTool extends CommandLineTool<ConfigToolContext>
 			}
 			catch ( ConfigDbException e )
 			{
-				out.println ( "Command failed: " + e);
+				out.println ( "Command failed: " + e.getMessage() );
 			}
 			catch ( JSONException e )
 			{
-				out.println ( "Command failed: " + e);
+				out.println ( "Command failed: " + e.getMessage() );
 			}
 		}
 

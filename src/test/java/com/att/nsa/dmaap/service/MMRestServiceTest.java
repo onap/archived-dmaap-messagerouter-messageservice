@@ -55,19 +55,19 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.att.ajsc.beans.PropertiesMapBean;
 import com.att.ajsc.filemonitor.AJSCPropertiesMap;
-import com.att.nsa.cambria.CambriaApiException;
-import com.att.nsa.cambria.beans.DMaaPContext;
-import com.att.nsa.cambria.beans.DMaaPKafkaMetaBroker;
-import com.att.nsa.cambria.constants.CambriaConstants;
-import com.att.nsa.cambria.exception.DMaaPAccessDeniedException;
-import com.att.nsa.cambria.exception.DMaaPErrorMessages;
-import com.att.nsa.cambria.metabroker.Broker.TopicExistsException;
-import com.att.nsa.cambria.metabroker.Topic;
-import com.att.nsa.cambria.security.DMaaPAAFAuthenticator;
-import com.att.nsa.cambria.security.DMaaPAAFAuthenticatorImpl;
-import com.att.nsa.cambria.security.DMaaPAuthenticator;
-import com.att.nsa.cambria.service.MMService;
-import com.att.nsa.cambria.utils.ConfigurationReader;
+import com.att.dmf.mr.CambriaApiException;
+import com.att.dmf.mr.beans.DMaaPContext;
+import com.att.dmf.mr.beans.DMaaPKafkaMetaBroker;
+import com.att.dmf.mr.constants.CambriaConstants;
+import com.att.dmf.mr.exception.DMaaPAccessDeniedException;
+import com.att.dmf.mr.exception.DMaaPErrorMessages;
+import com.att.dmf.mr.metabroker.Broker.TopicExistsException;
+import com.att.dmf.mr.metabroker.Topic;
+import com.att.dmf.mr.security.DMaaPAAFAuthenticator;
+import com.att.dmf.mr.security.DMaaPAAFAuthenticatorImpl;
+import com.att.dmf.mr.security.DMaaPAuthenticator;
+import com.att.dmf.mr.service.MMService;
+import com.att.dmf.mr.utils.ConfigurationReader;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.dmaap.mmagent.CreateMirrorMaker;
 import com.att.nsa.dmaap.mmagent.MirrorMaker;
@@ -160,8 +160,7 @@ public class MMRestServiceTest {
 	}
 
 	@Test
-	public void testCallCreateMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
-			TopicExistsException, JSONException, ConfigDbException {
+	public void testCallCreateMirrorMaker() throws Exception {
 		prepareForTestCommon();
 
 		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
@@ -174,8 +173,7 @@ public class MMRestServiceTest {
 
 	}
 	@Test
-	public void testCallCreateMirrorMaker_error4() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
-			TopicExistsException, JSONException, ConfigDbException {
+	public void testCallCreateMirrorMaker_error4() throws Exception {
 		prepareForTestCommon();
 
 		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
@@ -188,8 +186,7 @@ public class MMRestServiceTest {
 
 	}
 	@Test
-	public void testCallCreateMirrorMaker_3() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
-			TopicExistsException, JSONException, ConfigDbException {
+	public void testCallCreateMirrorMaker_3() throws Exception {
 		prepareForTestCommon();
 
 		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
@@ -202,8 +199,7 @@ public class MMRestServiceTest {
 
 	}
 	@Test
-	public void testCallCreateMirrorMaker_error2() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
-			TopicExistsException, JSONException, ConfigDbException {
+	public void testCallCreateMirrorMaker_error2() throws Exception {
 		prepareForTestCommon();
 
 		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
@@ -217,8 +213,7 @@ public class MMRestServiceTest {
 	}
 	
 	@Test
-	public void testCallCreateMirrorMaker_error1() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
-			TopicExistsException, JSONException, ConfigDbException {
+	public void testCallCreateMirrorMaker_error1() throws Exception {
 		prepareForTestCommon();
 
 		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
@@ -232,8 +227,7 @@ public class MMRestServiceTest {
 	}
 
 	@Test
-	public void testCallListAllMirrorMaker() throws DMaaPAccessDeniedException, CambriaApiException, IOException,
-			TopicExistsException, JSONException, ConfigDbException {
+	public void testCallListAllMirrorMaker() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test\", createMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\",  whitelist:\"test\",status:\"test\" }}";
@@ -243,7 +237,7 @@ public class MMRestServiceTest {
 	}
 
 	@Test
-	public void testCallUpdateMirrorMaker() throws ConfigDbException, CambriaApiException {
+	public void testCallUpdateMirrorMaker() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test\", updateMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\"}}";
@@ -253,7 +247,7 @@ public class MMRestServiceTest {
 	}
 	
 	@Test
-	public void testCallUpdateMirrorMaker_error1() throws ConfigDbException, CambriaApiException {
+	public void testCallUpdateMirrorMaker_error1() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test@1\", updateMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\"}}";
@@ -262,7 +256,7 @@ public class MMRestServiceTest {
 		assertTrue(true);
 	}
 	@Test
-	public void testCallUpdateMirrorMaker_error2() throws ConfigDbException, CambriaApiException {
+	public void testCallUpdateMirrorMaker_error2() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test\", updateMirrorMaker: {   name:\"\",   consumer:\"test\",  producer:\"test\"}}";
@@ -271,7 +265,7 @@ public class MMRestServiceTest {
 		assertTrue(true);
 	}
 	@Test
-	public void testCallUpdateMirrorMaker_error3() throws ConfigDbException, CambriaApiException {
+	public void testCallUpdateMirrorMaker_error3() throws Exception{
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test\", updateMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\",  whitelist:\"test\",status:\"test\"}}";
@@ -280,7 +274,7 @@ public class MMRestServiceTest {
 		assertTrue(true);
 	}
 	@Test
-	public void testCallUpdateMirrorMaker_error4() throws ConfigDbException, CambriaApiException {
+	public void testCallUpdateMirrorMaker_error4() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test\"}}";
@@ -290,7 +284,7 @@ public class MMRestServiceTest {
 	}
 
 	@Test
-	public void testCallDeleteMirrorMaker() throws ConfigDbException, CambriaApiException {
+	public void testCallDeleteMirrorMaker() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ messageID:\"test\", deleteMirrorMaker: {   name:\"test\",   consumer:\"test\",  producer:\"test\",  whitelist:\"test\",status:\"test\" }}";
@@ -300,7 +294,7 @@ public class MMRestServiceTest {
 	}
 
 	@Test
-	public void testListWhiteList() throws ConfigDbException {
+	public void testListWhiteList() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ name:\"test\", namespace:\"test\"}}";
@@ -310,7 +304,7 @@ public class MMRestServiceTest {
 	}
 
 	@Test
-	public void testCreateWhiteList() throws ConfigDbException {
+	public void testCreateWhiteList() throws Exception {
 		prepareForTestCommon();
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
@@ -320,7 +314,7 @@ public class MMRestServiceTest {
 	}
 
 	@Test
-	public void testDeleteWhiteList() throws ConfigDbException {
+	public void testDeleteWhiteList() throws Exception {
 		prepareForTestCommon();
 
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
@@ -329,7 +323,7 @@ public class MMRestServiceTest {
 		assertTrue(true);
 	}
 
-	private void prepareForTestCommon() throws ConfigDbException {
+	private void prepareForTestCommon() throws Exception {
 		Assert.assertNotNull(mmRestService);
 		PowerMockito.when(dmaapContext.getRequest()).thenReturn(httpServReq);
 		PowerMockito.when(dmaapAAFauthenticator.aafAuthentication(httpServReq, "admin")).thenReturn(true);
