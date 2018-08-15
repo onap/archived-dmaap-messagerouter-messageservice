@@ -249,7 +249,7 @@
         <javax-mail-version>1.5.0</javax-mail-version>
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
-		<ajscRuntimeVersion>3.0.6-oss</ajscRuntimeVersion>
+		<ajscRuntimeVersion>3.0.7-oss</ajscRuntimeVersion>
 
 		<!-- This will be the Absolute Root of the Project and should contain NO 
 			Versioning -->
@@ -721,13 +721,13 @@
 		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>ajsc-runner</artifactId>
-			<version>3.0.6-oss</version>
+			<version>3.0.7-oss</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>ajsc-core</artifactId>
-			<version>3.0.6-oss</version>
+			<version>3.0.7-oss</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -802,7 +802,7 @@
 									<executableDependency>
 										<groupId>com.att.ajsc</groupId>
 										<artifactId>ajsc-runner</artifactId>
-									</executableDependency>
+										</executableDependency>
 									<additionalClasspathElements>
 										<additionalClasspathElement>${basedir}/ajsc-shared-config/etc</additionalClasspathElement>
 									</additionalClasspathElements>
