@@ -11,8 +11,8 @@ Message Router is developed using Kafka, Zookeeper and Java. AJSC framework is u
 Steps
 -----
 Message Router has 3 docker containers. Dmaap\_container,
-kafka\_contaienr and zookeeper\_container. Zookeeper runs on 172.18.0.3,
-kafka runs on 172.18.0.2 and dmaap on 172.18.0.4.
+kafka\_contaienr and zookeeper\_container. Zookeeper runs on 172.18.0.2,
+kafka runs on 172.18.0.3 and dmaap on 172.18.0.4.
 
 1) Clone message service repo
 
@@ -25,9 +25,9 @@ kafka runs on 172.18.0.2 and dmaap on 172.18.0.4.
 3) In /var/tmp/MsgRtrApi.properties, change value of below variables as
    shown below:
 
-   config.zk.servers=172.18.0.3(Change as per where  ZooKeepeer is deployed)
+   config.zk.servers=172.18.0.2(Change as per where  ZooKeepeer is deployed)
 
-   kafka.metadata.broker.list=172.18.0.2:9092(Change as per where Kafka is deployed)
+   kafka.metadata.broker.list=172.18.0.3:9092(Change as per where Kafka is deployed)
 
 4) Install docker and docker-compose
 
