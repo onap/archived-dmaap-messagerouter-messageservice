@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!-- ============LICENSE_START======================================================= 
 	org.onap.dmaap ================================================================================ 
 	Copyright © 2017 AT&T Intellectual Property. All rights reserved. ================================================================================ 
@@ -9,14 +10,13 @@
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. ============LICENSE_END========================================================= 
 	ECOMP is a trademark and service mark of AT&T Intellectual Property. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.onap.oparent</groupId>
 		<artifactId>oparent</artifactId>
-		<version>1.1.0</version>
+		<version>1.2.0</version>
 	</parent>
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
@@ -33,13 +33,13 @@
 	<developers>
 		<developer>
 			<name>Rajashree</name>
-			<email></email>
+			<email/>
 			<organization>ATT</organization>
 			<organizationUrl>www.att.com</organizationUrl>
 		</developer>
 		<developer>
 			<name>Ramkumar</name>
-			<email></email>
+			<email/>
 			<organization>ATT</organization>
 			<organizationUrl>www.att.com</organizationUrl>
 		</developer>
@@ -355,7 +355,7 @@
               </exclusion>
             </exclusions>
         </dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
@@ -424,7 +424,7 @@
 			<artifactId>spring-beans</artifactId>
 			<version>4.3.15.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -502,7 +502,7 @@
 			<artifactId>jackson-mapper-asl</artifactId> <version>1.9.13</version> </dependency> 
 			<dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-core-asl</artifactId> 
 			<version>1.9.13</version> </dependency> -->
-        
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -760,7 +760,7 @@
 								<phase>initialize</phase>
 								<configuration>
 									<target name="runLocal">
-										<ant antfile="${basedir}/antBuild/build.xml" target="runLocal" />
+										<ant antfile="${basedir}/antBuild/build.xml" target="runLocal"/>
 									</target>
 								</configuration>
 								<goals>
@@ -1099,61 +1099,47 @@
 								<phase>generate-resources</phase>
 								<configuration>
 									<target name="prep_service_runtime">
-										<echo message="ENTERING 'copy_services_template' ant tasks" />
+										<echo message="ENTERING 'copy_services_template' ant tasks"/>
 										<!-- <filter token="basedir" value="${basedir}" /> -->
 										<!-- delete any prior stating stuff before package phase -->
-										<delete dir="target/versioned-ajsc" includes="**/*" />
-										<delete dir="target/versioned-runtime" includes="**/*" />
-										<delete dir="target/CDP" includes="**/*" />
+										<delete dir="target/versioned-ajsc" includes="**/*"/>
+										<delete dir="target/versioned-runtime" includes="**/*"/>
+										<delete dir="target/CDP" includes="**/*"/>
 
 										<!-- This is where replacer plugin replaces tokens (Example: __module_ajsc_namespace_name__ 
 											is replaced by module.ajsc.namespace.name) -->
 										<copy todir="target/versioned-ajsc">
-											<fileset dir="src/main/ajsc" includes="**/*" />
+											<fileset dir="src/main/ajsc" includes="**/*"/>
 										</copy>
 
 										<!-- Copying the CDP, bundleconfig, and StaticContent to the target 
 											directory for future use by replacer plugin -->
 										<copy todir="target/CDP" failonerror="false">
-											<fileset dir="CDP" includes="**/*.sh" />
+											<fileset dir="CDP" includes="**/*.sh"/>
 										</copy>
-										<copy flatten="true" file="CDP/SampleBlueprint.xml"
-											failonerror="false"
-											tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml" />
+										<copy flatten="true" file="CDP/SampleBlueprint.xml" failonerror="false" tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml"/>
 										<copy todir="target/staticContent" failonerror="false">
-											<fileset dir="staticContent" includes="**/*" />
+											<fileset dir="staticContent" includes="**/*"/>
 										</copy>
 										<copy todir="target/bundleconfig" failonerror="false">
 											<!-- filtering="true"> -->
-											<fileset dir="bundleconfig" />
+											<fileset dir="bundleconfig"/>
 										</copy>
 
-										<echo message="EXITING 'copy_services_template' ant tasks" />
-										<echo message="ENTERING 'copy_runtime_template' ant tasks" />
+										<echo message="EXITING 'copy_services_template' ant tasks"/>
+										<echo message="ENTERING 'copy_runtime_template' ant tasks"/>
 										<copy todir="target/versioned-runtime">
-											<fileset dir="src/main/runtime" includes="**/*" />
+											<fileset dir="src/main/runtime" includes="**/*"/>
 										</copy>
-										<delete
-											file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" />
-										<copy flatten="true"
-											file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"
-											tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context" />
-										<delete
-											file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" />
-										<copy flatten="true"
-											file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"
-											tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json" />
-										<delete
-											file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" />
-										<copy flatten="true"
-											file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"
-											tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json" />
-										<delete
-											file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json" />
-										<copy flatten="true"
-											file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json"
-											tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json" />
-										<echo message="EXITING 'copy_runtime_template' ant tasks" />
+										<delete file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"/>
+										<copy flatten="true" file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context"/>
+										<delete file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"/>
+										<copy flatten="true" file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json"/>
+										<delete file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"/>
+										<copy flatten="true" file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json"/>
+										<delete file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json"/>
+										<copy flatten="true" file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json" tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json"/>
+										<echo message="EXITING 'copy_runtime_template' ant tasks"/>
 									</target>
 								</configuration>
 								<goals>
@@ -1165,9 +1151,7 @@
 								<phase>package</phase>
 								<configuration>
 									<tasks>
-										<fixcrlf
-											srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
-											includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
+										<fixcrlf srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}" includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd"/>
 									</tasks>
 								</configuration>
 								<goals>
@@ -1179,7 +1163,7 @@
 								<phase>package</phase>
 								<configuration>
 									<target name="prep_home_directory_for_swm_pkgcreate">
-										<ant antfile="${basedir}/antBuild/build.xml" target="prep_home_directory_for_swm_pkgcreate" />
+										<ant antfile="${basedir}/antBuild/build.xml" target="prep_home_directory_for_swm_pkgcreate"/>
 									</target>
 								</configuration>
 								<goals>
