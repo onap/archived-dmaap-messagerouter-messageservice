@@ -18,7 +18,7 @@ services:
         max-file: "5"
 
   kafka:
-    image: wurstmeister/kafka:1.1.0
+    image: ${NEXUS_DOCKER_REPO}/onap/dmaap/kafka01101:0.0.1
     ports:
       - "9092:9092"
     environment:
@@ -37,7 +37,7 @@ services:
         max-file: "5"
 
   dmaap:
-    image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.5
+    image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.6
     ports:
       - "3904:3904"
       - "3905:3905"

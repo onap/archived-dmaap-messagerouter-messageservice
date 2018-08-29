@@ -6,7 +6,7 @@ services:
       - "2181:2181"
 
   kafka:
-   image: wurstmeister/kafka:1.1.0
+   image: nexus3.onap.org:10001/onap/dmaap/kafka01101:0.0.1
    ports:
     - "9092:9092"
    environment:
@@ -18,7 +18,7 @@ services:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.5
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.6
     ports:
       - "3904:3904"
       - "3905:3905"
