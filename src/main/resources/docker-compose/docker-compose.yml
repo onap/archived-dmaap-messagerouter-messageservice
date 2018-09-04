@@ -6,19 +6,22 @@ services:
       - "2181:2181"
 
   kafka:
-   image: wurstmeister/kafka:1.1.0
+   image: nexus3.onap.org:10001/onap/dmaap/kafka01101:0.0.1
    ports:
     - "9092:9092"
    environment:
-    HOSTNAME_COMMAND: "hostname -i"
     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT
+    KAFKA_ADVERTISED_LISTENERS: INTERNAL_PLAINTEXT://kafka:9092
+    KAFKA_LISTENERS: INTERNAL_PLAINTEXT://0.0.0.0:9092
+    KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL_PLAINTEXT
    volumes:
     - /var/run/docker.sock:/var/run/docker.sock
    depends_on:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.4
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.6
     ports:
       - "3904:3904"
       - "3905:3905"
