@@ -21,7 +21,7 @@
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
-	<version>1.1.6-SNAPSHOT</version>
+	<version>1.1.7-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
 	<licenses>
@@ -209,29 +209,13 @@
 				</executions>
 			</plugin>
 
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<compilerId>groovy-eclipse-compiler</compilerId>
-					<verbose>true</verbose>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.groovy</groupId>
-						<artifactId>groovy-eclipse-compiler</artifactId>
-						<version>2.8.0-01</version>
-					</dependency>
-					<dependency>
-						<groupId>org.codehaus.groovy</groupId>
-						<artifactId>groovy-eclipse-batch</artifactId>
-						<version>2.1.5-03</version>
-					</dependency>
-				</dependencies>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+				<version>3.1</version> <configuration> <compilerId>groovy-eclipse-compiler</compilerId> 
+				<verbose>true</verbose> <source>1.7</source> <target>1.7</target> </configuration> 
+				<dependencies> <dependency> <groupId>org.codehaus.groovy</groupId> <artifactId>groovy-eclipse-compiler</artifactId> 
+				<version>2.8.0-01</version> </dependency> <dependency> <groupId>org.codehaus.groovy</groupId> 
+				<artifactId>groovy-eclipse-batch</artifactId> <version>2.1.5-03</version> 
+				</dependency> </dependencies> </plugin> -->
 			<plugin>
 				<groupId>org.codehaus.groovy</groupId>
 				<artifactId>groovy-eclipse-compiler</artifactId>
@@ -246,7 +230,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dockerLocation>${basedir}/target/swm/package/nix/dist_files/</dockerLocation>
 		<docker.image.prefix>simpledemo</docker.image.prefix>
-        <javax-mail-version>1.5.0</javax-mail-version>
+		<!-- <javax-mail-version>1.5.0</javax-mail-version> -->
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
 		<ajscRuntimeVersion>3.0.7-oss</ajscRuntimeVersion>
@@ -278,8 +262,8 @@
 		<testRouteOffer>workstation</testRouteOffer>
 		<testEnv>DEV</testEnv>
 		<!-- <dmaapImg>${project.version}</dmaapImg> -->
-		<dmaapImg>1.1.6</dmaapImg>
-		<camel.version>2.17.6</camel.version>
+		<dmaapImg>1.1.7</dmaapImg>
+		<camel.version>2.21.1</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
 		<skip.docker.push>true</skip.docker.push>
@@ -313,7 +297,7 @@
 		so). If you have a startup failure related to a missing dme2 class not found 
 		exception, please contact the AJSC team for assistance. You can email support 
 		at ajsc-Support <DL-ajsc-Support@att.com>. For more information regarding 
-		the usage of the AJSC service pom.xml and management of dependencies,  -->
+		the usage of the AJSC service pom.xml and management of dependencies, -->
 	<dependencies>
 
 		<!-- cmn-CommonDataModel dependency added to resolve build issue not finding 
@@ -336,99 +320,91 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
-			<version>4.3.16.RELEASE</version>
+			<version>4.3.18.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-messaging</artifactId>
 			<version>4.1.9.RELEASE</version>
 		</dependency>
-		<dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>${javax-mail-version}</version>
-            <exclusions>
-              <!-- javax activation is part of the JDK now -->
-              <exclusion>
-                <groupId>javax.activation</groupId>
-                <artifactId>activation</artifactId>
-              </exclusion>
-            </exclusions>
-        </dependency>
-		
+		<!-- <dependency> <groupId>com.sun.mail</groupId> <artifactId>javax.mail</artifactId> 
+			<version>${javax-mail-version}</version> <exclusions> javax activation is 
+			part of the JDK now <exclusion> <groupId>javax.activation</groupId> <artifactId>activation</artifactId> 
+			</exclusion> </exclusions> </dependency> -->
+
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
 			<version>3.4.10</version>
 		</dependency>
 		<dependency>
-      <groupId>org.grails</groupId>
-      <artifactId>grails-bootstrap</artifactId>
-      <version>2.5.4</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>ant</artifactId>
-          <groupId>org.apache.ant</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jna</artifactId>
-          <groupId>net.java.dev.jna</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>ant-trax</artifactId>
-          <groupId>org.apache.ant</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>gant_groovy1.8</artifactId>
-          <groupId>org.codehaus.gant</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>ant-launcher</artifactId>
-          <groupId>org.apache.ant</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jline</artifactId>
-          <groupId>jline</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>ivy</artifactId>
-          <groupId>org.apache.ivy</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jansi</artifactId>
-          <groupId>org.fusesource.jansi</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-logging</artifactId>
-          <groupId>commons-logging</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>ant-junit</artifactId>
-          <groupId>org.apache.ant</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
+			<groupId>org.grails</groupId>
+			<artifactId>grails-bootstrap</artifactId>
+			<version>2.5.4</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>ant</artifactId>
+					<groupId>org.apache.ant</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jna</artifactId>
+					<groupId>net.java.dev.jna</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>ant-trax</artifactId>
+					<groupId>org.apache.ant</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>gant_groovy1.8</artifactId>
+					<groupId>org.codehaus.gant</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>ant-launcher</artifactId>
+					<groupId>org.apache.ant</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jline</artifactId>
+					<groupId>jline</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>ivy</artifactId>
+					<groupId>org.apache.ivy</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jansi</artifactId>
+					<groupId>org.fusesource.jansi</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>ant-junit</artifactId>
+					<groupId>org.apache.ant</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.3.15.RELEASE</version>
+			<version>4.3.18.RELEASE</version>
 		</dependency>
-	<dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>4.3.15.RELEASE</version>
+			<version>4.3.18.RELEASE</version>
 		</dependency>
-	<dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>4.3.15.RELEASE</version>
+			<version>4.3.18.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.3.15.RELEASE</version>
+			<version>4.3.18.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -443,7 +419,7 @@
 		<dependency>
 			<groupId>org.onap.dmaap.messagerouter.msgrtr</groupId>
 			<artifactId>msgrtr</artifactId>
-			<version>1.1.6</version>
+			<version>1.1.7</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -502,7 +478,7 @@
 			<artifactId>jackson-mapper-asl</artifactId> <version>1.9.13</version> </dependency> 
 			<dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-core-asl</artifactId> 
 			<version>1.9.13</version> </dependency> -->
-        
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -521,28 +497,28 @@
 			<version>2.8.11.1</version>
 		</dependency>
 		<dependency>
-		<groupId>org.grails</groupId>
-	<artifactId>grails-web</artifactId>
-	<version>2.5.4</version>
-	<exclusions>
-		<exclusion>
 			<groupId>org.grails</groupId>
-			<artifactId>grails-web-jsp</artifactId>
-		</exclusion>
-	</exclusions>
+			<artifactId>grails-web</artifactId>
+			<version>2.5.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.grails</groupId>
+					<artifactId>grails-web-jsp</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-        <dependency>
-		<groupId>org.codehaus.groovy</groupId>
-		<artifactId>groovy-all</artifactId>
-		<version>2.4.4</version>
-		<scope>compile</scope>
-		<exclusions>
-			<exclusion>
-				<artifactId>jline</artifactId>
-				<groupId>jline</groupId>
-			</exclusion>
-		</exclusions>
-	</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>2.4.8</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>jline</artifactId>
+					<groupId>jline</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -561,35 +537,24 @@
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-extension-providers</artifactId>
-			<version>3.0.12</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.cxf</groupId>
-					<artifactId>cxf-rt-transports-http</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>3.2.2</version>
+			<!-- <exclusions> <exclusion> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-transports-http</artifactId> 
+				</exclusion> </exclusions> -->
 		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>3.1.16</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-transports-http</artifactId> 
+			<version>3.1.14</version> </dependency> -->
 		<dependency>
 			<groupId>org.codehaus.jettison</groupId>
 			<artifactId>jettison</artifactId>
 			<version>1.3.7</version>
 		</dependency>
 
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-			<scope>provided</scope>
-		</dependency>
+		<!-- <dependency> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
+			<version>1.6.1</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>ajsc-archetype-parent</artifactId>
-			<version>3.0.6-oss</version>
+			<version>3.0.7-oss</version>
 			<type>pom</type>
 		</dependency>
 
@@ -654,18 +619,11 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-servlet</artifactId>
 			<version>${camel.version}</version>
-			<!-- <exclusions>
-				<exclusion>
-					<groupId>commons-httpclient</groupId>
-					<artifactId>commons-httpclient</artifactId>
-				</exclusion>
-			</exclusions> -->
+			<!-- <exclusions> <exclusion> <groupId>commons-httpclient</groupId> <artifactId>commons-httpclient</artifactId> 
+				</exclusion> </exclusions> -->
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
+			<version>4.0</version> </dependency> -->
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -712,6 +670,11 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-xmpp</artifactId>
 			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.igniterealtime.smack</groupId>
+			<artifactId>smack-tcp</artifactId>
+			<version>4.1.0-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -802,7 +765,7 @@
 									<executableDependency>
 										<groupId>com.att.ajsc</groupId>
 										<artifactId>ajsc-runner</artifactId>
-										</executableDependency>
+									</executableDependency>
 									<additionalClasspathElements>
 										<additionalClasspathElement>${basedir}/ajsc-shared-config/etc</additionalClasspathElement>
 									</additionalClasspathElements>
