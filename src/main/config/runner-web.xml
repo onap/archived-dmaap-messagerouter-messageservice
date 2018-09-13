@@ -66,7 +66,7 @@
 	</filter>
 	
 <!-- Content length filter for Msgrtr -->
-	<!--  <filter>
+	 <filter>
 		<display-name>DMaaPAuthFilter</display-name>
 		<filter-name>DMaaPAuthFilter</filter-name>
 		<filter-class>com.att.nsa.dmaap.util.DMaaPAuthFilter</filter-class>
@@ -74,7 +74,7 @@
         <param-name>cadi_prop_files</param-name>
 	<param-value>/appl/dmaapMR1/etc/cadi.properties </param-value>
     </init-param>		
-	</filter>   -->
+	</filter>  
 	
 	<!-- End Content length filter for Msgrtr -->
 	 <servlet>
