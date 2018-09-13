@@ -33,7 +33,7 @@ import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 import org.springframework.stereotype.Component;
 
-import com.att.cadi.filter.CadiFilter;
+import org.onap.aaf.cadi.filter.CadiFilter;
 //import ajsc.external.plugins.cadi.AjscCadiFilter;
 import javax.servlet.FilterConfig;
 

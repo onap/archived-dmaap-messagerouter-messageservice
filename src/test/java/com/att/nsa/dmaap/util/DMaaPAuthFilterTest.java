@@ -44,7 +44,6 @@ import com.att.ajsc.beans.PropertiesMapBean;
 import com.att.dmf.mr.beans.DMaaPContext;
 import com.att.dmf.mr.exception.DMaaPResponseCode;
 
-import com.att.cadi.Access.Level; 
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ PropertiesMapBean.class, DMaaPResponseCode.class })
@@ -97,17 +96,5 @@ public class DMaaPAuthFilterTest {
 
 	}
 	
-	@Test
-	public void testLog() {
-		String s[] = { "test1", "test2" };
-		Object[] o = s;
-		filter.log(Level.AUDIT, o);
-		filter.log(Level.DEBUG, o);
-		filter.log(Level.ERROR, o);
-		filter.log(Level.INFO, o);
-		filter.log(Level.INIT, o);
-		filter.log(Level.WARN, o);
-		assertTrue(true);
-	} 
 	
 }
