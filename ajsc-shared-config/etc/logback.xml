@@ -109,42 +109,42 @@
 
 
 	<!-- Msgrtr related loggers -->
-	<logger name="com.att.nsa.cambria.service" level="INFO" />
-	<logger name="com.att.nsa.cambria.service.impl" level="INFO" />
+	<logger name="com.att.dmf.mr.service" level="INFO" />
+	<logger name="com.att.dmf.mr.service.impl" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.resources" level="INFO" />
-	<logger name="com.att.nsa.cambria.resources.streamReaders" level="INFO" />
+	<logger name="com.att.dmf.mr.resources" level="INFO" />
+	<logger name="com.att.dmf.mr.resources.streamReaders" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.backends" level="INFO" />
-	<logger name="com.att.nsa.cambria.backends.kafka" level="INFO" />
-	<logger name="com.att.nsa.cambria.backends.memory" level="INFO" />
+	<logger name="com.att.dmf.mr.backends" level="INFO" />
+	<logger name="com.att.dmf.mr.backends.kafka" level="INFO" />
+	<logger name="com.att.dmf.mr.backends.memory" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.beans" level="INFO" />
+	<logger name="com.att.dmf.mr.beans" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.constants" level="INFO" />
+	<logger name="com.att.dmf.mr.constants" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.exception" level="INFO" />
+	<logger name="com.att.dmf.mr.exception" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.listener" level="INFO" />
+	<logger name="com.att.dmf.mr.listener" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.metabroker" level="INFO" />
+	<logger name="com.att.dmf.mr.metabroker" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.metrics.publisher" level="INFO" />
-	<logger name="com.att.nsa.cambria.metrics.publisher.impl" level="INFO" />
+	<logger name="com.att.dmf.mr.metrics.publisher" level="INFO" />
+	<logger name="com.att.dmf.mr.metrics.publisher.impl" level="INFO" />
 	
 	
 	
-	<logger name="com.att.nsa.cambria.security" level="INFO" />
-	<logger name="com.att.nsa.cambria.security.impl" level="INFO" />
+	<logger name="com.att.dmf.mr.security" level="INFO" />
+	<logger name="com.att.dmf.mr.security.impl" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.transaction" level="INFO" />
-	<logger name="com.att.nsa.cambria.transaction.impl" level="INFO" />
+	<logger name="com.att.dmf.mr.transaction" level="INFO" />
+	<logger name="com.att.dmf.mr.transaction.impl" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.metabroker" level="INFO" />
-	<logger name="com.att.nsa.cambria.metabroker" level="INFO" />
+	<logger name="com.att.dmf.mr.metabroker" level="INFO" />
+	<logger name="com.att.dmf.mr.metabroker" level="INFO" />
 	
-	<logger name="com.att.nsa.cambria.utils" level="INFO" />
-	<logger name="com.att.nsa.filter" level="INFO" /> 
+	<logger name="com.att.dmf.mr.utils" level="INFO" />
+	<logger name="com.att.mr.filter" level="INFO" /> 
 	
 	<!--<logger name="com.att.nsa.cambria.*" level="INFO" />-->
 	
@@ -154,57 +154,60 @@
 	
 	
 	<!-- Spring related loggers -->
-	<logger name="org.springframework" level="WARN" />
-	<logger name="org.springframework.beans" level="WARN" />
-	<logger name="org.springframework.web" level="WARN" />
-	<logger name="com.blog.spring.jms" level="WARN" />
+	<logger name="org.springframework" level="WARN" additivity="false"/>
+	<logger name="org.springframework.beans" level="WARN" additivity="false"/>
+	<logger name="org.springframework.web" level="WARN" additivity="false" />
+	<logger name="com.blog.spring.jms" level="WARN" additivity="false" />
 
 	<!-- AJSC Services (bootstrap services) -->
-	<logger name="ajsc" level="WARN" />
-	<logger name="ajsc.RouteMgmtService" level="INFO" />
-	<logger name="ajsc.ComputeService" level="INFO" />
-	<logger name="ajsc.VandelayService" level="WARN" />
-	<logger name="ajsc.FilePersistenceService" level="WARN" />
-	<logger name="ajsc.UserDefinedJarService" level="WARN" />
-	<logger name="ajsc.UserDefinedBeansDefService" level="WARN" />
-	<logger name="ajsc.LoggingConfigurationService" level="WARN" />
+	<logger name="ajsc" level="WARN" additivity="false"/>
+	<logger name="ajsc.RouteMgmtService" level="INFO" additivity="false"/>
+	<logger name="ajsc.ComputeService" level="INFO" additivity="false" />
+	<logger name="ajsc.VandelayService" level="WARN" additivity="false"/>
+	<logger name="ajsc.FilePersistenceService" level="WARN" additivity="false"/>
+	<logger name="ajsc.UserDefinedJarService" level="WARN" additivity="false" />
+	<logger name="ajsc.UserDefinedBeansDefService" level="WARN" additivity="false" />
+	<logger name="ajsc.LoggingConfigurationService" level="WARN" additivity="false" />
 
 	<!-- AJSC related loggers (DME2 Registration, csi logging, restlet, servlet 
 		logging) -->
-	<logger name="ajsc.utils" level="WARN" />
-	<logger name="ajsc.utils.DME2Helper" level="INFO" />
-	<logger name="ajsc.filters" level="DEBUG" />
-	<logger name="ajsc.beans.interceptors" level="DEBUG" />
-	<logger name="ajsc.restlet" level="DEBUG" />
-	<logger name="ajsc.servlet" level="DEBUG" />
-	<logger name="com.att" level="WARN" />
-	<logger name="com.att.ajsc.csi.logging" level="WARN" />
-	<logger name="com.att.ajsc.filemonitor" level="WARN" />
+	<logger name="ajsc.utils" level="WARN"  additivity="false"/>
+	<logger name="ajsc.utils.DME2Helper" level="INFO" additivity="false" />
+	<logger name="ajsc.filters" level="DEBUG" additivity="false" />
+	<logger name="ajsc.beans.interceptors" level="DEBUG" additivity="false" />
+	<logger name="ajsc.restlet" level="DEBUG" additivity="false"  />
+	<logger name="ajsc.servlet" level="DEBUG" additivity="false" />
+	<logger name="com.att" level="WARN" additivity="false"  />
+	<logger name="com.att.ajsc.csi.logging" level="WARN" additivity="false" />
+	<logger name="com.att.ajsc.filemonitor" level="WARN" additivity="false"/>
 	
-	<logger name="com.att.nsa.dmaap.util" level="INFO" /> 
-	<logger name="com.att.cadi.filter" level="INFO" /> 
+	<logger name="com.att.nsa.dmaap.util" level="INFO" additivity="false"/> 
+	<logger name="com.att.cadi.filter" level="INFO"  additivity="false" /> 
 	
 
 	<!-- Other Loggers that may help troubleshoot -->
-	<logger name="net.sf" level="WARN" />
-	<logger name="org.apache.commons.httpclient" level="WARN" />
-	<logger name="org.apache.commons" level="WARN" />
-	<logger name="org.apache.coyote" level="WARN" />
-	<logger name="org.apache.jasper" level="WARN" />
+	<logger name="net.sf" level="WARN" additivity="false" />
+	<logger name="org.apache.commons.httpclient" level="WARN" additivity="false"/>
+	<logger name="org.apache.commons" level="WARN" additivity="false" />
+	<logger name="org.apache.coyote" level="WARN"  additivity="false"/>
+	<logger name="org.apache.jasper" level="WARN"  additivity="false"/>
 
 	<!-- Camel Related Loggers (including restlet/servlet/jaxrs/cxf logging. 
 		May aid in troubleshooting) -->
-	<logger name="org.apache.camel" level="WARN" />
-	<logger name="org.apache.cxf" level="WARN" />
-	<logger name="org.apache.camel.processor.interceptor" level="WARN" />
-	<logger name="org.apache.cxf.jaxrs.interceptor" level="WARN" />
-	<logger name="org.apache.cxf.service" level="WARN" />
-	<logger name="org.restlet" level="DEBUG" />
-	<logger name="org.apache.camel.component.restlet" level="DEBUG" />
+	<logger name="org.apache.camel" level="WARN" additivity="false" />
+	<logger name="org.apache.cxf" level="WARN" additivity="false" />
+	<logger name="org.apache.camel.processor.interceptor" level="WARN"  additivity="false"/>
+	<logger name="org.apache.cxf.jaxrs.interceptor" level="WARN" additivity="false" />
+	<logger name="org.apache.cxf.service" level="WARN" additivity="false" />
+	<logger name="org.restlet" level="DEBUG" additivity="false" />
+	<logger name="org.apache.camel.component.restlet" level="DEBUG" additivity="false" />
+	<logger name="org.apache.kafka" level="DEBUG" additivity="false" />
+	<logger name="org.apache.zookeeper" level="INFO" additivity="false" />
+	<logger name="org.I0Itec.zkclient" level="DEBUG" additivity="false" />
 
 	<!-- logback internals logging -->
-	<logger name="ch.qos.logback.classic" level="INFO" />
-	<logger name="ch.qos.logback.core" level="INFO" />
+	<logger name="ch.qos.logback.classic" level="INFO" additivity="false"/>
+	<logger name="ch.qos.logback.core" level="INFO" additivity="false" />
 
 	<!-- logback jms appenders & loggers definition starts here -->
 	<!-- logback jms appenders & loggers definition starts here -->
