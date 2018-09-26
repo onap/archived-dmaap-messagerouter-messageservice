@@ -35,8 +35,8 @@ public class ServicePropertiesListener/* implements FileChangedListener*/ {
 	 * Update method
 	 */
 	//@Override
-	public void update(File file) throws Exception 
+	/*public void update(File file) throws Exception 
 	{
 		ServicePropertiesMap.refresh(file);
-	}
+	}*/
 }

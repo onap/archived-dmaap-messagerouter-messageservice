@@ -55,7 +55,7 @@ public class ServicePropertiesMapTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+	/*@Test
 	public void testRefresh() {
 
 		try {
@@ -80,12 +80,12 @@ public class ServicePropertiesMapTest {
 	
 	@Test
 	public void testRefreshPropsFile() throws Exception {
-		/*Path resourceDirectory = Paths.get("src/test/resources");
-			map.refresh(new File(resourceDirectory+"\\"+"test.properties"));*/
+		Path resourceDirectory = Paths.get("src/test/resources");
+			map.refresh(new File(resourceDirectory+"\\"+"test.properties"));
 		ClassLoader classLoader = getClass().getClassLoader();
 		map.refresh(new File(classLoader.getResource("test.json").getFile()));
 			assertTrue(true);
-	}
+	}*/
 
 	@Test
 	public void testGetProperty() {

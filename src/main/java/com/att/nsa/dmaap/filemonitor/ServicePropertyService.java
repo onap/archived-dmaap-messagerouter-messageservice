@@ -63,7 +63,7 @@ public class ServicePropertyService {
 	 * @throws Exception ex
 	 */
 	@PostConstruct
-	public void init() throws Exception {
+	public void init()  {
 
 		try {
 			getFileList(FILE_CHANGE_LISTENER_LOC);

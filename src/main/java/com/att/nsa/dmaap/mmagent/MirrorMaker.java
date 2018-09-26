@@ -27,8 +27,8 @@ public class MirrorMaker {
 	public String producer;
 	public String whitelist;
 	public String status;
-	public int numStreams =1;
-	public boolean enablelogCheck = false;
+	private int numStreams =1;
+	private boolean enablelogCheck = false;
 
 	public String getStatus() {
 		return status;

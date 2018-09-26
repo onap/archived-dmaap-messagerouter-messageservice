@@ -21,16 +21,10 @@
  *******************************************************************************/
 package com.att.nsa.dmaap.filemonitor;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * ServicePropertiesMap class
@@ -50,7 +44,7 @@ public class ServicePropertiesMap
 	 * @param file file
 	 * @throws Exception ex
 	 */
-	public static void refresh(File file) throws Exception
+	/*public static void refresh(File file) throws Exception
 	{
 		try
 		{
@@ -94,7 +88,7 @@ public class ServicePropertiesMap
 			logger.error("File " + (file != null?file.getName():"") + " cannot be loaded into the map ", e);
 			throw new Exception("Error reading map file " + (file != null?file.getName():""), e);
 		}
-	}
+	}*/
 	/**
 	 * Get property
 	 * @param fileName fileName

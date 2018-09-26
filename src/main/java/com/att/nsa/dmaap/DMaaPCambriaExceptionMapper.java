@@ -103,8 +103,8 @@ public class DMaaPCambriaExceptionMapper implements ExceptionMapper<CambriaApiEx
 		/**
 		 * Cambria Generic Exception
 		 */
-		if(ex instanceof CambriaApiException)
-		{
+		/*if(ex instanceof CambriaApiException)
+		{*/
 			
 			errRes = ex.getErrRes();
 			if(errRes!=null) {
@@ -124,7 +124,7 @@ public class DMaaPCambriaExceptionMapper implements ExceptionMapper<CambriaApiEx
 			}
 			
 			
-		}
+		/*}
 		else
 		{
 			errRes = new ErrorResponse(HttpStatus.SC_NOT_FOUND, 
@@ -134,7 +134,7 @@ public class DMaaPCambriaExceptionMapper implements ExceptionMapper<CambriaApiEx
 					errRes.getErrMapperStr()).build();
 			
 			return response;
-		}
+		}*/
 		
 	}
 
