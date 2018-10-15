@@ -29,6 +29,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.att.dmf.mr.utils.Utils;
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 import org.springframework.stereotype.Component;
@@ -69,10 +70,11 @@ public class DMaaPAuthFilter extends CadiFilter {
 		log.info("inside servlet filter Cambria Auth Headers checking before doing other Authentication");
 			HttpServletRequest request = (HttpServletRequest) req;
 				boolean forceAAF = Boolean.valueOf(System.getProperty("forceAAF"));
+				
 				//if (forceAAF || null != request.getHeader("Authorization") ){
-					if (forceAAF || null != request.getHeader("Authorization") || 
+					if (Utils.isCadiEnabled()&&(forceAAF || null != request.getHeader("Authorization") || 
 							(null != request.getHeader("AppName") &&  request.getHeader("AppName").equalsIgnoreCase("invenio") &&
-							 null != request.getHeader("cookie"))){
+							 null != request.getHeader("cookie")))){
 						super.doFilter(req, res, chain);
 						
 				} else { 
