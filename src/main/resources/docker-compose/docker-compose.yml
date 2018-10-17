@@ -12,7 +12,7 @@ services:
    ports:
     - "9092:9092"
    environment:
-    enableCadi: false
+    enableCadi: 'false'
     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     #Properties required for using the CADI integrated Kafka
     #KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_SASL_PLAINTEXT:SASL_PLAINTEXT,EXTERNAL_SASL_PLAINTEXT:SASL_PLAINTEXT
