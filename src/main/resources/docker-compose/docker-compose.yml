@@ -34,9 +34,7 @@ services:
     - zookeeper
 
   dmaap:
-    #CADI integrated MR image
-    #image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.7
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.6
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.7
     ports:
       - "3904:3904"
       - "3905:3905"

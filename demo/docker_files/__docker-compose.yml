@@ -51,9 +51,7 @@ services:
         max-file: "5"
 
   dmaap:
-    #CADI integrated MR image
-    #image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.7
-    image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.6
+    image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.7
     ports:
       - "3904:3904"
       - "3905:3905"
