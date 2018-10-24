@@ -29,7 +29,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import com.att.dmf.mr.utils.Utils;
+import org.onap.dmaap.dmf.mr.utils.Utils;
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 import org.springframework.stereotype.Component;

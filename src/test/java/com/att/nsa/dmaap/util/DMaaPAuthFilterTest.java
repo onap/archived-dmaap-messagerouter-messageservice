@@ -41,8 +41,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.att.ajsc.beans.PropertiesMapBean;
-import com.att.dmf.mr.beans.DMaaPContext;
-import com.att.dmf.mr.exception.DMaaPResponseCode;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
 
 
 @RunWith(PowerMockRunner.class)

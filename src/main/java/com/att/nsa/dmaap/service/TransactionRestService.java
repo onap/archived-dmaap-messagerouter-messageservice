@@ -38,12 +38,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.att.aft.dme2.internal.jettison.json.JSONException;
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.beans.DMaaPContext;
-import com.att.dmf.mr.exception.DMaaPResponseCode;
-import com.att.dmf.mr.exception.ErrorResponse;
-import com.att.dmf.mr.service.TransactionService;
-import com.att.dmf.mr.utils.ConfigurationReader;
+import  org.onap.dmaap.dmf.mr.CambriaApiException;
+import  org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import  org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
+import  org.onap.dmaap.dmf.mr.exception.ErrorResponse;
+import  org.onap.dmaap.dmf.mr.service.TransactionService;
+import  org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
 import com.att.nsa.configs.ConfigDbException;
 
 /**

@@ -32,9 +32,9 @@ import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.exception.DMaaPErrorMessages;
-import com.att.dmf.mr.exception.ErrorResponse;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
+import org.onap.dmaap.dmf.mr.exception.ErrorResponse;
 @RunWith(PowerMockRunner.class)
 public class DMaaPCambriaExceptionMapperTest {
 

@@ -42,9 +42,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.att.dmf.mr.utils.ConfigurationReader;
-import com.att.dmf.mr.utils.DMaaPResponseBuilder;
-import com.att.dmf.mr.utils.Utils;
+import org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
+import org.onap.dmaap.dmf.mr.utils.DMaaPResponseBuilder;
+import org.onap.dmaap.dmf.mr.utils.Utils;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.dmaap.mmagent.*;
 import com.att.nsa.drumlin.till.nv.rrNvReadable.missingReqdSetting;
@@ -55,19 +55,19 @@ import com.google.gson.JsonSyntaxException;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 import com.att.ajsc.filemonitor.AJSCPropertiesMap;
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.backends.ConsumerFactory.UnavailableException;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.backends.ConsumerFactory.UnavailableException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import com.att.dmf.mr.beans.DMaaPContext;
-import com.att.dmf.mr.constants.CambriaConstants;
-import com.att.dmf.mr.exception.DMaaPErrorMessages;
-import com.att.dmf.mr.metabroker.Broker.TopicExistsException;
-import com.att.dmf.mr.security.DMaaPAAFAuthenticator;
-import com.att.dmf.mr.security.DMaaPAAFAuthenticatorImpl;
-import com.att.dmf.mr.security.DMaaPAuthenticatorImpl;
-import com.att.dmf.mr.service.MMService;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.constants.CambriaConstants;
+import org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
+import org.onap.dmaap.dmf.mr.metabroker.Broker.TopicExistsException;
+import org.onap.dmaap.dmf.mr.security.DMaaPAAFAuthenticator;
+import org.onap.dmaap.dmf.mr.security.DMaaPAAFAuthenticatorImpl;
+import org.onap.dmaap.dmf.mr.security.DMaaPAuthenticatorImpl;
+import org.onap.dmaap.dmf.mr.service.MMService;
 
 /**
  * Rest Service class for Mirror Maker proxy Rest Services

@@ -45,21 +45,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.att.ajsc.filemonitor.AJSCPropertiesMap;
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.beans.DMaaPContext;
-import com.att.dmf.mr.constants.CambriaConstants;
-import com.att.dmf.mr.exception.DMaaPErrorMessages;
-import com.att.dmf.mr.exception.DMaaPResponseCode;
-import com.att.dmf.mr.exception.ErrorResponse;
-import com.att.dmf.mr.security.DMaaPAAFAuthenticator;
-import com.att.dmf.mr.security.DMaaPAAFAuthenticatorImpl;
-import com.att.dmf.mr.service.MMService;
-import com.att.dmf.mr.utils.ConfigurationReader;
-import com.att.dmf.mr.utils.DMaaPResponseBuilder;
-import com.att.dmf.mr.utils.Utils;
+import  org.onap.dmaap.dmf.mr.CambriaApiException;
+import  org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import  org.onap.dmaap.dmf.mr.constants.CambriaConstants;
+import  org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
+import  org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
+import  org.onap.dmaap.dmf.mr.exception.ErrorResponse;
+import  org.onap.dmaap.dmf.mr.security.DMaaPAAFAuthenticator;
+import  org.onap.dmaap.dmf.mr.security.DMaaPAAFAuthenticatorImpl;
+import  org.onap.dmaap.dmf.mr.service.MMService;
+import  org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
+import org.onap.dmaap.dmf.mr.utils.DMaaPResponseBuilder;
+import  org.onap.dmaap.dmf.mr.utils.Utils;
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * @author rajashree.khare

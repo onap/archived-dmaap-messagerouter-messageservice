@@ -32,8 +32,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.att.ajsc.beans.PropertiesMapBean;
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.service.MetricsService;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.service.MetricsService;
 
 
 @RunWith(PowerMockRunner.class)

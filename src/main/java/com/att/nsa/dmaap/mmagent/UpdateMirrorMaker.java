@@ -26,10 +26,10 @@ import java.util.Date;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.exception.DMaaPResponseCode;
-import com.att.dmf.mr.exception.ErrorResponse;
-import com.att.dmf.mr.utils.Utils;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
+import org.onap.dmaap.dmf.mr.exception.ErrorResponse;
+import org.onap.dmaap.dmf.mr.utils.Utils;
 
 public class UpdateMirrorMaker {
 	String messageID;

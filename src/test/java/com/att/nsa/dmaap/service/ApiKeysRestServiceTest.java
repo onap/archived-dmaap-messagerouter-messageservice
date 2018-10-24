@@ -31,8 +31,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.beans.ApiKeyBean;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.beans.ApiKeyBean;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
 
@@ -50,11 +50,11 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.att.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
 
-import com.att.dmf.mr.utils.ConfigurationReader;
-import com.att.dmf.mr.service.ApiKeysService;
-import com.att.dmf.mr.utils.ConfigurationReader;
+import org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
+import org.onap.dmaap.dmf.mr.service.ApiKeysService;
+import org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.db.NsaApiDb.KeyExistsException;
 
