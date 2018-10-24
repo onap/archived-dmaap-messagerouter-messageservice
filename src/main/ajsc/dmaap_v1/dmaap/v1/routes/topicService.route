@@ -2,7 +2,7 @@
   
   <from uri="att-dme2-servlet:///topics?matchOnUriPrefix=true" />
 	
-  <to uri="cxfbean:topicService?providers=#jacksonProvider,#jsonProvider,#cambriaExMapper,#webExMapper" />
+  <to uri="cxfbean:topicRestService?providers=#jacksonProvider,#jsonProvider,#cambriaExMapper,#webExMapper" />
 
      <setBody>
 		<simple>${in.header.exception}</simple>
