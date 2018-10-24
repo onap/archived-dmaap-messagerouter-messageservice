@@ -109,48 +109,48 @@
 
 
 	<!-- Msgrtr related loggers -->
-	<logger name="com.att.dmf.mr.service" level="INFO" />
-	<logger name="com.att.dmf.mr.service.impl" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.service" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.service.impl" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.resources" level="INFO" />
-	<logger name="com.att.dmf.mr.resources.streamReaders" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.resources" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.resources.streamReaders" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.backends" level="INFO" />
-	<logger name="com.att.dmf.mr.backends.kafka" level="INFO" />
-	<logger name="com.att.dmf.mr.backends.memory" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.backends" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.backends.kafka" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.backends.memory" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.beans" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.beans" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.constants" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.constants" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.exception" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.exception" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.listener" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.listener" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.metabroker" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.metabroker" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.metrics.publisher" level="INFO" />
-	<logger name="com.att.dmf.mr.metrics.publisher.impl" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.metrics.publisher" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.metrics.publisher.impl" level="INFO" />
 	
 	
 	
-	<logger name="com.att.dmf.mr.security" level="INFO" />
-	<logger name="com.att.dmf.mr.security.impl" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.security" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.security.impl" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.transaction" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.transaction" level="INFO" />
 	<logger name="com.att.dmf.mr.transaction.impl" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.metabroker" level="INFO" />
-	<logger name="com.att.dmf.mr.metabroker" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.metabroker" level="INFO" />
+	<logger name="org.onap.dmaap.dmf.mr.metabroker" level="INFO" />
 	
-	<logger name="com.att.dmf.mr.utils" level="INFO" />
-	<logger name="com.att.mr.filter" level="INFO" /> 
+	<logger name="org.onap.dmaap.dmf.mr.utils" level="INFO" />
+	<logger name="org.onap.dmaap.mr.filter" level="INFO" /> 
 	
 	<!--<logger name="com.att.nsa.cambria.*" level="INFO" />-->
 	
 	<!-- Msgrtr loggers in ajsc -->
-	<logger name="com.att.nsa.dmaap.service" level="INFO" />
-	<logger name="com.att.nsa.dmaap" level="INFO" />
+	<logger name="org.onap.dmaap.service" level="INFO" />
+	<logger name="org.onap.dmaap" level="INFO" />
 	
 	
 	<!-- Spring related loggers -->

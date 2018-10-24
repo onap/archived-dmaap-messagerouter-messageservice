@@ -3,16 +3,16 @@
 	xmlns jaxrs: "http://cxf.apache.org/jaxrs"
 	xmlns util: "http://www.springframework.org/schema/util"
 	
-	echoService(com.att.nsa.dmaap.JaxrsEchoService)
-	userService(com.att.nsa.dmaap.JaxrsUserService)
-	topicService(com.att.nsa.dmaap.service.TopicRestService)
-	eventService(com.att.nsa.dmaap.service.EventsRestService)
-	adminService(com.att.nsa.dmaap.service.AdminRestService)
-	apiKeyService(com.att.nsa.dmaap.service.ApiKeysRestService)
-	metricsService(com.att.nsa.dmaap.service.MetricsRestService)
-	transactionService(com.att.nsa.dmaap.service.TransactionRestService)
-	UIService(com.att.nsa.dmaap.service.UIRestServices)
-	mirrorService(com.att.nsa.dmaap.service.MMRestService)
+	echoService(org.onap.dmaap.JaxrsEchoService)
+	userService(org.onap.dmaap.JaxrsUserService)
+	topicService(org.onap.dmaap.service.TopicRestService)
+	eventService(org.onap.dmaap.service.EventsRestService)
+	adminServiceorg.onap.dmaap.service.AdminRestService)
+	apiKeyService(org.onap.dmaap.service.ApiKeysRestService)
+	metricsService(org.onap.dmaap.service.MetricsRestService)
+	transactionService(org.onap.dmaap.service.TransactionRestService)
+	UIService(org.onap.dmaap.service.UIRestServices)
+	mirrorService(org.onap.dmaap.service.MMRestService)
 	
 	util.list(id: 'jaxrsServices') {
 		ref(bean:'echoService')

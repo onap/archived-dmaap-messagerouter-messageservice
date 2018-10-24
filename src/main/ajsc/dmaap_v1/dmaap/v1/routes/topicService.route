@@ -10,8 +10,8 @@
 	
 	<removeHeader headerName="exception"/>
   
-<log message="Body= ** ${body}" loggingLevel="DEBUG" logName="com.att.nsa.dmaap"/>
-<log message="Body= ** ${body}" loggingLevel="DEBUG" logName="com.att.nsa.dmaap.service"/>
+<log message="Body= ** ${body}" loggingLevel="DEBUG" logName="org.onap.dmaap"/>
+<log message="Body= ** ${body}" loggingLevel="DEBUG" logName="org.onap.dmaap.service"/>
 
 </route>
 
