@@ -38,7 +38,7 @@ import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.att.dmf.mr.exception.DMaaPErrorMessages;
+import org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
 
 @RunWith(PowerMockRunner.class)
 public class DMaaPWebExceptionMapperTest {

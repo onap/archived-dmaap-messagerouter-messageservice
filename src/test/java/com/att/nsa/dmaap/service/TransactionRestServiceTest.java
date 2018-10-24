@@ -37,10 +37,10 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.att.ajsc.beans.PropertiesMapBean;
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.beans.DMaaPContext;
-import com.att.dmf.mr.service.EventsService;
-import com.att.dmf.mr.service.TransactionService;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.service.EventsService;
+import org.onap.dmaap.dmf.mr.service.TransactionService;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
 import com.att.aft.dme2.internal.jettison.json.JSONException;

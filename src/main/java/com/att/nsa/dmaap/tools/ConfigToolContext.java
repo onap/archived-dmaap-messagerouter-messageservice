@@ -21,7 +21,7 @@
  *******************************************************************************/
 package com.att.nsa.dmaap.tools;
 
-import com.att.dmf.mr.beans.DMaaPMetricsSet;
+import org.onap.dmaap.dmf.mr.beans.DMaaPMetricsSet;
 import com.att.nsa.cmdtool.CommandContext;
 import com.att.nsa.configs.ConfigDb;
 import com.att.nsa.drumlin.till.nv.rrNvReadable;

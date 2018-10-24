@@ -19,10 +19,10 @@
  */
 package com.att.nsa.dmaap.service;
 
-import com.att.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.att.dmf.mr.utils.ConfigurationReader;
+import org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
 
 public class ServiceUtil {
 	private static DMaaPContext dmaaPContext;

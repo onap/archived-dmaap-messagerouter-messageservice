@@ -42,20 +42,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.att.dmf.mr.CambriaApiException;
-import com.att.dmf.mr.backends.ConsumerFactory.UnavailableException;
-import com.att.dmf.mr.beans.DMaaPContext;
-import com.att.dmf.mr.exception.DMaaPErrorMessages;
-import com.att.dmf.mr.exception.DMaaPResponseCode;
-import com.att.dmf.mr.exception.ErrorResponse;
-import com.att.dmf.mr.metabroker.Broker.TopicExistsException;
-import com.att.dmf.mr.service.EventsService;
-import com.att.dmf.mr.utils.ConfigurationReader;
-import com.att.dmf.mr.utils.Utils;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.backends.ConsumerFactory.UnavailableException;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
+import org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
+import org.onap.dmaap.dmf.mr.exception.ErrorResponse;
+import org.onap.dmaap.dmf.mr.metabroker.Broker.TopicExistsException;
+import org.onap.dmaap.dmf.mr.service.EventsService;
+import org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
+import org.onap.dmaap.dmf.mr.utils.Utils;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.drumlin.till.nv.rrNvReadable.missingReqdSetting;
 import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
-import com.att.dmf.mr.exception.DMaaPAccessDeniedException;
+import org.onap.dmaap.dmf.mr.exception.DMaaPAccessDeniedException;
 /**
  * This class is a CXF REST service which acts 
  * as gateway for MR Event Service.

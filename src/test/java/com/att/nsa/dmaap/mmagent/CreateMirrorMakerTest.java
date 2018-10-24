@@ -20,7 +20,7 @@
 
 package com.att.nsa.dmaap.mmagent;
 
-import com.att.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
 
 import static org.junit.Assert.*;
 

@@ -40,10 +40,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.att.dmf.mr.beans.DMaaPContext;
-import com.att.dmf.mr.service.UIService;
-import com.att.dmf.mr.utils.ConfigurationReader;
-import com.att.dmf.mr.utils.DMaaPResponseBuilder;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.service.UIService;
+import org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
+import org.onap.dmaap.dmf.mr.utils.DMaaPResponseBuilder;
 import com.att.nsa.configs.ConfigDbException;
 
 /**

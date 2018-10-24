@@ -31,8 +31,8 @@ import java.util.Map.Entry;
 import org.json.JSONException;
 
 import com.att.nsa.apiServer.CommonServlet;
-import com.att.dmf.mr.beans.DMaaPKafkaMetaBroker;
-import com.att.dmf.mr.metabroker.Topic;
+import org.onap.dmaap.dmf.mr.beans.DMaaPKafkaMetaBroker;
+import org.onap.dmaap.dmf.mr.metabroker.Topic;
 import com.att.nsa.cmdtool.Command;
 import com.att.nsa.cmdtool.CommandLineTool;
 import com.att.nsa.cmdtool.CommandNotReadyException;
