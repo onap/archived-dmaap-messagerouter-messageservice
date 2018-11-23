@@ -8,7 +8,7 @@ Release Notes
 Version: 1.1.8
 --------------
 
-:Release Date: 2018-11-14
+:Release Date: 2018-11-30
 
 **New Features**
 
