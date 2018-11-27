@@ -19,13 +19,15 @@ Version: 1.1.8
 **Bug Fixes**
 	NA
 **Known Issues**
-	NA
+
+If the ZooKeeper  is restarted, Message Router works as expected only after restarting the Message Router . Refer  `Jira <https://jira.onap.org/browse/DMAAP-893>`_  for more details
 
 **Security Notes**
 
 DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=28379799>`_.
 
 Quick Links:
+
 - `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
 - `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
 - `Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/display/DW/DMaaP+Security+Vulnerabilities>`_
