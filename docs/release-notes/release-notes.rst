@@ -19,7 +19,8 @@ Version: 1.1.8
 **Bug Fixes**
 	NA
 **Known Issues**
-	NA
+
+If the ZooKeeper  is restarted, Message Router works as expected only after restarting the Message Router . Refer  `Jira <https://jira.onap.org/browse/DMAAP-893>`_  for more details
 
 **Security Notes**
 
