@@ -21,6 +21,7 @@
  *******************************************************************************/
  package org.onap.dmaap.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -258,7 +259,7 @@ public class EventsRestService {
 		log.info("Publishing message to topic " + topic);
             
 	       if(!isOffsetTopicCreated){
-	    	   preCreateOffsetTopic(msg);   
+	    	   preCreateOffsetTopic();   
 	       }
 		try {
 			eventsService.pushEvents(getDmaapContext(), topic, msg, partitionKey, null);
@@ -323,7 +324,7 @@ public class EventsRestService {
 		try {
 			
 			if(!isOffsetTopicCreated){
-		    	preCreateOffsetTopic(request.getInputStream());   
+		    	preCreateOffsetTopic();   
 		      }
 			
 			eventsService.pushEvents(getDmaapContext(), topic, request.getInputStream(), 
@@ -386,10 +387,11 @@ public class EventsRestService {
 		return dmaapContext;
 	}
 	
-	private void preCreateOffsetTopic(InputStream msg) {
+	private void preCreateOffsetTopic() {
 
 		try {
-			eventsService.pushEvents(getDmaapContext(), "DUMMY_TOPIC", msg, null, null);
+			String msg="dummymessage";
+			eventsService.pushEvents(getDmaapContext(), "DUMMY_TOPIC", new ByteArrayInputStream( msg.getBytes() ), null, null);
 			eventsService.getEvents(getDmaapContext(), "DUMMY_TOPIC", "CG1", "C1");
 			isOffsetTopicCreated = true;
 		} catch (CambriaApiException | ConfigDbException | AccessDeniedException | TopicExistsException | IOException
