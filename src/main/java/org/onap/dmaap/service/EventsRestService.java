@@ -21,6 +21,7 @@
  *******************************************************************************/
  package org.onap.dmaap.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -97,7 +98,6 @@ public class EventsRestService {
 	@Autowired
 	private DMaaPErrorMessages errorMessages;
 	
-	private boolean isOffsetTopicCreated=false;
 
 	/**
 	 * This method is used to consume messages.Taking three parameter
@@ -257,9 +257,6 @@ public class EventsRestService {
 			@QueryParam("partitionKey") String partitionKey) throws CambriaApiException {
 		log.info("Publishing message to topic " + topic);
             
-	       if(!isOffsetTopicCreated){
-	    	   preCreateOffsetTopic(msg);   
-	       }
 		try {
 			eventsService.pushEvents(getDmaapContext(), topic, msg, partitionKey, null);
 		} 
@@ -322,10 +319,6 @@ public class EventsRestService {
 
 		try {
 			
-			if(!isOffsetTopicCreated){
-		    	preCreateOffsetTopic(request.getInputStream());   
-		      }
-			
 			eventsService.pushEvents(getDmaapContext(), topic, request.getInputStream(), 
 					partitionKey,
 					Utils.getFormattedDate(new Date()));
@@ -386,17 +379,5 @@ public class EventsRestService {
 		return dmaapContext;
 	}
 	
-	private void preCreateOffsetTopic(InputStream msg) {
-
-		try {
-			eventsService.pushEvents(getDmaapContext(), "DUMMY_TOPIC", msg, null, null);
-			eventsService.getEvents(getDmaapContext(), "DUMMY_TOPIC", "CG1", "C1");
-			isOffsetTopicCreated = true;
-		} catch (CambriaApiException | ConfigDbException | AccessDeniedException | TopicExistsException | IOException
-				| missingReqdSetting | UnavailableException e) {
-			log.error("Error while creating the dummy topic", e);
-		}
-
-	}
 
 }
