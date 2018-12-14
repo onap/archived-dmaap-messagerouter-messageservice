@@ -1,7 +1,7 @@
 version: '2'
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:1.1.0
     ports:
       - "2181:2181"
 
@@ -34,7 +34,7 @@ services:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.8
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.9
     ports:
       - "3904:3904"
       - "3905:3905"
