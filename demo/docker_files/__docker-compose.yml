@@ -6,11 +6,11 @@ networks:
       com.docker.network.driver.mtu: ${MTU}
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:1.0.0
     ports:
       - "2181:2181"
     volumes:
-      - ./data-zookeeper:/opt/zookeeper-3.4.9/data
+      - ./data-zookeeper:/var/lib/zookeeper/data
     logging:
       driver: "json-file"
       options:
@@ -42,8 +42,6 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL_PLAINTEXT
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./data-kafka:/kafka
-      - ./start-kafka.sh:/start-kafka.sh
     logging:
       driver: "json-file"
       options:
@@ -51,7 +49,7 @@ services:
         max-file: "5"
 
   dmaap:
-    image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.8
+    image: ${NEXUS_DOCKER_REPO}/onap/dmaap/dmaap-mr:1.1.9
     ports:
       - "3904:3904"
       - "3905:3905"
