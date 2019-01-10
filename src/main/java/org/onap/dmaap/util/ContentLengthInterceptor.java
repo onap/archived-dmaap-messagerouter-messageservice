@@ -43,7 +43,7 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 
 	
 	private String defLength;
-	//private Logger log = Logger.getLogger(ContentLengthInterceptor.class.toString());
+	
 	private static final EELFLogger log = EELFManager.getInstance().getLogger(ContentLengthInterceptor.class);
 
 
@@ -87,7 +87,7 @@ public class ContentLengthInterceptor implements AjscInterceptor{
 				} 
 				else 
 				{
-				//chain.doFilter(req, res);
+				
 				return true;
 				}
 			
