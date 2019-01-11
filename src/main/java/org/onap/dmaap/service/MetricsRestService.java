@@ -58,7 +58,7 @@ public class MetricsRestService {
 	/**
 	 * Logger obj
 	 */
-	//private Logger log = Logger.getLogger(MetricsRestService.class.toString());
+	
 	private static final EELFLogger log = EELFManager.getInstance().getLogger(ConfigurationReader.class);
 	/**
 	 * HttpServletRequest obj
