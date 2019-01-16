@@ -68,7 +68,7 @@ public class ApiKeysRestService {
 	/**
 	 * Logger obj
 	 */
-	//private Logger log = Logger.getLogger(ApiKeysRestService.class.toString());
+
 	private static final EELFLogger log = EELFManager.getInstance().getLogger(ApiKeysRestService.class);
 	/**
 	 * HttpServletRequest obj
