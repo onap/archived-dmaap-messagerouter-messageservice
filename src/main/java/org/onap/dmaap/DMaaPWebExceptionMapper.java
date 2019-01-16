@@ -3,6 +3,8 @@
  *  org.onap.dmaap
  *  ================================================================================
  *  Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+ *
+ *  Modifications Copyright (C) 2019 IBM.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -84,7 +86,6 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 	 */
 	@Override
 	public Response toResponse(WebApplicationException ex) {
-		//System.out.println("--------------------------------------------------"+ex);
 		LOGGER.info("Reached WebException Mapper");
 		
 		/**
@@ -126,11 +127,8 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 			errRes = new ErrorResponse(errCode,dmaapErrCode,errMsg);
 			
 			LOGGER.info(errRes.toString());
-			Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
+			return Response.status(errRes.getHttpStatusCode()).header("exception",
 					errRes.getErrMapperStr()).build();
-			
-			return response;
-			
 		}
 		/**
 		 * UnAuthorized 
@@ -141,10 +139,8 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 					getResponseCode(),msgs.getAuthFailure());
 			
 			LOGGER.info(errRes.toString());
-			Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
+			return Response.status(errRes.getHttpStatusCode()).header("exception",
 					errRes.getErrMapperStr()).build();
-			
-			return response;
 		}
 		/**
 		 * Malformed request
@@ -155,10 +151,8 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 					getResponseCode(),msgs.getBadRequest());
 			
 			LOGGER.info(errRes.toString());
-			Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
+			return Response.status(errRes.getHttpStatusCode()).header("exception",
 					errRes.getErrMapperStr()).build();
-			
-			return response;
 		}
 		/**
 		 * HTTP Method not allowed
@@ -169,10 +163,8 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 					getResponseCode(),msgs.getMethodNotAllowed());
 			
 			LOGGER.info(errRes.toString());
-			Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
+			return Response.status(errRes.getHttpStatusCode()).header("exception",
 					errRes.getErrMapperStr()).build();
-			
-			return response;
 		}
 		
 		/**
@@ -184,10 +176,8 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 					getResponseCode(),msgs.getServerUnav());
 			
 			LOGGER.info(errRes.toString());
-			Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
+			return Response.status(errRes.getHttpStatusCode()).header("exception",
 					errRes.getErrMapperStr()).build();
-			
-			return response;
 		}
 		
 		
