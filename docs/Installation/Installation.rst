@@ -11,7 +11,7 @@ Message Router is developed using Kafka, Zookeeper and Java. AJSC framework is u
 Steps
 -----
 Message Router has 3 docker containers. Dmaap\_container,
-kafka\_contaienr and zookeeper\_container. Zookeeper runs on 172.18.0.2,
+kafka\_container and zookeeper\_container. Zookeeper runs on 172.18.0.2,
 kafka runs on 172.18.0.3 and dmaap on 172.18.0.4.
 
 1) Clone message service repo

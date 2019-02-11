@@ -56,7 +56,7 @@ are not inspected for content.
 |                         | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      |
 |                         | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the  |
 |                         | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in        |
-|                         | re-ordered fields or changes in whitespace. If you want to preseve JSON objects exactly,                        |
+|                         | re-ordered fields or changes in whitespace. If you want to preserve JSON objects exactly,                       |
 |                         | use application/cambria. Recommended to follow the JSON format.                                                 |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 
@@ -261,7 +261,7 @@ Response /Error Codes
 +=========================+=================+============================+=============================================================================================+
 | DMaaP\_MR\_ERR\_3008    | 413             | Request Entity too large   | Message size exceeds the batch limit <limit>.Reduce the batch size and try again            |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3009    | 500             | Internal Server Error      | Unable to publish messages. Please contact administartor                                    |
+| DMaaP\_MR\_ERR\_3009    | 500             | Internal Server Error      | Unable to publish messages. Please contact administrator                                    |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
 | DMaaP\_MR\_ERR\_3010    | 400             | Bad Request                | Incorrect Batching format. Please correct the batching format and try again                 |
 +-------------------------+-----------------+----------------------------+---------------------------------------------------------------------------------------------+
