@@ -22,14 +22,43 @@
 
 import static org.junit.Assert.*;
 
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
 public class UpdateMirrorMakerTest {
+
+	@Rule
+	public ExpectedException exceptionRule = ExpectedException.none();
+
+	MirrorMaker mirrorMaker;
+	UpdateMirrorMaker updateMirrorMaker;
+	JSONObject jsonObject;
 
 	@Before
 	public void setUp() throws Exception {
+		mirrorMaker = new MirrorMaker();
+		updateMirrorMaker = new UpdateMirrorMaker();
+		jsonObject = PowerMockito.mock(JSONObject.class);
+
+		mirrorMaker.setConsumer("test");
+		PowerMockito.when(jsonObject.has("consumer")).thenReturn(true);
+
+		mirrorMaker.setProducer("test");
+		PowerMockito.when(jsonObject.has("producer")).thenReturn(true);
+
+		mirrorMaker.setNumStreams(1);
+		PowerMockito.when(jsonObject.has("numStreams")).thenReturn(true);
+
+		PowerMockito.when(jsonObject.has("whitelist")).thenReturn(true);
 	}
 
 	@After
@@ -77,5 +106,32 @@ public class UpdateMirrorMakerTest {
 	}
 
 
+	@Test(expected = CambriaApiException.class)
+	public void testValidateJSONNullConsumer() throws CambriaApiException {
+		mirrorMaker.setConsumer(null);
+		updateMirrorMaker.setUpdateMirrorMaker(mirrorMaker);
+		updateMirrorMaker.validateJSON(jsonObject);
+	}
 
+	@Test(expected = CambriaApiException.class)
+	public void testValidateJSONNullProducer() throws CambriaApiException {
+		mirrorMaker.setProducer(null);
+		updateMirrorMaker.setUpdateMirrorMaker(mirrorMaker);
+		updateMirrorMaker.validateJSON(jsonObject);
+	}
+
+	@Test(expected = CambriaApiException.class)
+	public void testValidateJSONNoNumStreams() throws CambriaApiException {
+		mirrorMaker.setNumStreams(0);
+		updateMirrorMaker.setUpdateMirrorMaker(mirrorMaker);
+		updateMirrorMaker.validateJSON(jsonObject);
+	}
+
+	@Test(expected = CambriaApiException.class)
+	public void testValidateJSONWhitelist() throws CambriaApiException {
+		PowerMockito.when(jsonObject.has("whitelist")).thenReturn(true);
+
+		updateMirrorMaker.setUpdateMirrorMaker(mirrorMaker);
+		updateMirrorMaker.validateJSON(jsonObject);
+	}
 }
