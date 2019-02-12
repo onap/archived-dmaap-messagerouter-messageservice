@@ -3,6 +3,8 @@
  *  org.onap.dmaap
  *  ================================================================================
  *  Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+ *
+ *  Modifications Copyright (C) 2019 IBM.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -30,14 +32,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.apache.http.HttpStatus;
 import com.att.eelf.configuration.EELFLogger;
 import com.att.eelf.configuration.EELFManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.onap.dmaap.dmf.mr.CambriaApiException;
 import org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
-import org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
 import org.onap.dmaap.dmf.mr.exception.ErrorResponse;
 
 /**
@@ -103,38 +103,19 @@ public class DMaaPCambriaExceptionMapper implements ExceptionMapper<CambriaApiEx
 		/**
 		 * Cambria Generic Exception
 		 */
-		/*if(ex instanceof CambriaApiException)
-		{*/
 			
 			errRes = ex.getErrRes();
 			if(errRes!=null) {
-				
-				Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
+
+				return Response.status(errRes.getHttpStatusCode()).header("exception",
 						errRes.getErrMapperStr()).build();
-				
-				return response;
 			}
 			else
 			{
-				
-				Response response = Response.status(ex.getStatus()).header("exception",
+
+				return Response.status(ex.getStatus()).header("exception",
 						ex.getMessage()).build();
-				
-				return response;
 			}
-			
-			
-		/*}
-		else
-		{
-			errRes = new ErrorResponse(HttpStatus.SC_NOT_FOUND, 
-					DMaaPResponseCode.SERVER_UNAVAILABLE.getResponseCode(), msgs.getServerUnav());
-			
-			Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
-					errRes.getErrMapperStr()).build();
-			
-			return response;
-		}*/
 		
 	}
 

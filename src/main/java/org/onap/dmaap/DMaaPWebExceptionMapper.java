@@ -97,10 +97,9 @@ public class DMaaPWebExceptionMapper implements ExceptionMapper<WebApplicationEx
 					getResponseCode(),msgs.getNotFound());
 			
 			LOGGER.info(errRes.toString());
-			Response response = Response.status(errRes.getHttpStatusCode()).header("exception", 
+
+			return Response.status(errRes.getHttpStatusCode()).header("exception",
 					errRes.getErrMapperStr()).build();
-			
-			return response;
 			
 		}
 		/**
