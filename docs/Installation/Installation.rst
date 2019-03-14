@@ -61,3 +61,62 @@ Testing
 
    Note: You will only receive messages which have been published after
    you have subscribed to a topic.
+
+
+Steps for local development and test
+------------------------
+On Intel dev machine, in terminal (> indicates prompt) :
+1) Build kafka11aaf
+    > git clone https://gerrit.onap.org/r/dmaap/kafka
+    > cd kafka11aaf
+    > mvn clean install -Pdocker
+2) Build messageservice 
+    > git clone https://gerrit.onap.org/r/dmaap/messagerouter/messageservice
+        - anonymous http, can't push changes
+    > cd messageservice
+    > mvn clean install -Pdocker
+3) Run tests 
+    > cp bundleconfig-local/etc/appprops/MsgRtrApi.properties /var/tmp/
+        - edit /var/tmp/MsgRtrApi.properties
+            config.zk.servers=zookeeper
+            kafka.metadata.broker.list=kafka:9092
+            - docker-compose network maps service name(zookeeper, kafka) to IP
+        - set docker preferences/file sharing to access /var/tmp
+    > cd src/main/resources/docker-compose
+    - edit docker-compose.yml
+        - remove "nexus3.onap.org:10001/" from kafka and dmaap image names to 
+            use local images
+    > docker-compose up -d
+    - create sample.txt file (as above)(content of file not important)
+    > curl -H "Content-Type:text/plain" -X POST -d @sample.txt http://localhost:3904/events/TestTopic1
+
+On Arm:
+1) Build kafka11aaf
+    > git clone https://gerrit.onap.org/r/dmaap/kafka
+    > cd kafka11aaf
+    > mvn clean install -Pdocker  -Ddocker.pull.registry=docker.io
+        - ensure we pull Arm version of base image
+2) Build messageservice 
+    > git clone https://gerrit.onap.org/r/dmaap/messagerouter/messageservice
+        - anonymous http, can't push changes
+    > cd messageservice
+    > mvn clean install -Pdocker  -Ddocker.pull.registry=docker.io
+        - ensure we pull Arm version of base image
+3) Run tests 
+    > cp bundleconfig-local/etc/appprops/MsgRtrApi.properties /var/tmp/
+        - edit /var/tmp/MsgRtrApi.properties
+            config.zk.servers=zookeeper
+            kafka.metadata.broker.list=kafka:9092
+            - docker-compose network maps service name(zookeeper, kafka) to IP
+        - set docker preferences/file sharing to access /var/tmp
+    > cd src/main/resources/docker-compose
+    - edit docker-compose.yml
+        - remove "nexus3.onap.org:10001/" from from kafka and dmaap image names to 
+            use local images
+        - replace 'nexus3.onap.org:10001/onap/dmaap/zookeeper:1.0.0' with
+            multi-platform 'zookeeper'
+    > docker-compose up -d
+    - create sample.txt file (as above)(content of file not important)
+    > curl -H "Content-Type:text/plain" -X POST -d @sample.txt http://localhost:3904/events/TestTopic1
+
+   
