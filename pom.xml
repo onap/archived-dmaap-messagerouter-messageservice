@@ -47,6 +47,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -100,96 +101,8 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+                
 
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<configuration>
-					<imageName>onap/dmaap/dmaap-mr</imageName>
-					<dockerDirectory>${dockerLocation}</dockerDirectory>
-					<serverId>docker-hub</serverId>
-					<imageTags>
-						<imageTag>${dockertag1}</imageTag>
-						<imageTag>${dockertag2}</imageTag>
-					</imageTags>
-					<forceTags>true</forceTags>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${dockerLocation}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>**/**</include>
-						</resource>
-					</resources>
-				</configuration>
-				<executions>
-					<execution>
-						<id>build-image</id>
-						<phase>install</phase>
-						<goals>
-							<goal>build</goal>
-						</goals>
-						<configuration>
-							<skipDockerBuild>${skip.docker.build}</skipDockerBuild>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>tag-image-project-version</id>
-						<phase>install</phase>
-						<goals>
-							<goal>tag</goal>
-						</goals>
-						<configuration>
-							<image>onap/dmaap/dmaap-mr</image>
-							<newName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dockertag2}</newName>
-							<skipDockerTag>${skip.docker.push}</skipDockerTag>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>tag-image-latest</id>
-						<phase>install</phase>
-						<goals>
-							<goal>tag</goal>
-						</goals>
-						<configuration>
-							<image>onap/dmaap/dmaap-mr</image>
-							<newName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dockertag1}</newName>
-							<skipDockerTag>${skip.docker.push}</skipDockerTag>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>push-image-latest</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>push</goal>
-						</goals>
-						<configuration>
-							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dockertag2}</imageName>
-							<skipDockerPush>${skip.docker.push}</skipDockerPush>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>push-image</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>push</goal>
-						</goals>
-						<configuration>
-							<imageName>${docker.push.registry}/onap/dmaap/dmaap-mr:${dockertag1}</imageName>
-							<skipDockerPush>${skip.docker.push}</skipDockerPush>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>com.blackducksoftware.integration</groupId>
 				<artifactId>hub-maven-plugin</artifactId>
@@ -267,6 +180,7 @@
 		<camel.version>2.21.1</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
+		<skip.docker.tag>true</skip.docker.tag>
 		<skip.docker.push>true</skip.docker.push>
 		<nexusproxy>https://nexus.onap.org</nexusproxy>
 		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
@@ -763,8 +677,49 @@
                             </execution>
                         </executions>
                     </plugin>
-                    </plugins>
-                    </build>
+                   <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.28.0</version>  
+                        <configuration>
+                            <verbose>${docker.verbose}</verbose>
+                            <apiVersion>${docker.apiVersion}</apiVersion>
+                            <pullRegistry>${docker.pull.registry}</pullRegistry>
+                            <pushRegistry>${docker.push.registry}</pushRegistry>
+                            <images>
+                                <image>                            
+                                    <name>onap/dmaap/dmaap-mr</name>
+                                    <build>
+                                        <cleanup>try</cleanup>
+                                        <dockerFileDir>${dockerLocation}</dockerFileDir>
+                                        <dockerFile>Dockerfile</dockerFile>
+                                        <tags>
+                                            <tag>${dockertag1}</tag>
+                                            <tag>${dockertag2}</tag>
+                                        </tags>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                         <executions>
+                             <execution>
+                                 <id>generate-images</id>
+                                 <phase>install</phase>
+                                 <goals>
+                                     <goal>build</goal>
+                                 </goals>
+                             </execution>
+                             <execution>
+                                 <id>push-images</id>
+                                 <phase>deploy</phase>
+                                 <goals>
+                                     <goal>push</goal>
+                                 </goals>
+                             </execution>
+                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
 		</profile>
 
 		<profile>
