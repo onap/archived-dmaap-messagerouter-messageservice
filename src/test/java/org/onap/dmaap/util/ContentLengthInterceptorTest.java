@@ -70,6 +70,25 @@ public class ContentLengthInterceptorTest {
 		assertTrue(true);
 	}
 	
+	@Test
+	public void testAllowOrRejectChunked() throws Exception {
+		PowerMockito.when(req.getHeader("Transfer-Encoding")).thenReturn("chunked");
+		PowerMockito.when(req.getHeader("Content-Length")).thenReturn("1027");
+		System.setProperty("maxcontentlength", "1024");
+
+		interceptor.allowOrReject(req, res, map);
+		assertTrue(true);
+	}	
+	
+	@Test
+	public void testAllowOrRejectNullTransferEncoding() throws Exception {
+		PowerMockito.when(req.getHeader("Transfer-Encoding")).thenReturn(null);
+		PowerMockito.when(req.getHeader("Content-Length")).thenReturn("1027");
+		System.setProperty("maxcontentlength", "1024");
+
+		interceptor.allowOrReject(req, res, map);
+		assertTrue(true);
+	}		
 	//@Test(expected = NullPointerException.class) 
 	public void testAllowOrRejectWithException() throws Exception {
 		PowerMockito.when(req.getHeader("Transfer-Encoding")).thenThrow(new NumberFormatException());

@@ -257,6 +257,24 @@ public class EventsRestServiceTest {
 	}
 
 	@Test
+	public void testGetEventsToException() throws CambriaApiException {
+		try {
+			eventsRestRestService.getEventsToException("/topic");
+		} catch (CambriaApiException e) {
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testGetEventsToExceptionWithConsumerGroup() throws CambriaApiException {
+		try {
+			eventsRestRestService.getEventsToException("/topic", "1234");
+		} catch (CambriaApiException e) {
+			assertTrue(true);
+		}		
+	}
+	
+	@Test
 	public void testPushEvents_TopicExistException() throws CambriaApiException {
 
 		eventsRestRestService.pushEvents("topicName", iStream, "partitionKey");
