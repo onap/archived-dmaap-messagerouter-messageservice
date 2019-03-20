@@ -1362,47 +1362,27 @@ public class MMRestService {
 		}
 	}
 
-	private String getWhitelistByNamespace(String originalWhitelist, String namespace) {
 
-		String whitelist = null;
-		List<String> resultList = new ArrayList<>();
-		List<String> whitelistList = new ArrayList<>();
-		whitelistList = Arrays.asList(originalWhitelist.split(","));
-
-		for (String topic : whitelistList) {
-			if (StringUtils.isNotBlank(originalWhitelist) && getNamespace(topic).equals(namespace)) {
-				resultList.add(topic);
-			}
-		}
-		if (!resultList.isEmpty()) {
-			whitelist = StringUtils.join(resultList, ",");
-		}
-
-		return whitelist;
-	}
-
-	private JSONArray getListMirrorMaker(String msgFrmSubscribe, String randomStr) {
-		JSONObject jsonObj;
-		JSONArray jsonArray;
+	public JSONArray getListMirrorMaker(String msgFrmSubscribe, String randomStr) {
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
 		JSONArray listMirrorMaker = new JSONArray();
-
+		
 		msgFrmSubscribe = removeExtraChar(msgFrmSubscribe);
 		jsonArray = new JSONArray(msgFrmSubscribe);
-
+		jsonObj = jsonArray.getJSONObject(0);
+		
 		for (int i = 0; i < jsonArray.length(); i++) {
 			jsonObj = jsonArray.getJSONObject(i);
-
-			JSONObject obj = new JSONObject();
-			if (jsonObj.has(MESSAGE)) {
-				obj = jsonObj.getJSONObject(MESSAGE);
-			}
-			if (obj.has("messageID") && obj.get("messageID").equals(randomStr) && obj.has(LISTMIRRORMAKER)) {
-				listMirrorMaker = obj.getJSONArray(LISTMIRRORMAKER);
+			
+			if (jsonObj.has("messageID") && jsonObj.get("messageID").equals(randomStr) && jsonObj.has("listMirrorMaker")) {
+				listMirrorMaker = jsonObj.getJSONArray("listMirrorMaker");
 				break;
 			}
 		}
-		return listMirrorMaker;
+		return listMirrorMaker;		
 	}
+	
 
 	public JSONObject validateMMExists(DMaaPContext ctx, String name) throws Exception {
 		// Create a listAllMirrorMaker Json object
