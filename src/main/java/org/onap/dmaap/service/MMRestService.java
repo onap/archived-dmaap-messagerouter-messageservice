@@ -538,12 +538,11 @@ public class MMRestService {
 		}
 	}
 
-	private boolean isListMirrorMaker(String msg, String messageID) {
+	public boolean isListMirrorMaker(String msg, String messageID) {
 		String topicmsg = msg;
 		topicmsg = removeExtraChar(topicmsg);
-
-		JSONObject jObj;
-		JSONArray jArray;
+		JSONObject jObj = new JSONObject();
+		JSONArray jArray = null;
 		boolean exist = false;
 
 		if (!StringUtils.isBlank(topicmsg) && topicmsg.length() > 2) {
@@ -552,11 +551,7 @@ public class MMRestService {
 			for (int i = 0; i < jArray.length(); i++) {
 				jObj = jArray.getJSONObject(i);
 
-				JSONObject obj = new JSONObject();
-				if (jObj.has(MESSAGE)) {
-					obj = jObj.getJSONObject(MESSAGE);
-				}
-				if (obj.has("messageID") && obj.get("messageID").equals(messageID) && obj.has(LISTMIRRORMAKER)) {
+				if (jObj.has("messageID") && jObj.get("messageID").equals(messageID) && jObj.has("listMirrorMaker")) {
 					exist = true;
 					break;
 				}
