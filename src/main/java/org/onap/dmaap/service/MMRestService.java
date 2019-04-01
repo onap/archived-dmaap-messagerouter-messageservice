@@ -425,8 +425,7 @@ public class MMRestService {
 				}
 
 			} catch (IOException e) {
-
-				e.printStackTrace();
+				LOGGER.error("Error in callUpdateMirrorMaker:", e);
 			}
 		}
 		// Send error response if user does not provide Authorization
@@ -495,9 +494,9 @@ public class MMRestService {
 						inStream = IOUtils.toInputStream(jsonOb.toString(), "UTF-8");
 
 					} catch (IOException ioe) {
-						ioe.printStackTrace();
+						LOGGER.error("Error while converting string to an input stream:", ioe);
 					}
-					JSONObject deleteMM = (JSONObject) jsonOb.getJSONObject("deleteMirrorMaker");
+					JSONObject deleteMM = jsonOb.getJSONObject("deleteMirrorMaker");
 
 					JSONObject existMirrorMaker = validateMMExists(ctx, deleteMM.getString("name"));
 
@@ -523,7 +522,7 @@ public class MMRestService {
 				}
 
 			} catch (IOException ioe) {
-
+				LOGGER.error("Error in callDeleteMirrorMaker:", ioe);
 				throw ioe;
 			}
 
@@ -673,7 +672,7 @@ public class MMRestService {
 			}
 
 		} catch (Exception e) {
-
+			LOGGER.error("Error in callPubSub", e);
 			throw e;
 		}
 
@@ -765,7 +764,7 @@ public class MMRestService {
 							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
 						} catch (IOException ioe) {
-							ioe.printStackTrace();
+							LOGGER.error("Error while converting string to an input stream:", ioe);
 						}
 						JSONObject listMirrorMaker = new JSONObject();
 						listMirrorMaker = callPubSub(randomStr, ctx, inStream, null, true);
@@ -839,8 +838,7 @@ public class MMRestService {
 				}
 
 			} catch (IOException e) {
-
-				e.printStackTrace();
+				LOGGER.error("Error in listWhiteList", e);
 			}
 		} else {
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_UNAUTHORIZED,
@@ -928,7 +926,7 @@ public class MMRestService {
 							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
 						} catch (IOException ioe) {
-							ioe.printStackTrace();
+							LOGGER.error("Error while converting string to an input stream:", ioe);
 						}
 						String msgFrmSubscribe = mirrorService.subscribe(ctx, topic, consumergroup, consumerid);
 						// call listAllMirrorMaker
@@ -1139,7 +1137,7 @@ public class MMRestService {
 							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
 						} catch (IOException ioe) {
-							ioe.printStackTrace();
+							LOGGER.error("Error while converting string to an input stream:", ioe);
 						}
 						// call listAllMirrorMaker
 						mirrorService.pushEvents(ctx, topic, inStream, null, null);
@@ -1329,18 +1327,21 @@ public class MMRestService {
 						jsonArrayNamespace = jsonObj.getJSONArray("listMirrorMaker");
 					}
 				}
+
 				JSONObject finalJasonObj = new JSONObject();
 				JSONArray finalJsonArray = new JSONArray();
 
-				for (int i = 0; i < jsonArrayNamespace.length(); i++) {
+				if (jsonArrayNamespace != null) {
+					for (int i = 0; i < jsonArrayNamespace.length(); i++) {
 
-					JSONObject mmObj = new JSONObject();
-					mmObj = jsonArrayNamespace.getJSONObject(i);
-					if (mmObj.has("name") && mmName.equals(mmObj.getString("name"))) {
+						JSONObject mmObj = new JSONObject();
+						mmObj = jsonArrayNamespace.getJSONObject(i);
+						if (mmObj.has("name") && mmName.equals(mmObj.getString("name"))) {
 
-						finalJsonArray.put(mmObj);
+							finalJsonArray.put(mmObj);
+						}
+
 					}
-
 				}
 				finalJasonObj.put("listMirrorMaker", finalJsonArray);
 
@@ -1358,7 +1359,7 @@ public class MMRestService {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in callPubSubForWhitelist:", e);
 		}
 	}
 
@@ -1391,8 +1392,7 @@ public class MMRestService {
 			listAll.put("listAllMirrorMaker", new JSONObject());
 
 		} catch (JSONException e) {
-
-			e.printStackTrace();
+			LOGGER.error("Error while creating a listAllMirrorMaker Json object:", e);
 		}
 
 		// set a random number as messageID
@@ -1405,7 +1405,7 @@ public class MMRestService {
 			inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			LOGGER.error("Error while converting string to an input stream:", ioe);
 		}
 		JSONObject listMirrorMaker = new JSONObject();
 		listMirrorMaker = callPubSub(randomStr, ctx, inStream, name, false);
@@ -1414,8 +1414,11 @@ public class MMRestService {
 			return listMirrorMaker;
 
 		}
-		listMirrorMaker.put("exists", false);
-		return listMirrorMaker;
 
+		if(null != listMirrorMaker) {
+			listMirrorMaker.put("exists", false);
+		}
+
+		return listMirrorMaker;
 	}
 }
