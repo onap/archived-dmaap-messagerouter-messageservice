@@ -70,9 +70,7 @@ The MessageRouter service has no requirements on what publishers can put
 onto a topic. The messages are opaque to the service and are treated as
 raw bytes. In general, passing JSON messages is preferred, but this is
 due to higher-level features and related systems, not the MessageRouter
-broker itself. The only constraint placed on messages is their on their
-size � messages must be under the maximum size, which is currently
-configured at 1 MB.
+broker itself. 
 
 Request URL
 ===========
@@ -85,7 +83,7 @@ Request Parameters
 +--------------------+------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
 | Name               | Description                  | Param Type       | Data type  | Max Len   | Required    | Format                         | Valid/EXample values        |
 +====================+==============================+==================+============+===========+=============+================================+=============================+
-| Topicname          | topic name to be posted      | Path             | String     | 40        | Y           |  <app namespace>.<topicname>   | org.onap.crm.empdetails     |
+| Topicname          | topic name to be posted      | Path             | String     | 40        | Y           |                                | org.onap.dmaap.mr.testtopic |
 +--------------------+------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
 | content-type       | To specify type of message   | Header           | String     | 20        | N           |                                | application/json            |
 +--------------------+------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
@@ -96,8 +94,9 @@ Request Parameters
 | partitionKey       |                              | QueryParam       | String     |           | N           | String value                   | ?Partitionkey=123           |
 +--------------------+------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
 
-**NOTE**: Publishers/user should have access on the topics. The user (id) and
-permissions details needs to be in AAF.
+**NOTE**: To publish data to the authenticated topic, Publisher must
+ have the AAF permission org.onap.dmaap.mr.topic|:topic.<topic name>|pub. 
+Publishers may use DMaaP BusController for provisoning the AAF permissions
 
 Response Parameters
 ===================
@@ -202,7 +201,7 @@ Request Parameters:
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | Name         | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format             |  Valid/Example Values  |
 +==============+=================================+==================+============+==============+=============+=====================+========================+
-| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       | namespace.String    |                        |
+| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       |                     |                        |
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 | Consumer     | A name that uniquely identifies |     Path         |   String   |              |     Y       |                     | CG1                    |
 | group        | your subscribers                |                  |            |              |             |                     |                        |
@@ -219,8 +218,9 @@ Request Parameters:
 | Password     |                                 |     Header       |   String   |     1        |     N       |                     |                        |
 +--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 
-**NOTE1**:Subscribers /user should have access on the topics. The user () and
-permissions details needs to be in AAF.
+**NOTE**:To read data from a authenticated topic, User must have the 
+AAF permission org.onap.dmaap.mr.topic|:topic.<topic name>|sub. 
+Subscribers may use DMaaP BusController for provisoning the permissions in AAF
 
 Response Parameters:
 ====================
@@ -292,7 +292,8 @@ Sample Request:
 
 Provisioning
 ------------
-**Description**: To create , modify or delete the MessageRouter topics. Generally Invenio application will use these  below apis to create , assign topics to the users. These APIs can also be used by other applications to provision topics in MessageRouter
+**Description**: To create , modify or delete the MessageRouter topics.These APIs can also be used by other applications to provision topics in MessageRouter.
+DMaaP BusController is recommended for topic and AAf permissions provisoning
 
 Create Topic
 ============
@@ -307,7 +308,7 @@ Request Parameters:
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | Name              | Description                     |  Param Type      |  datatype  |   MaxLen     |  Required   |  Format     |  Valid/Example Values             |
 +===================+=================================+==================+============+==============+=============+=============+===================================+
-| Topicname         | topicname to be created in MR   |     Body         |   String   |     20       |     Y       | Json        | com.att.dmaap.mr.metrics          |
+| Topicname         | topicname to be created in MR   |     Body         |   String   |     20       |     Y       | Json        | org.onap.dmaap.mr.metrics          |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | topicDescription  | description for topic           |     Body         |   String   |     15       |     Y       |             |                                   |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
@@ -320,6 +321,10 @@ Request Parameters:
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | Content-Type      | application/json                |     Header       |   String   |              |             |             | application/json                  |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
+
+**NOTE**:To Create a authenticated topic, user must have the AAF permission
+ org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|create 
+
 
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
@@ -371,19 +376,19 @@ Sample Request:
 
       POST   http://<hostname>:3904/topic/create
   Request Body
-  {"topicName":"com.abc.dmaap.mr.topicname","description":"This is a SAPTopic ",
+  {"topicName":"org.onap.dmaap.mr.testtopic","description":"This is a test Topic ",
   "partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}
   Content-Type: application/json
   Example:
   curl -u XXXc@csp.abc.com:xxxxx$  -H 'Content-Type:application/json' -X POST -d
-  @topicname.txt  http://mrlocal00.dcae.proto.research.abc.com:3904/topics/create
+  @topicname.txt  http://message-router:3904/topics/create
   {
   "writerAcl": {
   "enabled": false,
   "users": []
   },
   "description": "This is a TestTopic",
-  "name": "com.abc.ecomp_test.crm.Load9",
+  "name": "org.onap.dmaap.mr.testtopic",
   "readerAcl": {
   "enabled": false,
   "users": []
@@ -405,25 +410,28 @@ Request Parameters
 +--------------------------+-------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
 | Name                     | Description             | Param Type       | Data type  | Max Len   | Required    | Format          | Valid/EXample values        |
 +==========================+=========================+==================+============+===========+=============+=================+=============================+
-| Topicname                | topic name details      | Body             | String     | 20        | Y           |  Json           | com.abc.dmaap.mr.metrics    |
+| Topicname                | topic name details      | Body             | String     | 20        | Y           |  Json           | org.onap.dmaap.mr.testtopic |
 +--------------------------+-------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
+
+**NOTE**:To view a authenticated topic, user must have the AAF permission
+ org.onap.dmaap.mr.topic|*|view 
 
 
 Response Parameters
 ====================
 
-+------------------+------------------------+------------+----------+---------+--------------------------+
-| Name             | Description            | ParamType  | datatype |Format   | Valid/Example Values     |
-+==================+========================+============+==========+=========+==========================+
-| topicname        |  topic name details    |      Body  |   String |   Json  | com.abc.dmaap.mr.metrics |
-+------------------+------------------------+------------+----------+---------+--------------------------+
-| description      |                        |            |   String |         |                          |
-+------------------+------------------------+------------+----------+---------+--------------------------+
-| owner            |user id who created the |            |          |         |                          |
-|                  |         topic          |            |          |         |                          |
-+------------------+------------------------+------------+----------+---------+--------------------------+
-| txenabled        |     true or false      |            |  boolean |         |                          |
-+------------------+------------------------+------------+----------+---------+--------------------------+
++------------------+------------------------+------------+----------+---------+----------------------------+
+| Name             | Description            | ParamType  | datatype |Format   | Valid/Example Values       |
++==================+========================+============+==========+=========+============================+
+| topicname        |  topic name details    |      Body  |   String |   Json  | org.onap.dmaap.mr.testopic |
++------------------+------------------------+------------+----------+---------+----------------------------+
+| description      |                        |            |   String |         |                            |
++------------------+------------------------+------------+----------+---------+----------------------------+
+| owner            |user id who created the |            |          |         |                            |
+|                  |         topic          |            |          |         |                            |
++------------------+------------------------+------------+----------+---------+----------------------------+
+| txenabled        |     true or false      |            |  boolean |         |                            |
++------------------+------------------------+------------+----------+---------+----------------------------+
 
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
@@ -444,8 +452,8 @@ Sample Request:
 |       curl -u XXX@csp.abc.com:x$  -X                                                                                              |
 | GET  http://mrlocal00.dcae.proto.research.att.com:3904/topics                                                                     |
 |    {"topics": [                                                                                                                   |
-|    {"txenabled": true,"description": "This is a TestTopic","owner": "XXXX@csp.abc.com","topicName": "com.abc.ecomp_test.crm.Load9"|
-|    {"txenabled": false,"description": "", "owner": "", "topicName": "com.abc.ecomp_test.crm.Load1"                                |
+|    {"txenabled": true,"description": "This is a TestTopic","owner": "XXXX@csp.abc.com","topicName": "org.onap.dmaap.mr.Load9"|
+|    {"txenabled": false,"description": "", "owner": "", "topicName": "org.onap.dmaap.mr.Load1"                                |
 |    ]},                                                                                                                            |
 +-----------------------------------------------------------------------------------------------------------------------------------+
 
@@ -458,9 +466,12 @@ Request URL:
 
 DELETE http(s)://{HOST:PORT}/topic/{topicname}
 
+**NOTE**:To delete a  topic, user must have the AAF permission
+org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|destroy 
+
 Sample Request:
 ===============
-ex: http://<hostname>:3904/dmaap/v1/topics/com.att.dmaap.mr.testopic
+ex: http://<hostname>:3904/dmaap/v1/topics/org.onap.dmaap.mr.testopic
 
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
