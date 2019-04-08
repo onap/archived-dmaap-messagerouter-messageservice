@@ -28,6 +28,6 @@ EXPOSE 3904 3905
 ENTRYPOINT ["sh", "startup.sh"]
 RUN addgroup -S onap \
     && adduser -S messagerouter -G onap \
-    && chown -R messagerouter:onap /appl/ \
+    && chown -R messagerouter:onap /appl/
 
 USER messagerouter
