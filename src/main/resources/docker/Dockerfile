@@ -21,7 +21,13 @@
 FROM openjdk:8-alpine
 MAINTAINER DMAAP Team
 COPY appl /appl/
-COPY    startup.sh /
+COPY    startup.sh /appl/
+WORKDIR /appl
 RUN chmod 700 /startup.sh
 EXPOSE 3904 3905
 ENTRYPOINT ["sh", "./startup.sh"]
+RUN addgroup -S onap \
+    && adduser -S messagerouter -G onap \
+    && chown -R messagerouter:onap /appl/ \
+
+USER messagerouter
