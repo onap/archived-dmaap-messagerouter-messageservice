@@ -26,8 +26,9 @@ WORKDIR /appl
 RUN chmod 700 startup.sh
 EXPOSE 3904 3905
 ENTRYPOINT ["sh", "startup.sh"]
-RUN addgroup -S onap \
-    && adduser -S messagerouter -G onap \
-    && chown -R messagerouter:onap /appl/
 
-USER messagerouter
+RUN addgroup -S -g 1000  mr  \
+    && adduser -S  -u 1000 mr  mr \
+    && chown -R mr:mr  /appl/
+
+USER mr
