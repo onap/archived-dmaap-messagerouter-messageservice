@@ -9,9 +9,9 @@ Offered APIs
 .. toctree::
    :maxdepth: 1
 
-   offeredapis/swaggerdownload.rst
-   offeredapis/swaggerapi.rst
-   offeredapis/api.rst
+   swaggerdownload.rst
+   swaggerapi.rst
+   api.rst
 
 
 
