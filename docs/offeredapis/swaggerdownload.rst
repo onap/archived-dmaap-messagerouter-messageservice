@@ -2,7 +2,7 @@ DMaaP Message Router REST API Download docs
 ===========================================
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 1
 
 .. this table is provided to allow for download of API documentation in diff formats
 
