@@ -1,10 +1,8 @@
 DMaaP Message Router REST API Download docs
 ===========================================
 
-.. toctree::
-    :maxdepth: 3
 
-.. this table is provided to allow for download of API documentation in diff formats
+.. this table is provided to allow for download of swagger API documentation
 
 .. csv-table::
   :header: "API name", "Swagger JSON"
