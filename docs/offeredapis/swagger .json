@@ -1,0 +1,863 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "DMaaP MR REST API",
+    "version": "4.0.0",
+    "title": "DMaaP MR REST API"
+  },
+  "host": "message-router:30227",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Topic",
+      "description": "Operations about topic"
+    },
+    {
+      "name": "MirrorMaker",
+      "description": "Operations about mirror maker"
+    },
+    {
+      "name": "MirrorMaker Whitelist",
+      "description": "Operations about mirror maker whitelist"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/topics/create": {
+      "post": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Create a Topic",
+        "description": "AAF Permissions required to create authenticated topics: org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|create ",
+        "operationId": "Create a Topic",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Topic details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createTopic"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "409": {
+            "description": "topic already exist"
+          },
+          "500": {
+            "description": "failed to create a topic"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/topics": {
+      "get": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Get  all topics",
+        "description": "",
+        "operationId": "view all topics",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "failed to return the topics"
+          }
+        }
+      }
+    },
+    "/topics/{topicName}": {
+      "get": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Get individual topic details",
+        "description": "",
+        "operationId": "view the topic",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "topicName",
+            "in": "path",
+            "description": "topicName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "topic not found"
+          },
+          "500": {
+            "description": "failed to return the topics"
+          }
+        }
+      }
+    },
+    "/topics/listAll": {
+      "get": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Get all topics list with details",
+        "description": "",
+        "operationId": "view all topics details",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "failed to return the topics"
+          }
+        }
+      }
+    },
+    "/events/{topic}/{consumergroup}/{consumerid}": {
+      "get": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Get events from a topic",
+        "description": "Subscribe to a topic. If already subscribed read the events from the topic. Basic Auth header is required for subcribing to a topic.  AAF permissions required for subscribing to a authenticated topic: org.onap.dmaap.mr.topic|:topic.<topic name>|sub",
+        "operationId": "subscribe to a topic",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "topic",
+            "in": "path",
+            "description": "topic name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "consumergroup",
+            "in": "path",
+            "description": "consumer group",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "consumerid",
+            "in": "path",
+            "description": "consumer id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit on the number of messages returned",
+            "type": "string"
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "description": "amount of time in ms server will open the connection with the Kafka while reading the messages",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "409": {
+            "description": "unable to read the messages from the topic"
+          },
+          "429": {
+            "description": "Client is making too many requests. Decrease the number of requests to avoid empty response"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/events/{topic}/": {
+      "post": {
+        "tags": [
+          "Topic"
+        ],
+        "summary": "Post events to a topic",
+        "description": "post an event to  a topic. Basic Auth header is required for subcribing to a topic.  AAF permissions required for subscribing to a authenticated topic: org.onap.dmaap.mr.topic|:topic.<topic name>|pub",
+        "operationId": "post messages to a topic",
+        "consumes": [
+          "application/json",
+          "text/plain"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "topic",
+            "in": "path",
+            "description": "topic name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "partitionKey",
+            "in": "query",
+            "description": "topic partitionkey",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "mesage/s to publish to a topic",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "404": {
+            "description": "error while publishing to the topic"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/mirrormakers/create": {
+      "post": {
+        "tags": [
+          "MirrorMaker"
+        ],
+        "summary": "Create a Mirror Maker process and returns the all mirror maker processes",
+        "description": "AAF Permissions required: org.onap.dmaap.mr.mirrormaker|*|admin",
+        "operationId": "Create a Mirror Maker process",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create Mirror Maker",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createMirrorMaker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "503": {
+            "description": "list mirror maker not available"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/mirrormakers/update": {
+      "post": {
+        "tags": [
+          "MirrorMaker"
+        ],
+        "summary": "Update a Mirror Maker process and returns the all mirror maker processes",
+        "description": "AAF Permissions required: org.onap.dmaap.mr.mirrormaker|*|admin",
+        "operationId": "Update  a Mirror Maker process",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update Mirror Maker",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateMirrorMaker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "503": {
+            "description": "list mirror maker not available"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/mirrormakers/listAll": {
+      "post": {
+        "tags": [
+          "MirrorMaker"
+        ],
+        "summary": "List of mirror maker processes",
+        "description": "AAF Permissions required: org.onap.dmaap.mr.mirrormaker|*|admin",
+        "operationId": "List all Mirror Maker processes",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List all Mirror Maker processes",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/listAllMirrorMaker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "503": {
+            "description": "list mirror maker not available"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/mirrormakers/delete": {
+      "post": {
+        "tags": [
+          "MirrorMaker"
+        ],
+        "summary": "Delete a mirror maker process and return the all mirror maker processes",
+        "description": "AAF Permissions required: org.onap.dmaap.mr.mirrormaker|*|admin",
+        "operationId": "Delete a Mirror Maker process",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Delete a Mirror Maker process",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/deleteMirrorMaker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "503": {
+            "description": "list mirror maker not available"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/mirrormakers/createwhitelist": {
+      "post": {
+        "tags": [
+          "MirrorMaker Whitelist"
+        ],
+        "summary": "Add a new topic to a mirror maker whitelist and return all the mirror maker processes",
+        "description": "AAF Permissions required: rg.onap.dmaap.mr.mirrormaker|*|user ,  org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|create",
+        "operationId": "Create a whitelist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add a topic to whitelist",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createWhitelist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "503": {
+            "description": "list mirror maker not available"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/mirrormakers/listallwhitelist": {
+      "post": {
+        "tags": [
+          "MirrorMaker Whitelist"
+        ],
+        "summary": "List all whitelist",
+        "description": "AAF Permissions required: rg.onap.dmaap.mr.mirrormaker|*|user ,  org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|create",
+        "operationId": "List all whitelist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List all whitelist",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/listallwhitelist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "503": {
+            "description": "list mirror maker not available"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/mirrormakers/deletewhitelist": {
+      "post": {
+        "tags": [
+          "MirrorMaker Whitelist"
+        ],
+        "summary": "Delate a whitelist and returns the all lirror maker processes ",
+        "description": "AAF Permissions required: rg.onap.dmaap.mr.mirrormaker|*|user ,  org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|create",
+        "operationId": "Delete all whitelist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List all whitelist",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/listallwhitelist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "403": {
+            "description": "forbidden"
+          },
+          "503": {
+            "description": "list mirror maker not available"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "definitions": {
+    "createTopic": {
+      "type": "object",
+      "properties": {
+        "topicName": {
+          "type": "string",
+          "example": "org.onap.dmaap.mr.mrtesttopic"
+        },
+        "topicDescription": {
+          "type": "string",
+          "example": "test topic"
+        },
+        "partitionCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 3
+        },
+        "replicationCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1
+        },
+        "transactionEnabled": {
+          "type": "string",
+          "example": "false"
+        }
+      }
+    },
+    "createMirrorMaker": {
+      "type": "object",
+      "properties": {
+        "createMirrorMaker": {
+          "$ref": "#/definitions/createMirrorMaker.mirrorMaker"
+        }
+      }
+    },
+    "createMirrorMaker.mirrorMaker": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique Name for the MirrorMaker. A-Z 1-0 only",
+          "example": "centraltoedge"
+        },
+        "consumer": {
+          "type": "string",
+          "description": "Consumer hostname/IP Address",
+          "example": "10.12.6.98:30491"
+        },
+        "producer": {
+          "type": "string",
+          "description": "Producer hostname/IP Address",
+          "example": "10.12.5.108:30491"
+        },
+        "numStreams": {
+          "type": "string",
+          "description": "Number of consumer threads to start. (If not provided default is 1)",
+          "example": "3"
+        },
+        "whitelist": {
+          "type": "string",
+          "description": "Topic names to be whitelisted. This can be provided later using createWhitelist API",
+          "example": "org.onap.dmaap.mr.mrtesttopic"
+        },
+        "enablelogCheck": {
+          "type": "string",
+          "description": "Enable error log monitoring on the MirrorMaker thread. Default values is False.If not provided error log is not monitored.",
+          "example": "true"
+        }
+      },
+      "required": [
+        "name",
+        "consumer",
+        "producer"
+      ]
+    },
+    "updateMirrorMaker": {
+      "type": "object",
+      "properties": {
+        "updateMirrorMaker": {
+          "$ref": "#/definitions/updateMirrorMaker.mirrorMaker"
+        }
+      }
+    },
+    "updateMirrorMaker.mirrorMaker": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Existing Mirror Maker name",
+          "example": "centraltoedge"
+        },
+        "consumer": {
+          "type": "string",
+          "description": "Consumer hostname/IP Address",
+          "example": "10.12.6.98:30491"
+        },
+        "producer": {
+          "type": "string",
+          "description": "Producer hostname/IP Address",
+          "example": "10.12.5.108:30491"
+        },
+        "numStreams": {
+          "type": "string",
+          "description": "Update number of consumer threads",
+          "example": "3"
+        },
+        "enablelogCheck": {
+          "type": "string",
+          "description": "Enable/Disable error log monitoring on the MirrorMaker thread",
+          "example": "false"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "listAllMirrorMaker": {
+      "type": "object",
+      "properties": {
+        "listAllMirrorMaker": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/listAllMirrorMaker.mirrorMaker"
+          }
+        }
+      }
+    },
+    "listAllMirrorMaker.mirrorMaker": {
+      "type": "object"
+    },
+    "deleteMirrorMaker": {
+      "type": "object",
+      "properties": {
+        "deleteMirrorMaker": {
+          "$ref": "#/definitions/deleteMirrorMaker.mirrorMaker"
+        }
+      }
+    },
+    "deleteMirrorMaker.mirrorMaker": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Existing Mirror Maker name",
+          "example": "centraltoedge2"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "createWhitelist": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Existing Mirror Maker name",
+          "example": "centraltoedge"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "",
+          "example": "org.onap.dmaap.mr"
+        },
+        "whitelistTopicName": {
+          "type": "string",
+          "description": "Topic name to add to the whitelist",
+          "example": "org.onap.dmaap.mr.mrtesttopic2"
+        }
+      },
+      "required": [
+        "name",
+        "namespace",
+        "whitelistTopicName"
+      ]
+    },
+    "listallwhitelist": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Existing Mirror Maker name",
+          "example": "centraltoedge"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "",
+          "example": "org.onap.dmaap.mr"
+        }
+      },
+      "required": [
+        "name",
+        "namespace"
+      ]
+    },
+    "deleteeWhitelist": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Existing Mirror Maker name",
+          "example": "centraltoedge"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "",
+          "example": "org.onap.dmaap.mr"
+        },
+        "whitelistTopicName": {
+          "type": "string",
+          "description": "Topic name to delete from the whitelist",
+          "example": "org.onap.dmaap.mr.mrtesttopic2"
+        }
+      },
+      "required": [
+        "name",
+        "namespace",
+        "whitelistTopicName"
+      ]
+    }
+  }
+}
