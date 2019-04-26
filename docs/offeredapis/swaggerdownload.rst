@@ -10,4 +10,4 @@ DMaaP Message Router REST API Download docs
   :header: "API name", "Swagger JSON"
   :widths: 10,5
 
-   "DMaaP MessageRouter API", ":download:`link <swagger .json>`"
+   "DMaaP MessageRouter API", ":download:`link <swagger.json>`"
