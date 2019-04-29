@@ -1,20 +1,21 @@
 version: '2'
 services:
   zookeeper:
-    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:1.0.0
+    image: nexus3.onap.org:10001/onap/dmaap/zookeeper:5.0.0
     ports:
       - "2181:2181"
 
   kafka:
-   #CADI integrated kafka image
-   #image: nexus3.onap.org:10001/onap/dmaap/kafka01101:0.0.2
-   image: nexus3.onap.org:10001/onap/dmaap/kafka01101:0.0.1
+   image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.0
    ports:
     - "9092:9092"
    environment:
+    # For creating authenticated topics add AAF locate aplication ip address to host alias aaf-onap-test.osaaf.org
+    # For creating the authenticated topics enable the following property
     enableCadi: 'false'
     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    #Properties required for using the CADI integrated Kafka
+    KAFKA_LOG_DIRS: /opt/kafka/data
+    # Uncomment the following lines to create authenticated topics
     #KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_SASL_PLAINTEXT:SASL_PLAINTEXT,EXTERNAL_SASL_PLAINTEXT:SASL_PLAINTEXT
     #KAFKA_ADVERTISED_LISTENERS: INTERNAL_SASL_PLAINTEXT://kafka:9092
     #KAFKA_LISTENERS: INTERNAL_SASL_PLAINTEXT://0.0.0.0:9092
@@ -23,7 +24,7 @@ services:
     #KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
     #KAFKA_AUTHORIZER_CLASS_NAME: org.onap.dmaap.kafkaAuthorize.KafkaCustomAuthorizer
     #aaf_locate_url: https://aaf-onap-test.osaaf.org:8095
-    #Remove the below 4 properties if CADI is enabled
+    # Remove the following 4 lines to create authenticated topics
     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL_PLAINTEXT:PLAINTEXT,EXTERNAL_PLAINTEXT:PLAINTEXT
     KAFKA_ADVERTISED_LISTENERS: INTERNAL_PLAINTEXT://kafka:9092
     KAFKA_LISTENERS: INTERNAL_PLAINTEXT://0.0.0.0:9092
@@ -34,7 +35,7 @@ services:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.9
+    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:1.1.13
     ports:
       - "3904:3904"
       - "3905:3905"
