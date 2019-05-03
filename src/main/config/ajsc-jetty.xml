@@ -86,9 +86,9 @@
 	<!-- SSL Keystore configuration -->
 	
 	 <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
-             <Set name="KeyStorePath"><SystemProperty name="AJSC_HOME" />/bundleconfig/etc/keystore.jks</Set>
-                  <Set name="KeyStorePassword">Messaging for All</Set>
-                       <Set name="KeyManagerPassword">Messaging for All</Set>
+             <Set name="KeyStorePath"><SystemProperty name="AJSC_HOME" />/bundleconfig/etc/org.onap.dmaap.mr.jks</Set>
+                  <Set name="KeyStorePassword">7&K$FSZV1hl%z.mIfDrB2Zb3</Set>
+                       <Set name="KeyManagerPassword">7&K$FSZV1hl%z.mIfDrB2Zb3</Set>
          </New>
          <Call id="sslConnector" name="addConnector">
                  <Arg>
