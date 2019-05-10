@@ -23,7 +23,6 @@
 
 import java.io.File;
 
-//import com.att.ssf.filemonitor.FileChangedListener;
 /**
  * Class ServicePropertiesListener
  * @author rajashree.khare

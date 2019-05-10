@@ -266,7 +266,7 @@
 			required="false" />
 		<variableDescription key="SOA_CLOUD_NAMESPACE"
 			description="the Namespace used for GRM service registrations"
-			defaultValue="com.att.ajsc" required="false" />
+			defaultValue="org.onap.dmaap" required="false" />
 		<variableDescription key="AFT_SERVICE_ENV"
 			description="the AFT Servie Env found within CSI used for GRM service registrations (routeOffer)"
 			defaultValue="DEFAULT" required="false" />

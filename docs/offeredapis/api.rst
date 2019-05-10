@@ -277,7 +277,7 @@ Sample Request:
 ===============
 
 +----------------------------------------------------------------------------------------------------+
-| GET  http://<hostname>:3904/events/com.att.dmaap.mr.sprint/mygroup/mycus                           |
+| GET  http://<hostname>:3904/events/org.onap.dmaap.mr.sprint/mygroup/mycus                           |
 |                                                                                                    |
 | Content-Type: application/json                                                                     |
 |                                                                                                    |
@@ -285,7 +285,7 @@ Sample Request:
 |                                                                                                    |
 |curl -u XXX@csp.abc.com:MRDmap2016$ -X GET -d 'MyfirstMessage'                                      |
 |                                                                                                    |
-|http://mrlocal00.dcae.proto.research.att.com:3904/events/com.att.ecomp_test.crm.preDeo/myG/C1       |
+|http://10.12.7.22:3904/events/com.att.ecomp_test.crm.preDeo/myG/C1       |
 |                                                                                                    |
 |[I am r sending first msg,I am R sending first msg]                                                 |
 +----------------------------------------------------------------------------------------------------+
@@ -448,9 +448,9 @@ Sample Request:
 ===============
 
 +-----------------------------------------------------------------------------------------------------------------------------------+
-| GET   http://<hostname>:3904/topic/com.att.dmaap.mr.testtopic                                                                     |
+| GET   http://<hostname>:3904/topic/org.onap.dmaap.mr.testtopic                                                                     |
 |       curl -u XXX@csp.abc.com:x$  -X                                                                                              |
-| GET  http://mrlocal00.dcae.proto.research.att.com:3904/topics                                                                     |
+| GET  http://10.12.7.22:3904/topics                                                                     |
 |    {"topics": [                                                                                                                   |
 |    {"txenabled": true,"description": "This is a TestTopic","owner": "XXXX@csp.abc.com","topicName": "org.onap.dmaap.mr.Load9"|
 |    {"txenabled": false,"description": "", "owner": "", "topicName": "org.onap.dmaap.mr.Load1"                                |
