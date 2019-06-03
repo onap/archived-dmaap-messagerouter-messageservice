@@ -86,10 +86,11 @@
 	<!-- SSL Keystore configuration -->
 	
 	 <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
-             <Set name="KeyStorePath"><SystemProperty name="AJSC_HOME" />/bundleconfig/etc/org.onap.dmaap.mr.jks</Set>
-                  <Set name="KeyStorePassword">jkspassword</Set>
-                       <Set name="KeyManagerPassword">jkspassword</Set>
-         </New>
+		 			<Set name="KeyStorePath"><SystemProperty name="AJSC_HOME" />/bundleconfig/etc/org.onap.dmaap.mr.jks</Set>
+		 			<Set name="KeyStorePassword">jkspassword</Set>
+		 			<Set name="KeyManagerPassword">jkspassword</Set>
+		 			<Set name="WantClientAuth">true</Set>
+	 </New>
          <Call id="sslConnector" name="addConnector">
                  <Arg>
                      <New class="org.eclipse.jetty.server.ServerConnector">
