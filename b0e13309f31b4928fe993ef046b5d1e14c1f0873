@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: sunil unnava <su622b@att.com>
+Submitted-by: sunil unnava <su622b@att.com>
+Submitted-at: Mon, 03 Jun 2019 17:32:57 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dmaap/messagerouter/messageservice/+/89130
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/master
