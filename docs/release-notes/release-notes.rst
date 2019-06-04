@@ -5,6 +5,40 @@
 Release Notes
 =============
 
+Version: 1.1.14 (Dublin)
+--------------
+
+:Release Date: 2019-06-06
+
+**New Features**
+
+- Upgrade Kafka to v1.1.1
+- Support for Authenticated topics
+- Add Scaling support
+- Support for multi-site applications 
+- Add MirrorMaker to allow for message replication across Kafka clusters
+
+**Bug Fixes**
+	NA
+**Known Issues**
+	NA
+
+**Security Notes**
+
+DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_.
+
+Quick Links:
+
+- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+- `Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_
+
+**Upgrade Notes**
+  NA
+
+**Deprecation Notes**
+
+
 Version: 1.1.8
 --------------
 
