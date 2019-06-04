@@ -6,7 +6,7 @@ Release Notes
 =============
 
 Version: 1.1.14 (Dublin)
---------------
+------------------------
 
 :Release Date: 2019-06-06
 
@@ -25,13 +25,13 @@ Version: 1.1.14 (Dublin)
 
 **Security Notes**
 
-DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_.
+DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `Dublin <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_.
 
 Quick Links:
 
 - `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
 - `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
-- `Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_
+- `Dublin Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_
 
 **Upgrade Notes**
   NA
@@ -39,8 +39,8 @@ Quick Links:
 **Deprecation Notes**
 
 
-Version: 1.1.8
---------------
+Version: 1.1.8 (Casablanca)
+---------------------------
 
 :Release Date: 2018-11-30
 
@@ -52,19 +52,20 @@ Version: 1.1.8
 
 **Bug Fixes**
 	NA
+	
 **Known Issues**
 
 If the ZooKeeper  is restarted, Message Router works as expected only after restarting the Message Router . Refer  `Jira <https://jira.onap.org/browse/DMAAP-893>`_  for more details
 
 **Security Notes**
 
-DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=42598688>`_.
+DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `Casablanca <https://wiki.onap.org/pages/viewpage.action?pageId=42598688>`_.
 
 Quick Links:
 
 - `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
 - `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
-- `Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=42598688>`_
+- `Casablanca Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=42598688>`_
 
 **Upgrade Notes**
   NA
