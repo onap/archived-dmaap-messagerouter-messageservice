@@ -20,81 +20,150 @@
 
  package org.onap.dmaap.util;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-
+import javax.security.cert.X509Certificate;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
-import org.junit.After;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.att.ajsc.beans.PropertiesMapBean;
-import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
-import org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ PropertiesMapBean.class, DMaaPResponseCode.class })
+@RunWith(MockitoJUnitRunner.class)
 public class DMaaPAuthFilterTest {
 
-	@InjectMocks
-	DMaaPAuthFilter filter;
+	@Spy
+	private DMaaPAuthFilter filter;
+
+	private MockHttpServletRequest request;
+
+	private MockHttpServletResponse response;
 
 	@Mock
-	HttpServletRequest req;
-
-	@Mock
-	ServletResponse res;
-
-	@Mock
-	FilterChain chain;
-
-	@Mock
-	DMaaPContext dmaapContext;
+	private FilterChain chain;
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@Test
+	public void doFilter_shouldNotUseCadiFilter_whenCadiNotEnabled() throws IOException, ServletException {
+		//given
+		when(filter.isCadiEnabled()).thenReturn(false);
+
+		//when
+		filter.doFilter(request, response, chain);
+
+		//then
+		verify(chain).doFilter(request, response);
 	}
 
-	//@Test
-	public void testDoFilter() throws IOException, ServletException {
+	@Test
+	public void shouldFilterWithCADI_willBeFalse_whenCadiEnabled_noAuthData_affNotForced_notInvenioApp() {
+		//given
+		configureSettingsFlags(false);
 
-		PowerMockito.when(dmaapContext.getRequest()).thenReturn(req);
-		PowerMockito.when(req.getHeader("Authorization")).thenReturn("Authorization");
-		// when(dmaapContext.getResponse()).thenReturn(res);
-		filter.doFilter(req, res, chain);
-		assertTrue(true);
+		//when
+		boolean filteringWithCADI = filter.shouldFilterWithCADI(request);
 
+		//then
+		assertFalse(filteringWithCADI);
 	}
 
-	//@Test
-	public void testDoFilter_nullAuth() throws IOException, ServletException {
+	@Test
+	public void shouldFilterWithCADI_willBeTrue_whenCadiEnabled_andAAFforcedFlagSet() {
+		//given
+		configureSettingsFlags(true);
 
-		PowerMockito.when(dmaapContext.getRequest()).thenReturn(req);
-		PowerMockito.when(req.getHeader("Authorization")).thenReturn("Authorization");
+		//when
+		boolean filteringWithCADI = filter.shouldFilterWithCADI(request);
 
-		// when(dmaapContext.getResponse()).thenReturn(res);
-		filter.doFilter(req, res, chain);
-		assertTrue(true);
-
+		//then
+		assertTrue(filteringWithCADI);
 	}
-	
+
+	@Test
+	public void shouldFilterWithCADI_willBeTrue_whenCadiEnabled_andBasicAuthorization() {
+		//given
+		configureSettingsFlags(false);
+		request.addHeader(DMaaPAuthFilter.AUTH_HEADER, Base64.encodeBase64("user/pass".getBytes()));
+
+		//when
+		boolean filteringWithCADI = filter.shouldFilterWithCADI(request);
+
+		//then
+		assertTrue(filteringWithCADI);
+	}
+
+	@Test
+	public void shouldFilterWithCADI_willBeTrue_whenCadiEnabled_andClientCertificate() {
+		//given
+		configureSettingsFlags(false);
+		request.setAttribute(DMaaPAuthFilter.X509_ATTR, new X509Certificate[]{});
+
+		//when
+		boolean filteringWithCADI = filter.shouldFilterWithCADI(request);
+
+		//then
+		assertTrue(filteringWithCADI);
+	}
+
+	@Test
+	public void shouldFilterWithCADI_willBeTrue_whenCadiEnabled_andInvenioAppWithCookie() {
+		//given
+		configureSettingsFlags(false);
+		request.addHeader(DMaaPAuthFilter.APP_HEADER, "invenio");
+		request.addHeader(DMaaPAuthFilter.COOKIE_HEADER, "value");
+
+		//when
+		boolean filteringWithCADI = filter.shouldFilterWithCADI(request);
+
+		//then
+		assertTrue(filteringWithCADI);
+	}
+
+	@Test
+	public void shouldFilterWithCADI_willBeFalse_whenCadiEnabled_andInvenioAppWithoutCookie() {
+		//given
+		configureSettingsFlags(false);
+		request.addHeader(DMaaPAuthFilter.APP_HEADER, "invenio");
+
+		//when
+		boolean filteringWithCADI = filter.shouldFilterWithCADI(request);
+
+		//then
+		assertFalse(filteringWithCADI);
+	}
+
+	@Test
+	public void shouldFilterWithCADI_willBeFalse_whenCadiEnabled_andNotInvenioApp() {
+		//given
+		configureSettingsFlags(false);
+		request.addHeader(DMaaPAuthFilter.APP_HEADER, "application");
+
+		//when
+		boolean filteringWithCADI = filter.shouldFilterWithCADI(request);
+
+		//then
+		assertFalse(filteringWithCADI);
+	}
+
+	private void configureSettingsFlags(boolean isAAFforced) {
+		when(filter.isCadiEnabled()).thenReturn(true);
+		when(filter.isAAFforced()).thenReturn(isAAFforced);
+	}
 	
 }
