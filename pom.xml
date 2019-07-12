@@ -172,7 +172,7 @@
 		<!-- <dmaapImg>${project.version}</dmaapImg> -->
 		<timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
-		<camel.version>2.21.1</camel.version>
+		<camel.version>2.21.5</camel.version>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
 		<skip.docker.build>true</skip.docker.build>
 		<skip.docker.tag>true</skip.docker.tag>
@@ -332,6 +332,11 @@
 					<groupId>org.apache.ant</groupId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
