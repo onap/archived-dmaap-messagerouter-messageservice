@@ -1,3 +1,4 @@
+#!/bin/bash
 #*******************************************************************************
 #  ============LICENSE_START=======================================================
 #  org.onap.dmaap
@@ -27,5 +28,12 @@ echo "AJSC HOME directory is " $root_directory
 echo "AJSC Conf Directory is" $config_directory
 echo "Starting using" $runner_file
 
+if [ -z "${MR_JVM_ARGS}" ]; then
 
-java -jar  -XX:MaxPermSize=256m -XX:PermSize=32m  -DSOACLOUD_SERVICE_VERSION=0.0.1 -DAJSC_HOME=$root_directory -DAJSC_CONF_HOME=$config_directory -DAJSC_SHARED_CONFIG=$config_directory -DAJSC_HTTPS_PORT=3905 -Dplatform=NON-PROD -DPid=1306 -Dlogback.configurationFile=/appl/dmaapMR1/bundleconfig/etc/logback.xml -Xmx512m -Xms512m  $runner_file context=/ port=3904 sslport=3905
+java -jar   -Xmx512m -Xms512m -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=5555 -Dcom.sun.management.jmxremote.port=5555  -DSOACLOUD_SERVICE_VERSION=0.0.1 -DAJSC_HOME=$root_directory -DAJSC_CONF_HOME=$config_directory -DAJSC_SHARED_CONFIG=$config_directory -DAJSC_HTTPS_PORT=3905 -Dplatform=NON-PROD -DPid=1306 -Dlogback.configurationFile=/appl/dmaapMR1/bundleconfig/etc/logback.xml -Xmx512m -Xms512m  $runner_file context=/ port=3904 sslport=3905
+
+else
+
+java -jar  $MR_JVM_ARGS  -DSOACLOUD_SERVICE_VERSION=0.0.1 -DAJSC_HOME=$root_directory -DAJSC_CONF_HOME=$config_directory -DAJSC_SHARED_CONFIG=$config_directory -DAJSC_HTTPS_PORT=3905 -Dplatform=NON-PROD -DPid=1306 -Dlogback.configurationFile=/appl/dmaapMR1/bundleconfig/etc/logback.xml -Xmx512m -Xms512m  $runner_file context=/ port=3904 sslport=3905
+
+fi
