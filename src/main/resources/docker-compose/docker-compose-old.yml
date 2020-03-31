@@ -16,11 +16,7 @@ services:
      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/zookeeper/secrets/jaas/zk_server_jaas.conf -Dzookeeper.kerberos.removeHostFromPrincipal=true -Dzookeeper.kerberos.removeRealmFromPrincipal=true -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -Dzookeeper.requireClientAuthScheme=sasl
      ZOOKEEPER_SERVER_ID: 1
     volumes:
-      -  ./zk/zk_server_jaas.conf:/etc/zookeeper/secrets/jaas/zk_server_jaas.conf
-    networks:
-      net:
-        aliases:
-        - zookeeper
+      -  ./zk/zk_server_jaas.conf:/opt/app/subscriber/etc/subscriber.properties
 
   kafka:
    image: nexus3.onap.org:10001/onap/dmaap/kafka111:1.0.4
@@ -39,11 +35,7 @@ services:
     KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/jaas/zk_client_jaas.conf
     KAFKA_ZOOKEEPER_SET_ACL: 'true'
    volumes:
-     -  ./kafka/zk_client_jaas.conf:/etc/kafka/secrets/jaas/zk_client_jaas.conf
-   networks:
-     net:
-       aliases:
-       - kafka
+    - /var/run/docker.sock:/var/run/docker.sock
    depends_on:
     - zookeeper
 
@@ -55,13 +47,7 @@ services:
     environment:
      enableCadi: 'false'
     volumes:
-      - /mr/MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
-      - /mr/logback.xml:/appl/dmaapMR1/bundleconfig/etc/logback.xml
-      - /mr/cadi.properties:/appl/dmaapMR1/etc/cadi.properties
-    networks:
-      net:
-        aliases:
-        - dmaap
+      - /var/tmp/MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
     depends_on:
       - zookeeper
       - kafka
