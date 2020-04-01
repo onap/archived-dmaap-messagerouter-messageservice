@@ -38,6 +38,7 @@ services:
     KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
     KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/jaas/zk_client_jaas.conf
     KAFKA_ZOOKEEPER_SET_ACL: 'true'
+    KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
    volumes:
      -  ./kafka/zk_client_jaas.conf:/etc/kafka/secrets/jaas/zk_client_jaas.conf
    networks:
