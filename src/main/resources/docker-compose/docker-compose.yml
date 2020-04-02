@@ -56,7 +56,7 @@ services:
     environment:
      enableCadi: 'false'
     volumes:
-      - ./mr/MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
+      - /var/tmp/MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
       - ./mr/logback.xml:/appl/dmaapMR1/bundleconfig/etc/logback.xml
       - ./mr/cadi.properties:/appl/dmaapMR1/etc/cadi.properties
     networks:
