@@ -39,6 +39,8 @@ services:
     KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/jaas/zk_client_jaas.conf
     KAFKA_ZOOKEEPER_SET_ACL: 'true'
     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    # Reduced the number of partitions only to avoid the timeout error for the first subscribe call in slow environment
+    KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: 10
    volumes:
      -  ./kafka/zk_client_jaas.conf:/etc/kafka/secrets/jaas/zk_client_jaas.conf
    networks:
@@ -56,7 +58,7 @@ services:
     environment:
      enableCadi: 'false'
     volumes:
-      - /var/tmp/MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
+      - ./mr/MsgRtrApi.properties:/appl/dmaapMR1/bundleconfig/etc/appprops/MsgRtrApi.properties
       - ./mr/logback.xml:/appl/dmaapMR1/bundleconfig/etc/logback.xml
       - ./mr/cadi.properties:/appl/dmaapMR1/etc/cadi.properties
     networks:
