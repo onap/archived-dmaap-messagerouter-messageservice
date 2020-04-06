@@ -40,7 +40,7 @@ services:
     KAFKA_ZOOKEEPER_SET_ACL: 'true'
     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     # Reduced the number of partitions only to avoid the timeout error for the first subscribe call in slow environment
-    KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: 10
+    KAFKA_OFFSETS_TOPIC_NUM_PARTITIONS: 1
    volumes:
      -  ./kafka/zk_client_jaas.conf:/etc/kafka/secrets/jaas/zk_client_jaas.conf
    networks:
