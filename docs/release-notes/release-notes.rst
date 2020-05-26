@@ -5,40 +5,117 @@
 Release Notes
 =============
 
-Version: 6.0.0 (Frankfurt Release)
-------------------------
-
-:Release Date: 2019-05-20
-
-**New Features**
-
-- Kafka and Zookeeper images are created using confluent community edition 5.3.0 
-- Prometheus monitoring
-- Protected all the Kafka operations using AAF
-- Remove the AAF dependency by toggling  a flag
+.. note
+..	* This Release Notes must be updated each time the team decides to Release new artifacts.
+..	* The scope of this Release Notes is for this particular component. In other words, each ONAP component has its Release Notes.
+..	* This Release Notes is cumulative, the most recently Released artifact is made visible in the top of this Release Notes.
+..	* Except the date and the version number, all the other sections are optional but there must be at least one section describing the purpose of this new release.
+..	* This note must be removed after content has been added.
 
 
-**Bug Fixes**
+Abstract
+========
 
-NA
+This document provides the release notes for the Frankfurt release.
 
-**Known Issues**
-	NA
+Summary
+=======
 
-**Security Notes**
 
-DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `Dublin <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_.
+Release Data
+============
+
++--------------------------------------+--------------------------------------+
+| **DMaap Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | - onap/dmaap/dmaap-mr:1.1.18         |
+|                                      | - onap/dmaap/kafka111:1.0.4          |
+|                                      | - onap/dmaap/zookeeper:6.0.3         |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | 6.0.0 frankfurt                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | 2020-06-04                           |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+
+New features
+------------
+* Kafka and Zookeeper images are created using confluent community edition 5.3.0 
+* Prometheus monitoring
+* Protected all the Kafka operations using AAF
+* Remove the AAF dependency by toggling  a flag
+
+
+Known Limitations, Issues and Workarounds
+=========================================
+
+System Limitations
+------------------
+
+
+Known Vulnerabilities
+---------------------
+* CVE-2016-1000027
+* CVE-2018-11307
+* CVE-2019-13990
+* SONATYPE-2018-0624
+* CVE-2018-12022
+* SONATYPE-2019-0414
+* SONATYPE-2019-0808
+* CVE-2019-10241
+* CVE-2019-12406
+* CVE-2020-5408
+* CVE-2019-10246
+* CVE-2019-10247
+* CVE-2020-5397
+* SONATYPE-2012-0050
+* SONATYPE-2017-0507
+* SONATYPE-2019-0469
+* CVE-2018-12023
+* SONATYPE-2018-0624
+* CVE-2019-20444
+* CVE-2019-20445
+* CVE-2019-16869
+* SONATYPE-2020-0029
+* SONATYPE-2020-0103
+* CVE-2019-17571
+* CVE-2020-5398
+* CVE-2018-17196
+
+
+Workarounds
+-----------
+
+
+Security Notes
+--------------
+
+
+References
+==========
+
+For more information on the ONAP Frankfurt release, please see:
+
+#. `ONAP Home Page`_
+#. `ONAP Documentation`_
+#. `ONAP Release Downloads`_
+#. `ONAP Wiki Page`_
+
+
+.. _`ONAP Home Page`: https://www.onap.org
+.. _`ONAP Wiki Page`: https://wiki.onap.org
+.. _`ONAP Documentation`: https://docs.onap.org
+.. _`ONAP Release Downloads`: https://git.onap.org
 
 Quick Links:
 
-- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
-- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+* `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+* `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
 
-
-**Upgrade Notes**
-  NA
-
-**Deprecation Notes**
 
 Version: 1.1.16 (ElAlto)
 ------------------------
