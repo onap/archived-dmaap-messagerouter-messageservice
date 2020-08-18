@@ -5,6 +5,38 @@
 Release Notes
 =============
 
+Version: 1.1.16 (ElAlto maintenance)
+------------------------
+
+:Release Date: 2020-08-24
+
+**New Features**
+
+- Updating expired certificate
+
+
+**Bug Fixes**
+
+
+**Known Issues**
+        NA
+
+**Security Notes**
+
+DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, Items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `ElAlto <https://wiki.onap.org/pages/viewpage.action?pageId=71835817>`_.
+
+Quick Links:
+
+- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+- `ElAlto Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=71835817>`_
+
+**Upgrade Notes**
+  NA
+
+**Deprecation Notes**
+
+
 Version: 1.1.16 (ElAlto)
 ------------------------
 
@@ -27,13 +59,13 @@ Version: 1.1.16 (ElAlto)
 
 **Security Notes**
 
-DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `Dublin <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_.
+DMAAP code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, Items that remain open have been assessed for risk and determined to be false positive. The DMAAP open Critical security vulnerabilities and their risk assessment have been documented as part of the `ElAlto <https://wiki.onap.org/pages/viewpage.action?pageId=71835817>`_.
 
 Quick Links:
 
 - `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
 - `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
-- `Dublin Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=64003715>`_
+- `ElAlto Project Vulnerability Review Table for DMAAP <https://wiki.onap.org/pages/viewpage.action?pageId=71835817>`_
 
 **Upgrade Notes**
   NA
