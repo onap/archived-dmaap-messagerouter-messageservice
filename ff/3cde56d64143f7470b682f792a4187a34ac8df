@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: sunil unnava <su622b@att.com>
+Submitted-by: sunil unnava <su622b@att.com>
+Submitted-at: Wed, 19 Aug 2020 02:07:02 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dmaap/messagerouter/messageservice/+/111395
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/elalto
