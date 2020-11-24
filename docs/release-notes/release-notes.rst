@@ -3,6 +3,110 @@
 .. _release_notes:
 
 ..      ===========================
+..      * * *    GUILIN    * * *
+..      ===========================
+
+Release Notes
+=============
+
+Abstract
+--------
+
+This document provides the DMaaP Message Router release notes for the Guilin release.
+
+Summary
+-------
+
+
+Release Data
+------------
+
++--------------------------------------+--------------------------------------+
+| **DMaaP Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | - onap/dmaap/dmaap-mr:1.1.18         |
+|                                      | - onap/dmaap/kafka111:1.0.4          |
+|                                      | - onap/dmaap/zookeeper:6.0.3         |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | 6.0.0 frankfurt                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | 2020-11-18                           |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+
+New features
+------------
+
+Known Limitations, Issues and Workarounds
+-----------------------------------------
+
+System Limitations
+------------------
+
+
+Known Vulnerabilities
+---------------------
+* CVE-2016-1000027
+* CVE-2018-11307
+* CVE-2019-13990
+* SONATYPE-2018-0624
+* CVE-2018-12022
+* SONATYPE-2019-0414
+* SONATYPE-2019-0808
+* CVE-2019-10241
+* CVE-2019-12406
+* CVE-2020-5408
+* CVE-2019-10246
+* CVE-2019-10247
+* CVE-2020-5397
+* SONATYPE-2012-0050
+* SONATYPE-2017-0507
+* SONATYPE-2019-0469
+* CVE-2018-12023
+* SONATYPE-2018-0624
+* CVE-2019-20444
+* CVE-2019-20445
+* CVE-2019-16869
+* SONATYPE-2020-0029
+* SONATYPE-2020-0103
+* CVE-2019-17571
+* CVE-2020-5398
+* CVE-2018-17196
+
+
+Workarounds
+-----------
+
+
+Security Notes
+--------------
+
+
+References
+----------
+
+For more information on the ONAP Frankfurt release, please see:
+
+#. `ONAP Home Page`_
+#. `ONAP Documentation`_
+#. `ONAP Release Downloads`_
+#. `ONAP Wiki Page`_
+
+
+.. _`ONAP Home Page`: https://www.onap.org
+.. _`ONAP Wiki Page`: https://wiki.onap.org
+.. _`ONAP Documentation`: https://docs.onap.org
+.. _`ONAP Release Downloads`: https://git.onap.org
+
+Quick Links:
+- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+
+..      ===========================
 ..      * * *    FRANKFURT    * * *
 ..      ===========================
 
