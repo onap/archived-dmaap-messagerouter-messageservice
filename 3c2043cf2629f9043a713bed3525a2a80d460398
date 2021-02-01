@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d566bcca_f77aaeb3",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-02-01T17:44:17Z",
+      "side": 1,
+      "message": "2.11.2",
+      "range": {
+        "startLine": 522,
+        "startChar": 15,
+        "endLine": 522,
+        "endChar": 19
+      },
+      "revId": "3c2043cf2629f9043a713bed3525a2a80d460398",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90fc9aa7_2a9181ba",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-02-01T17:44:17Z",
+      "side": 1,
+      "message": "3.4.0",
+      "range": {
+        "startLine": 604,
+        "startChar": 15,
+        "endLine": 604,
+        "endChar": 25
+      },
+      "revId": "3c2043cf2629f9043a713bed3525a2a80d460398",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6816bad2_22fb9a89",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-02-01T17:44:17Z",
+      "side": 1,
+      "message": "3.5.0",
+      "range": {
+        "startLine": 614,
+        "startChar": 21,
+        "endLine": 614,
+        "endChar": 27
+      },
+      "revId": "3c2043cf2629f9043a713bed3525a2a80d460398",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f55e2eb_d4591990",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-02-01T17:44:17Z",
+      "side": 1,
+      "message": "3.5.0",
+      "range": {
+        "startLine": 652,
+        "startChar": 22,
+        "endLine": 652,
+        "endChar": 31
+      },
+      "revId": "3c2043cf2629f9043a713bed3525a2a80d460398",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b97133b7_471bc161",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-02-01T17:44:17Z",
+      "side": 1,
+      "message": "3.5.0",
+      "range": {
+        "startLine": 692,
+        "startChar": 21,
+        "endLine": 692,
+        "endChar": 24
+      },
+      "revId": "3c2043cf2629f9043a713bed3525a2a80d460398",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
