@@ -9,14 +9,14 @@ Offered APIs
 
 DMaaP Message Router utilizes an HTTP REST API to service all Publish
 and Consume transactions. HTTP and REST standards are followed so
-clients as varied as CURL, Java applications and even Web Browsers will
-work to interact with Message Router.Message Router uses AAF for user's
+clients as varied as cURL, Java applications and even Web Browsers will
+work to interact with Message Router. Message Router uses AAF for user's
 authentication and authorization.
 
 General HTTP Requirements
 -------------------------
 
-A DMaaP Message Router transactions consists of 4 distinct segments,
+A DMaaP Message Router transaction consists of 4 distinct segments:
 HTTP URL, HTTP Header, HTTP Body (POST) and HTTP Response. The general
 considerations for each segment are as follows and are required for each
 of the specific transactions described in this section.
@@ -53,17 +53,17 @@ are not inspected for content.
 |                         | delivered through the Kafka cluster.                                                                            |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 | application/json        | The payload maybe a single JSON object or a JSON array of JSON objects. Each object is handled as an individual |
-|                         | message..Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      |
+|                         | message. Note that use of this format may result in equivalent but altered JSON objects sent to consumers.      |
 |                         | That's because MR uses a standard JSON parser to read each object into memory before pushing the object to the  |
 |                         | Kafka system. At that point, the JSON object is re-written from the in-memory object. This can result in        |
 |                         | re-ordered fields or changes in whitespace. If you want to preserve JSON objects exactly,                       |
-|                         | use application/cambria. Recommended to follow the JSON format.                                                 |
+|                         | use application/cambria. Following the JSON format is recommended.                                              |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------+
 
 Publishers
 -----------
 
-**Description**:Publishes data to Kafka server on the topic mentioned in the URL.
+**Description**: Publishes data to Kafka server on the topic mentioned in the URL.
 Messages will be in the request body
 
 The MessageRouter service has no requirements on what publishers can put
@@ -133,17 +133,17 @@ Response /Error Codes
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
 | Error code             |  HTTPCode     |  Description                    | Issue Reason                                                                                            |
 +========================+===============+=================================+=========================================================================================================+
-| DMaaP\_MR\_ERR\_3001   | 413           | Request Entity too large        | Message size exceeds the batch limit <limit>.Reduce the batch size and try again                        |
+| DMaaP\_MR\_ERR\_3001   | 413           | Request Entity too large        | Message size exceeds the batch limit <limit>. Reduce the batch size and try again                       |
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
 | DMaaP\_MR\_ERR\_3002   | 500           | Internal Server Error           | Unable to publish messages. Please contact administrator                                                |
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
 | DMaaP\_MR\_ERR\_3003   | 400           | Bad Request                     | Incorrect Batching format. Please correct the batching format and try again                             |
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3004   | 413           | Request Entity too large        | Message size exceeds the message size limit <limit>.Reduce the message size and try again               |
+| DMaaP\_MR\_ERR\_3004   | 413           | Request Entity too large        | Message size exceeds the message size limit <limit>. Reduce the message size and try again              |
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
 | DMaaP\_MR\_ERR\_3005   | 400           | Bad Request                     | Incorrect JSON object. Please correct the JSON format and try again                                     |
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
-| DMaaP\_MR\_ERR\_3006   | 504           | Network Connect Timeout Error   | Connection to the DMaaP MR was timed out.Please try again                                               |
+| DMaaP\_MR\_ERR\_3006   | 504           | Network Connect Timeout Error   | Connection to the DMaaP MR was timed out. Please try again                                              |
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
 | DMaaP\_MR\_ERR\_3007   | 500           | Internal Server Error           | Failed to publish  messages to topic <topicName>. Successfully published <count > number of messages.   |
 +------------------------+---------------+---------------------------------+---------------------------------------------------------------------------------------------------------+
@@ -188,39 +188,39 @@ Sample Response:
 
 Subscribers
 -----------
-**Description**:To subscribe to a MessageRouter topic, a subscriber issues a GET to the RESTful HTTP endpoint for events.
+**Description**: To subscribe to a MessageRouter topic, a subscriber issues a GET to the RESTful HTTP endpoint for events.
 
 Request URL:
 ============
 
-GET http(s)://{HOST:PORT}}/events/{topicname}/{consumegroup}/{consumerid}/{timeout=x}
+GET http(s)://{HOST:PORT}}/events/{topicname}/{consumergroup}/{consumerid}/{timeout=x}
 
 Request Parameters:
 ===================
 
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
-| Name         | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format             |  Valid/Example Values  |
-+==============+=================================+==================+============+==============+=============+=====================+========================+
-| Topicname    | topic name to be posted         |     Path         |   String   |    40        |     Y       |                     |                        |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
-| Consumer     | A name that uniquely identifies |     Path         |   String   |              |     Y       |                     | CG1                    |
-| group        | your subscribers                |                  |            |              |             |                     |                        |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
-| consumerId   | Within your subscribers group,  |     Path         |   String   |              |     Y       |                     | C1                     |
-|              | a name that uniquely identifies |                  |            |              |             |                     |                        |
-|              | your subscribers  process       |                  |            |              |             |                     |                        |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
-| content-type | To specify type of message      |     Header       |   String   |     20       |     N       |                     | aplication/json        |
-|              | content(json,text or cambria)   |                  |            |              |             |                     |                        |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
-| Username     | userid                          |     Header       |   String   |     1        |     N       |                     |                        |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
-| Password     |                                 |     Header       |   String   |     1        |     N       |                     |                        |
-+--------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
++---------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| Name          | Description                     |  Param Type      |  data type |   MaxLen     |  Required   |  Format             |  Valid/Example Values  |
++===============+=================================+==================+============+==============+=============+=====================+========================+
+| topicname     | Topic name to be posted         |     Path         |   String   |    40        |     Y       |                     |                        |
++---------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| consumergroup | A name that uniquely identifies |     Path         |   String   |              |     Y       |                     | CG1                    |
+|               | your subscribers                |                  |            |              |             |                     |                        |
++---------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| consumerid    | Within your subscribers group,  |     Path         |   String   |              |     Y       |                     | C1                     |
+|               | a name that uniquely identifies |                  |            |              |             |                     |                        |
+|               | your subscribers process        |                  |            |              |             |                     |                        |
++---------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| content-type  | To specify type of message      |     Header       |   String   |     20       |     N       |                     | application/json       |
+|               | content(json, text or cambria)  |                  |            |              |             |                     |                        |
++---------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| Username      | userid                          |     Header       |   String   |     1        |     N       |                     |                        |
++---------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
+| Password      |                                 |     Header       |   String   |     1        |     N       |                     |                        |
++---------------+---------------------------------+------------------+------------+--------------+-------------+---------------------+------------------------+
 
-**NOTE**:To read data from a authenticated topic, User must have the 
+**NOTE**: To read data from an authenticated topic, User must have the 
 AAF permission org.onap.dmaap.mr.topic|:topic.<topic name>|sub. 
-Subscribers may use DMaaP BusController for provisoning the permissions in AAF
+Subscribers may use DMaaP BusController for provisioning the permissions in AAF
 
 Response Parameters:
 ====================
@@ -236,7 +236,7 @@ Response Parameters:
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 | helpURL          | helpurl                        |            |              |                                                           |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
-| tranactionid     | transaction-id value           |            |              | 28-12-2015::08:18:50:682::<IP>::28122015552391            |
+| transactionid    | transaction-id value           |            |              | 28-12-2015::08:18:50:682::<IP>::28122015552391            |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
 | ResponseBody     | Messages consumed from topic   | Json       | Json         |                                                           |
 +------------------+--------------------------------+------------+--------------+-----------------------------------------------------------+
@@ -292,8 +292,8 @@ Sample Request:
 
 Provisioning
 ------------
-**Description**: To create , modify or delete the MessageRouter topics.These APIs can also be used by other applications to provision topics in MessageRouter.
-DMaaP BusController is recommended for topic and AAf permissions provisoning
+**Description**: To create, modify or delete the MessageRouter topics. These APIs can also be used by other applications to provision topics in MessageRouter.
+DMaaP BusController is recommended for topic and AAF permissions provisioning
 
 Create Topic
 ============
@@ -312,17 +312,17 @@ Request Parameters:
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | topicDescription  | description for topic           |     Body         |   String   |     15       |     Y       |             |                                   |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
-| partitionCount    | Kafka topic partition           |     Body         |   String   |     1        |    Y        |             |                                   |
+| partitionCount    | Kafka topic partition           |     Body         |   String   |     1        |     Y       |             |                                   |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
-| replicationCount  | Kafka topic replication         |     Body         |   String   |     1        |    Y        |             | 3 (Default -for 3 node Kafka )    |
+| replicationCount  | Kafka topic replication         |     Body         |   String   |     1        |     Y       |             | 3 (Default -for 3 node Kafka )    |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
-| transaction       | to create transaction id for    |     Body         |  Boolean   |     1        |    N        |             | true                              |
+| transaction       | to create transaction id for    |     Body         |  Boolean   |     1        |     N       |             | true                              |
 | Enabled           | each message transaction        |                  |            |              |             |             |                                   |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | Content-Type      | application/json                |     Header       |   String   |              |             |             | application/json                  |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 
-**NOTE**:To Create a authenticated topic, user must have the AAF permission
+**NOTE**: To Create an authenticated topic, user must have the AAF permission
  org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|create 
 
 
@@ -374,7 +374,7 @@ Sample Request:
 
     .. code:: bash
 
-      POST   http://<hostname>:3904/topic/create
+      POST   http://<hostname>:3904/topics/create
   Request Body
   {"topicName":"org.onap.dmaap.mr.testtopic","description":"This is a test Topic ",
   "partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}
@@ -402,7 +402,7 @@ Request URL
 
 GET http(s)://{HOST:PORT}/topics    : To list the details of all the topics in Message Router.
 
-GET http(s)://{HOST:PORT}/topics/{topicname} : To list the details of specified topic .
+GET http(s)://{HOST:PORT}/topics/{topicname} : To list the details of a specified topic.
 
 Request Parameters
 ==================
@@ -410,10 +410,10 @@ Request Parameters
 +--------------------------+-------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
 | Name                     | Description             | Param Type       | Data type  | Max Len   | Required    | Format          | Valid/EXample values        |
 +==========================+=========================+==================+============+===========+=============+=================+=============================+
-| Topicname                | topic name details      | Body             | String     | 20        | Y           |  Json           | org.onap.dmaap.mr.testtopic |
+| topicname                | topic name details      | Body             | String     | 20        | Y           |  Json           | org.onap.dmaap.mr.testtopic |
 +--------------------------+-------------------------+------------------+------------+-----------+-------------+-----------------+-----------------------------+
 
-**NOTE**:To view a authenticated topic, user must have the AAF permission
+**NOTE**: To view an authenticated topic, user must have the AAF permission
  org.onap.dmaap.mr.topic|*|view 
 
 
@@ -448,12 +448,12 @@ Sample Request:
 ===============
 
 +-----------------------------------------------------------------------------------------------------------------------------------+
-| GET   http://<hostname>:3904/topic/org.onap.dmaap.mr.testtopic                                                                     |
+| GET   http://<hostname>:3904/topic/org.onap.dmaap.mr.testtopic                                                                    |
 |       curl -u XXX@csp.abc.com:x$  -X                                                                                              |
-| GET  http://10.12.7.22:3904/topics                                                                     |
+| GET  http://10.12.7.22:3904/topics                                                                                                |
 |    {"topics": [                                                                                                                   |
-|    {"txenabled": true,"description": "This is a TestTopic","owner": "XXXX@csp.abc.com","topicName": "org.onap.dmaap.mr.Load9"|
-|    {"txenabled": false,"description": "", "owner": "", "topicName": "org.onap.dmaap.mr.Load1"                                |
+|    {"txenabled": true,"description": "This is a TestTopic","owner": "XXXX@csp.abc.com","topicName": "org.onap.dmaap.mr.Load9"     |
+|    {"txenabled": false,"description": "", "owner": "", "topicName": "org.onap.dmaap.mr.Load1"                                     |
 |    ]},                                                                                                                            |
 +-----------------------------------------------------------------------------------------------------------------------------------+
 
@@ -464,14 +464,14 @@ Delete Topics
 Request URL:
 ============
 
-DELETE http(s)://{HOST:PORT}/topic/{topicname}
+DELETE http(s)://{HOST:PORT}/topics/{topicname}
 
-**NOTE**:To delete a  topic, user must have the AAF permission
+**NOTE**: To delete a topic, user must have the AAF permission
 org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|destroy 
 
 Sample Request:
 ===============
-ex: http://<hostname>:3904/dmaap/v1/topics/org.onap.dmaap.mr.testopic
+ex: http://<hostname>:3904/topics/org.onap.dmaap.mr.testopic
 
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
@@ -506,13 +506,13 @@ API Inventory
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
 |           | Create Topic       | createTopic(TopicBean topicBean)        | /topics/create                        | POST           |                                  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-|           | Delete Topic       | deleteTopicString topicName)            | /topics/{topicName}                   | DELETE         |  Not used in current MR version  |
+|           | Delete Topic       | deleteTopic(String topicName)           | /topics/{topicName}                   | DELETE         |  Not used in current MR version  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
 |           | Get Publishers     | getPublishersByTopicName                |                                       |                |                                  |
-|           | for a Topic        | String topicName)                       | /topics/{topicName}/producers         | GET            |  UEB Backward Compatibility      |
+|           | for a Topic        | (String topicName)                      | /topics/{topicName}/producers         | GET            |  UEB Backward Compatibility      |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
 |           | Add a Publisher    | permitPublisherForTopic                 | /topics/{topicName}/producers/        | PUT            |                                  |
-|           | to write ACLon     | (String topicName, String producerId)   | {producerId}                          |                |                                  |
+|           | to write ACL on    | (String topicName, String producerId)   | {producerId}                          |                |                                  |
 |           | a Topic            |                                         |                                       |                |                                  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
 |           | Remove a Publisher | denyPublisherForTopic(String topicName, | /topics/{topicName}/producers/        | DELETE         |                                  |
@@ -523,7 +523,7 @@ API Inventory
 |           | a Topic            | (String topicName)                      |                                       |                |                                  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
 |           | Add a Consumer     | permitConsumerForTopic(String           | /topics/{topicName}/consumers/        |  PUT           |                                  |
-|           | to read ACL        | topicName,String consumerId)            | {consumerId}                          |                |                                  |
+|           | to read ACL        | topicName, String consumerId)           | {consumerId}                          |                |                                  |
 |           | on a Topic         |                                         |                                       |                |                                  |
 |           +--------------------+-----------------------------------------+---------------------------------------+----------------+                                  |
 |           | Remove a consumer  | denyPublisherForTopic(String topicName, | /topics/{topicName}/consumers/        | DELETE         |                                  |
