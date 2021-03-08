@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.1.19'
+project: 'dmaap-messagerouter-docker'
+log-dir: 'dmaap-messagerouter-docker-maven-docker-stage-master/622'
+ref: ecf013686135c24b56acf552f47c3325ef35b6a9
+containers:
+  - name: dmaap/dmaap-mr
+    version: 1.1.19-STAGING-20210306T031646Z
