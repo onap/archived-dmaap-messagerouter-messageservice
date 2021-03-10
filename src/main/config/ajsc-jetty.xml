@@ -87,8 +87,8 @@
 	
 	 <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
 		 			<Set name="KeyStorePath"><SystemProperty name="AJSC_HOME" />/bundleconfig/etc/org.onap.dmaap.mr.jks</Set>
-		 			<Set name="KeyStorePassword">jkspassword</Set>
-		 			<Set name="KeyManagerPassword">jkspassword</Set>
+		 			<Set name="KeyStorePassword">oKt1E9fT8%2KFe58#z!sfFi2</Set>
+		 			<Set name="KeyManagerPassword">oKt1E9fT8%2KFe58#z!sfFi2</Set>
 		 			<Set name="WantClientAuth">true</Set>
 	 </New>
          <Call id="sslConnector" name="addConnector">

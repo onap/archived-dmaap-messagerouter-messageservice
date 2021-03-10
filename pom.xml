@@ -21,7 +21,7 @@
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
-	<version>1.1.19-SNAPSHOT</version>
+	<version>1.1.20-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
 	<licenses>
@@ -592,7 +592,7 @@
 	<dependency>
 		<groupId>org.onap.aaf.authz</groupId>
 		<artifactId>aaf-cadi-aaf</artifactId>
-		<version>2.1.13</version>
+		<version>2.7.4</version>
 	</dependency>
 	<dependency>
 		<groupId>backport-util-concurrent</groupId>
