@@ -65,6 +65,7 @@ import org.onap.dmaap.mmagent.CreateMirrorMaker;
 import org.onap.dmaap.mmagent.MirrorMaker;
 import org.onap.dmaap.mmagent.UpdateMirrorMaker;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -78,6 +79,7 @@ import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 
 //@RunWith(MockitoJUnitRunner.class)
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("jdk.internal.reflect.*")
 @PrepareForTest({ PropertiesMapBean.class, AJSCPropertiesMap.class })
 public class MMRestServiceTest {
 

@@ -31,9 +31,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.onap.dmaap.dmf.mr.CambriaApiException;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class UpdateMirrorMakerTest {
 
 	@Rule
