@@ -35,12 +35,14 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class ServicePropertiesMapTest {
 
 	@InjectMocks
