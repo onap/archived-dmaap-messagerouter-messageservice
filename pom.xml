@@ -21,7 +21,7 @@
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
-	<version>1.1.20-SNAPSHOT</version>
+	<version>1.2.20-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
 	<licenses>
