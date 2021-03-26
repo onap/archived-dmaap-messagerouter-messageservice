@@ -31,6 +31,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import static org.mockito.Matchers.any;
+
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.api.mockito.PowerMockito;
@@ -62,6 +64,7 @@ import org.onap.dmaap.dmf.mr.exception.ErrorResponse;
 import org.onap.dmaap.dmf.mr.metabroker.Broker.TopicExistsException;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("jdk.internal.reflect.*")
 @PrepareForTest({ PropertiesMapBean.class })
 public class EventsRestServiceTest {
 

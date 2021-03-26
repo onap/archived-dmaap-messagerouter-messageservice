@@ -44,6 +44,7 @@ import org.mockito.MockitoAnnotations;
 import org.json.JSONException;
 
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -59,6 +60,7 @@ import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.security.db.NsaApiDb.KeyExistsException;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("jdk.internal.reflect.*")
 @PrepareForTest({ ServiceUtil.class })
 public class ApiKeysRestServiceTest {
 
