@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Fiachra Corcoran <fiachra.corcoran@est.tech>
+Code-Review+1: Catherine Lefevre <cl664y@att.com>
+Submitted-by: Fiachra Corcoran <fiachra.corcoran@est.tech>
+Submitted-at: Wed, 14 Apr 2021 12:37:05 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dmaap/messagerouter/messageservice/+/120268
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/master
