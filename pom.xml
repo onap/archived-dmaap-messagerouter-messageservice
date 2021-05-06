@@ -1,27 +1,27 @@
-<!-- ============LICENSE_START======================================================= 
-	org.onap.dmaap ================================================================================ 
-	Copyright © 2017 AT&T Intellectual Property. All rights reserved. ================================================================================ 
-	Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-	use this file except in compliance with the License. You may obtain a copy 
-	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-	by applicable law or agreed to in writing, software distributed under the 
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-	OF ANY KIND, either express or implied. See the License for the specific 
-	language governing permissions and limitations under the License. ============LICENSE_END========================================================= 
+<!-- ============LICENSE_START=======================================================
+	org.onap.dmaap ================================================================================
+	Copyright © 2017 AT&T Intellectual Property. All rights reserved. ================================================================================
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not
+	use this file except in compliance with the License. You may obtain a copy
+	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+	by applicable law or agreed to in writing, software distributed under the
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+	OF ANY KIND, either express or implied. See the License for the specific
+	language governing permissions and limitations under the License. ============LICENSE_END=========================================================
 	ECOMP is a trademark and service mark of AT&T Intellectual Property. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.onap.oparent</groupId>
 		<artifactId>oparent</artifactId>
-		<version>2.1.0</version>
+		<version>3.2.0</version>
 	</parent>
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
 	<artifactId>dmaapMR1</artifactId>
-	<version>1.2.20-SNAPSHOT</version>
+	<version>1.3.0-SNAPSHOT</version>
 	<name>dmaap-messagerouter-messageservice</name>
 	<description>Message Router - Restful interface built for kafka</description>
 	<licenses>
@@ -45,30 +45,76 @@
 		</developer>
 	</developers>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<dockerLocation>${basedir}/target/swm/package/nix/dist_files/</dockerLocation>
+		<docker.image.prefix>simpledemo</docker.image.prefix>
+		<!-- <javax-mail-version>1.5.0</javax-mail-version> -->
+		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
+		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
+		<ajscRuntimeVersion>3.0.11-oss</ajscRuntimeVersion>
+
+		<!-- This will be the Absolute Root of the Project and should contain NO
+			Versioning -->
+		<absoluteDistFilesRoot>/appl/${project.artifactId}</absoluteDistFilesRoot>
+		<!-- <absoluteDistFilesRoot>/opt/app/dmaap/${project.artifactId}</absoluteDistFilesRoot> -->
+		<!-- For Versioning upon installation, add /${project.version} to distFilesRoot.
+			For NO Versioning, leave as is -->
+		<!-- example: /appl/${project.artifactId}/${project.version}. Also, add
+			${project.version} to ${runAjscHome} for running locally. -->
+		<distFilesRoot>/appl/${project.artifactId}</distFilesRoot>
+		<!-- <distFilesRoot>/opt/app/dmaap/${project.artifactId}</distFilesRoot> -->
+		<runAjscHome>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}</runAjscHome>
+
+		<!-- For SOA Cloud Installation <installOwnerUser>aft</installOwnerUser>
+			<installOwnerGroup>aft</installOwnerGroup> <ownerManagementGroup>com.att.acsi.saat.dt.dmaap.dev</ownerManagementGroup> -->
+		<!-- For SOA Cloud Installation -->
+		<installOwnerUser>msgrtr</installOwnerUser>
+		<installOwnerGroup>dmaap</installOwnerGroup>
+		<ownerManagementGroup>com.att.acsi.saat.dt.dmaap.dev</ownerManagementGroup>
+		<!-- Port Selection. A value of 0 will allow for dynamic port selection.
+			For local testing, you may choose to hardcode this value to something like
+			8080 -->
+		<serverPort>3904</serverPort>
+		<sslport>3905</sslport>
+		<onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
+		<testRouteOffer>workstation</testRouteOffer>
+		<testEnv>DEV</testEnv>
+		<!-- <dmaapImg>${project.version}</dmaapImg> -->
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
+		<camel.version>2.21.5</camel.version>
+		<camel.version.latest>3.5.0</camel.version.latest>
+		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
+		<skip.docker.build>true</skip.docker.build>
+		<skip.docker.tag>true</skip.docker.tag>
+		<skip.docker.push>true</skip.docker.push>
+		<nexusproxy>https://nexus.onap.org</nexusproxy>
+		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
+		<spring.version>3.2.18.RELEASE</spring.version>
+		<sonar.language>java</sonar.language>
+		<sonar.skip>false</sonar.skip>
+		<sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.projectVersion>${project.version}</sonar.projectVersion>
+		<log4j.version>2.13.3</log4j.version>
+		<maven.compiler.target>8</maven.compiler.target>
+		<maven.compiler.source>8</maven.compiler.source>
+	</properties>
+
 	<build>
 		<plugins>
-             <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>prepare-agent</id>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>report</id>
-                            <goals>
-                                <goal>report</goal>
-                            </goals>
-                            <configuration>
-                                <dataFile>${project.build.directory}/code-coverage/jacoco.exec</dataFile>
-                                <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
+			<plugin>
+			<artifactId>maven-checkstyle-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>onap-java-style</id>
+					<configuration>
+						<consoleOutput>false</consoleOutput>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -117,7 +163,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-                
+
 
 			<plugin>
 				<groupId>com.blackducksoftware.integration</groupId>
@@ -137,14 +183,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
-				<version>3.1</version> <configuration> <compilerId>groovy-eclipse-compiler</compilerId> 
-				<verbose>true</verbose> <source>1.7</source> <target>1.7</target> </configuration> 
-				<dependencies> <dependency> <groupId>org.codehaus.groovy</groupId> <artifactId>groovy-eclipse-compiler</artifactId> 
-				<version>2.8.0-01</version> </dependency> <dependency> <groupId>org.codehaus.groovy</groupId> 
-				<artifactId>groovy-eclipse-batch</artifactId> <version>2.1.5-03</version> 
-				</dependency> </dependencies> </plugin> -->
 			<plugin>
 				<groupId>org.codehaus.groovy</groupId>
 				<artifactId>groovy-eclipse-compiler</artifactId>
@@ -154,60 +192,6 @@
 
 		</plugins>
 	</build>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dockerLocation>${basedir}/target/swm/package/nix/dist_files/</dockerLocation>
-		<docker.image.prefix>simpledemo</docker.image.prefix>
-		<!-- <javax-mail-version>1.5.0</javax-mail-version> -->
-		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
-		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
-		<ajscRuntimeVersion>3.0.11-oss</ajscRuntimeVersion>
-
-		<!-- This will be the Absolute Root of the Project and should contain NO 
-			Versioning -->
-		<absoluteDistFilesRoot>/appl/${project.artifactId}</absoluteDistFilesRoot>
-		<!-- <absoluteDistFilesRoot>/opt/app/dmaap/${project.artifactId}</absoluteDistFilesRoot> -->
-		<!-- For Versioning upon installation, add /${project.version} to distFilesRoot. 
-			For NO Versioning, leave as is -->
-		<!-- example: /appl/${project.artifactId}/${project.version}. Also, add 
-			${project.version} to ${runAjscHome} for running locally. -->
-		<distFilesRoot>/appl/${project.artifactId}</distFilesRoot>
-		<!-- <distFilesRoot>/opt/app/dmaap/${project.artifactId}</distFilesRoot> -->
-		<runAjscHome>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}</runAjscHome>
-
-		<!-- For SOA Cloud Installation <installOwnerUser>aft</installOwnerUser> 
-			<installOwnerGroup>aft</installOwnerGroup> <ownerManagementGroup>com.att.acsi.saat.dt.dmaap.dev</ownerManagementGroup> -->
-		<!-- For SOA Cloud Installation -->
-		<installOwnerUser>msgrtr</installOwnerUser>
-		<installOwnerGroup>dmaap</installOwnerGroup>
-		<ownerManagementGroup>com.att.acsi.saat.dt.dmaap.dev</ownerManagementGroup>
-		<!-- Port Selection. A value of 0 will allow for dynamic port selection. 
-			For local testing, you may choose to hardcode this value to something like 
-			8080 -->
-		<serverPort>3904</serverPort>
-		<sslport>3905</sslport>
-        <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
-		<testRouteOffer>workstation</testRouteOffer>
-		<testEnv>DEV</testEnv>
-		<!-- <dmaapImg>${project.version}</dmaapImg> -->
-		<timestamp>${maven.build.timestamp}</timestamp>
-        <maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
-		<camel.version>2.21.5</camel.version>
-		<camel.version.latest>3.5.0</camel.version.latest>
-		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
-		<skip.docker.build>true</skip.docker.build>
-		<skip.docker.tag>true</skip.docker.tag>
-		<skip.docker.push>true</skip.docker.push>
-		<nexusproxy>https://nexus.onap.org</nexusproxy>
-		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
-		<spring.version>3.2.18.RELEASE</spring.version>
-		<sonar.language>java</sonar.language>
-        <sonar.skip>false</sonar.skip>
-        <sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.projectVersion>${project.version}</sonar.projectVersion>
-	</properties>
 
 	<!-- Distribution management -->
 	<distributionManagement>
@@ -219,79 +203,100 @@
 
 	<!-- End Distribution management -->
 
-	<!-- The standard build tasks for this project are inherited from the parent. 
-		Please do not override the build tasks. However tasks and/or profiles can 
-		be included here as well as additional dependencies for your service. Any 
-		runtime or compile scope dependencies will be copied to the INSTALLATION_PATH/extJars 
-		folder and will be made available on the AJSC classpath for your service. 
-		Please, NOTE: DME2 and CSM related dependencies are EXTERNALIZED within the 
-		CSI environment. Therefore, they are provided within this project as "provided" 
-		dependencies. In order for the AJSC to run properly, locally, the CSM and 
-		DME2 dependencies will be copied into the target/commonLibs folder and will 
-		be made available to the classpath of the AJSC through the use of the system 
-		property, "AJSC_EXTERNAL_LIB_FOLDERS". This system property needs to be set 
-		in the "runAjsc" maven profile within the pom.xml (and, is defaulted to do 
-		so). If you have a startup failure related to a missing dme2 class not found 
-		exception, please contact the AJSC team for assistance. You can email support 
-		at ajsc-Support <DL-ajsc-Support@att.com>. For more information regarding 
+	<!-- The standard build tasks for this project are inherited from the parent.
+		Please do not override the build tasks. However tasks and/or profiles can
+		be included here as well as additional dependencies for your service. Any
+		runtime or compile scope dependencies will be copied to the INSTALLATION_PATH/extJars
+		folder and will be made available on the AJSC classpath for your service.
+		Please, NOTE: DME2 and CSM related dependencies are EXTERNALIZED within the
+		CSI environment. Therefore, they are provided within this project as "provided"
+		dependencies. In order for the AJSC to run properly, locally, the CSM and
+		DME2 dependencies will be copied into the target/commonLibs folder and will
+		be made available to the classpath of the AJSC through the use of the system
+		property, "AJSC_EXTERNAL_LIB_FOLDERS". This system property needs to be set
+		in the "runAjsc" maven profile within the pom.xml (and, is defaulted to do
+		so). If you have a startup failure related to a missing dme2 class not found
+		exception, please contact the AJSC team for assistance. You can email support
+		at ajsc-Support <DL-ajsc-Support@att.com>. For more information regarding
 		the usage of the AJSC service pom.xml and management of dependencies, -->
 	<dependencies>
 
-		<!-- cmn-CommonDataModel dependency added to resolve build issue not finding 
+		<!-- cmn-CommonDataModel dependency added to resolve build issue not finding
 			version 100.0.64 -->
 
-		<!-- <dependency> <groupId>csi-schemas-source</groupId> <artifactId>cmn-CommonDataModel</artifactId> 
+		<!-- <dependency> <groupId>csi-schemas-source</groupId> <artifactId>cmn-CommonDataModel</artifactId>
 			<version>112.0.50</version> </dependency> -->
 		<!-- TODO: add open source version here -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- Micormeter core dependecy  -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-core</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+		<!-- Micrometer Prometheus registry  -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.0</version>
+			<exclusions>
+				<!-- javax activation is part of the JDK now -->
+				<exclusion>
+					<groupId>javax.activation</groupId>
+					<artifactId>activation</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>2.3.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.3.0.1</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>jsr181-api</artifactId>
+					<groupId>javax.jws</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-
-	<dependency>
-		<groupId>com.sun.mail</groupId>
-		<artifactId>javax.mail</artifactId>
-		<version>1.6.0</version>
-		<exclusions>
-			<!-- javax activation is part of the JDK now -->
-			<exclusion>
-				<groupId>javax.activation</groupId>
-				<artifactId>activation</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-	<dependency>
-		<groupId>com.sun.xml.bind</groupId>
-		<artifactId>jaxb-core</artifactId>
-		<version>2.3.0.1</version>
-		<scope>compile</scope>
-	</dependency>
-	<dependency>
-		<groupId>com.sun.xml.bind</groupId>
-		<artifactId>jaxb-impl</artifactId>
-		<version>2.3.0.1</version>
-		<scope>compile</scope>
-		<exclusions>
-			<exclusion>
-				<artifactId>jsr181-api</artifactId>
-				<groupId>javax.jws</groupId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-        
-		 <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http</artifactId>
-            <version>3.2.5</version>
-           </dependency>
-
-		<!-- <dependency>
-			<groupId>com.att.cadi</groupId>
-			<artifactId>cadi-core</artifactId>
-			<version>1.3.0</version>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.att.aft</groupId>
 			<artifactId>dme2</artifactId>
 			<version>3.1.200-oss</version>
-		</dependency> -->
+			<exclusions>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.2.12.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
@@ -302,58 +307,74 @@
 			<artifactId>spring-messaging</artifactId>
 			<version>4.1.9.RELEASE</version>
 		</dependency>
-		<!-- <dependency> <groupId>com.sun.mail</groupId> <artifactId>javax.mail</artifactId> 
-			<version>${javax-mail-version}</version> <exclusions> javax activation is 
-			part of the JDK now <exclusion> <groupId>javax.activation</groupId> <artifactId>activation</artifactId> 
-			</exclusion> </exclusions> </dependency> -->
-
-	<dependency>
-	<groupId>org.apache.zookeeper</groupId>
-	<artifactId>zookeeper</artifactId>
-	<version>3.4.14</version>
-   </dependency>
-   <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.6.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.6.1</version>
-      <exclusions>
-        <exclusion>
-          <groupId>*</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-	<dependency>
-		<groupId>org.apache.kafka</groupId>
-		<artifactId>kafka_2.11</artifactId>
-		<version>2.3.0</version>
-	</dependency>
-	<dependency>
-		<groupId>commons-codec</groupId>
-		<artifactId>commons-codec</artifactId>
-		<version>1.14</version>
-	</dependency>
-	<dependency>
-		<groupId>commons-io</groupId>
-		<artifactId>commons-io</artifactId>
-		<version>2.7</version>
-	</dependency>
-	<dependency>
-		<groupId>org.quartz-scheduler</groupId>
-		<artifactId>quartz</artifactId>
-		<version>2.3.2</version>
-	</dependency>
-	<dependency>
-		<groupId>com.fasterxml.woodstox</groupId>
-		<artifactId>woodstox-core</artifactId>
-		<version>5.3.0</version>
-	</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!-- Log4j2 logger -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.11</artifactId>
+			<version>0.11.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.14</version>
+		</dependency>
+		<dependency>
+			<groupId>jline</groupId>
+			<artifactId>jline</artifactId>
+			<version>2.12.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.woodstox</groupId>
+			<artifactId>woodstox-core</artifactId>
+			<version>5.3.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.grails</groupId>
 			<artifactId>grails-bootstrap</artifactId>
@@ -409,6 +430,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.3.18.RELEASE</version>
 		</dependency>
@@ -423,38 +449,42 @@
 			<version>4.3.18.RELEASE</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>4.3.18.RELEASE</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.onap.dmaap.messagerouter.msgrtr</groupId>
-			<artifactId>msgrtr</artifactId>
-			<version>1.1.23</version>
+			<groupId>com.att.eelf</groupId>
+			<artifactId>eelf-core</artifactId>
+			<version>1.0.0</version>
 			<exclusions>
 				<exclusion>
-					<groupId>org.apache.kafka</groupId>
-			        <artifactId>kafka_2.11</artifactId>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-core</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.powermock</groupId>
+					<artifactId>powermock-module-junit4</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId>com.att.ajsc</groupId>
-					<artifactId>ajsc-core</artifactId>
+					<groupId>org.powermock</groupId>
+					<artifactId>powermock-api-mockito</artifactId>
 				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- our NSA server library -->
+		<dependency>
+			<groupId>com.att.nsa</groupId>
+			<artifactId>nsaServerLibrary</artifactId>
+			<version>1.0.10</version>
+			<exclusions>
 				<exclusion>
 					<groupId>org.apache.tomcat</groupId>
 					<artifactId>tomcat-catalina</artifactId>
 				</exclusion>
-
 				<exclusion>
 					<groupId>org.apache.tomcat.embed</groupId>
 					<artifactId>tomcat-embed-core</artifactId>
@@ -463,17 +493,6 @@
 					<groupId>org.apache.tomcat</groupId>
 					<artifactId>tomcat-util</artifactId>
 				</exclusion>
-				<!-- <exclusion> <groupId>com.att.nsa</groupId> <artifactId>saToolkit</artifactId> 
-					</exclusion> -->
-				<exclusion>
-					<groupId>com.att.nsa</groupId>
-					<artifactId>tomcat-util</artifactId>
-				</exclusion>
-
-				<exclusion>
-					<groupId>commons-beanutils</groupId>
-					<artifactId>commons-beanutils</artifactId>
-				</exclusion>
 				<exclusion>
 					<groupId>javax.mail</groupId>
 					<artifactId>mail</artifactId>
@@ -481,29 +500,61 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>com.att.nsa</groupId>
+			<artifactId>saToolkit</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-test</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>1.10.19</version>
+			<version>3.9.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-core</artifactId>
+			<version>2.0.7</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
-			<version>1.6.4</version>
+			<version>2.0.7</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>1.6.4</version>
+			<artifactId>powermock-module-junit4-rule</artifactId>
+			<version>2.0.7</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-jaxrs</artifactId> 
-			<version>1.9.13</version> </dependency> <dependency> <groupId>org.codehaus.jackson</groupId> 
-			<artifactId>jackson-mapper-asl</artifactId> <version>1.9.13</version> </dependency> 
-			<dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-core-asl</artifactId> 
-			<version>1.9.13</version> </dependency> -->
-
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-support</artifactId>
+			<version>2.0.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<version>2.0.7</version>
+		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -563,8 +614,6 @@
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-extension-providers</artifactId>
 			<version>3.2.2</version>
-			<!-- <exclusions> <exclusion> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-transports-http</artifactId> 
-				</exclusion> </exclusions> -->
 			<exclusions>
 				<exclusion>
 					<groupId>org.apache.cxf</groupId>
@@ -572,16 +621,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- <dependency> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-transports-http</artifactId> 
-			<version>3.1.14</version> </dependency> -->
 		<dependency>
 			<groupId>org.codehaus.jettison</groupId>
 			<artifactId>jettison</artifactId>
 			<version>1.3.7</version>
 		</dependency>
-
-		<!-- <dependency> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
-			<version>1.6.1</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>com.att.ajsc</groupId>
 			<artifactId>ajsc-archetype-parent</artifactId>
@@ -589,16 +633,16 @@
 			<type>pom</type>
 		</dependency>
 
-	<dependency>
-		<groupId>org.onap.aaf.authz</groupId>
-		<artifactId>aaf-cadi-aaf</artifactId>
-		<version>2.7.4</version>
-	</dependency>
-	<dependency>
-		<groupId>backport-util-concurrent</groupId>
-		<artifactId>backport-util-concurrent</artifactId>
-		<version>3.1</version>
-	</dependency>
+		<dependency>
+			<groupId>org.onap.aaf.authz</groupId>
+			<artifactId>aaf-cadi-aaf</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+		<dependency>
+			<groupId>backport-util-concurrent</groupId>
+			<artifactId>backport-util-concurrent</artifactId>
+			<version>3.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
@@ -629,12 +673,12 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-servlet</artifactId>
 			<version>${camel.version}</version>
-			<!-- <exclusions> <exclusion> <groupId>commons-httpclient</groupId> <artifactId>commons-httpclient</artifactId> 
-				</exclusion> </exclusions> -->
 		</dependency>
-		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
-			<version>4.0</version> </dependency> -->
-
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-http4</artifactId>
@@ -703,18 +747,11 @@
 			<version>3.0.11-oss</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>3.2.12.RELEASE</version>
-			<scope>test</scope>
-		</dependency>
+
 	</dependencies>
-	<!-- <build> <resources> <resource> <directory>${basedir}/ajsc-shared-config/etc</directory> 
-		</resource> </resources> </build> -->
 	<profiles>
-		<!-- Use this profile to run the AJSC locally. This profile can be successfully 
-			shutdown WITHIN eclipse even in a Windows environment. Debugging is also 
+		<!-- Use this profile to run the AJSC locally. This profile can be successfully
+			shutdown WITHIN eclipse even in a Windows environment. Debugging is also
 			available with this profile. -->
 		<profile>
 			<id>docker</id>
@@ -724,80 +761,80 @@
 				<skip.docker.push>false</skip.docker.push>
 			</properties>
 			<build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.groovy.maven</groupId>
-                        <artifactId>gmaven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <properties>
-                                        <ver>${project.version}</ver>
-                                        <timestamp>${maven.build.timestamp}</timestamp>
-                                    </properties>
-                                    <source>
-                                        println project.properties['ver'];
-                                        if ( project.properties['ver'].endsWith("-SNAPSHOT") ) {
-                                        project.properties['dockertag1']=project.properties['ver'] + "-latest";
-                                        project.properties['dockertag2']=project.properties['ver'] + "-" + project.properties['timestamp'];
-                                        } else {
-                                        project.properties['dockertag1']=project.properties['ver'] + "-STAGING-latest";
-                                        project.properties['dockertag2']=project.properties['ver'] + "-STAGING-" + project.properties['timestamp'];
-                                        }
-                                        println 'docker tag 1: ' + project.properties['dockertag1'];
-                                        println 'docker tag 2: ' + project.properties['dockertag2'];
-                                    </source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                   <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.28.0</version>  
-                        <configuration>
-                            <verbose>${docker.verbose}</verbose>
-                            <apiVersion>${docker.apiVersion}</apiVersion>
-                            <pullRegistry>${docker.pull.registry}</pullRegistry>
-                            <pushRegistry>${docker.push.registry}</pushRegistry>
-                            <images>
-                                <image>                            
-                                    <name>onap/dmaap/dmaap-mr</name>
-                                    <build>
-                                        <cleanup>try</cleanup>
-                                        <dockerFileDir>${dockerLocation}</dockerFileDir>
-                                        <dockerFile>Dockerfile</dockerFile>
-                                        <tags>
-                                            <tag>${dockertag1}</tag>
-                                            <tag>${dockertag2}</tag>
-                                        </tags>
-                                    </build>
-                                </image>
-                            </images>
-                        </configuration>
-                         <executions>
-                             <execution>
-                                 <id>generate-images</id>
-                                 <phase>install</phase>
-                                 <goals>
-                                     <goal>build</goal>
-                                 </goals>
-                             </execution>
-                             <execution>
-                                 <id>push-images</id>
-                                 <phase>deploy</phase>
-                                 <goals>
-                                     <goal>push</goal>
-                                 </goals>
-                             </execution>
-                         </executions>
-                    </plugin>
-                </plugins>
-            </build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.groovy.maven</groupId>
+						<artifactId>gmaven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<properties>
+										<ver>${project.version}</ver>
+										<timestamp>${maven.build.timestamp}</timestamp>
+									</properties>
+									<source>
+										println project.properties['ver'];
+										if ( project.properties['ver'].endsWith("-SNAPSHOT") ) {
+											project.properties['dockertag1']=project.properties['ver'] + "-latest";
+											project.properties['dockertag2']=project.properties['ver'] + "-" + project.properties['timestamp'];
+										} else {
+											project.properties['dockertag1']=project.properties['ver'] + "-STAGING-latest";
+											project.properties['dockertag2']=project.properties['ver'] + "-STAGING-" + project.properties['timestamp'];
+										}
+										println 'docker tag 1: ' + project.properties['dockertag1'];
+										println 'docker tag 2: ' + project.properties['dockertag2'];
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>0.28.0</version>
+						<configuration>
+							<verbose>${docker.verbose}</verbose>
+							<apiVersion>${docker.apiVersion}</apiVersion>
+							<pullRegistry>${docker.pull.registry}</pullRegistry>
+							<pushRegistry>${docker.push.registry}</pushRegistry>
+							<images>
+								<image>
+									<name>onap/dmaap/dmaap-mr</name>
+									<build>
+										<cleanup>try</cleanup>
+										<dockerFileDir>${dockerLocation}</dockerFileDir>
+										<dockerFile>Dockerfile</dockerFile>
+										<tags>
+											<tag>${dockertag1}</tag>
+											<tag>${dockertag2}</tag>
+										</tags>
+									</build>
+								</image>
+							</images>
+						</configuration>
+						<executions>
+							<execution>
+								<id>generate-images</id>
+								<phase>install</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>push-images</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>push</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<profile>
@@ -842,11 +879,11 @@
 									<goal>java</goal>
 								</goals>
 								<configuration>
-									<!-- In order to better mimic a SOA cloud installation of AJSC (and 
-										to help eliminate Maven/Eclipse/AJSC classpath issues that may be difficult 
-										to diagnose), within this profile used to run locally, we are NOT including 
-										project dependencies. These will be loaded by AJSC from $AJSC_HOME/extJars. 
-										The only jar needed to run AJSC is the ajsc-runner.jar, and therefore is 
+									<!-- In order to better mimic a SOA cloud installation of AJSC (and
+										to help eliminate Maven/Eclipse/AJSC classpath issues that may be difficult
+										to diagnose), within this profile used to run locally, we are NOT including
+										project dependencies. These will be loaded by AJSC from $AJSC_HOME/extJars.
+										The only jar needed to run AJSC is the ajsc-runner.jar, and therefore is
 										the only dependency required by this profile to run locally. -->
 									<includeProjectDependencies>false</includeProjectDependencies>
 									<includePluginDependencies>true</includePluginDependencies>
@@ -899,20 +936,20 @@
 											<value>${basedir}/ajsc-shared-config</value>
 										</systemProperty>
 
-										<!-- Please, NOTE: The following 2 system properties will normally 
-											be set within the sys-props.properties file once deployed to a node. We are 
-											setting them HERE to run locally to make more efficient use of maven variable 
+										<!-- Please, NOTE: The following 2 system properties will normally
+											be set within the sys-props.properties file once deployed to a node. We are
+											setting them HERE to run locally to make more efficient use of maven variable
 											replacement for ${basedir} -->
-										<!-- AJSC_EXTERNAL_LIB_FOLDERS represents the particular jars that 
+										<!-- AJSC_EXTERNAL_LIB_FOLDERS represents the particular jars that
 											will be externalized on a CSI node. This includes dme2 and csm related artifact. -->
 										<sysproperty>
 											<key>AJSC_EXTERNAL_LIB_FOLDERS</key>
 											<value>${basedir}/target/commonLibs</value>
 										</sysproperty>
-										<!-- AJSC_EXTERNAL_PROPERTIES_FOLDERS represents the particular 
-											files that may need to be added to the classpath. These files will be externalized 
-											on a CSI node. This includes dme2 and csm related artifact (such as csm-config-app.properties). 
-											Failure to have these files on the classpath may result in errors thrown 
+										<!-- AJSC_EXTERNAL_PROPERTIES_FOLDERS represents the particular
+											files that may need to be added to the classpath. These files will be externalized
+											on a CSI node. This includes dme2 and csm related artifact (such as csm-config-app.properties).
+											Failure to have these files on the classpath may result in errors thrown
 											by csm framework. -->
 										<sysproperty>
 											<key>AJSC_EXTERNAL_PROPERTIES_FOLDERS</key>
@@ -937,12 +974,12 @@
 										</systemProperty>
 									</systemProperties>
 
-									<!-- Command Line Arguments to add to the java command. Here, you 
-										can specify the port as well as the Context you want your service to run 
-										in. Use context=/ to run in an unnamed Context (Root Context). The default 
-										configuration of the AJSC is to run under the / Context. Setting the port 
-										here can aid during the development phase of your service. However, you can 
-										leave this argument out entirely, and the AJSC will default to using an Ephemeral 
+									<!-- Command Line Arguments to add to the java command. Here, you
+										can specify the port as well as the Context you want your service to run
+										in. Use context=/ to run in an unnamed Context (Root Context). The default
+										configuration of the AJSC is to run under the / Context. Setting the port
+										here can aid during the development phase of your service. However, you can
+										leave this argument out entirely, and the AJSC will default to using an Ephemeral
 										port. -->
 									<arguments>
 										<argument>context=/</argument>
@@ -1159,20 +1196,20 @@
 										<delete dir="target/versioned-runtime" includes="**/*" />
 										<delete dir="target/CDP" includes="**/*" />
 
-										<!-- This is where replacer plugin replaces tokens (Example: __module_ajsc_namespace_name__ 
+										<!-- This is where replacer plugin replaces tokens (Example: __module_ajsc_namespace_name__
 											is replaced by module.ajsc.namespace.name) -->
 										<copy todir="target/versioned-ajsc">
 											<fileset dir="src/main/ajsc" includes="**/*" />
 										</copy>
 
-										<!-- Copying the CDP, bundleconfig, and StaticContent to the target 
+										<!-- Copying the CDP, bundleconfig, and StaticContent to the target
 											directory for future use by replacer plugin -->
 										<copy todir="target/CDP" failonerror="false">
 											<fileset dir="CDP" includes="**/*.sh" />
 										</copy>
 										<copy flatten="true" file="CDP/SampleBlueprint.xml"
-											failonerror="false"
-											tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml" />
+											  failonerror="false"
+											  tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml" />
 										<copy todir="target/staticContent" failonerror="false">
 											<fileset dir="staticContent" includes="**/*" />
 										</copy>
@@ -1187,25 +1224,25 @@
 											<fileset dir="src/main/runtime" includes="**/*" />
 										</copy>
 										<delete
-											file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" />
+												file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" />
 										<copy flatten="true"
-											file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"
-											tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context" />
+											  file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"
+											  tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context" />
 										<delete
-											file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" />
+												file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" />
 										<copy flatten="true"
-											file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"
-											tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json" />
+											  file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"
+											  tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json" />
 										<delete
-											file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" />
+												file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" />
 										<copy flatten="true"
-											file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"
-											tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json" />
+											  file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"
+											  tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json" />
 										<delete
-											file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json" />
+												file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json" />
 										<copy flatten="true"
-											file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json"
-											tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json" />
+											  file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json"
+											  tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json" />
 										<echo message="EXITING 'copy_runtime_template' ant tasks" />
 									</target>
 								</configuration>
@@ -1219,8 +1256,8 @@
 								<configuration>
 									<tasks>
 										<fixcrlf
-											srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
-											includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
+												srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
+												includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
 									</tasks>
 								</configuration>
 								<goals>
@@ -1268,7 +1305,6 @@
 								<configuration>
 									<includeScope>provided</includeScope>
 									<includeGroupIds>net.cingular.enterprise,com.att.aft,dom4j</includeGroupIds>
-									<!-- <includeGroupIds>com.att.aft</includeGroupIds> -->
 									<outputDirectory>${project.build.directory}/commonLibs</outputDirectory>
 									<silent>true</silent>
 								</configuration>
