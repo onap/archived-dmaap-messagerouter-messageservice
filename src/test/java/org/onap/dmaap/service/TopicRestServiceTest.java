@@ -20,37 +20,32 @@
 
  package org.onap.dmaap.service;
 
-import static org.junit.Assert.*;
-
-import static org.mockito.Matchers.anyString;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
+import com.att.ajsc.beans.PropertiesMapBean;
+import com.att.nsa.configs.ConfigDbException;
+import com.att.nsa.security.NsaAcl;
+import com.att.nsa.security.NsaApiKey;
+import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
+import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 import java.io.IOException;
-import java.util.ConcurrentModificationException;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.junit.After;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.att.ajsc.beans.PropertiesMapBean;
 import org.onap.dmaap.dmf.mr.CambriaApiException;
 import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
 import org.onap.dmaap.dmf.mr.beans.DMaaPKafkaMetaBroker;
@@ -65,16 +60,15 @@ import org.onap.dmaap.dmf.mr.security.DMaaPAuthenticator;
 import org.onap.dmaap.dmf.mr.service.TopicService;
 import org.onap.dmaap.dmf.mr.utils.ConfigurationReader;
 import org.onap.dmaap.dmf.mr.utils.DMaaPResponseBuilder;
-import com.att.nsa.configs.ConfigDbException;
-import com.att.nsa.security.NsaAcl;
-import com.att.nsa.security.NsaApiKey;
-import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
-import com.att.nsa.security.db.simple.NsaSimpleApiKey;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 //@RunWith(MockitoJUnitRunner.class)
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore("jdk.internal.reflect.*")
-@PrepareForTest({ PropertiesMapBean.class })
+@PrepareForTest({ PropertiesMapBean.class, DMaaPResponseBuilder.class })
 public class TopicRestServiceTest {
 
 	@InjectMocks

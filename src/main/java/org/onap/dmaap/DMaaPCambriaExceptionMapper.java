@@ -22,6 +22,8 @@
  package org.onap.dmaap;
 
 
+import com.att.eelf.configuration.EELFLogger;
+import com.att.eelf.configuration.EELFManager;
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,16 +31,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-
-import org.apache.http.HttpStatus;
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.onap.dmaap.dmf.mr.CambriaApiException;
 import org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
-import org.onap.dmaap.dmf.mr.exception.DMaaPResponseCode;
 import org.onap.dmaap.dmf.mr.exception.ErrorResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Exception Mapper class to handle
