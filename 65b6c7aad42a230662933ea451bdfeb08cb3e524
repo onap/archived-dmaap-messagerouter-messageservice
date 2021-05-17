@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4f9a9505_179f1a83",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2021-05-17T11:15:37Z",
+      "side": 1,
+      "message": "DOne",
+      "parentUuid": "596a8a1e_183bed1a",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "65b6c7aad42a230662933ea451bdfeb08cb3e524",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72c088a0_20bb0b96",
         "filename": "pom.xml",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "65b6c7aad42a230662933ea451bdfeb08cb3e524",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d6421d5_f861bc86",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2021-05-17T11:15:37Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "72c088a0_20bb0b96",
+      "range": {
+        "startLine": 50,
+        "startChar": 13,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "65b6c7aad42a230662933ea451bdfeb08cb3e524",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "10fc4681_766ee54b",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2021-05-17T11:15:37Z",
+      "side": 1,
+      "message": "There from previous, but moved all up.",
+      "parentUuid": "0290171c_e63e916d",
+      "range": {
+        "startLine": 158,
+        "startChar": 1,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "65b6c7aad42a230662933ea451bdfeb08cb3e524",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4eb782b0_2e8005b8",
         "filename": "pom.xml",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "73223319_02cd692b",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2021-05-17T11:15:37Z",
+      "side": 1,
+      "message": "Nice one. Didn\u0027t realise that shortkey. DOne",
+      "parentUuid": "4eb782b0_2e8005b8",
+      "range": {
+        "startLine": 355,
+        "startChar": 1,
+        "endLine": 355,
+        "endChar": 12
+      },
+      "revId": "65b6c7aad42a230662933ea451bdfeb08cb3e524",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f1fc45a_d5cbcdc7",
         "filename": "pom.xml",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "65b6c7aad42a230662933ea451bdfeb08cb3e524",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a37e7b_b233351a",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2021-05-17T11:15:37Z",
+      "side": 1,
+      "message": "I took out ALL commented out entries I could see in the pom, minus actual comments describing entries (which we could really take out too)",
+      "parentUuid": "7f1fc45a_d5cbcdc7",
+      "range": {
+        "startLine": 536,
+        "startChar": 2,
+        "endLine": 536,
+        "endChar": 12
+      },
+      "revId": "65b6c7aad42a230662933ea451bdfeb08cb3e524",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
