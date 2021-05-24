@@ -3,6 +3,151 @@
 .. _release_notes:
 
 ..      ===========================
+<<<<<<< HEAD   (4b7f0c update guilin release notes)
+=======
+..      * * *    HONOLULU    * * *
+..      ===========================
+
+Release Notes
+=============
+
+Abstract
+--------
+
+This document provides the DMaaP Message Router release notes for the Honolulu release.
+
+Summary
+-------
+
+Securities Issues addressed
+
+Release Data
+------------
+
++--------------------------------------+--------------------------------------+
+| **DMaaP Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | - onap/dmaap/dmaap-mr:1.1.20         |
+|                                      | - onap/dmaap/kafka111:1.0.5          |
+|                                      | - onap/dmaap/zookeeper:6.0.3         |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | 8.0.0 Honolulu                       |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | 2021-04-01                           |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+
+New features
+------------
+* Fix Security Vulnerabilities (listed in "Known Vulnerabilities" below) - DMAAP-1515
+* Alter Project Lead information - DMAAP-1538
+* Update certs - DMAAP-1565
+* Update AAF Artifacts - DMAAP-1565
+
+Known Limitations, Issues and Workarounds
+-----------------------------------------
+
+System Limitations
+------------------
+
+
+Known Vulnerabilities
+---------------------
+* CVE-2018-11307
+* CVE-2018-12022
+* CVE-2018-12023
+* CVE-2019-17571
+* SONATYPE-2010-0053
+* CVE-2020-11994
+* SONATYPE-2015-0174
+* CVE-2020-5397
+* SONATYPE-2012-0050
+
+Workarounds
+-----------
+
+
+Security Notes
+--------------
+
+
+References
+----------
+
+For more information on the ONAP Guilin release, please see:
+
+#. `ONAP Home Page`_
+#. `ONAP Documentation`_
+#. `ONAP Release Downloads`_
+#. `ONAP Wiki Page`_
+
+
+.. _`ONAP Home Page`: https://www.onap.org
+.. _`ONAP Wiki Page`: https://wiki.onap.org
+.. _`ONAP Documentation`: https://docs.onap.org
+.. _`ONAP Release Downloads`: https://git.onap.org
+
+Quick Links:
+- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+
+
+..      ===================================
+..      * * *    GUILIN  MAINTENANCE  * * *
+..      ===================================
+
+
+Version: 7.0.1
+==============
+
+Abstract
+--------
+
+This document provides the release notes for the Guilin Maintenance release
+
+
+Summary
+-------
+
+This maintenance release is primarily to resolve bugs identified during Guilin release testing.
+
+
+Release Data
+------------
+
++--------------------------------------+--------------------------------------+
+| **DMaaP Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | Same as Guilin Release               |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | Guilin Maintenance Release           |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | 2021/04/19                           |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+New features
+------------
+
+None
+
+**Bug fixes**
+
+- `DMAAP-1547 <https://jira.onap.org/browse/DMAAP-1547>`_ Update certificats for DMaaP message router
+
+**Known Issues**
+
+Same as Guilin Release
+
+
+..      ===========================
+>>>>>>> CHANGE (10f117 DMAAP-MR Update release Notes)
 ..      * * *    GUILIN    * * *
 ..      ===========================
 
