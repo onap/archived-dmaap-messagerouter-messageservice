@@ -94,6 +94,56 @@ Quick Links:
 - `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
 
 
+..      ===================================
+..      * * *    GUILIN  MAINTENANCE  * * *
+..      ===================================
+
+
+Version: 7.0.1
+==============
+
+Abstract
+--------
+
+This document provides the release notes for the Guilin Maintenance release
+
+
+Summary
+-------
+
+This maintenance release is primarily to resolve bugs identified during Guilin release testing.
+
+
+Release Data
+------------
+
++--------------------------------------+--------------------------------------+
+| **DMaaP Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | Same as Guilin Release               |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | Guilin Maintenance Release           |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | 2021/04/19                           |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+New features
+------------
+
+None
+
+**Bug fixes**
+
+- `DMAAP-1547 <https://jira.onap.org/browse/DMAAP-1547>`_ Update certificats for DMaaP message router
+
+**Known Issues**
+
+Same as Guilin Release
+
+
 ..      ===========================
 ..      * * *    GUILIN    * * *
 ..      ===========================
