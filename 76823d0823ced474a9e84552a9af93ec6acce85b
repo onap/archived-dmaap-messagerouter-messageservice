@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4f7d79b_53477f92",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-06-22T10:18:30Z",
+      "side": 1,
+      "message": "Need to bump the version.pros also",
+      "range": {
+        "startLine": 24,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "76823d0823ced474a9e84552a9af93ec6acce85b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e161942_453b6549",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-06-22T10:18:30Z",
+      "side": 1,
+      "message": "Needs to be 8",
+      "revId": "76823d0823ced474a9e84552a9af93ec6acce85b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6379229d_60089b38",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-06-22T10:18:30Z",
+      "side": 1,
+      "message": "Replace jacoco with\n\n\u003cplugin\u003e\n\t\t\t\t\u003cartifactId\u003emaven-checkstyle-plugin\u003c/artifactId\u003e\n\t\t\t\t\u003cexecutions\u003e\n\t\t\t\t\t\u003cexecution\u003e\n\t\t\t\t\t\t\u003cid\u003eonap-java-style\u003c/id\u003e\n\t\t\t\t\t\t\u003cconfiguration\u003e\n\t\t\t\t\t\t\t\u003cconsoleOutput\u003efalse\u003c/consoleOutput\u003e\n\t\t\t\t\t\t\u003c/configuration\u003e\n\t\t\t\t\t\u003c/execution\u003e\n\t\t\t\t\u003c/executions\u003e\n\t\t\t\u003c/plugin\u003e",
+      "revId": "76823d0823ced474a9e84552a9af93ec6acce85b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
