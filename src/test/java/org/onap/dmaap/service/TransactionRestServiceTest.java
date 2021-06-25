@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,12 +20,12 @@
 
  package org.onap.dmaap.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import com.att.aft.dme2.internal.jettison.json.JSONException;
+import com.att.ajsc.beans.PropertiesMapBean;
+import com.att.nsa.configs.ConfigDbException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,19 +33,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.onap.dmaap.dmf.mr.CambriaApiException;
+import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
+import org.onap.dmaap.dmf.mr.service.TransactionService;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.att.ajsc.beans.PropertiesMapBean;
-import org.onap.dmaap.dmf.mr.CambriaApiException;
-import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
-import org.onap.dmaap.dmf.mr.service.EventsService;
-import org.onap.dmaap.dmf.mr.service.TransactionService;
-import com.att.nsa.configs.ConfigDbException;
-import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
-import com.att.aft.dme2.internal.jettison.json.JSONException;
-import org.powermock.api.mockito.PowerMockito;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore("jdk.internal.reflect.*")

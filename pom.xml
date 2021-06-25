@@ -748,7 +748,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-	</dependencies>
+    </dependencies>
 	<profiles>
 		<!-- Use this profile to run the AJSC locally. This profile can be successfully
 			shutdown WITHIN eclipse even in a Windows environment. Debugging is also

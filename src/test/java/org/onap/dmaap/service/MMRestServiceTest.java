@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,18 +24,17 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 
+import com.att.ajsc.beans.PropertiesMapBean;
+import com.att.ajsc.filemonitor.AJSCPropertiesMap;
+import com.att.nsa.configs.ConfigDbException;
+import com.att.nsa.security.NsaAcl;
+import com.att.nsa.security.NsaApiKey;
+import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 import java.io.ByteArrayInputStream;
-
-//import static org.mockito.Matchers.anyString;
-//import static org.mockito.Mockito.when;
-
-import java.io.IOException;
 import java.io.InputStream;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,14 +46,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.onap.dmaap.dmf.mr.CambriaApiException;
-import org.onap.dmaap.dmf.mr.backends.ConsumerFactory.UnavailableException;
 import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
 import org.onap.dmaap.dmf.mr.beans.DMaaPKafkaMetaBroker;
 import org.onap.dmaap.dmf.mr.constants.CambriaConstants;
 import org.onap.dmaap.dmf.mr.exception.DMaaPErrorMessages;
-import org.onap.dmaap.dmf.mr.metabroker.Broker.TopicExistsException;
 import org.onap.dmaap.dmf.mr.metabroker.Topic;
 import org.onap.dmaap.dmf.mr.security.DMaaPAAFAuthenticator;
 import org.onap.dmaap.dmf.mr.security.DMaaPAAFAuthenticatorImpl;
@@ -68,14 +63,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.att.ajsc.beans.PropertiesMapBean;
-import com.att.ajsc.filemonitor.AJSCPropertiesMap;
-import com.att.nsa.configs.ConfigDbException;
-import com.att.nsa.security.NsaAcl;
-import com.att.nsa.security.NsaApiKey;
-import com.att.nsa.security.ReadWriteSecuredResource.AccessDeniedException;
-import com.att.nsa.security.db.simple.NsaSimpleApiKey;
 
 //@RunWith(MockitoJUnitRunner.class)
 @RunWith(PowerMockRunner.class)
@@ -174,7 +161,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 
 	}
 	@Test
@@ -182,7 +169,7 @@ public class MMRestServiceTest {
 		try {
 			prepareForTestCommon();
 		} catch (Exception e) {
-			
+
 		}
 
 		// String sampleJson = ""{ messageID:\"test\", createMirrorMaker: {
@@ -195,7 +182,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 
 	}
 	@Test
@@ -224,10 +211,10 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 
 	}
-	
+
 	@Test
 	public void testCallCreateMirrorMaker_error1()  {
 		prepareForTestCommon();
@@ -242,7 +229,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 
 	}
 
@@ -259,10 +246,10 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 
 	}
-	
+
 	@Test
 	public void testCallListAllMirrorMaker()  {
 		prepareForTestCommon();
@@ -274,7 +261,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
 	@Test
@@ -289,9 +276,9 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testCallUpdateMirrorMaker()  {
 		prepareForTestCommon();
@@ -303,9 +290,9 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testCallUpdateMirrorMaker_error1()  {
 		prepareForTestCommon();
@@ -317,7 +304,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 	@Test
 	public void testCallUpdateMirrorMaker_error2()  {
@@ -330,7 +317,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 	@Test
 	public void testCallUpdateMirrorMaker_error3() {
@@ -343,7 +330,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 	@Test
 	public void testCallUpdateMirrorMaker_error4()  {
@@ -356,7 +343,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
 	@Test
@@ -365,7 +352,7 @@ public class MMRestServiceTest {
 
 		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeradmin.aaf"))
 			.thenReturn(null);
-		
+
 		String sampleJson = "{ messageID:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		try {
@@ -373,9 +360,9 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testCallDeleteMirrorMaker()  {
 		prepareForTestCommon();
@@ -389,10 +376,10 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
-	
+
 	@Test
 	public void testCallDeleteMirrorMakerAafPermissionError() {
 		prepareForTestCommon();
@@ -407,17 +394,17 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
-	
+
+
 	@Test
 	public void testListWhiteList()  {
 		prepareForTestCommon();
 
 		String sampleJson = "{ name:\"test\", namespace:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
-		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]"; 
+		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]";
 
 		try {
 			PowerMockito.when(mmservice.subscribe(any(), anyString(), anyString(), anyString())).thenReturn(msgSubscribe);
@@ -425,7 +412,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
 	@Test
@@ -434,7 +421,7 @@ public class MMRestServiceTest {
 
 		String sampleJson = "{ name:\"test\", namespace:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
-		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]"; 
+		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]";
 
 		try {
 			PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf"))
@@ -443,7 +430,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
 	@Test
@@ -452,7 +439,7 @@ public class MMRestServiceTest {
 
 		String sampleJson = "{ name:\"test\", namespace:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
-		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]"; 
+		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]";
 
 		try {
 			PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf.create"))
@@ -461,7 +448,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 	@Test
 	public void testListWhiteListJSONError()  {
@@ -469,23 +456,23 @@ public class MMRestServiceTest {
 
 		String sampleJson = "{ namespace:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
-		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]"; 
+		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]";
 
 		try {
 			mmRestService.listWhiteList(inputSteam);
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
-	
-	
-	
+
+
+
+
 	@Test
 	public void testCreateWhiteList()  {
 		prepareForTestCommon();
-		
+
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 
@@ -494,7 +481,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
 	@Test
@@ -504,7 +491,7 @@ public class MMRestServiceTest {
 		PowerMockito
 			.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf.create"))
 			.thenReturn(null);
-		
+
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 
@@ -513,16 +500,16 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testCreateWhiteListAafPermissionError()  {
 		prepareForTestCommon();
 
 		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "msgRtr.mirrormakeruser.aaf"))
 			.thenReturn(null);
-		
+
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 
@@ -531,9 +518,9 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-	}	
-	
+
+	}
+
 	@Test
 	public void testCreateWhiteListJSONError()  {
 		prepareForTestCommon();
@@ -546,9 +533,9 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-	}	
-	
+
+	}
+
 	@Test
 	public void testDeleteWhiteList()  {
 		prepareForTestCommon();
@@ -560,7 +547,7 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
 	@Test
@@ -576,10 +563,10 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
 
-	
+
 	@Test
 	public void testDeleteWhiteListMirrorMakerAafPermissionError()  {
 		prepareForTestCommon();
@@ -593,10 +580,10 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
-	
+
+
 	@Test
 	public void testDeleteWhiteListJsonError()  {
 		prepareForTestCommon();
@@ -608,9 +595,9 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
-	}	
-	
+
+	}
+
 	@Test
 	public void testDeleteWhiteListJsonFormattingError()  {
 		prepareForTestCommon();
@@ -622,15 +609,15 @@ public class MMRestServiceTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testCallPubSubForWhitelist() {
 		prepareForTestCommon();
-		
+
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
-		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]"; 
+		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		try {
 			PowerMockito.when(mmservice.subscribe(any(), anyString(), anyString(), anyString())).thenReturn(msgSubscribe);
@@ -639,13 +626,13 @@ public class MMRestServiceTest {
 			assertTrue(true);
 		}
 	}
-	
+
 	@Test
 	public void testCallPubSub() {
 		prepareForTestCommon();
-		
+
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
-		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]"; 
+		String msgSubscribe = "[{ messageID:\"test123\", listMirrorMaker:[ {name: \"test\"}]}]";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		try {
 			PowerMockito.when(mmservice.subscribe(any(), anyString(), anyString(), anyString())).thenReturn(msgSubscribe);
@@ -654,11 +641,11 @@ public class MMRestServiceTest {
 			assertTrue(true);
 		}
 	}
-	
+
 	@Test
 	public void testCallPubSubForWhitelistNoMsgFromSubscribe() {
 		prepareForTestCommon();
-		
+
 		String sampleJson = "{ name:\"test\", namespace:\"test\",   whitelistTopicName:\"test\"}}";
 		InputStream inputSteam = new ByteArrayInputStream(sampleJson.getBytes());
 		try {
@@ -672,15 +659,15 @@ public class MMRestServiceTest {
 	@Test
 	public void testGetListMirrorMaker() {
 		prepareForTestCommon();
-		
-		String sampleJson = "[{ messageID:\"test123\", listMirrorMaker:[\"test\"]}]"; 
+
+		String sampleJson = "[{ messageID:\"test123\", listMirrorMaker:[\"test\"]}]";
 		try {
 			mmRestService.getListMirrorMaker(sampleJson, "test123");
 		} catch (Exception e) {
 			assertTrue(true);
-		}		
+		}
 	}
-	
+
 	private void prepareForTestCommon()  {
 		Assert.assertNotNull(mmRestService);
 
@@ -740,7 +727,7 @@ public class MMRestServiceTest {
 		try {
 			PowerMockito.when(dmaapKafkaMetaBroker.getTopic(anyString())).thenReturn(null);
 		} catch (ConfigDbException e) {
-			
+
 		}
 	}
 
