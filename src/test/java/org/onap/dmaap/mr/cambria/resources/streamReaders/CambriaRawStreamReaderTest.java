@@ -55,9 +55,6 @@ public class CambriaRawStreamReaderTest {
 			stream = IOUtils.toInputStream(source, "UTF-8");
 			test = new CambriaRawStreamReader(stream,"hello");
 			msg = test.next();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		} catch (CambriaApiException e1) {
 			e1.printStackTrace();
 		}

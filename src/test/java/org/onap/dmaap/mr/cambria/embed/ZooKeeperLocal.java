@@ -22,6 +22,7 @@
 
 import org.apache.zookeeper.server.ServerConfig;
 import org.apache.zookeeper.server.ZooKeeperServerMain;
+import org.apache.zookeeper.server.admin.AdminServer.AdminServerException;
 import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
 
 import java.io.FileNotFoundException;
@@ -49,7 +50,7 @@ public class ZooKeeperLocal {
 		    public void run() {
 		        try {
 		            zooKeeperServer.runFromConfig(configuration);
-		        } catch (IOException e) {
+		        } catch (IOException | AdminServerException e) {
 		            System.out.println("ZooKeeper Failed");
 		            e.printStackTrace(System.err);
 		        }
