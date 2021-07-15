@@ -86,9 +86,9 @@
 		<camel.version>2.21.5</camel.version>
 		<camel.version.latest>3.5.0</camel.version.latest>
 		<sitePath>/content/sites/site/org/onap/dmaap/messagerouter/messageservice/${project.artifactId}/${project.version}</sitePath>
-		<skip.docker.build>true</skip.docker.build>
-		<skip.docker.tag>true</skip.docker.tag>
-		<skip.docker.push>true</skip.docker.push>
+		<skip.docker.build>false</skip.docker.build>
+		<skip.docker.tag>false</skip.docker.tag>
+		<skip.docker.push>false</skip.docker.push>
 		<nexusproxy>https://nexus.onap.org</nexusproxy>
 		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
 		<spring.version>3.2.18.RELEASE</spring.version>
@@ -100,6 +100,7 @@
 		<log4j.version>2.13.3</log4j.version>
 		<maven.compiler.target>8</maven.compiler.target>
 		<maven.compiler.source>8</maven.compiler.source>
+		<skip.deploy>false</skip.deploy>
 	</properties>
 
 	<build>
@@ -118,16 +119,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.6</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.wagon</groupId>
-						<artifactId>wagon-webdav-jackrabbit</artifactId>
-						<version>2.10</version>
-					</dependency>
-				</dependencies>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -163,8 +155,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-
-
 			<plugin>
 				<groupId>com.blackducksoftware.integration</groupId>
 				<artifactId>hub-maven-plugin</artifactId>
@@ -189,7 +179,13 @@
 				<version>2.8.0-01</version>
 				<extensions>true</extensions>
 			</plugin>
-
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<skip>${skip.deploy}</skip>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -274,7 +270,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
@@ -310,7 +305,12 @@
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
-			<version>3.4.14</version>
+			<version>3.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -347,8 +347,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.11</artifactId>
-			<version>0.11.0.3</version>
+			<artifactId>kafka_2.13</artifactId>
+			<version>2.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -436,7 +436,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.3.18.RELEASE</version>
+			<version>5.3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -448,12 +448,10 @@
 			<artifactId>spring-beans</artifactId>
 			<version>4.3.18.RELEASE</version>
 		</dependency>
-
-
 		<dependency>
-			<groupId>org.apache.commons</groupId>
+			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.att.eelf</groupId>
@@ -474,7 +472,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<!-- our NSA server library -->
 		<dependency>
 			<groupId>com.att.nsa</groupId>
@@ -509,7 +506,6 @@
 			<artifactId>curator-recipes</artifactId>
 			<version>4.0.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-test</artifactId>
@@ -560,17 +556,13 @@
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
 			<version>2.2.3</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.11.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.11.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.grails</groupId>
@@ -586,8 +578,8 @@
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-all</artifactId>
-			<version>2.4.8</version>
-			<scope>compile</scope>
+			<version>3.0.8</version>
+			<type>pom</type>
 			<exclusions>
 				<exclusion>
 					<artifactId>jline</artifactId>
@@ -595,20 +587,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20131018</version>
 		</dependency>
-
 		<!-- CXF JAX-RS extension -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -632,11 +621,16 @@
 			<version>3.0.11-oss</version>
 			<type>pom</type>
 		</dependency>
-
 		<dependency>
 			<groupId>org.onap.aaf.authz</groupId>
 			<artifactId>aaf-cadi-aaf</artifactId>
 			<version>2.7.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>backport-util-concurrent</groupId>
@@ -728,7 +722,7 @@
 		<dependency>
 			<groupId>org.igniterealtime.smack</groupId>
 			<artifactId>smack-tcp</artifactId>
-			<version>4.1.0-rc1</version>
+			<version>4.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -747,8 +741,13 @@
 			<version>3.0.11-oss</version>
 			<scope>provided</scope>
 		</dependency>
-
-    </dependencies>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.12</artifactId>
+			<version>2.7.0</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	<profiles>
 		<!-- Use this profile to run the AJSC locally. This profile can be successfully
 			shutdown WITHIN eclipse even in a Windows environment. Debugging is also
@@ -756,9 +755,7 @@
 		<profile>
 			<id>docker</id>
 			<properties>
-				<skip.docker.build>false</skip.docker.build>
-				<skip.docker.tag>false</skip.docker.tag>
-				<skip.docker.push>false</skip.docker.push>
+
 			</properties>
 			<build>
 				<plugins>
@@ -797,8 +794,8 @@
 						<artifactId>docker-maven-plugin</artifactId>
 						<version>0.28.0</version>
 						<configuration>
-							<verbose>${docker.verbose}</verbose>
-							<apiVersion>${docker.apiVersion}</apiVersion>
+							<skipBuild>${skip.docker.build}</skipBuild>
+							<skipPush>${skip.docker.push}</skipPush>
 							<pullRegistry>${docker.pull.registry}</pullRegistry>
 							<pushRegistry>${docker.push.registry}</pushRegistry>
 							<images>
@@ -1000,7 +997,6 @@
 							</dependency>
 						</dependencies>
 					</plugin>
-
 				</plugins>
 			</build>
 		</profile>
@@ -1044,7 +1040,6 @@
 						<version>2.8.0-01</version>
 						<extensions>true</extensions>
 					</plugin>
-
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
@@ -1376,10 +1371,8 @@
 									</resources>
 								</configuration>
 							</execution>
-
 						</executions>
 					</plugin>
-
 					<plugin>
 						<groupId>com.google.code.maven-replacer-plugin</groupId>
 						<artifactId>replacer</artifactId>
@@ -1458,5 +1451,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>

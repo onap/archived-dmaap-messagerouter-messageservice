@@ -23,10 +23,11 @@
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TestRunner {
-	private static final Logger LOGGER = Logger.getLogger(TestRunner.class);
+	private static final Logger LOGGER = LogManager.getLogger(TestRunner.class);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

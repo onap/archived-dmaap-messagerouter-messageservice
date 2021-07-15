@@ -288,12 +288,7 @@ public class MMRestService {
 					InputStream inStream = null;
 					MirrorMaker mirrormaker = gson.fromJson(input, MirrorMaker.class);
 
-					try {
-						inStream = IOUtils.toInputStream(jsonOb.toString(), "UTF-8");
-
-					} catch (IOException ioe) {
-						throw ioe;
-					}
+					inStream = IOUtils.toInputStream(jsonOb.toString(), "UTF-8");
 
 					JSONObject responseJson = callPubSub(jsonOb.getString("messageID"), ctx, inStream, mirrormaker.name,
 							true);
@@ -490,12 +485,8 @@ public class MMRestService {
 
 					InputStream inStream = null;
 
-					try {
-						inStream = IOUtils.toInputStream(jsonOb.toString(), "UTF-8");
+					inStream = IOUtils.toInputStream(jsonOb.toString(), "UTF-8");
 
-					} catch (IOException ioe) {
-						LOGGER.error("Error while converting string to an input stream:", ioe);
-					}
 					JSONObject deleteMM = jsonOb.getJSONObject("deleteMirrorMaker");
 
 					JSONObject existMirrorMaker = validateMMExists(ctx, deleteMM.getString("name"));
@@ -760,12 +751,8 @@ public class MMRestService {
 						InputStream inStream = null;
 
 						// convert listAll Json object to InputStream object
-						try {
-							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
+						inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
-						} catch (IOException ioe) {
-							LOGGER.error("Error while converting string to an input stream:", ioe);
-						}
 						JSONObject listMirrorMaker = new JSONObject();
 						listMirrorMaker = callPubSub(randomStr, ctx, inStream, null, true);
 
@@ -922,12 +909,8 @@ public class MMRestService {
 						InputStream inStream = null;
 
 						// convert listAll Json object to InputStream object
-						try {
-							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
+						inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
-						} catch (IOException ioe) {
-							LOGGER.error("Error while converting string to an input stream:", ioe);
-						}
 						String msgFrmSubscribe = mirrorService.subscribe(ctx, topic, consumergroup, consumerid);
 						// call listAllMirrorMaker
 						mirrorService.pushEvents(ctx, topic, inStream, null, null);
@@ -1133,12 +1116,8 @@ public class MMRestService {
 						InputStream inStream = null;
 
 						// convert listAll Json object to InputStream object
-						try {
-							inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
+						inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
-						} catch (IOException ioe) {
-							LOGGER.error("Error while converting string to an input stream:", ioe);
-						}
 						// call listAllMirrorMaker
 						mirrorService.pushEvents(ctx, topic, inStream, null, null);
 
@@ -1401,12 +1380,8 @@ public class MMRestService {
 		InputStream inStream = null;
 
 		// convert listAll Json object to InputStream object
-		try {
-			inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
+		inStream = IOUtils.toInputStream(listAll.toString(), "UTF-8");
 
-		} catch (IOException ioe) {
-			LOGGER.error("Error while converting string to an input stream:", ioe);
-		}
 		JSONObject listMirrorMaker = new JSONObject();
 		listMirrorMaker = callPubSub(randomStr, ctx, inStream, name, false);
 		if (null != listMirrorMaker && listMirrorMaker.length() > 0) {
