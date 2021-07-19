@@ -310,7 +310,7 @@
 		<dependency>
 			<groupId>com.101tec</groupId>
 			<artifactId>zkclient</artifactId>
-			<version>0.2</version>
+			<version>0.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -755,7 +755,7 @@
 		<profile>
 			<id>docker</id>
 			<properties>
-
+				<skipTests>true</skipTests>
 			</properties>
 			<build>
 				<plugins>
@@ -792,7 +792,7 @@
 					<plugin>
 						<groupId>io.fabric8</groupId>
 						<artifactId>docker-maven-plugin</artifactId>
-						<version>0.28.0</version>
+						<version>0.33.0</version>
 						<configuration>
 							<skipBuild>${skip.docker.build}</skipBuild>
 							<skipPush>${skip.docker.push}</skipPush>

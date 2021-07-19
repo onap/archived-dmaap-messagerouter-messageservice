@@ -7,3 +7,5 @@
 /target/*
 .idea/*
 /src/.idea/*
+/venv/*
+*/archives/
