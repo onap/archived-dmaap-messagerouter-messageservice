@@ -1,7 +1,8 @@
-version: '2'
+version: '2.1'
 services:
   zookeeper:
     image: nexus3.onap.org:10001/onap/dmaap/zookeeper:latest
+    container_name: dmaap-zookeeper
     ports:
       - "2181:2181"
     environment:
@@ -24,6 +25,7 @@ services:
 
   kafka:
    image: nexus3.onap.org:10001/onap/dmaap/kafka111:latest
+   container_name: dmaap-kafka
    ports:
     - "9092:9092"
    environment:
@@ -51,7 +53,8 @@ services:
     - zookeeper
 
   dmaap:
-    image: nexus3.onap.org:10001/onap/dmaap/dmaap-mr:latest
+    image: onap/dmaap/dmaap-mr:latest
+    container_name: dmaap-mr
     ports:
       - "3904:3904"
       - "3905:3905"
