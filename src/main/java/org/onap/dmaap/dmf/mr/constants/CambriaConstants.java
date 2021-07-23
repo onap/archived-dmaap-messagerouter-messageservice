@@ -37,7 +37,7 @@ public interface CambriaConstants {
 
 	String kSetting_ZkConfigDbRoot = "config.zk.root";
 	String kDefault_ZkConfigDbRoot = kDefault_ZkRoot + "/config";
-String msgRtr_prop="MsgRtrApi.properties";
+    String msgRtr_prop="MsgRtrApi.properties";
 	String kBrokerType = "broker.type";
 	
 	/**
