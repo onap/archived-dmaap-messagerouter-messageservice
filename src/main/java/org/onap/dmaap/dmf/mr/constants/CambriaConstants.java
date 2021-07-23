@@ -3,6 +3,7 @@
  *  org.onap.dmaap
  *  ================================================================================
  *  Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+ *  Modification copyright (C) 2021 Nordix Foundation.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -37,7 +38,7 @@ public interface CambriaConstants {
 
 	String kSetting_ZkConfigDbRoot = "config.zk.root";
 	String kDefault_ZkConfigDbRoot = kDefault_ZkRoot + "/config";
-String msgRtr_prop="MsgRtrApi.properties";
+    String msgRtr_prop="MsgRtrApi.properties";
 	String kBrokerType = "broker.type";
 	
 	/**

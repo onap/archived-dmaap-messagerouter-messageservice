@@ -4,6 +4,7 @@
 #  org.onap.dmaap
 #  ================================================================================
 #  Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+#  Modification copyright (C) 2021 Nordix Foundation.
 #  ================================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -30,7 +31,7 @@ echo "Starting using" $runner_file
 
 if [ -z "${MR_JVM_ARGS}" ]; then
 
-java -jar   -Xmx512m -Xms512m -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=5555 -Dcom.sun.management.jmxremote.port=5555  -DSOACLOUD_SERVICE_VERSION=0.0.1 -DAJSC_HOME=$root_directory -DAJSC_CONF_HOME=$config_directory -DAJSC_SHARED_CONFIG=$config_directory -DAJSC_HTTPS_PORT=3905 -Dplatform=NON-PROD -DPid=1306 -Dlogback.configurationFile=/appl/dmaapMR1/bundleconfig/etc/logback.xml -Xmx512m -Xms512m  $runner_file context=/ port=3904 sslport=3905
+java -jar -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=5555 -Dcom.sun.management.jmxremote.port=5555  -DSOACLOUD_SERVICE_VERSION=0.0.1 -DAJSC_HOME=$root_directory -DAJSC_CONF_HOME=$config_directory -DAJSC_SHARED_CONFIG=$config_directory -DAJSC_HTTPS_PORT=3905 -Dplatform=NON-PROD -DPid=1306 -Dlogback.configurationFile=/appl/dmaapMR1/bundleconfig/etc/logback.xml -Xmx512m -Xms512m  $runner_file context=/ port=3904 sslport=3905
 
 else
 
