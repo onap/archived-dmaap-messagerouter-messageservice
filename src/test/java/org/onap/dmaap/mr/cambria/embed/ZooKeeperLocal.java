@@ -20,41 +20,48 @@
 
  package org.onap.dmaap.mr.cambria.embed;
 
+import java.io.IOException;
+import java.util.Properties;
+import org.apache.curator.test.TestingZooKeeperMain;
 import org.apache.zookeeper.server.ServerConfig;
 import org.apache.zookeeper.server.ZooKeeperServerMain;
 import org.apache.zookeeper.server.admin.AdminServer.AdminServerException;
 import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
-
 public class ZooKeeperLocal {
-	
-	ZooKeeperServerMain zooKeeperServer;
-	
-	public ZooKeeperLocal(Properties zkProperties) throws FileNotFoundException, IOException{
+
+	ZooKeeperServerMain testingZooKeeperMain = null;
+	ServerConfig conf;
+	Thread t1;
+
+	public ZooKeeperLocal(Properties zkProperties) {
 		QuorumPeerConfig quorumConfiguration = new QuorumPeerConfig();
 		try {
 		    quorumConfiguration.parseProperties(zkProperties);
 		} catch(Exception e) {
 		    throw new RuntimeException(e);
 		}
- 
-		zooKeeperServer = new ZooKeeperServerMain();
-		final ServerConfig configuration = new ServerConfig();
-		configuration.readFrom(quorumConfiguration);
-		
-		
-		new Thread() {
-		    public void run() {
-		        try {
-		            zooKeeperServer.runFromConfig(configuration);
-		        } catch (IOException | AdminServerException e) {
-		            System.out.println("ZooKeeper Failed");
-		            e.printStackTrace(System.err);
-		        }
-		    }
-		}.start();
+		conf = new ServerConfig();
+		conf.readFrom(quorumConfiguration);
 	}
+
+	public void run() {
+		if (testingZooKeeperMain == null){
+		t1 = new Thread(() -> {
+			try {
+				testingZooKeeperMain = new ZooKeeperServerMain();
+				testingZooKeeperMain.runFromConfig(conf);
+			} catch (Exception e) {
+				System.out.println("Start of Local ZooKeeper Failed");
+				e.printStackTrace(System.err);
+			}
+		});
+		t1.start();
+	}}
+
+	public void stop() {
+		testingZooKeeperMain.close();
+		t1.stop();
+	}
+
 }

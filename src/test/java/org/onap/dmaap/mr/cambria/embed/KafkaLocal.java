@@ -20,16 +20,16 @@
 
  package org.onap.dmaap.mr.cambria.embed;
 
-import kafka.server.KafkaConfig;
-import kafka.server.KafkaServerStartable;
-
 import java.io.IOException;
 import java.util.Properties;
+import kafka.server.KafkaConfig;
+import kafka.server.KafkaServer;
+import org.apache.kafka.common.utils.Time;
 
 
 public class KafkaLocal {
  
-	public KafkaServerStartable kafka;
+	public KafkaServer kafka;
 	public ZooKeeperLocal zookeeper;
 	
 	public KafkaLocal(Properties kafkaProperties, Properties zkProperties) throws IOException, InterruptedException{
@@ -38,10 +38,12 @@ public class KafkaLocal {
 		//start local zookeeper
 		System.out.println("starting local zookeeper...");
 		zookeeper = new ZooKeeperLocal(zkProperties);
+		zookeeper.run();
 		System.out.println("done");
 		
 		//start local kafka broker
-		kafka = new KafkaServerStartable(kafkaConfig);
+		final scala.Option<String> prefix = scala.Option.apply("kafka");
+		kafka = new KafkaServer(kafkaConfig, Time.SYSTEM, prefix, false);
 		System.out.println("starting local kafka broker...");
 		kafka.startup();
 		System.out.println("done");
@@ -52,6 +54,10 @@ public class KafkaLocal {
 		//stop kafka broker
 		System.out.println("stopping kafka...");
 		kafka.shutdown();
+		kafka.awaitShutdown();
+		System.out.println("done");
+		System.out.println("stopping zookeeper...");
+		zookeeper.stop();
 		System.out.println("done");
 	}
 	

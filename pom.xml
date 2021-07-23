@@ -1,13 +1,15 @@
-<!-- ============LICENSE_START=======================================================
-	org.onap.dmaap ================================================================================
-	Copyright © 2017 AT&T Intellectual Property. All rights reserved. ================================================================================
+<!-- ============LICENSE_START====================================================
+	org.onap.dmaap
+	================================================================================
+	Copyright © 2017 AT&T Intellectual Property. All rights reserved.
 	Licensed under the Apache License, Version 2.0 (the "License"); you may not
 	use this file except in compliance with the License. You may obtain a copy
 	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
 	by applicable law or agreed to in writing, software distributed under the
 	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 	OF ANY KIND, either express or implied. See the License for the specific
-	language governing permissions and limitations under the License. ============LICENSE_END=========================================================
+	language governing permissions and limitations under the License.
+	============LICENSE_END=========================================================
 	ECOMP is a trademark and service mark of AT&T Intellectual Property. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -29,7 +31,6 @@
 			<name>Apache License Version 2.0</name>
 		</license>
 	</licenses>
-
 	<developers>
 		<developer>
 			<name>Rajashree</name>
@@ -44,18 +45,15 @@
 			<organizationUrl>www.att.com</organizationUrl>
 		</developer>
 	</developers>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dockerLocation>${basedir}/target/swm/package/nix/dist_files/</dockerLocation>
 		<docker.image.prefix>simpledemo</docker.image.prefix>
-		<!-- <javax-mail-version>1.5.0</javax-mail-version> -->
 		<module.ajsc.namespace.name>dmaap</module.ajsc.namespace.name>
 		<module.ajsc.namespace.version>v1</module.ajsc.namespace.version>
 		<ajscRuntimeVersion>3.0.11-oss</ajscRuntimeVersion>
 
-		<!-- This will be the Absolute Root of the Project and should contain NO
-			Versioning -->
+		<!-- This will be the Absolute Root of the Project and should contain NO Versioning -->
 		<absoluteDistFilesRoot>/appl/${project.artifactId}</absoluteDistFilesRoot>
 		<!-- <absoluteDistFilesRoot>/opt/app/dmaap/${project.artifactId}</absoluteDistFilesRoot> -->
 		<!-- For Versioning upon installation, add /${project.version} to distFilesRoot.
@@ -65,23 +63,9 @@
 		<distFilesRoot>/appl/${project.artifactId}</distFilesRoot>
 		<!-- <distFilesRoot>/opt/app/dmaap/${project.artifactId}</distFilesRoot> -->
 		<runAjscHome>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}</runAjscHome>
-
-		<!-- For SOA Cloud Installation <installOwnerUser>aft</installOwnerUser>
-			<installOwnerGroup>aft</installOwnerGroup> <ownerManagementGroup>com.att.acsi.saat.dt.dmaap.dev</ownerManagementGroup> -->
-		<!-- For SOA Cloud Installation -->
-		<installOwnerUser>msgrtr</installOwnerUser>
-		<installOwnerGroup>dmaap</installOwnerGroup>
-		<ownerManagementGroup>com.att.acsi.saat.dt.dmaap.dev</ownerManagementGroup>
-		<!-- Port Selection. A value of 0 will allow for dynamic port selection.
-			For local testing, you may choose to hardcode this value to something like
-			8080 -->
 		<serverPort>3904</serverPort>
 		<sslport>3905</sslport>
 		<onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
-		<testRouteOffer>workstation</testRouteOffer>
-		<testEnv>DEV</testEnv>
-		<!-- <dmaapImg>${project.version}</dmaapImg> -->
-		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
 		<camel.version>2.21.5</camel.version>
 		<camel.version.latest>3.5.0</camel.version.latest>
@@ -89,8 +73,8 @@
 		<skip.docker.build>false</skip.docker.build>
 		<skip.docker.tag>false</skip.docker.tag>
 		<skip.docker.push>false</skip.docker.push>
-		<nexusproxy>https://nexus.onap.org</nexusproxy>
 		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
+		<nexusproxy>https://nexus.onap.org</nexusproxy>
 		<spring.version>3.2.18.RELEASE</spring.version>
 		<sonar.language>java</sonar.language>
 		<sonar.skip>false</sonar.skip>
@@ -216,17 +200,16 @@
 		at ajsc-Support <DL-ajsc-Support@att.com>. For more information regarding
 		the usage of the AJSC service pom.xml and management of dependencies, -->
 	<dependencies>
-
-		<!-- cmn-CommonDataModel dependency added to resolve build issue not finding
-			version 100.0.64 -->
-
-		<!-- <dependency> <groupId>csi-schemas-source</groupId> <artifactId>cmn-CommonDataModel</artifactId>
-			<version>112.0.50</version> </dependency> -->
-		<!-- TODO: add open source version here -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 			<version>2.4.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>logback-classic</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- Micormeter core dependecy  -->
 		<dependency>
@@ -312,11 +295,6 @@
 			<artifactId>zkclient</artifactId>
 			<version>0.11</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.6.1</version>
-		</dependency>
 		<!-- Log4j2 logger -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -331,7 +309,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.1</version>
+			<version>1.7.32</version>
 			<exclusions>
 				<exclusion>
 					<groupId>*</groupId>
@@ -585,6 +563,10 @@
 					<artifactId>jline</artifactId>
 					<groupId>jline</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>testng</artifactId>
+					<groupId>org.testng</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -741,11 +723,28 @@
 			<version>3.0.11-oss</version>
 			<scope>provided</scope>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.apache.kafka</groupId>-->
+<!--			<artifactId>kafka_2.12</artifactId>-->
+<!--			<version>2.8.0</version>-->
+<!--			<scope>test</scope>-->
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<artifactId>metrics-core</artifactId>-->
+<!--					<groupId>com.yammer.metrics</groupId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.12</artifactId>
-			<version>2.7.0</version>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
+			<version>4.2.3</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.32</version>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -829,173 +828,6 @@
 								</goals>
 							</execution>
 						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>runLocal</id>
-			<build>
-				<defaultGoal>initialize</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>initialize</phase>
-								<configuration>
-									<target name="runLocal">
-										<ant antfile="${basedir}/antBuild/build.xml" target="runLocal" />
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>runAjsc</id>
-			<build>
-				<defaultGoal>initialize</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.3.2</version>
-						<executions>
-							<execution>
-								<phase>initialize</phase>
-								<goals>
-									<goal>java</goal>
-								</goals>
-								<configuration>
-									<!-- In order to better mimic a SOA cloud installation of AJSC (and
-										to help eliminate Maven/Eclipse/AJSC classpath issues that may be difficult
-										to diagnose), within this profile used to run locally, we are NOT including
-										project dependencies. These will be loaded by AJSC from $AJSC_HOME/extJars.
-										The only jar needed to run AJSC is the ajsc-runner.jar, and therefore is
-										the only dependency required by this profile to run locally. -->
-									<includeProjectDependencies>false</includeProjectDependencies>
-									<includePluginDependencies>true</includePluginDependencies>
-									<executable>java</executable>
-									<mainClass>com.att.ajsc.runner.Runner</mainClass>
-									<executableDependency>
-										<groupId>com.att.ajsc</groupId>
-										<artifactId>ajsc-runner</artifactId>
-									</executableDependency>
-									<additionalClasspathElements>
-										<additionalClasspathElement>${basedir}/ajsc-shared-config/etc</additionalClasspathElement>
-									</additionalClasspathElements>
-
-									<environmentVariables>
-										<AJSC_HOME>${runAjscHome}</AJSC_HOME>
-									</environmentVariables>
-
-									<!-- Main AJSC System Properties below (necessary for proper startup) -->
-									<systemProperties>
-										<systemProperty>
-											<key>AJSC_HOME</key>
-											<value>${runAjscHome}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_HOME</key>
-											<value>${runAjscHome}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_CONF_HOME</key>
-											<value>${basedir}/bundleconfig-local</value>
-										</systemProperty>
-										<systemProperty>
-											<key>logback.configurationFile</key>
-											<value>${basedir}/ajsc-shared-config/etc/logback.xml</value>
-										</systemProperty>
-										<systemProperty>
-											<key>com.att.eelf.logging.file</key>
-											<value>logback.xml</value>
-										</systemProperty>
-										<systemProperty>
-											<key>com.att.eelf.logging.path</key>
-											<value>${basedir}/ajsc-shared-config/etc</value>
-										</systemProperty>
-										<systemProperty>
-											<key>logging.config</key>
-											<value>${basedir}/ajsc-shared-config/etc/logback.xml</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_SHARED_CONFIG</key>
-											<value>${basedir}/ajsc-shared-config</value>
-										</systemProperty>
-
-										<!-- Please, NOTE: The following 2 system properties will normally
-											be set within the sys-props.properties file once deployed to a node. We are
-											setting them HERE to run locally to make more efficient use of maven variable
-											replacement for ${basedir} -->
-										<!-- AJSC_EXTERNAL_LIB_FOLDERS represents the particular jars that
-											will be externalized on a CSI node. This includes dme2 and csm related artifact. -->
-										<sysproperty>
-											<key>AJSC_EXTERNAL_LIB_FOLDERS</key>
-											<value>${basedir}/target/commonLibs</value>
-										</sysproperty>
-										<!-- AJSC_EXTERNAL_PROPERTIES_FOLDERS represents the particular
-											files that may need to be added to the classpath. These files will be externalized
-											on a CSI node. This includes dme2 and csm related artifact (such as csm-config-app.properties).
-											Failure to have these files on the classpath may result in errors thrown
-											by csm framework. -->
-										<sysproperty>
-											<key>AJSC_EXTERNAL_PROPERTIES_FOLDERS</key>
-											<value>${basedir}/ajsc-shared-config/etc</value>
-										</sysproperty>
-
-										<systemProperty>
-											<key>AJSC_SERVICE_NAMESPACE</key>
-											<value>${module.ajsc.namespace.name}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_SERVICE_VERSION</key>
-											<value>${module.ajsc.namespace.version}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>SOACLOUD_SERVICE_VERSION</key>
-											<value>${project.version}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>server.port</key>
-											<value>${serverPort}</value>
-										</systemProperty>
-									</systemProperties>
-
-									<!-- Command Line Arguments to add to the java command. Here, you
-										can specify the port as well as the Context you want your service to run
-										in. Use context=/ to run in an unnamed Context (Root Context). The default
-										configuration of the AJSC is to run under the / Context. Setting the port
-										here can aid during the development phase of your service. However, you can
-										leave this argument out entirely, and the AJSC will default to using an Ephemeral
-										port. -->
-									<arguments>
-										<argument>context=/</argument>
-										<argument>port=${serverPort}</argument>
-										<argument>sslport=${sslport}</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-						<configuration>
-							<executable>java</executable>
-						</configuration>
-						<dependencies>
-							<dependency>
-								<groupId>com.att.ajsc</groupId>
-								<artifactId>ajsc-runner</artifactId>
-								<version>${ajscRuntimeVersion}</version>
-							</dependency>
-						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
@@ -1292,19 +1124,6 @@
 								</configuration>
 							</execution>
 							<execution>
-								<id>copy-dependencies-ajsc-arch-parent-commonLibs</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-								<configuration>
-									<includeScope>provided</includeScope>
-									<includeGroupIds>net.cingular.enterprise,com.att.aft,dom4j</includeGroupIds>
-									<outputDirectory>${project.build.directory}/commonLibs</outputDirectory>
-									<silent>true</silent>
-								</configuration>
-							</execution>
-							<execution>
 								<id>copyrunner</id>
 								<phase>prepare-package</phase>
 								<goals>
@@ -1337,21 +1156,6 @@
 								</configuration>
 							</execution>
 							<execution>
-								<id>copyscript</id>
-								<phase>package</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/bin</outputDirectory>
-									<resources>
-										<resource>
-											<directory>src/main/scripts</directory>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-							<execution>
 								<id>copy-docker-file</id>
 								<phase>prepare-package</phase>
 								<goals>
@@ -1373,66 +1177,66 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<groupId>com.google.code.maven-replacer-plugin</groupId>
-						<artifactId>replacer</artifactId>
-						<version>1.5.2</version>
-						<executions>
-							<execution>
-								<id>google-replacer-ajsc-arch-parent</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>replace</goal>
-								</goals>
-								<configuration>
-									<basedir>${project.build.directory}</basedir>
-									<includes>
-										<include>staticContent/**/*.html</include>
-										<include>CDP/**</include>
-										<include>bundleconfig/**</include>
-										<include>versioned-runtime/**/*.context</include>
-										<include>versioned-runtime/**/*.json</include>
-										<include>versioned-ajsc/**/*.route</include>
-										<include>versioned-ajsc/**/*.groovy</include>
-										<include>versioned-ajsc/**/*.xml</include>
-										<include>classes/*.properties</include>
-										<include>swm/package/nix/dist_files${distFilesRoot}/etc/*.properties</include>
-									</includes>
-									<escape>true</escape>
-									<replacements>
-										<replacement>
-											<token>__module_ajsc_namespace_name__</token>
-											<value>${module.ajsc.namespace.name}</value>
-										</replacement>
-										<replacement>
-											<token>__module_ajsc_namespace_version__</token>
-											<value>${module.ajsc.namespace.version}</value>
-										</replacement>
-										<replacement>
-											<token>__ajscHome__</token>
-											<value>${replaceWinFilePath}</value>
-										</replacement>
-										<replacement>
-											<token>__projectGroupId__</token>
-											<value>${project.groupId}</value>
-										</replacement>
-										<replacement>
-											<token>__projectArtifactId__</token>
-											<value>${project.artifactId}</value>
-										</replacement>
-										<replacement>
-											<token>__projectVersion__</token>
-											<value>${project.version}</value>
-										</replacement>
-										<replacement>
-											<token>__basedir__</token>
-											<value>${replaceWinBasedirPath}</value>
-										</replacement>
-									</replacements>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
+<!--					<plugin>-->
+<!--						<groupId>com.google.code.maven-replacer-plugin</groupId>-->
+<!--						<artifactId>replacer</artifactId>-->
+<!--						<version>1.5.2</version>-->
+<!--						<executions>-->
+<!--							<execution>-->
+<!--								<id>google-replacer-ajsc-arch-parent</id>-->
+<!--								<phase>prepare-package</phase>-->
+<!--								<goals>-->
+<!--									<goal>replace</goal>-->
+<!--								</goals>-->
+<!--								<configuration>-->
+<!--									<basedir>${project.build.directory}</basedir>-->
+<!--									<includes>-->
+<!--										<include>staticContent/**/*.html</include>-->
+<!--										<include>CDP/**</include>-->
+<!--										<include>bundleconfig/**</include>-->
+<!--										<include>versioned-runtime/**/*.context</include>-->
+<!--										<include>versioned-runtime/**/*.json</include>-->
+<!--										<include>versioned-ajsc/**/*.route</include>-->
+<!--										<include>versioned-ajsc/**/*.groovy</include>-->
+<!--										<include>versioned-ajsc/**/*.xml</include>-->
+<!--										<include>classes/*.properties</include>-->
+<!--										<include>swm/package/nix/dist_files${distFilesRoot}/etc/*.properties</include>-->
+<!--									</includes>-->
+<!--									<escape>true</escape>-->
+<!--									<replacements>-->
+<!--										<replacement>-->
+<!--											<token>__module_ajsc_namespace_name__</token>-->
+<!--											<value>${module.ajsc.namespace.name}</value>-->
+<!--										</replacement>-->
+<!--										<replacement>-->
+<!--											<token>__module_ajsc_namespace_version__</token>-->
+<!--											<value>${module.ajsc.namespace.version}</value>-->
+<!--										</replacement>-->
+<!--										<replacement>-->
+<!--											<token>__ajscHome__</token>-->
+<!--											<value>${replaceWinFilePath}</value>-->
+<!--										</replacement>-->
+<!--										<replacement>-->
+<!--											<token>__projectGroupId__</token>-->
+<!--											<value>${project.groupId}</value>-->
+<!--										</replacement>-->
+<!--										<replacement>-->
+<!--											<token>__projectArtifactId__</token>-->
+<!--											<value>${project.artifactId}</value>-->
+<!--										</replacement>-->
+<!--										<replacement>-->
+<!--											<token>__projectVersion__</token>-->
+<!--											<value>${project.version}</value>-->
+<!--										</replacement>-->
+<!--										<replacement>-->
+<!--											<token>__basedir__</token>-->
+<!--											<value>${replaceWinBasedirPath}</value>-->
+<!--										</replacement>-->
+<!--									</replacements>-->
+<!--								</configuration>-->
+<!--							</execution>-->
+<!--						</executions>-->
+<!--					</plugin>-->
 				</plugins>
 				<pluginManagement>
 					<plugins>
@@ -1444,6 +1248,9 @@
 								<excludes>
 									<exclude>**/AbstractTest.java</exclude>
 								</excludes>
+									<argLine>
+										--illegal-access=permit
+									</argLine>
 							</configuration>
 						</plugin>
 					</plugins>
