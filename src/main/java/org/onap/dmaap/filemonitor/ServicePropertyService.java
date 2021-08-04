@@ -8,35 +8,28 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
-*  
+*
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *  
+ *
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
- *  
+ *
  *******************************************************************************/
  package org.onap.dmaap.filemonitor;
 
+import com.att.eelf.configuration.EELFLogger;
+import com.att.eelf.configuration.EELFManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import javax.annotation.PostConstruct;
-
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
-
-
-//import com.att.ssf.filemonitor.FileChangedListener;
-//import com.att.ssf.filemonitor.FileMonitor;
 
 /**
  * ServicePropertyService class
@@ -68,17 +61,6 @@ public class ServicePropertyService {
 		try {
 			getFileList(FILE_CHANGE_LISTENER_LOC);
 
-			/*for (File file : fileList) {
-					FileChangedListener fileChangedListener = this.fileChangedListener;
-					Object filePropertiesMap = this.filePropertiesMap;
-					Method m = filePropertiesMap.getClass().getMethod(
-							"refresh", File.class);
-					m.invoke(filePropertiesMap, file);
-					FileMonitor fm = FileMonitor.getInstance();
-					fm.addFileChangedListener(file, fileChangedListener,
-							loadOnStartup);
-				
-			}*/
 		} catch (Exception ex) {
 			logger.error("Error creating property map ", ex);
 		}
@@ -87,10 +69,9 @@ public class ServicePropertyService {
 
 	private void getFileList(String dirName) throws IOException {
 		File directory = new File(dirName);
-		FileInputStream fis = null;
 
 		if (fileList == null)
-			fileList = new ArrayList<File>();
+			fileList = new ArrayList<>();
 
 		// get all the files that are ".json" or ".properties", from a directory
 		// & it's sub-directories
@@ -99,8 +80,8 @@ public class ServicePropertyService {
 		for (File file : fList) {
 			// read service property files from the configuration file
 			if (file.isFile() && file.getPath().endsWith(USER_CONFIG_FILE)) {
-				try {
-					fis = new FileInputStream(file);
+				try(FileInputStream fis = new FileInputStream(file)) {
+
 					Properties prop = new Properties();
 					prop.load(fis);
 
@@ -109,8 +90,6 @@ public class ServicePropertyService {
 					}
 				} catch (Exception ioe) {
 					logger.error("Error reading the file stream ", ioe);
-				} finally {
-					fis.close();
 				}
 			} else if (file.isDirectory()) {
 				getFileList(file.getPath());

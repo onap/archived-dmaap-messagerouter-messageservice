@@ -28,8 +28,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({CambriaApiExceptionTest.class, CambriaApiVersionInfoTest.class,
-    CambriaApiTestCase.class, CambriaRateLimiterTest.class,})
+@SuiteClasses({CambriaApiExceptionTest.class, CambriaApiVersionInfoTest.class})
 public class JUnitTestSuite {
 
     private static final Logger LOGGER = LogManager.getLogger(JUnitTestSuite.class);

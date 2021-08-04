@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,60 +20,54 @@
 
  package org.onap.dmaap.mr.cambria.backends.kafka;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import com.att.ajsc.filemonitor.AJSCPropertiesMap;
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-
-import com.att.ajsc.filemonitor.AJSCPropertiesMap;
-
+import org.mockito.junit.MockitoJUnitRunner;
+import org.onap.dmaap.dmf.mr.backends.Consumer;
 import org.onap.dmaap.dmf.mr.backends.MetricsSet;
 import org.onap.dmaap.dmf.mr.backends.kafka.Kafka011Consumer;
 import org.onap.dmaap.dmf.mr.backends.kafka.KafkaConsumerCache;
 import org.onap.dmaap.dmf.mr.backends.kafka.KafkaConsumerCache.KafkaConsumerCacheException;
-import org.onap.dmaap.dmf.mr.constants.CambriaConstants;
 
-@PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*", "javax.management.*"})
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ AJSCPropertiesMap.class })
+
+@RunWith(MockitoJUnitRunner.class)
 public class KafkaConsumerCacheTest {
-	private KafkaConsumerCache kafkaConsumerCache =null;
+
 	@Mock
 	private ConcurrentHashMap<String, Kafka011Consumer> fConsumers;
 	@Mock
 	private MetricsSet fMetrics;
+	@Mock
+	private AJSCPropertiesMap ajscPropertiesMap;
+	@InjectMocks
+	private KafkaConsumerCache kafkaConsumerCache;
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
-
 	@Test
 	public void testSweep() {
-		kafkaConsumerCache = new KafkaConsumerCache();
-		PowerMockito.mockStatic(AJSCPropertiesMap.class);
-		PowerMockito.when(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, "kSetting_TouchEveryMs")).thenReturn("100");
 		kafkaConsumerCache.sweep();
-
+		Collection<? extends Consumer> cachedConsumers =
+			kafkaConsumerCache.getConsumers();
+		assertTrue(cachedConsumers.isEmpty());
 	}
-	
+
 
 	// DOES NOT WORK
 	@Test
@@ -81,16 +75,16 @@ public class KafkaConsumerCacheTest {
 
 		/*
 		 * KafkaConsumerCache kafka = null;
-		 * 
+		 *
 		 * try { kafka = new KafkaConsumerCache("123", null);
-		 * 
+		 *
 		 * } catch (NoClassDefFoundError e) { try { kafka.startCache("DMAAP",
 		 * null); } catch (NullPointerException e1) { // TODO Auto-generated
 		 * catch block assertTrue(true); } catch (KafkaConsumerCacheException
 		 * e1) { // TODO Auto-generated catch block e1.printStackTrace(); } }
 		 */
 
-		
+
 		new CuratorFrameworkImpl();
 		new MetricsSetImpl();
 		KafkaConsumerCache kafka=null;
@@ -123,15 +117,21 @@ public class KafkaConsumerCacheTest {
 
 	/*
 	 * @Test public void testStopCache() {
-	 * 
+	 *
 	 * KafkaConsumerCache kafka = null; new CuratorFrameworkImpl(); new
 	 * MetricsSetImpl(); try { kafka = new KafkaConsumerCache("123", null);
 	 * kafka.stopCache(); } catch (NoClassDefFoundError e) {
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * }
 	 */
+
+	@Test(expected= KafkaConsumerCacheException.class)
+	public void testGetConsumerThrowNoConnectionToCache() throws KafkaConsumerCacheException{
+		KafkaConsumerCache kafka = new KafkaConsumerCache();
+		kafka.getConsumerFor("testTopic", "CG1", "23");
+	}
 
 	@Test
 	public void testGetConsumerFor() {
@@ -208,7 +208,7 @@ public class KafkaConsumerCacheTest {
 			}
 		}
 
-	} 
+	}
 
 	@Test
 	public void testSignalOwnership() {
@@ -224,7 +224,7 @@ public class KafkaConsumerCacheTest {
 		}
 		} catch (NoClassDefFoundError e) {}
 
-		// 
+		//
 	}
 
 	@Test
@@ -245,6 +245,6 @@ public class KafkaConsumerCacheTest {
 		}
 
 	}
-	
+
 
 }

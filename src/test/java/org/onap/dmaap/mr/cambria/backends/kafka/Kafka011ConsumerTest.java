@@ -8,20 +8,21 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
-*  
+*
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ *  limitations under the License.#
  *  ============LICENSE_END=========================================================
- *  
+ *
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
- *  
+ *
  *******************************************************************************/
 package org.onap.dmaap.mr.cambria.backends.kafka;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.att.ajsc.filemonitor.AJSCPropertiesMap;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -43,8 +44,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ AJSCPropertiesMap.class })
 public class Kafka011ConsumerTest {
-	
-		
+
+
 	@Mock
 	private KafkaConsumer<String, String> cc;
 	@Mock
@@ -53,13 +54,13 @@ public class Kafka011ConsumerTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
 	@Test
 	public void testKafka011Consumer() {
 		PowerMockito.mockStatic(AJSCPropertiesMap.class);
@@ -71,21 +72,21 @@ public class Kafka011ConsumerTest {
 			 consumer.touch();
 			 consumer.setOffset(10);
 		} catch (Exception e) {
-			
+
 		}
 		assertNotNull(consumer);
 		assertNotNull(consumer.getConsumer());
 		assertNotNull(consumer.getConsumerGroup());
 		assertNotNull(consumer.getConsumerId());
 		assertNotNull(consumer.getConsumerId());
-		assertNotNull(consumer.getCreateTimeMs());
-		assertNotNull(consumer.getLastAccessMs());
+		assertTrue(consumer.getCreateTimeMs() > 0);
+		assertTrue(consumer.getLastAccessMs() > 0);
 		assertNotNull(consumer.getName());
-		assertNotNull(consumer.getOffset());
-		assertNotNull(consumer.getLastTouch());
-		
-		
+		assertTrue(consumer.getOffset() > 0);
+		assertTrue(consumer.getLastTouch() > 0);
+
+
 	}
-	
+
 
 }
