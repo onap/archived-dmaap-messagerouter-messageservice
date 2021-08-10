@@ -107,7 +107,7 @@ public class UIRestServicesTest {
 		Class clazz = null;
 		Method method = null;
 		try {
-			clazz = Class.forName("UIRestServices");
+			clazz = Class.forName("org.onap.dmaap.service.UIRestServices");
 			Object obj = clazz.newInstance();
 			method = clazz.getDeclaredMethod("getDmaapContext", null);
 			method.setAccessible(true);

@@ -41,7 +41,7 @@ public class KafkaLocal {
 		zookeeper = new ZooKeeperLocal(zkProperties);
 		zookeeper.run();
 		System.out.println("done");
-		
+		Thread.sleep(5000);
 		//start local kafka broker
 		final scala.Option<String> prefix = scala.Option.apply("kafka");
 		kafka = new KafkaServer(kafkaConfig, Time.SYSTEM, prefix, false);
