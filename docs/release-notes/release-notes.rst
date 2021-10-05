@@ -3,6 +3,91 @@
 .. _release_notes:
 
 ..      ===========================
+..      * * *    ISTANBUL     * * *
+..      ===========================
+
+Release Notes
+=============
+
+Abstract
+--------
+
+This document provides the DMaaP Message Router release notes for the Istanbul release.
+
+Summary
+-------
+
+Securities Issues addressed
+
+Release Data
+------------
+
++--------------------------------------+--------------------------------------+
+| **DMaaP Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | - onap/dmaap/dmaap-mr:1.3.0          |
+|                                      | - onap/dmaap/kafka111:1.1.1          |
+|                                      | - onap/dmaap/zookeeper:6.1.0         |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | 9.0.0 Istanbul                       |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | TBD                                  |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+
+New features
+------------
+* Consolidate msgrtr and message-service repos (DMAAP-1582)
+* Remove redundant data (DMAAP-1638)
+* Sonar fixes (DMAAP-1564)
+* Remove Python 2.7 (DMAAP-1489)
+* Sec vulnerabilities fix (DMAAP-1608)
+
+Known Limitations, Issues and Workarounds
+-----------------------------------------
+
+System Limitations
+------------------
+
+
+Known Vulnerabilities
+---------------------
+
+
+Workarounds
+-----------
+
+
+Security Notes
+--------------
+
+
+References
+----------
+
+For more information on the ONAP Guilin release, please see:
+
+#. `ONAP Home Page`_
+#. `ONAP Documentation`_
+#. `ONAP Release Downloads`_
+#. `ONAP Wiki Page`_
+
+
+.. _`ONAP Home Page`: https://www.onap.org
+.. _`ONAP Wiki Page`: https://wiki.onap.org
+.. _`ONAP Documentation`: https://docs.onap.org
+.. _`ONAP Release Downloads`: https://git.onap.org
+
+Quick Links:
+- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+
+
+..      ===========================
 ..      * * *    HONOLULU    * * *
 ..      ===========================
 
