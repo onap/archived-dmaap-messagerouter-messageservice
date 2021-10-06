@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "784ccc51_1c0423f2",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/backends/kafka/KafkaPublisher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "Should us the same utils method",
+      "range": {
+        "startLine": 71,
+        "startChar": 17,
+        "endLine": 71,
+        "endChar": 50
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a94fa7_7c1d0334",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "Add a few positive/negative test cases to the UtilsTest class",
+      "range": {
+        "startLine": 186,
+        "startChar": 29,
+        "endLine": 186,
+        "endChar": 42
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98d9b7ea_79991577",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "Maybe addSaslProps reads better",
+      "range": {
+        "startLine": 186,
+        "startChar": 44,
+        "endLine": 186,
+        "endChar": 46
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2332ebfc_e3dcac39",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "Just as a clean up, could you CTRL + A, CTRL + ALT + I to fix all the indentation. Thanks",
+      "range": {
+        "startLine": 186,
+        "startChar": 1,
+        "endLine": 186,
+        "endChar": 5
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8c6031a_e57d810e",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "No space here",
+      "range": {
+        "startLine": 187,
+        "startChar": 35,
+        "endLine": 187,
+        "endChar": 36
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfe80c6b_edcaedcf",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "We could move this out and do a null check here:\n\nString saslMech \u003d System.getenv(\"SASLMECH\");\nif (saslMech !\u003d null \u0026\u0026 saslMech.equals(\"scram-sha-512\")) {\nThen assign it on line 191",
+      "range": {
+        "startLine": 188,
+        "startChar": 7,
+        "endLine": 188,
+        "endChar": 30
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2155e810_a763aa11",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "This (and the one below can be moved out of the if/else block below as there are no plans to support any of the SSL protocols",
+      "range": {
+        "startLine": 190,
+        "startChar": 3,
+        "endLine": 190,
+        "endChar": 75
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0521e348_934a10c7",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "This is ridiculous but we won\u0027t be fixing it any time soon. Tempted to but na..",
+      "range": {
+        "startLine": 194,
+        "startChar": 108,
+        "endLine": 194,
+        "endChar": 148
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50f763f3_580c8169",
+        "filename": "src/test/java/org/onap/dmaap/mr/cambria/embed/EmbedConfigurationReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-06T18:38:15Z",
+      "side": 1,
+      "message": "You can revert this as it throws a null pointer",
+      "range": {
+        "startLine": 98,
+        "startChar": 25,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "dc71a3601cdc292b57617dd6c3a4b01c7217d3ee",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
