@@ -8,16 +8,16 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *        http://www.apache.org/licenses/LICENSE-2.0
-*  
+*
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *  ============LICENSE_END=========================================================
- *  
+ *
  *  ECOMP is a trademark and service mark of AT&T Intellectual Property.
- *  
+ *
  *******************************************************************************/
 package org.onap.dmaap.dmf.mr.backends.kafka;
 
@@ -43,9 +43,9 @@ import java.util.Properties;
 
 /**
  * Sends raw JSON objects into Kafka.
- * 
+ *
  * Could improve space: BSON rather than JSON?
- * 
+ *
  * @author peter
  *
  */
@@ -53,7 +53,7 @@ import java.util.Properties;
 public class KafkaPublisher implements Publisher {
 	/**
 	 * constructor initializing
-	 * 
+	 *
 	 * @param settings
 	 * @throws rrNvReadable.missingReqdSetting
 	 */
@@ -62,35 +62,43 @@ public class KafkaPublisher implements Publisher {
 		final Properties props = new Properties();
 		String kafkaConnUrl= com.att.ajsc.filemonitor.AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop,"kafka.metadata.broker.list");
 		if(StringUtils.isEmpty(kafkaConnUrl)){
-			
+
 			kafkaConnUrl="localhost:9092";
 		}
-		
-	
+
+
 	    if(Utils.isCadiEnabled()){
-		transferSetting( props, "sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='admin' password='"+Utils.getKafkaproperty()+"';");
-		transferSetting( props, "security.protocol", "SASL_PLAINTEXT");
-		transferSetting( props, "sasl.mechanism", "PLAIN");	
+			if (System.getenv("SASLMECH").equals("scram-sha-512")) {
+				transferSetting(props, "sasl.jaas.config", System.getenv("JAASLOGIN"));
+				transferSetting(props, "security.protocol", "SASL_PLAINTEXT");
+				transferSetting(props, "sasl.mechanism", System.getenv("SASLMECH"));
+
+			}
+			else {
+				transferSetting(props, "sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='admin' password='" + Utils.getKafkaproperty() + "';");
+				transferSetting(props, "security.protocol", "SASL_PLAINTEXT");
+				transferSetting(props, "sasl.mechanism", "PLAIN");
+			}
 	    }
 		transferSetting( props, "bootstrap.servers",kafkaConnUrl);
-			
+
 		transferSetting( props, "request.required.acks", "1");
 		transferSetting( props, "message.send.max.retries", "5");
-		transferSetting(props, "retry.backoff.ms", "150"); 
+		transferSetting(props, "retry.backoff.ms", "150");
 
-		
-		
+
+
 		props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-		
-		
+
+
 		fProducer = new KafkaProducer<>(props);
 	}
 
 	/**
 	 * Send a message with a given topic and key.
-	 * 
+	 *
 	 * @param msg
 	 * @throws FailedToSendMessageException
 	 * @throws JSONException
@@ -102,7 +110,7 @@ public class KafkaPublisher implements Publisher {
 		sendMessages(topic, msgs);
 	}
 
-	/**  
+	/**
 	 * method publishing batch messages
 	* This method is commented from 0.8 to 0.11 upgrade
 	 * @param topic
@@ -113,7 +121,7 @@ public class KafkaPublisher implements Publisher {
 		try {
 			fProducer.send(kms);
 
-		} catch (FailedToSendMessageException excp) { 
+		} catch (FailedToSendMessageException excp) {
 			log.error("Failed to send message(s) to topic [" + topic + "].", excp);
 			throw new FailedToSendMessageException(excp.getMessage(), excp);
 		}
@@ -131,16 +139,16 @@ public class KafkaPublisher implements Publisher {
 				fProducer.send(km);
 			}
 
-		} catch (Exception excp) { 
+		} catch (Exception excp) {
 			log.error("Failed to send message(s) to topic [" + topic + "].", excp);
 			throw new IOException(excp.getMessage(), excp);
 		}
 
 	}
-	
+
 	/**
 	 * Send a set of messages. Each must have a "key" string value.
-	 * 
+	 *
 	 * @param topic
 	 * @param msg
 	 * @throws FailedToSendMessageException
@@ -178,13 +186,13 @@ public class KafkaPublisher implements Publisher {
         }
     }
 
-	
+
 	private Producer<String, String> fProducer;
 
   /**
    * It sets the key value pair
    * @param topic
-   * @param msg 
+   * @param msg
    * @param key
    * @param defVal
    */
@@ -199,6 +207,6 @@ public class KafkaPublisher implements Publisher {
 	@Override
 	public void sendMessages(String topic, List<? extends message> msgs) throws IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
