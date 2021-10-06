@@ -1,5 +1,5 @@
 /*******************************************************************************
-/*-
+ /*-
  * ============LICENSE_START=======================================================
  * ONAP Policy Engine
  * ================================================================================
@@ -8,9 +8,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,21 +18,25 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
- 
- package org.onap.dmaap.mr.cambria.utils;
+
+package org.onap.dmaap.mr.cambria.utils;
 
 import static org.junit.Assert.*;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 
 import org.apache.http.auth.BasicUserPrincipal;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.springframework.mock.web.MockHttpServletRequest;
+
 
 import org.onap.dmaap.dmf.mr.beans.DMaaPContext;
 import org.onap.dmaap.dmf.mr.utils.Utils;
@@ -40,6 +44,9 @@ import org.onap.dmaap.dmf.mr.utils.Utils;
 public class UtilsTest {
 
 	private static final String DATE_FORMAT = "dd-MM-yyyy::hh:mm:ss:SSS";
+
+	@Rule
+	public EnvironmentVariables environmentVariables = new EnvironmentVariables();
 
 	@Before
 	public void setUp() throws Exception {
@@ -57,33 +64,33 @@ public class UtilsTest {
 		String expectedStr = sdf.format(now);
 		assertNotNull(dateStr);
 		assertTrue("Formatted date does not match - expected [" + expectedStr
-				+ "] received [" + dateStr + "]",
+						+ "] received [" + dateStr + "]",
 				dateStr.equalsIgnoreCase(expectedStr));
 	}
-	
+
 	@Test
 	public void testgetUserApiKey(){
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader(Utils.CAMBRIA_AUTH_HEADER, "User:Password");
 		assertEquals("User", Utils.getUserApiKey(request));
-		
+
 		MockHttpServletRequest request2 = new MockHttpServletRequest();
 		Principal principal = new BasicUserPrincipal("User@Test");
 		request2.setUserPrincipal(principal);
 		request2.addHeader("Authorization", "test");
 		assertEquals("User", Utils.getUserApiKey(request2));
-		
+
 		MockHttpServletRequest request3 = new MockHttpServletRequest();
 		assertNull(Utils.getUserApiKey(request3));
 	}
-	
+
 	@Test
 	public void testgetFromattedBatchSequenceId(){
 		Long x = new Long(1234);
 		String str = Utils.getFromattedBatchSequenceId(x);
-		assertEquals("001234", str);		
+		assertEquals("001234", str);
 	}
-	
+
 	@Test
 	public void testmessageLengthInBytes(){
 		String str = "TestString";
@@ -99,38 +106,58 @@ public class UtilsTest {
 		assertNull(Utils.getResponseTransactionId(null));
 		assertNull(Utils.getResponseTransactionId(""));
 	}
-	
+
 	@Test
 	public void testgetSleepMsForRate(){
 		long x = Utils.getSleepMsForRate(1024.124);
 		assertEquals(1000, x);
 		assertEquals(0, Utils.getSleepMsForRate(-1));
 	}
-	
+
 	@Test
 	public void testgetRemoteAddress(){
 		DMaaPContext dMaapContext = new DMaaPContext();
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		
+
 		dMaapContext.setRequest(request);
-		
+
 		assertEquals(request.getRemoteAddr(), Utils.getRemoteAddress(dMaapContext));
-		
+
 		request.addHeader("X-Forwarded-For", "XForward");
 		assertEquals("XForward", Utils.getRemoteAddress(dMaapContext));
-		
-		
+
+
 	}
-	
+
 	@Test
 	public void testGetKey(){
 		assertNotNull(Utils.getKafkaproperty());
-		
+
 	}
-	
+
 	@Test
 	public void testCadiEnable(){
 		assertFalse(Utils.isCadiEnabled());
-		
+
+	}
+
+	@Test
+	public void testaddSaslPropsPlain() {
+		Properties props = new Properties();
+		props.put("security.protocol", "SASL_PLAINTEXT");
+		props.put(Utils.SASL_MECH, "PLAIN");
+		props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username='admin' password='admin_secret';");
+		assertEquals(props, Utils.addSaslProps());
+	}
+
+	@Test
+	public void testaddSaslPropsScram(){
+		Properties props = new Properties();
+		environmentVariables.set("SASLMECH", "scram-sha-512");
+		environmentVariables.set("JAASLOGIN", "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"onap-dmaap-strimzi-kafka-admin\" password=\"qul6A3TLvidY\"");
+		props.put("security.protocol", "SASL_PLAINTEXT");
+		props.put(Utils.SASL_MECH, "scram-sha-512");
+		props.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"onap-dmaap-strimzi-kafka-admin\" password=\"qul6A3TLvidY\"");
+		assertEquals(props, Utils.addSaslProps());
 	}
 }
