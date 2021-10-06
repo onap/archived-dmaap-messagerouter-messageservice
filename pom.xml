@@ -719,6 +719,12 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.32</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.stefanbirkner</groupId>
+			<artifactId>system-rules</artifactId>
+			<version>1.17.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<!-- Use this profile to run the AJSC locally. This profile can be successfully
