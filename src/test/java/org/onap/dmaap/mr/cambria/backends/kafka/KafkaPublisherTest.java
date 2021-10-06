@@ -44,7 +44,7 @@ public class KafkaPublisherTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		PowerMockito.mockStatic(Utils.class);
-		PowerMockito.when(Utils.isCadiEnabled()).thenReturn(true);
+		PowerMockito.when(Utils.isCadiEnabled()).thenReturn(false);
 
 	}
 
