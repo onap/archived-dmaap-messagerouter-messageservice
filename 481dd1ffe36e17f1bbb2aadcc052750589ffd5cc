@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59855c32_2f17b860",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T12:43:21Z",
+      "side": 1,
+      "message": "maybe define a constant for this as it\u0027s being reused.\n\tpublic static final String SASL_MECH \u003d \"sasl.mechanism\";\nAnd we could prob use it in the tests also",
+      "range": {
+        "startLine": 191,
+        "startChar": 14,
+        "endLine": 191,
+        "endChar": 28
+      },
+      "revId": "481dd1ffe36e17f1bbb2aadcc052750589ffd5cc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35b1945d_7715fc01",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T12:43:21Z",
+      "side": 1,
+      "message": "Maybe add a log entry for the sasl.mech type\n\n\t\tlog.info(\"KafkaAdmin sasl.mechanism set to \" + props.getProperty(SASL_MECH));",
+      "range": {
+        "startLine": 197,
+        "startChar": 73,
+        "endLine": 197,
+        "endChar": 74
+      },
+      "revId": "481dd1ffe36e17f1bbb2aadcc052750589ffd5cc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
