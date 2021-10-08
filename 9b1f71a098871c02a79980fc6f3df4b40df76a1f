@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72f523d5_00366445",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/beans/DMaaPKafkaConsumerFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T10:48:58Z",
+      "side": 1,
+      "message": "I think this should be in the addSaslProps method just after the if/else block.",
+      "range": {
+        "startLine": 289,
+        "startChar": 3,
+        "endLine": 289,
+        "endChar": 75
+      },
+      "revId": "9b1f71a098871c02a79980fc6f3df4b40df76a1f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85228a9a_d2a58f24",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/beans/DMaaPKafkaMetaBroker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T10:48:58Z",
+      "side": 1,
+      "message": "Should be in the util method after the if/else",
+      "range": {
+        "startLine": 79,
+        "startChar": 3,
+        "endLine": 79,
+        "endChar": 75
+      },
+      "revId": "9b1f71a098871c02a79980fc6f3df4b40df76a1f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "affc2fc9_306e75c7",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/beans/DMaaPKafkaMetaBroker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T10:48:58Z",
+      "side": 1,
+      "message": "This should be removed",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 74
+      },
+      "revId": "9b1f71a098871c02a79980fc6f3df4b40df76a1f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bdea26_71f2495c",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T10:48:58Z",
+      "side": 1,
+      "message": "We can use the saslMech String from above",
+      "range": {
+        "startLine": 191,
+        "startChar": 31,
+        "endLine": 191,
+        "endChar": 56
+      },
+      "revId": "9b1f71a098871c02a79980fc6f3df4b40df76a1f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2a47648_748ce3ef",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T10:48:58Z",
+      "side": 1,
+      "message": "The SASL_PLAINTEXT should be set here",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 3
+      },
+      "revId": "9b1f71a098871c02a79980fc6f3df4b40df76a1f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a77bda4_ebd3fee4",
+        "filename": "src/test/java/org/onap/dmaap/mr/cambria/utils/UtilsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-08T10:48:58Z",
+      "side": 1,
+      "message": "We need to test for both default and scram-sha.\n\nAdd another test and set the env var for SASLMECH and JAASLOGIN to execute the if block.\nYou can use the following test util.\n\n\t@Rule\n\tpublic EnvironmentVariables environmentVariables \u003d new EnvironmentVariables();\n\nAdd that to the top of the class. You will need to add the mvn dependency by hitting ALT + ENTER.\n\nFor the testAddSaslPropsScramSha, set the SASLMECH to \"scram-sha-512\" and the value for JAASLOGIN to whatever.",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "9b1f71a098871c02a79980fc6f3df4b40df76a1f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
