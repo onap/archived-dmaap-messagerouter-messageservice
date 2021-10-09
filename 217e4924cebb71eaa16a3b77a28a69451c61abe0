@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffcdf66b_f79e0848",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-09T14:46:45Z",
+      "side": 1,
+      "message": "After a lot of debugging, realised this needs to be upper case...\nsaslMech.toUpperCase()\n\nProb need to change the unit tests also",
+      "range": {
+        "startLine": 192,
+        "startChar": 24,
+        "endLine": 192,
+        "endChar": 32
+      },
+      "revId": "217e4924cebb71eaa16a3b77a28a69451c61abe0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
