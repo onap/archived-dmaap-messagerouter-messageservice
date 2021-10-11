@@ -22,6 +22,29 @@
       "revId": "217e4924cebb71eaa16a3b77a28a69451c61abe0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf2c9db4_06667752",
+        "filename": "src/test/java/org/onap/dmaap/mr/cambria/utils/UtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-11T07:54:53Z",
+      "side": 1,
+      "message": "Can we convert these to single quotes?\nAlso add a semi colon at the end like we have above.\nSame below",
+      "range": {
+        "startLine": 157,
+        "startChar": 173,
+        "endLine": 157,
+        "endChar": 175
+      },
+      "revId": "217e4924cebb71eaa16a3b77a28a69451c61abe0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
