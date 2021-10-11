@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e571b064_c01a3a54",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 7671
+      },
+      "writtenOn": "2021-10-11T09:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffcdf66b_f79e0848",
+      "range": {
+        "startLine": 192,
+        "startChar": 24,
+        "endLine": 192,
+        "endChar": 32
+      },
+      "revId": "217e4924cebb71eaa16a3b77a28a69451c61abe0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf2c9db4_06667752",
         "filename": "src/test/java/org/onap/dmaap/mr/cambria/utils/UtilsTest.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "217e4924cebb71eaa16a3b77a28a69451c61abe0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5593d22_ad483a23",
+        "filename": "src/test/java/org/onap/dmaap/mr/cambria/utils/UtilsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 7671
+      },
+      "writtenOn": "2021-10-11T09:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf2c9db4_06667752",
+      "range": {
+        "startLine": 157,
+        "startChar": 173,
+        "endLine": 157,
+        "endChar": 175
+      },
+      "revId": "217e4924cebb71eaa16a3b77a28a69451c61abe0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
