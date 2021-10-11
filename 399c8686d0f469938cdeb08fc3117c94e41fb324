@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3171bc35_59447457",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/utils/Utils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2021-10-11T09:46:22Z",
+      "side": 1,
+      "message": "Should have explained that this will be coming in as lowercase from the helm charts.\nThis is to satisfy the strimzi kafka chart.\nWe only need to convert to upper case for MR on line 188",
+      "range": {
+        "startLine": 186,
+        "startChar": 43,
+        "endLine": 186,
+        "endChar": 56
+      },
+      "revId": "399c8686d0f469938cdeb08fc3117c94e41fb324",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
