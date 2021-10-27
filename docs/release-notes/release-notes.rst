@@ -6,8 +6,12 @@
 ..      * * *    ISTANBUL     * * *
 ..      ===========================
 
+=============
 Release Notes
 =============
+
+Istanbul
+========
 
 Abstract
 --------
@@ -34,7 +38,7 @@ Release Data
 | **Release designation**              | 9.0.0 Istanbul                       |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | TBD                                  |
+| **Release date**                     | 2021-10-14                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -91,8 +95,8 @@ Quick Links:
 ..      * * *    HONOLULU    * * *
 ..      ===========================
 
-Release Notes
-=============
+Honolulu
+========
 
 Abstract
 --------
@@ -184,8 +188,11 @@ Quick Links:
 ..      ===================================
 
 
+Guilin maintenance
+==================
+
 Version: 7.0.1
-==============
+--------------
 
 Abstract
 --------
@@ -233,8 +240,8 @@ Same as Guilin Release
 ..      * * *    GUILIN    * * *
 ..      ===========================
 
-Release Notes
-=============
+Guilin
+======
 
 Abstract
 --------
@@ -337,8 +344,8 @@ Quick Links:
 ..      * * *    FRANKFURT    * * *
 ..      ===========================
 
-Release Notes
--------------
+Frankfurt
+=========
 
 Abstract
 --------
@@ -442,9 +449,11 @@ Quick Links:
 - `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
 - `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
 
+ElAlto
+======
 
-Version: 1.1.16 (ElAlto)
-------------------------
+Version: 1.1.16
+---------------
 
 :Release Date: 2019-10-10
 
@@ -478,8 +487,11 @@ Quick Links:
 
 **Deprecation Notes**
 
-Version: 1.1.14 (Dublin)
-------------------------
+Dublin
+======
+
+Version: 1.1.14
+---------------
 
 :Release Date: 2019-06-06
 
@@ -511,9 +523,11 @@ Quick Links:
 
 **Deprecation Notes**
 
+Casablanca
+==========
 
-Version: 1.1.8 (Casablanca)
----------------------------
+Version: 1.1.8
+--------------
 
 :Release Date: 2018-11-30
 
@@ -546,6 +560,8 @@ Quick Links:
 **Deprecation Notes**
 
 
+Beijing
+=======
 
 Version: 1.1.4
 --------------
@@ -577,6 +593,9 @@ Quick Links:
   NA
 
 **Deprecation Notes**
+
+Amsterdam
+=========
 
 Version: 1.0.1
 --------------
