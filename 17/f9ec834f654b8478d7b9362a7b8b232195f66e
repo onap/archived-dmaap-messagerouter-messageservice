@@ -1,0 +1,7 @@
+Code-Review+2: David McWeeney <david.mcweeney@est.tech>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Fiachra Corcoran <fiachra.corcoran@est.tech>
+Submitted-at: Tue, 04 Jan 2022 11:14:15 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dmaap/messagerouter/messageservice/+/126302
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/master
