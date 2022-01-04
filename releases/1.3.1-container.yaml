@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.3.1'
+project: 'dmaap-messagerouter-docker'
+log-dir: 'dmaap-messagerouter-messageservice-java-11-maven-docker-stage-master/254'
+ref: 12036ed204d2f1d5087a165005fe23490e21c249
+containers:
+  - name: dmaap/dmaap-mr
+    version: 1.3.1-STAGING-20211216T155454Z
