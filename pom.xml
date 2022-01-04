@@ -18,7 +18,7 @@
 	<parent>
 		<groupId>org.onap.oparent</groupId>
 		<artifactId>oparent</artifactId>
-		<version>3.2.0</version>
+		<version>3.2.1</version>
 	</parent>
 
 	<groupId>org.onap.dmaap.messagerouter.messageservice</groupId>
@@ -65,7 +65,7 @@
 		<sonar.skip>false</sonar.skip>
 		<sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
 		<sonar.projectVersion>${project.version}</sonar.projectVersion>
-		<log4j.version>2.16.0</log4j.version>
+		<log4j.version>2.17.1</log4j.version>
 		<maven.compiler.target>8</maven.compiler.target>
 		<maven.compiler.source>8</maven.compiler.source>
 		<skip.deploy>false</skip.deploy>
