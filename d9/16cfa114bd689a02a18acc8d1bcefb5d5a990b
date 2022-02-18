@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: David McWeeney <david.mcweeney@est.tech>
+Submitted-by: Fiachra Corcoran <fiachra.corcoran@est.tech>
+Submitted-at: Fri, 18 Feb 2022 15:24:51 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dmaap/messagerouter/messageservice/+/127184
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/istanbul
