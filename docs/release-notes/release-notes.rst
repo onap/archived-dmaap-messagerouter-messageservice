@@ -65,6 +65,11 @@ Workarounds
 
 Security Notes
 --------------
+Transitive dependency for log4j 1.2.17
+Sources:
+org.codehaus.groovy : groovy-eclipse-compiler : 2.8.0-01
+com.att.camel : att-camel-dme2-servlet : 2.16.2-oss
+org.apache.zookeeper : zookeeper : 3.7.0
 
 
 References
