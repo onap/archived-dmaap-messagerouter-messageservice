@@ -5,45 +5,68 @@
 	       http://www.springframework.org/schema/beans
 	       http://www.springframework.org/schema/beans/spring-beans.xsd
 	       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
-	
+
 	<!-- Dependency Injection with annotations -->
 	<!-- <context:property-placeholder
 		location="file:/C:/Users/su622b/Desktop/testonap.properties"/> -->
-		<!-- <context:property-placeholder
-		location="classpath:msgRtrApi.properties,classpath:DMaaPErrorMesaages.properties" /> -->
-		
-		<context:component-scan
-		base-package="org.onap.dmaap,org.onap.dmaap.filemonitor,org.onap.dmaap.mmagent,org.onap.dmaap.service,org.onap.dmaap.tools,org.onap.dmaap.util,org.onap.dmaap.filter,org.onap.dmaap.apiServer.metrics.cambria,
-	org.onap.dmaap.dmf.mr,org.onap.dmaap.dmf.mr.backends,org.onap.dmaap.dmf.mr.backends.kafka,org.onap.dmaap.dmf.mr.backends.memory,org.onap.dmaap.dmf.mr.beans,org.onap.dmaap.dmf.mr.constants,org.onap.dmaap.dmf.mr.exception,
-	org.onap.dmaap.dmf.mr.listener,org.onap.dmaap.dmf.mr.metabroker,org.onap.dmaap.dmf.mr.metrics.publisher,org.onap.dmaap.dmf.mr.metrics.publisher.impl,org.onap.dmaap.dmf.mr.resources,org.onap.dmaap.dmf.mr.resources.streamReaders,org.onap.dmaap.dmf.mr.security,
-	org.onap.dmaap.dmf.mr.security.impl,org.onap.dmaap.dmf.mr.service,org.onap.dmaap.dmf.mr.service.impl,org.onap.dmaap.dmf.mr.transaction,org.onap.dmaap.dmf.mr.transaction.impl,org.onap.dmaap.dmf.mr.utils,
-	com.att,com.att.dmf.mr.utils, com.att.dmf.mr, com.att.dmf.mr.rest,com.att.dmf.mr.service,
-	com.att.dmf.mr.service.impl,com.att.dmf.mr.beans,com.att.dmf.mr.security,com.att.dmf.mr.exception,com.att.dmf.mr.backends,com.att.dmf.mr.backends.kafka,
-	com.att.dmf.mr.transaction,com.att.dmf.mr.exception,com.att.nsa.dmaap,com.att.nsa.dmaap.service,com.att.nsa.dmaap.util,java.lang,java.util,com.att.dmf.mr.exception, com.att.dmf,com.att.nsa.dmaap.mmagent" />
-	 	<context:property-placeholder 
- 		location="file:${AJSC_HOME}/bundleconfig/etc/appprops/MsgRtrApi.properties,file:${AJSC_HOME}/etc/DMaaPErrorMesaages.properties"/> 
-	
-		<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
-			 <property name="dropRootElement" value="true" />
-        	<property name="supportUnwrapped" value="true" />
-        </bean>
-		
-		<bean id="jacksonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
-		
-		<bean id="cambriaExMapper" class="org.onap.dmaap.DMaaPCambriaExceptionMapper" />
-    
-    	<bean id="webExMapper" class="org.onap.dmaap.DMaaPWebExceptionMapper" />
-    
-		
+	<!-- <context:property-placeholder
+  location="classpath:msgRtrApi.properties,classpath:DMaaPErrorMesaages.properties" /> -->
+
+	<context:component-scan
+		base-package="
+		org.onap.dmaap,org.onap.dmaap.filemonitor,
+		org.onap.dmaap.mmagent,
+		org.onap.dmaap.service,
+		org.onap.dmaap.tools,
+		org.onap.dmaap.util,
+		org.onap.dmaap.filter,
+		org.onap.dmaap.apiServer.metrics.cambria,
+		org.onap.dmaap.dmf.mr,
+		org.onap.dmaap.dmf.mr.backends,
+		org.onap.dmaap.dmf.mr.backends.kafka,
+		org.onap.dmaap.dmf.mr.backends.memory,
+		org.onap.dmaap.dmf.mr.beans,
+		org.onap.dmaap.dmf.mr.constants,
+		org.onap.dmaap.dmf.mr.exception,
+		org.onap.dmaap.dmf.mr.listener,
+		org.onap.dmaap.dmf.mr.metabroker,
+		org.onap.dmaap.dmf.mr.metrics.publisher,
+		org.onap.dmaap.dmf.mr.metrics.publisher.impl,
+		org.onap.dmaap.dmf.mr.resources,
+		org.onap.dmaap.dmf.mr.resources.streamReaders,
+		org.onap.dmaap.dmf.mr.security,
+		org.onap.dmaap.dmf.mr.security.impl,
+		org.onap.dmaap.dmf.mr.service,
+		org.onap.dmaap.dmf.mr.service.impl,
+		org.onap.dmaap.dmf.mr.transaction,
+		org.onap.dmaap.dmf.mr.transaction.impl,
+		org.onap.dmaap.dmf.mr.utils,
+		java.lang,
+		java.util" />
+	<context:property-placeholder
+		location="file:${AJSC_HOME}/bundleconfig/etc/appprops/MsgRtrApi.properties,file:${AJSC_HOME}/etc/DMaaPErrorMesaages.properties"/>
+
+	<bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+		<property name="dropRootElement" value="true" />
+		<property name="supportUnwrapped" value="true" />
+	</bean>
+
+	<bean id="jacksonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
+
+	<bean id="cambriaExMapper" class="org.onap.dmaap.DMaaPCambriaExceptionMapper" />
+
+	<bean id="webExMapper" class="org.onap.dmaap.DMaaPWebExceptionMapper" />
+
+
 	<!-- Your bean definitions goes here -->
-<!-- 	<bean id="performanceLog" name="performanceLog" class="com.att.ajsc.csi.logging.PerformanceTracking" /> -->
-<!-- 	<bean id="processRestletHeaders" name="processRestletHeaders" class="ajsc.restlet.ProcessRestletHeaders" /> -->
-		<bean id="servicePropsBean" name="servicePropsBean" 
+	<!-- 	<bean id="performanceLog" name="performanceLog" class="com.att.ajsc.csi.logging.PerformanceTracking" /> -->
+	<!-- 	<bean id="processRestletHeaders" name="processRestletHeaders" class="ajsc.restlet.ProcessRestletHeaders" /> -->
+	<bean id="servicePropsBean" name="servicePropsBean"
 		class="org.onap.dmaap.util.ServicePropertiesMapBean" />
-		
-		<!-- Msgrtr beans -->
-		<bean id="propertyReader" class="org.onap.dmaap.dmf.mr.utils.PropertyReader" />
-		<bean
+
+	<!-- Msgrtr beans -->
+	<bean id="propertyReader" class="org.onap.dmaap.dmf.mr.utils.PropertyReader" />
+	<bean
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<!-- Next value is the full qualified name of the static setter including 
 			method name -->
@@ -60,7 +83,7 @@
 		class="com.att.nsa.drumlin.service.framework.routing.DrumlinRequestRouter" />
 
 	<bean id="dMaaPMetricsSet" class="org.onap.dmaap.dmf.mr.beans.DMaaPMetricsSet">
-		 <constructor-arg ref="propertyReader" /> 
+		<constructor-arg ref="propertyReader" />
 	</bean>
 
 	<bean id="dMaaPZkClient" class=" org.onap.dmaap.dmf.mr.beans.DMaaPZkClient">
@@ -71,7 +94,7 @@
 		<constructor-arg ref="dMaaPZkClient" />
 		<constructor-arg ref="propertyReader" />
 	</bean>
-	
+
 
 	<bean id="kafkaPublisher" class="org.onap.dmaap.dmf.mr.backends.kafka.KafkaPublisher">
 		<constructor-arg ref="propertyReader" />
@@ -82,13 +105,13 @@
 		<constructor-arg ref="dMaaPMetricsSet" />
 		<constructor-arg ref="kafkalockavoid" />
 	</bean> -->
-	
-		<bean id="dMaaPKafkaConsumerFactory" class="org.onap.dmaap.dmf.mr.beans.DMaaPKafkaConsumerFactory">
+
+	<bean id="dMaaPKafkaConsumerFactory" class="org.onap.dmaap.dmf.mr.beans.DMaaPKafkaConsumerFactory">
 		<constructor-arg ref="dMaaPMetricsSet" />
 		<constructor-arg ref="curator" />
 		<constructor-arg ref="kafkalockavoid" />
 	</bean>
-	
+
 
 	<bean id="curator" class="org.onap.dmaap.dmf.mr.utils.DMaaPCuratorFactory"
 		factory-method="getCurator">
@@ -125,9 +148,9 @@
 	<bean id="defLength" class="org.onap.dmaap.mr.filter.DefaultLength">
 		<property name="defaultLength" value="${maxcontentlength}"></property>
 	</bean>
-	
-	 <bean id="kafkalockavoid" class="org.onap.dmaap.dmf.mr.backends.kafka.KafkaLiveLockAvoider2" /> 
-	
 
-		<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+	<bean id="kafkalockavoid" class="org.onap.dmaap.dmf.mr.backends.kafka.KafkaLiveLockAvoider2" />
+
+
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
 </beans>		

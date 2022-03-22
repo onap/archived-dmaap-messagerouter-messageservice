@@ -24,6 +24,8 @@ import static org.junit.Assert.assertTrue;
 import com.att.nsa.configs.ConfigDb;
 import com.att.nsa.configs.ConfigDbException;
 import com.att.nsa.configs.ConfigPath;
+import java.util.Properties;
+import org.mockito.ArgumentMatchers;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.junit.Before;
@@ -47,14 +49,12 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({ AdminClient.class })
 public class DMaaPKafkaMetaBrokerTest {
 
-	@InjectMocks
+	@Mock
 	private DMaaPKafkaMetaBroker dMaaPKafkaMetaBroker;
 	@Mock
 	private ZkClient fZk;
 	@Mock
 	private AdminClient fKafkaAdminClient;
-	@Mock
-	private AdminClient client;
 	@Mock
 	private ConfigDb configDb;
 	@Mock
@@ -68,18 +68,13 @@ public class DMaaPKafkaMetaBrokerTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		PowerMockito.mockStatic(AdminClient.class);
-		// PowerMockito.when(AdminClient.create (any(Properties.class)
-		// )).thenReturn(fKafkaAdminClient);
-
-		// PowerMockito.mockStatic(AdminUtils.class);
+		PowerMockito.when(AdminClient.create(ArgumentMatchers.any(Properties.class))).thenReturn(fKafkaAdminClient);
 		PowerMockito.when(configDb.parse("/topics")).thenReturn(fBaseTopicData);
-
 	}
 
 	@Test
 	public void testBrokercreate() {
 		DMaaPKafkaMetaBroker broker = new DMaaPKafkaMetaBroker();
-
 	}
 
 	@Test
@@ -90,7 +85,6 @@ public class DMaaPKafkaMetaBrokerTest {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-
 	}
 
 	@Test
@@ -101,7 +95,6 @@ public class DMaaPKafkaMetaBrokerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@Test
