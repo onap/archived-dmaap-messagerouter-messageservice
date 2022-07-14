@@ -34,6 +34,24 @@
       "revId": "afbb5c931f8bf39cbe3639a8d601a7dfda5ecd1b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43706514_32b8ebc3",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/service/impl/TopicServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-07-14T11:49:55Z",
+      "side": 1,
+      "message": "Ah ok, I get you.\n\nWould this impact on any other MR clients that might update to this version of MR, however have not yet moved over the Strimzi for topic creation?\n\nOr would we advise just setting the \"useCustomAcls\" to yes?",
+      "parentUuid": "ccedf572_23179395",
+      "revId": "afbb5c931f8bf39cbe3639a8d601a7dfda5ecd1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
