@@ -70,8 +70,7 @@ public class EventsRestService {
 	/**
 	 * Logger obj
 	 */
-	//private Logger log = Logger.getLogger(EventsRestService.class.toString());
-	private static final EELFLogger log = EELFManager.getInstance().getLogger(EventsRestService.class);
+	private static final EELFLogger log = EELFManager.getLogger(EventsRestService.class);
 	/**
 	 * HttpServletRequest obj
 	 */
@@ -123,15 +122,13 @@ public class EventsRestService {
 	public void getEvents(@PathParam("topic") String topic, @PathParam("consumergroup") 
 	String consumergroup,
 			@PathParam("consumerid") String consumerid) throws CambriaApiException {
-		// log.info("Consuming message from topic " + topic );
+		log.info("Consuming message from topic " + topic );
 		DMaaPContext dMaaPContext = getDmaapContext();
 		dMaaPContext.setConsumerRequestTime(Utils.getFormattedDate(new Date()));
 
 		try {
-
 			eventsService.getEvents(dMaaPContext, topic, consumergroup, consumerid);
-		} 
-		catch (TopicExistsException  e) {
+		} catch (TopicExistsException  e) {
 			log.error("Error while reading data from topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_CONFLICT,
@@ -141,11 +138,8 @@ public class EventsRestService {
 					request.getRemoteHost());
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-
-		}
-		catch (DMaaPAccessDeniedException | AccessDeniedException  e) {
+		} catch (DMaaPAccessDeniedException | AccessDeniedException  e) {
 			log.error("Error while reading data from topic [" + topic + "].", e);
-
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_UNAUTHORIZED,
 					DMaaPResponseCode.CONSUME_MSG_ERROR.getResponseCode(), errorMessages.getConsumeMsgError()
 							+ e.getMessage(), null, Utils.getFormattedDate(new Date()), topic, null, null, 
@@ -153,10 +147,7 @@ public class EventsRestService {
 					request.getRemoteHost());
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-
-		}
-		
-		catch (ConfigDbException | UnavailableException | IOException e) {
+		} catch (ConfigDbException | UnavailableException | IOException e) {
 			log.error("Error while reading data from topic [" + topic + "].", e);
 		
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_NOT_FOUND,
@@ -166,7 +157,6 @@ public class EventsRestService {
 					request.getRemoteHost());
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-
 		}
 	}
 	
@@ -185,8 +175,7 @@ public class EventsRestService {
 		try {
 
 			throw new TopicExistsException("Incorrect URL");
-		} 
-		catch (TopicExistsException  e) {
+		} catch (TopicExistsException  e) {
 			log.error("Error while reading data from topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_NOT_FOUND,
@@ -194,9 +183,7 @@ public class EventsRestService {
 					);
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-
 		}
-		
 	}
 	
 	/**
@@ -206,17 +193,13 @@ public class EventsRestService {
 	@GET
 	@Path("/{topic}/{consumergroup}")
 	public void getEventsToException(@PathParam("topic") String topic, @PathParam("consumergroup") 
-	String consumergroup
-			) throws CambriaApiException {
+	String consumergroup) throws CambriaApiException {
 		// log.info("Consuming message from topic " + topic );
 		DMaaPContext dMaaPContext = getDmaapContext();
 		dMaaPContext.setConsumerRequestTime(Utils.getFormattedDate(new Date()));
-
 		try {
-
 			throw new TopicExistsException("Incorrect URL");
-		} 
-		catch (TopicExistsException  e) {
+		} catch (TopicExistsException  e) {
 			log.error("Error while reading data from topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_NOT_FOUND,
@@ -224,16 +207,8 @@ public class EventsRestService {
 					);
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-
 		}
-		
 	}
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * This method is used to publish messages.Taking two parameter topic and
@@ -256,11 +231,9 @@ public class EventsRestService {
 	public void pushEvents(@PathParam("topic") String topic, InputStream msg,
 			@QueryParam("partitionKey") String partitionKey) throws CambriaApiException {
 		log.info("Publishing message to topic " + topic);
-            
 		try {
 			eventsService.pushEvents(getDmaapContext(), topic, msg, partitionKey, null);
-		} 
-		catch ( TopicExistsException  e) {
+		} catch ( TopicExistsException  e) {
 			log.error("Error while publishing to topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_CONFLICT,
@@ -269,8 +242,7 @@ public class EventsRestService {
 					Utils.getUserApiKey(request), request.getRemoteHost(), null, null);
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-		}
-		catch ( DMaaPAccessDeniedException | AccessDeniedException  e) {
+		} catch ( DMaaPAccessDeniedException | AccessDeniedException  e) {
 			log.error("Error while publishing to topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_UNAUTHORIZED,
@@ -279,10 +251,7 @@ public class EventsRestService {
 					Utils.getUserApiKey(request), request.getRemoteHost(), null, null);
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-		}
-		
-		
-		catch (ConfigDbException |   IOException | missingReqdSetting e) {
+		} catch (ConfigDbException |   IOException | missingReqdSetting e) {
 			log.error("Error while publishing to topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_NOT_FOUND,
@@ -313,18 +282,11 @@ public class EventsRestService {
 	@Path("/transaction/{topic}")
 	public void pushEventsWithTransaction(@PathParam("topic") String topic,
 			@QueryParam("partitionKey") String partitionKey) throws CambriaApiException {
-		// log.info("Publishing message with transaction id for topic " + topic
-		// );
-		
-
 		try {
-			
 			eventsService.pushEvents(getDmaapContext(), topic, request.getInputStream(), 
 					partitionKey,
 					Utils.getFormattedDate(new Date()));
-		} 
-		
-		catch ( TopicExistsException  e) {
+		} catch ( TopicExistsException  e) {
 			log.error("Error while publishing to topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_CONFLICT,
@@ -333,8 +295,7 @@ public class EventsRestService {
 					Utils.getUserApiKey(request), request.getRemoteHost(), null, null);
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-		}
-		catch ( DMaaPAccessDeniedException| AccessDeniedException  e) {
+		} catch ( DMaaPAccessDeniedException| AccessDeniedException  e) {
 			log.error("Error while publishing to topic [" + topic + "].", e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_UNAUTHORIZED,
@@ -343,9 +304,7 @@ public class EventsRestService {
 					Utils.getUserApiKey(request), request.getRemoteHost(), null, null);
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-		}
-		
-		catch (ConfigDbException  | IOException | missingReqdSetting  e) {
+		} catch (ConfigDbException  | IOException | missingReqdSetting  e) {
 			log.error("Error while publishing to topic : " + topic, e);
 
 			ErrorResponse errRes = new ErrorResponse(HttpStatus.SC_NOT_FOUND,
@@ -356,7 +315,6 @@ public class EventsRestService {
 					null, null);
 			log.info(errRes.toString());
 			throw new CambriaApiException(errRes);
-
 		}
 	}
 

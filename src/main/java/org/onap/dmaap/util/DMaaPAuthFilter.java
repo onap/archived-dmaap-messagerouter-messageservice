@@ -45,6 +45,7 @@ import org.onap.aaf.cadi.filter.CadiFilter;
 public class DMaaPAuthFilter extends CadiFilter {
 
     private static final String FORCE_AAF_FLAG = "forceAAF";
+    private static final String USE_CUSTOM_ACLS = "useCustomAcls";
     static final String X509_ATTR = "javax.servlet.request.X509Certificate";
     static final String AUTH_HEADER = "Authorization";
     static final String APP_HEADER = "AppName";
@@ -93,7 +94,11 @@ public class DMaaPAuthFilter extends CadiFilter {
     }
 
     boolean isAAFforced() {
-        return Boolean.valueOf(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, FORCE_AAF_FLAG));
+        return Boolean.parseBoolean(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, FORCE_AAF_FLAG));
+    }
+
+    public static boolean isUseCustomAcls() {
+        return Boolean.parseBoolean(AJSCPropertiesMap.getProperty(CambriaConstants.msgRtr_prop, USE_CUSTOM_ACLS));
     }
 
 }

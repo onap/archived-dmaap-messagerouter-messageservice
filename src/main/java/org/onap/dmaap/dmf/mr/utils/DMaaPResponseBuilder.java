@@ -86,7 +86,7 @@ public class DMaaPResponseBuilder {
 	 */
 	public static void respondOkWithHtml(DMaaPContext ctx, String html) {
 		try {
-			respondOkWithStream(ctx, "text/html", new ByteArrayInputStream(html.toString().getBytes()));
+			respondOkWithStream(ctx, "text/html", new ByteArrayInputStream(html.getBytes()));
 		} catch (Exception excp) {
 			log.error(excp.getMessage(), excp);
 		}

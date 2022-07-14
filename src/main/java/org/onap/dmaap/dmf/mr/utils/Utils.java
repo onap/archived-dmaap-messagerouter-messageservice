@@ -42,7 +42,7 @@ public class Utils {
 
 	private static final String DATE_FORMAT = "dd-MM-yyyy::hh:mm:ss:SSS";
 	public static final String CAMBRIA_AUTH_HEADER = "X-CambriaAuth";
-	private static final String AUTH_HEADER = "Authorization";
+	public static final String AUTH_HEADER = "Authorization";
 	private static final String BATCH_ID_FORMAT = "000000";
 	private static final String X509_ATTR = "javax.servlet.request.X509Certificate";
 	private static final EELFLogger log = EELFManager.getInstance().getLogger(Utils.class);
