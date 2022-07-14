@@ -52,6 +52,24 @@
       "revId": "afbb5c931f8bf39cbe3639a8d601a7dfda5ecd1b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7077f4bd_2effd4d0",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/service/impl/TopicServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2022-07-14T12:22:46Z",
+      "side": 1,
+      "message": "Im hoping disabling it by default won\u0027t break anything.\nAs far as I\u0027m aware, only SDC is using the create api. All other clients just post to a new topic and it gets created automatically.",
+      "parentUuid": "43706514_32b8ebc3",
+      "revId": "afbb5c931f8bf39cbe3639a8d601a7dfda5ecd1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
