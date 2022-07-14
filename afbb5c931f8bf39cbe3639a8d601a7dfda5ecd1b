@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b01c8316_8d08d037",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/service/impl/TopicServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-07-14T11:40:26Z",
+      "side": 1,
+      "message": "Is this correct? \n\nThe current existing functionality calls \"topic.permitWritesFromUser(producerId, user);\".\n\nHowever, the default value for useCustomAcls is false, so calling the above in the new code will now be off by default.\nIsn\u0027t this contrary to current functionality, thus will break it?",
+      "revId": "afbb5c931f8bf39cbe3639a8d601a7dfda5ecd1b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

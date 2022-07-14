@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13ed6f95_a1410b8b",
+        "filename": "src/main/java/org/onap/dmaap/dmf/mr/service/impl/TopicServiceImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-07-14T11:40:26Z",
+      "side": 0,
+      "message": "Really nice leanup on current code, including logging.",
+      "revId": "a5c0748f77be83e1dc17229c61c7dc762e7c208e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
