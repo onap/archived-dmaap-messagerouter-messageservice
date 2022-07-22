@@ -444,9 +444,13 @@ public class TopicServiceImpl implements TopicService {
 			throw new TopicExistsException("Failed to revoke write access to producer [" + producerId
 					+ "] for topic. Topic [" + topicName + "] does not exist.");
 		}
-		topic.denyWritesFromUser(producerId, user);
-		LOGGER.info("Write access has been revoked to producer [" + producerId + "] for topic [" + topicName
+		if (isUseCustomAcls()) {
+			topic.denyWritesFromUser(producerId, user);
+			LOGGER.info("Write access has been revoked to producer [" + producerId + "] for topic [" + topicName
 				+ "]. Sending response.");
+		} else {
+			LOGGER.info("Ignoring acl update");
+		}
 		respondOk(dmaapContext, "Write access has been revoked for publisher.");
 	}
 
@@ -500,9 +504,13 @@ public class TopicServiceImpl implements TopicService {
 			throw new TopicExistsException("Failed to permit read access to consumer [" + consumerId
 					+ "] for topic. Topic [" + topicName + "] does not exist.");
 		}
-		topic.denyReadsByUser(consumerId, user);
-		LOGGER.info("Read access has been revoked to consumer [" + consumerId + "] for topic [" + topicName
+		if (isUseCustomAcls()) {
+			topic.denyReadsByUser(consumerId, user);
+			LOGGER.info("Read access has been revoked to consumer [" + consumerId + "] for topic [" + topicName
 				+ "]. Sending response.");
+		} else {
+			LOGGER.info("Ignoring acl update");
+		}
 		respondOk(dmaapContext,
 				"Read access has been revoked for consumer [" + consumerId + "] for topic [" + topicName + "].");
 
