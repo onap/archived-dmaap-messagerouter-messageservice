@@ -54,13 +54,13 @@
 		<onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
 		<camel.version>2.21.5</camel.version>
-		<camel.version.latest>3.5.0</camel.version.latest>
+		<camel.version.latest>3.17.0</camel.version.latest>
 		<skip.docker.build>false</skip.docker.build>
 		<skip.docker.tag>false</skip.docker.tag>
 		<skip.docker.push>false</skip.docker.push>
 		<docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
 		<nexusproxy>https://nexus.onap.org</nexusproxy>
-		<spring.version>3.2.18.RELEASE</spring.version>
+		<spring.version>5.3.20</spring.version>
 		<sonar.language>java</sonar.language>
 		<sonar.skip>false</sonar.skip>
 		<sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
@@ -336,7 +336,7 @@
 		<dependency>
 			<groupId>com.fasterxml.woodstox</groupId>
 			<artifactId>woodstox-core</artifactId>
-			<version>5.3.0</version>
+			<version>6.2.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.grails</groupId>
@@ -394,22 +394,22 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.3.18.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>5.3.3</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>4.3.18.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>4.3.18.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -526,6 +526,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
+			<version>2.13.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.grails</groupId>
@@ -563,7 +564,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20131018</version>
+			<version>20220320</version>
 		</dependency>
 		<!-- CXF JAX-RS extension -->
 		<dependency>
@@ -701,6 +702,20 @@
 			<artifactId>ajsc-runner</artifactId>
 			<version>3.0.11-oss</version>
 			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.json</groupId>
+					<artifactId>json</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-util</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.quartz-scheduler</groupId>
+					<artifactId>quartz</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.att.ajsc</groupId>
