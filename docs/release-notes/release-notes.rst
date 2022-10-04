@@ -3,6 +3,90 @@
 .. _release_notes:
 
 ..      ========================
+..      * * *     KOHN     * * *
+..      ========================
+
+=============
+Release Notes
+=============
+
+Kohn
+====
+
+Abstract
+--------
+
+This document provides the DMaaP Message Router release notes for the Kohn release.
+
+Summary
+-------
+
+Security Issues addressed
+
+Release Data
+------------
+
++--------------------------------------+--------------------------------------+
+| **DMaaP Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | - onap/dmaap/dmaap-mr:1.4.3          |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | 11.0.0 Kohn                          |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | TBD                                  |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+
+New features
+------------
+* Remove acl check on topics (DMAAP-1744)
+* Remove acl update for deny (DMAAP-1744)
+
+Known Limitations, Issues and Workarounds
+-----------------------------------------
+
+System Limitations
+------------------
+
+
+Known Vulnerabilities
+---------------------
+
+
+Workarounds
+-----------
+
+
+Security Notes
+--------------
+* Update kohn sec vul packages (DMAAP-1748)
+
+References
+----------
+
+For more information on the ONAP Jakarta release, please see:
+
+#. `ONAP Home Page`_
+#. `ONAP Documentation`_
+#. `ONAP Release Downloads`_
+#. `ONAP Wiki Page`_
+
+
+.. _`ONAP Home Page`: https://www.onap.org
+.. _`ONAP Wiki Page`: https://wiki.onap.org
+.. _`ONAP Documentation`: https://docs.onap.org
+.. _`ONAP Release Downloads`: https://git.onap.org
+
+Quick Links:
+- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+
+
+..      ========================
 ..      * * *    JAKARTA   * * *
 ..      ========================
 
