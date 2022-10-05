@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "400d471d_7f342730",
+        "filename": "docs/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-10-05T08:54:54Z",
+      "side": 1,
+      "message": "Kohn",
+      "range": {
+        "startLine": 71,
+        "startChar": 33,
+        "endLine": 71,
+        "endChar": 40
+      },
+      "revId": "35749494bddaaf35cd3acb5bb61cd6d1b90d46e5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
