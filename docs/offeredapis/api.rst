@@ -22,7 +22,7 @@ considerations for each segment are as follows and are required for each
 of the specific transactions described in this section.
 
 HTTP URL
--------
+--------
 
 http[s]://serverBaseURL{/routing}{resourcePath}
 
@@ -94,9 +94,11 @@ Request Parameters
 | partitionKey       |                              | QueryParam       | String     |           | N           | String value                   | ?Partitionkey=123           |
 +--------------------+------------------------------+------------------+------------+-----------+-------------+--------------------------------+-----------------------------+
 
+
 **NOTE**: To publish data to the authenticated topic, Publisher must
- have the AAF permission org.onap.dmaap.mr.topic|:topic.<topic name>|pub. 
+have the AAF permission org.onap.dmaap.mr.topic|:topic.<topic name>|pub. 
 Publishers may use DMaaP BusController for provisoning the AAF permissions
+
 
 Response Parameters
 ===================
@@ -276,22 +278,23 @@ Response /Error Codes
 Sample Request:
 ===============
 
-+----------------------------------------------------------------------------------------------------+
-| GET  http://<hostname>:3904/events/org.onap.dmaap.mr.sprint/mygroup/mycus                           |
-|                                                                                                    |
-| Content-Type: application/json                                                                     |
-|                                                                                                    |
-| Example:                                                                                           |
-|                                                                                                    |
-|curl -u XXX@csp.abc.com:MRDmap2016$ -X GET -d 'MyfirstMessage'                                      |
-|                                                                                                    |
-|http://10.12.7.22:3904/events/com.att.ecomp_test.crm.preDeo/myG/C1       |
-|                                                                                                    |
-|[I am r sending first msg,I am R sending first msg]                                                 |
-+----------------------------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+| GET http ://{hostname}:3904/events/org.onap.dmaap.mr.sprint/mygroup/mycus   |
+|                                                                             |
+| Content-Type: application/json                                              |
+|                                                                             |
+| Example:                                                                    |
+|                                                                             |
+|curl -u XXX@csp.abc.com:MRDmap2016$ -X GET -d 'MyfirstMessage'               |
+|                                                                             |
+|http ://10.12.7.22:3904/events/com.att.ecomp_test.crm.preDeo/myG/C1          |
+|                                                                             |
+|[I am r sending first msg,I am R sending first msg]                          |
++-----------------------------------------------------------------------------+
 
 Provisioning
 ------------
+
 **Description**: To create, modify or delete the MessageRouter topics. These APIs can also be used by other applications to provision topics in MessageRouter.
 DMaaP BusController is recommended for topic and AAF permissions provisioning
 
@@ -308,7 +311,7 @@ Request Parameters:
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | Name              | Description                     |  Param Type      |  datatype  |   MaxLen     |  Required   |  Format     |  Valid/Example Values             |
 +===================+=================================+==================+============+==============+=============+=============+===================================+
-| Topicname         | topicname to be created in MR   |     Body         |   String   |     20       |     Y       | Json        | org.onap.dmaap.mr.metrics          |
+| Topicname         | topicname to be created in MR   |     Body         |   String   |     20       |     Y       | Json        | org.onap.dmaap.mr.metrics         |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
 | topicDescription  | description for topic           |     Body         |   String   |     15       |     Y       |             |                                   |
 +-------------------+---------------------------------+------------------+------------+--------------+-------------+-------------+-----------------------------------+
@@ -372,26 +375,26 @@ Response Parameters
 Sample Request:
 ===============
 
-    .. code:: bash
+ .. code:: bash
 
-      POST   http://<hostname>:3904/topics/create
-  Request Body
-  {"topicName":"org.onap.dmaap.mr.testtopic","description":"This is a test Topic ",
-  "partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}
-  Content-Type: application/json
-  Example:
-  curl -u XXXc@csp.abc.com:xxxxx$  -H 'Content-Type:application/json' -X POST -d
-  @topicname.txt  http://message-router:3904/topics/create
-  {
-  "writerAcl": {
-  "enabled": false,
-  "users": []
-  },
-  "description": "This is a TestTopic",
-  "name": "org.onap.dmaap.mr.testtopic",
-  "readerAcl": {
-  "enabled": false,
-  "users": []
+    POST   http: //<hostname>:3904/topics/create
+    Request Body
+    {"topicName":"org.onap.dmaap.mr.testtopic","description":"This is a test Topic ",
+    "partitionCount":"1","replicationCount":"3","transactionEnabled":"true"}
+    Content-Type: application/json
+    Example:
+    curl -u XXXc@csp.abc.com:xxxxx$  -H 'Content-Type:application/json' -X POST -d
+    @topicname.txt  http: //message-router:3904/topics/create
+    {
+    "writerAcl": {
+    "enabled": false,
+    "users": []
+    },
+    "description": "This is a TestTopic",
+    "name": "org.onap.dmaap.mr.testtopic",
+    "readerAcl": {
+    "enabled": false,
+    "users": []
 
 
 GetTopic Details
@@ -448,9 +451,9 @@ Sample Request:
 ===============
 
 +-----------------------------------------------------------------------------------------------------------------------------------+
-| GET   http://<hostname>:3904/topic/org.onap.dmaap.mr.testtopic                                                                    |
+| GET   http ://<hostname>:3904/topic/org.onap.dmaap.mr.testtopic                                                                   |
 |       curl -u XXX@csp.abc.com:x$  -X                                                                                              |
-| GET  http://10.12.7.22:3904/topics                                                                                                |
+| GET  http ://10.12.7.22:3904/topics                                                                                               |
 |    {"topics": [                                                                                                                   |
 |    {"txenabled": true,"description": "This is a TestTopic","owner": "XXXX@csp.abc.com","topicName": "org.onap.dmaap.mr.Load9"     |
 |    {"txenabled": false,"description": "", "owner": "", "topicName": "org.onap.dmaap.mr.Load1"                                     |
@@ -471,7 +474,7 @@ org.onap.dmaap.mr.topicFactory|:org.onap.dmaap.mr.topic:org.onap.dmaap.mr|destro
 
 Sample Request:
 ===============
-ex: http://<hostname>:3904/topics/org.onap.dmaap.mr.testopic
+ex: http ://<hostname>:3904/topics/org.onap.dmaap.mr.testopic
 
 +---------------------------+------------------------------------+
 | Response statusCode       | Response statusMessage             |
@@ -530,6 +533,3 @@ API Inventory
 |           | from write         | String consumerId)                      | {consumerId}                          |                |                                  |
 |           | ACL on a Topic     |                                         |                                       |                |                                  |
 +-----------+--------------------+-----------------------------------------+---------------------------------------+----------------+----------------------------------+
-
-
-

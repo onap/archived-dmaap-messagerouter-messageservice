@@ -2,10 +2,8 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. _master_index:
 
-dmaap/message router(MR)
-====================
-
-
+dmaap/message router (MR)
+=========================
 
 .. toctree::
    :maxdepth: 1
@@ -20,5 +18,3 @@ dmaap/message router(MR)
    administration/administration.rst
    humaninterfaces/humaninterfaces.rst
    release-notes/release-notes.rst
-
-
