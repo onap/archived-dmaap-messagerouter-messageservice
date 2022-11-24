@@ -290,73 +290,42 @@ public class TopicServiceImplTest {
     }
 
     @Test
-    public void getValueOrDefault_shouldParseDeafultAndReturnIt_whenGivenValueIsZero() {
+    public void getIntValueOrDefault_shouldReturnOne_whenDefaultNotProvided() {
         //given
-        int value = 0;
-        String defaultPropertyName = "propertyName";
-        when(topicService.getPropertyFromAJSCmap(defaultPropertyName)).thenReturn("6");
-
-        //when
-        int extracted = topicService.getValueOrDefault(value, defaultPropertyName);
-
-        //then
-        assertEquals(6, extracted);
-    }
-
-    @Test
-    public void getValueOrDefault_shouldReturnGivenValue_whenGreaterThanZero() {
-        //given
-        int value = 3;
-        String defaultPropertyName = "propertyName";
-
-        //when
-        int extracted = topicService.getValueOrDefault(value, defaultPropertyName);
-
-        //then
-        assertEquals(value, extracted);
-        verify(topicService, never()).getPropertyFromAJSCmap(defaultPropertyName);
-    }
-
-    @Test
-    public void getValueOrDefault_shouldParseDeafultAndReturnIt_whenGivenValueIsNegative() {
-        //given
-        int value = -3;
-        String defaultPropertyName = "propertyName";
-        when(topicService.getPropertyFromAJSCmap(defaultPropertyName)).thenReturn("6");
-
-        //when
-        int extracted = topicService.getValueOrDefault(value, defaultPropertyName);
-
-        //then
-        assertEquals(6, extracted);
-    }
-
-    @Test
-    public void getValueOrDefault_shouldReturnOne_whenGivenValueIsZero_andDefaultNotProvided() {
-        //given
-        int value = 0;
         String defaultPropertyName = "propertyName";
         when(topicService.getPropertyFromAJSCmap(defaultPropertyName)).thenReturn("");
 
         //when
-        int extracted = topicService.getValueOrDefault(value, defaultPropertyName);
+        int extracted = topicService.getIntValueOrDefault(defaultPropertyName);
 
         //then
         assertEquals(1, extracted);
     }
 
     @Test
-    public void getValueOrDefault_shouldReturnOne_whenGivenValueIsZero_andDefaultNaN() {
+    public void getIntValueOrDefault_shouldReturnOne_whenValueIsNegative() {
         //given
-        int value = 0;
         String defaultPropertyName = "propertyName";
-        when(topicService.getPropertyFromAJSCmap(defaultPropertyName)).thenReturn("a");
+        when(topicService.getPropertyFromAJSCmap(defaultPropertyName)).thenReturn("-1");
 
         //when
-        int extracted = topicService.getValueOrDefault(value, defaultPropertyName);
+        int extracted = topicService.getIntValueOrDefault(defaultPropertyName);
 
         //then
         assertEquals(1, extracted);
+    }
+
+    @Test
+    public void getIntValueOrDefault_shouldParseDefaultAndReturnIt_whenGivenValueIsPositive() {
+        //given
+        String defaultPropertyName = "propertyName";
+        when(topicService.getPropertyFromAJSCmap(defaultPropertyName)).thenReturn("3");
+
+        //when
+        int extracted = topicService.getIntValueOrDefault(defaultPropertyName);
+
+        //then
+        assertEquals(3, extracted);
     }
 
     @Test(expected = TopicExistsException.class)
