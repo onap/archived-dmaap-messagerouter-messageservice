@@ -198,8 +198,9 @@ public class TopicServiceImpl implements TopicService {
 		LOGGER.info("Creating topic {}",topicName);
 		String key = authorizeClient(dmaapContext, topicName, TOPIC_CREATE_OP);
 		try {
-			final int partitions = getValueOrDefault(topicBean.getPartitionCount(), "default.partitions");
-			final int replicas = getValueOrDefault(topicBean.getReplicationCount(), "default.replicas");
+			final int partitions = getIntValueOrDefault("default.partitions");
+			final int replicas = getIntValueOrDefault("default.replicas");
+			LOGGER.info("Attempting to create topic {} with replicas={}, partitions={}", topicName, replicas, partitions);
 			final Topic t = getMetaBroker(dmaapContext).createTopic(topicName, topicBean.getTopicDescription(),
 				key, partitions, replicas, topicBean.isTransactionEnabled());
 			LOGGER.info("Topic {} created successfully. Sending response", topicName);
@@ -258,13 +259,11 @@ public class TopicServiceImpl implements TopicService {
 		return enfTopicNamespace != null && topicName.startsWith(enfTopicNamespace);
 	}
 
-	int getValueOrDefault(int value, String defaultProperty) {
-		int returnValue = value;
-		if (returnValue <= 0) {
-			String defaultValue = getPropertyFromAJSCmap(defaultProperty);
-			returnValue = StringUtils.isNotEmpty(defaultValue) ? NumberUtils.toInt(defaultValue) : 1;
-			returnValue = (returnValue <= 0) ? 1 : returnValue;
-		}
+	int getIntValueOrDefault(String defaultProperty) {
+		int returnValue;
+		String defaultValue = getPropertyFromAJSCmap(defaultProperty);
+		returnValue = StringUtils.isNotEmpty(defaultValue) ? NumberUtils.toInt(defaultValue) : 1;
+		returnValue = (returnValue <= 0) ? 1 : returnValue;
 		return returnValue;
 	}
 
