@@ -3,6 +3,86 @@
 .. _release_notes:
 
 ..      ========================
+..      * * *     LONDON     * * *
+..      ========================
+
+=============
+Release Notes
+=============
+
+LONDON
+====
+
+Abstract
+--------
+
+This document provides the DMaaP Message Router release notes for the London release.
+
+Summary
+-------
+
+Security Issues addressed
+
+Release Data
+------------
+
++--------------------------------------+--------------------------------------+
+| **DMaaP Message Router Project**     |                                      |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Docker images**                    | - onap/dmaap/dmaap-mr:1.4.4          |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release designation**              | 12.0.0 London                        |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+| **Release date**                     | TBD                                  |
+|                                      |                                      |
++--------------------------------------+--------------------------------------+
+
+
+New features
+------------
+
+Known Limitations, Issues and Workarounds
+-----------------------------------------
+
+System Limitations
+------------------
+
+
+Known Vulnerabilities
+---------------------
+
+
+Workarounds
+-----------
+
+
+Security Notes
+--------------
+
+References
+----------
+
+For more information on the ONAP lONDON release, please see:
+
+#. `ONAP Home Page`_
+#. `ONAP Documentation`_
+#. `ONAP Release Downloads`_
+#. `ONAP Wiki Page`_
+
+
+.. _`ONAP Home Page`: https://www.onap.org
+.. _`ONAP Wiki Page`: https://wiki.onap.org
+.. _`ONAP Documentation`: https://docs.onap.org
+.. _`ONAP Release Downloads`: https://git.onap.org
+
+Quick Links:
+- `DMAAP project page <https://wiki.onap.org/display/DW/DMaaP+Planning>`_
+- `Passing Badge information for DMAAP <https://bestpractices.coreinfrastructure.org/en/projects/1751>`_
+
+..      ========================
 ..      * * *     KOHN     * * *
 ..      ========================
 
@@ -644,7 +724,7 @@ Release Data
 
 New features
 ------------
-* Kafka and Zookeeper images are created using confluent community edition 5.3.0 
+* Kafka and Zookeeper images are created using confluent community edition 5.3.0
 * Prometheus monitoring
 * Protected all the Kafka operations using AAF
 * Remove the AAF dependency by toggling  a flag
@@ -766,7 +846,7 @@ Version: 1.1.14
 - Upgrade Kafka to v1.1.1
 - Support for Authenticated topics
 - Add Scaling support
-- Support for multi-site applications 
+- Support for multi-site applications
 - Add MirrorMaker to allow for message replication across Kafka clusters
 
 **Bug Fixes**
@@ -805,7 +885,7 @@ Version: 1.1.8
 
 **Bug Fixes**
 	NA
-	
+
 **Known Issues**
 
 If the ZooKeeper  is restarted, Message Router works as expected only after restarting the Message Router . Refer  `Jira <https://jira.onap.org/browse/DMAAP-893>`_  for more details
@@ -887,7 +967,7 @@ Bug Fixes
    - `DMAAP-157 <https://jira.onap.org/browse/DMAAP-157>`_ SDC service models distribution fails
    - `DMAAP-151 <https://jira.onap.org/browse/DMAAP-151>`_ Fix docker image bug
    - `DMAAP-1 <https://jira.onap.org/browse/DMAAP-1>`_ MSO DB is not populated with the models from SDC
-   
+
 Known Issues
    - `DMAAP-164 <https://jira.onap.org/browse/DMAAP-164>`_ The dependency from kafka for zookeeper created issues when the vm is restarted
 
