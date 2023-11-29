@@ -1,0 +1,9 @@
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Verified+1: Thomas Kulik <thomas.kulik@telekom.de>
+Code-Review+2: Thomas Kulik <thomas.kulik@telekom.de>
+Code-Review+2: David McWeeney <david.mcweeney@est.tech>
+Submitted-by: Thomas Kulik <thomas.kulik@telekom.de>
+Submitted-at: Wed, 29 Nov 2023 15:51:05 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dmaap/messagerouter/messageservice/+/136610
+Project: dmaap/messagerouter/messageservice
+Branch: refs/heads/montreal
